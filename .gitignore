@@ -1,0 +1,17 @@
+# built / compiled objects
+bin/*
+redist/*
+
+# working library, for archival purposes
+.haxelib/*
+
+# old versions, created when refactoring.
+*-old*
+
+# raw asset files, working directory for assets.
+*res.raw
+
+# saved screenshots, development gifs, etc ...
+# included locally with the project
+*press/*
+sketches/*

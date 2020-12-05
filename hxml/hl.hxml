@@ -1,0 +1,3 @@
+hxml/base.hxml
+-D windowSize=512x512
+-hl bin/hl/game.hl
