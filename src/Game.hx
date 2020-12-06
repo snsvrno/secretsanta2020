@@ -15,6 +15,12 @@ class Game extends hxd.App {
 
 		onResize();
 	}
+
+	override function update(dt:Float) {
+		super.update(dt);
+
+		sn.Timer.update(dt);
+	}
 	
 	override function onResize() {
 		

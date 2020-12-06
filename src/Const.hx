@@ -23,4 +23,18 @@ class Const {
 	 * The ideal locations box size
 	 */
 	inline static public var IDEALICONSIZE : Int = 128;
+
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// MAP SETTINGS
+
+	/**
+	 * The duration of the mouse over transition for map locations.
+	 */
+	inline static public var LOCATIONMOUSEOVERLENGTH : Float = 0.25;
+
+	/**
+	 * The over color intensity for map locations.
+	 */
+	inline static public var LOCATIONMOUSEOVERINTENSITY : Float = 0.5;
 }

@@ -30,15 +30,33 @@ class Location extends h2d.Object {
 		resize(Const.IDEALICONSIZE);
 		
 		// the highlighter shader.
-		hoverShader = new shader.Highlight(0.5);
-		
+		hoverShader = new shader.Highlight(0);
+		b.addShader(hoverShader);
+
+		var enableTimer = new sn.Timer(Const.LOCATIONMOUSEOVERLENGTH, true);
+		enableTimer.updateCallback = function() hoverShader.intensity = Const.LOCATIONMOUSEOVERINTENSITY * enableTimer.timerPercent;
+		enableTimer.finalCallback = function() hoverShader.intensity = Const.LOCATIONMOUSEOVERINTENSITY;
+		enableTimer.stop();
+
+		var disableTimer = new sn.Timer(Const.LOCATIONMOUSEOVERLENGTH, true);
+		disableTimer.updateCallback = function() hoverShader.intensity = Const.LOCATIONMOUSEOVERINTENSITY * (1 - disableTimer.timerPercent);
+		disableTimer.finalCallback = function() hoverShader.intensity = 0;
+		disableTimer.stop();
+
 		// creates an interactive and covers the area with it.
 		var interactive = new h2d.Interactive(iconWidth, iconHeight, this);
 		interactive.x = -iconWidth / 2;
 		interactive.y = -iconHeight / 2;
-		interactive.onOver = function(e) b.addShader(hoverShader);
-		interactive.onOut = function(e) b.removeShader(hoverShader);
-
+		interactive.onOver = function(e) {
+			disableTimer.reset();
+			disableTimer.stop();
+			enableTimer.reset();
+		}
+		interactive.onOut = function(e) { 
+			enableTimer.reset();
+			enableTimer.stop();
+			disableTimer.reset();
+		}
 	}
 
 	public function resize(side : Float) {
