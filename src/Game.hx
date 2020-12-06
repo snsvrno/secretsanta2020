@@ -1,6 +1,6 @@
 class Game extends hxd.App {
 
-	var bg : game.Background;
+	var overmap : map.Map;
 
 	override function init() {
 		sn.Window.initResources();
@@ -10,7 +10,8 @@ class Game extends hxd.App {
 		// makes the window title.
 		window.title = sn.Window.generateTitle(Const.GAMETITLE);
 
-		bg = new game.Background(test, s2d);
+		// loads the game map
+		overmap = new map.Map(main, s2d);
 
 		onResize();
 	}
@@ -19,7 +20,8 @@ class Game extends hxd.App {
 		
 		var window = hxd.Window.getInstance();
 
-		bg.resize(window.width, window.height);
+		overmap.resize(window.width, window.height);
+
 	}
 
 }

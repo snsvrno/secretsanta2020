@@ -19,14 +19,6 @@ class Macros {
 	 private static function isRepoDirty() : Bool {
 		
 		var process = new sys.io.Process('git', ['status', '--short']);
-
-		// there was an error, need to return that info to the user.
-		if (process.exitCode() != 0) {
-			var message = process.stderr.readAll().toString();
-			var pos = haxe.macro.Context.currentPos();
-			haxe.macro.Context.error("Is git installed? Is this a repository?: " + message, pos);
-		}
-
 		var result : haxe.io.Bytes = process.stdout.readAll();
 
 		if (result.length > 0) { return true; } 
@@ -46,9 +38,6 @@ class Macros {
 
 		var tag : String = if (latestTag.exitCode() != 0) {
 
-			var message = latestTag.stderr.readAll().toString();
-			var pos = haxe.macro.Context.currentPos();
-			haxe.macro.Context.error("Cannot execute `git rev-parse HEAD`. " + message, pos);
 			"";
 
 		} else {

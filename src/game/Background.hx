@@ -18,7 +18,7 @@ class Background extends h2d.Object {
 		var backgroundData = Data.backgrounds.get(background);
 
 		// makes the tile from the defined image file.
-		var t = hxd.Res.load(backgroundData.image.file).toTile();
+		var t = hxd.Res.load(backgroundData.image).toTile();
 
 		// makes the bitmap object and centers it to 0,0 so that
 		// we don't need to touch it anymore.
