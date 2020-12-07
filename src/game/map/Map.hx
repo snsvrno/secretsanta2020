@@ -1,8 +1,9 @@
-package map;
+package game.map;
 
 class Map extends h2d.Object {
 
 	var locations : Array<Location> = new Array();
+	var backgroundBitmap : h2d.Bitmap;
 
 	public function new(mapname : Data.OvermapKind, ?parent : h2d.Scene) {
 		super(parent);
@@ -14,16 +15,16 @@ class Map extends h2d.Object {
 		var t = hxd.Res.load(data.image).toTile();
 
 		// makes the bitmap, adds it and centers it.
-		var b = new h2d.Bitmap(t, this);
-		b.x = -t.width / 2;
-		b.y = -t.height / 2;
+		backgroundBitmap = new h2d.Bitmap(t, this);
+		backgroundBitmap.x = -t.width / 2;
+		backgroundBitmap.y = -t.height / 2;
 
 		// makes all the locations.
 		for (def in data.locations) {
 			var loc = new Location(def, this);
 			// we need to offset it based on how we are offsetting the map.
-			loc.x = def.x + b.x;
-			loc.y = def.y + b.y;
+			loc.x = def.x + backgroundBitmap.x;
+			loc.y = def.y + backgroundBitmap.y;
 			// adds it for tracking?
 			locations.push(loc);
 		}

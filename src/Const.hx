@@ -22,7 +22,12 @@ class Const {
 	/**
 	 * The ideal locations box size
 	 */
-	inline static public var IDEALICONSIZE : Int = 128;
+	 inline static public var IDEALICONSIZE : Int = 128;
+	 
+	/**
+	 * How long the scene transition effect will take place for.
+	 */
+	inline static public var WIPETRANSITIONDURATION : Float = 0.5;
 
 
 	////////////////////////////////////////////////////////////////////////////////////////

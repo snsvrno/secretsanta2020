@@ -1,4 +1,4 @@
-package map;
+package game.map;
 
 import h2d.Interactive;
 
@@ -6,6 +6,8 @@ class Location extends h2d.Object {
 
 	private var iconWidth : Float;
 	private var iconHeight : Float;
+
+	public var bitmap : h2d.Bitmap;
 
 	private var hoverShader : shader.Highlight;
 	
@@ -21,9 +23,9 @@ class Location extends h2d.Object {
 		iconHeight = t.height;
 
 		// makes the bitmap, adds it and centers it.
-		var b = new h2d.Bitmap(t, this);
-		b.x = -data.center.x;
-		b.y = -data.center.y;
+		bitmap = new h2d.Bitmap(t, this);
+		bitmap.x = -data.center.x;
+		bitmap.y = -data.center.y;
 
 		// resizes the icon. we only need to do this here because the location
 		// is inside the map which resizes.
@@ -31,7 +33,7 @@ class Location extends h2d.Object {
 		
 		// the highlighter shader.
 		hoverShader = new shader.Highlight(0);
-		b.addShader(hoverShader);
+		bitmap.addShader(hoverShader);
 
 		var enableTimer = new sn.Timer(Const.LOCATIONMOUSEOVERLENGTH, true);
 		enableTimer.updateCallback = function() hoverShader.intensity = Const.LOCATIONMOUSEOVERINTENSITY * enableTimer.timerPercent;
