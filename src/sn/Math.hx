@@ -18,8 +18,14 @@
 	  * @return Float
 	  */
 	 public static function clampf(value : Float, lower : Float = 0.0, upper : Float = 0.1) : Float {
-		 if (value < lower) { return lower; }
-		 else if (value > upper) { return upper; }
-		 else { return value; }
+		if (value < lower) return lower;
+		if (value > upper) return upper;
+		return value;
+	 }
+
+	 public static function clamp(value : Int, lower : Null<Int>, upper : Null<Int>) : Int {
+		if (lower != null && value < lower) return lower;
+		if (upper != null && value > upper) return upper;
+		return value;
 	 }
  }
