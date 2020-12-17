@@ -17,6 +17,8 @@ class Variables {
 	private var switches : Map<String, Bool> = new Map();
 	private var lifetimeSwitches : Array<String> = new Array();
 
+	private var items : Array<Data.ItemsKind> = [];
+
 	private var values : Map<String, Int> = new Map();
 
 	private var chosenOptions : Array<Data.DialogueKind> = new Array();
@@ -96,6 +98,12 @@ class Variables {
 		if (!isChosenOption(id)) chosenOptions.push(id);
 		save();
 	}
+
+	public function gets(item : Data.ItemsKind) {
+		if (!items.contains(item)) items.push(item);
+	}
+
+	public function has(item : Data.ItemsKind) : Bool return items.contains(item);
 
 	/**
 	 * Attempts to load all applicable aspects of the variables class

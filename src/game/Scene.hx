@@ -133,6 +133,9 @@ class Scene extends h2d.Object {
 				// we are asking to increment a value by some amount
 				case Add(name, value): Game.variables.incrementValue(name, value);
 
+				// we found an item!
+				case Get(item) : Game.variables.gets(item.name);
+
 				// we are asked to sleep the game a certain amount of time, this is moving the 
 				// clock forward.
 				case Sleep(duration): throw("unimplemented");
@@ -160,7 +163,14 @@ class Scene extends h2d.Object {
 				tempInteractive.remove();	
 
 				if (dialogue.chain != null) displayDialogue(dialogue.chain);
-				else {
+				else if (dialogue.branch != null) { 
+					for (b in dialogue.branch) { 
+						if (Conditions.check(b.condition)) { 
+							displayDialogue(b.dialogue);
+							return;
+						}
+					}
+				} else {
 					startDialogue(dialogue.action);
 				}
 			}

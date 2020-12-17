@@ -66,7 +66,7 @@ class Wheel extends h2d.Object {
 				// the current dialogue option and forward to something else.
 				case Forwarder(condition, action):
 					
-					if (checkCondition(condition)) {
+					if (Conditions.check(condition)) {
 						var newOptions = getValidChoices(action.options);
 						for (n in newOptions) validOptions.push(n);
 					} else validOptions.push(d);
@@ -75,7 +75,7 @@ class Wheel extends h2d.Object {
 				case null: validOptions.push(d);
 
 				// we have a condition that isn't a forwarder, so we check it.
-				case other: if (checkCondition(other)) validOptions.push(d);
+				case other: if (Conditions.check(other)) validOptions.push(d);
 			}
 		}
 
@@ -83,18 +83,6 @@ class Wheel extends h2d.Object {
 		return validOptions;
 	}
 
-	private function checkCondition(condition : Data.Condition) : Bool {
-		switch (condition) {
-			case Forwarder(condition, action): return true;
-
-			case Exists(name): return Game.variables.check(name);
-			case NotExists(name):return !Game.variables.check(name);
-			case And(c1, c2): return checkCondition(c1) && checkCondition(c2);
-			case Or(c1, c2): return checkCondition(c1) || checkCondition(c2);
-
-			case null: return true;
-		}
-	}
 
 	/**
 	 * Generates the position of the text, is really just doing the points

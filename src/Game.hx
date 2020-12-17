@@ -49,7 +49,7 @@ class Game extends hxd.App {
 		// creates the scene object, which contains all the actors.
 		// and props
 		activeScene = new game.Scene(s2d);
-		activeScene.load(test);
+		activeScene.load(garage);
 
 		// creates the corner border thing.
 		game.utils.Corners.make(s2d);
@@ -57,6 +57,12 @@ class Game extends hxd.App {
 		//////////////////////////////////////////////////////////////////////////
 		// setup the position of the scene so its centered
 		onResize();
+
+		// adds debug stuff if we are in debug build.
+		#if debug
+		Debug.mouseCoordinatesOverlay(s2d);
+		Debug.warning(s2d);
+		#end
 	}
 
 	override function update(dt:Float) {
