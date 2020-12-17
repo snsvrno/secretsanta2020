@@ -71,6 +71,16 @@ class Scene extends h2d.Object {
 		}
 	}
 
+	public function enable() {
+		alpha = 1;
+		if (layerActors.parent != this) addChild(layerActors);
+	}
+
+	public function disable() {
+		alpha = 0;
+		removeChild(layerActors);
+	}
+
 	public function startDialogue(action : Data.DialogueActions) {
 		
 		for (a in actors) { 

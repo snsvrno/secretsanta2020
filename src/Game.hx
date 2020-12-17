@@ -5,6 +5,8 @@ class Game extends hxd.App {
 	// static variables
 
 	static public var variables : game.Variables;
+	static private var instance : Game;
+	static public function changeScene(newScene : Data.ScenesKind) instance.changeToScene(newScene);
 
 	//////////////////////////////////////////////////////////////////////////
 	// member variables
@@ -17,10 +19,14 @@ class Game extends hxd.App {
 	 */
 	private var activeScene : game.Scene;
 
+	private var map : game.map.Map;
+
 	override function init() {
 
 		//////////////////////////////////////////////////////////////////////////
 		// some presetup.
+
+		Game.instance = this;
 
 		// setup the resources
 		sn.Window.initResources();
@@ -46,10 +52,12 @@ class Game extends hxd.App {
 		background.drawRect(0, 0, Const.WORLDWIDTH, Const.WORLDHEIGHT);
 		background.endFill();
 
+		map = new game.map.Map(s2d);
+
 		// creates the scene object, which contains all the actors.
 		// and props
 		activeScene = new game.Scene(s2d);
-		activeScene.load(garage);
+		activeScene.load(blank); // bug that this will not compile unless there is a load, not sure why...
 
 		// creates the corner border thing.
 		game.utils.Corners.make(s2d);
@@ -83,5 +91,15 @@ class Game extends hxd.App {
 		// offsets the scene so its in the center.
 		s2d.x = window.width/2 - Const.WORLDWIDTH/2 * scale;
 		s2d.y = window.height/2 - Const.WORLDHEIGHT/2 * scale;
+	}
+
+	private function changeToScene(newScene : Data.ScenesKind) {
+		
+		// sets up the scene
+		activeScene.load(newScene);
+		activeScene.enable();
+
+		// disables the background
+		map.disable();
 	}
 }

@@ -19,6 +19,7 @@ class Const {
 	inline static public var WORLDWIDTH : Int = 700;
 	inline static public var WORLDHEIGHT : Int = 400;
 	inline static public var WORLDBACKGROUNDCOLOR : Int = 0x000000;
+	inline static public var WORLDBACKGROUNDDISABLEDOPACTIY : Float = 0.15;
 
 	/**
 	 * The amount of screen padding, in pixels to give between the 
