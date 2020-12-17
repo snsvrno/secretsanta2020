@@ -68,7 +68,7 @@ class Text extends h2d.Object {
 				var parent = textObjects[i].parent;
 				textObjects[i].remove();
 				// make some new items.
-				var items = splitText(textObjects[i], characters);
+				var items = splitText(textObjects[i], characters, false);
 				// remove the item.
 				textObjects.remove(textObjects[i]);
 				// takes the new items and places them in the location of the older item.
@@ -210,30 +210,26 @@ class Text extends h2d.Object {
 		return newText;
 	}
 
-	static private function splitText(text : h2d.Text, ?characters : Int = 1, ?repeat : Bool = true, ?breakWords : Bool = true) : Array<h2d.Text> {
+	static private function splitText(text : h2d.Text, ?characters : Int = 1, ?breakWords : Bool = true) : Array<h2d.Text> {
 		var splits : Array<h2d.Text> = new Array();
 
-		var copy = copyText(text);
-		copy.text = copy.text.substr(0, characters);
-		splits.push(copy);
+		var pos = 0;
+		while ((pos + characters) < text.text.length) {
+			var copy = copyText(text);
 
-		if (!repeat) {
-			text.text = text.text.substr(characters);
+			var cutMarker = characters;
+			while (breakWords == false && cutMarker > 1 && copy.text.substr(cutMarker,1) != " ") {
+				cutMarker -= 1;
+			}
+			copy.text = copy.text.substr(pos, cutMarker);
+			pos += cutMarker;
 			splits.push(copy);
-		} else {
-			var c = characters;
-			while ((c + characters) < text.text.length) {
-				var copy = copyText(text);
-				copy.text = copy.text.substr(c, characters);
-				c += characters;
-				splits.push(copy);
-			}
+		}
 
-			// capture the last bit.
-			if (c < text.text.length) { 
-				text.text = text.text.substr(c);
-				splits.push(text);
-			}
+		// capture the last bit.
+		if (pos < text.text.length) { 
+			text.text = text.text.substr(pos);
+			splits.push(text);
 		}
 
 		return splits;
