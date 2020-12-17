@@ -86,6 +86,8 @@ class Timer {
 	 */
 	 public var timer(default, null) : Float = 0.0;
 
+	 public var infinite : Bool = false;
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE INSTANCE FUNCTIONS
 
@@ -104,7 +106,9 @@ class Timer {
 		if (timeLimit <= timer) {
 			timer = timeLimit;
 			if (finalCallback != null) finalCallback();
-			status = End;
+			
+			if (infinite) reset();
+			else status = End;
 		} else {
 			if (updateCallback != null) updateCallback();
 		}

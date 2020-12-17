@@ -121,7 +121,7 @@ class Scene extends h2d.Object {
 	private function displayDialogue(dialogue : Data.Dialogue) {
 
 		// makes the text bubble.
-		var bubble = new game.DialogueBubble(dialogue, this);
+		var bubble = new game.bubble.Bubble(dialogue, this);
 
 		// checks if we need to set something when playing this dialogue.
 		if (dialogue.set != null) for (set in dialogue.set) {
