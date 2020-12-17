@@ -27,7 +27,17 @@ class Text extends h2d.Object {
 		return maxWidth;
 	}
 
+	override function onRemove() {
+		super.onRemove();
+		while (timers.length > 0) {
+			var t = timers.pop();
+			t.remove();
+		}
+	}
+
 	private var textObjects : Array<h2d.Text> = [];
+	// collecting the timers so we can destroy them when they are done.
+	private var timers : Array<sn.Timer> = [];
 
 	private static function calculateTextWidth(text : h2d.Text, ?overrideText : String) : Float {
 		var content = if(overrideText != null) overrideText; else text.text;
@@ -171,13 +181,9 @@ class Text extends h2d.Object {
 						for (i in 0 ... letters.length) {
 							var timer = new sn.Timer(1);
 							timer.infinite = true;
-							timer.updateCallback = function() { 
-								// for movement
-								letters[i].y += Math.sin((timer.timerPercent + i / letters.length) * 2 * Math.PI) * 0.10;
-								// for rotation.
-								// letters[i].rotation = Math.sin(timer.timerPercent * Math.PI * 2 - Math.PI) / 3;
-							};
+							timer.updateCallback = function() letters[i].y += Math.sin((timer.timerPercent + i / letters.length) * 2 * Math.PI) * 0.10;
 							text.textObjects.push(letters[i]);
+							text.timers.push(timer);
 						}
 
 					case Plain(t): 

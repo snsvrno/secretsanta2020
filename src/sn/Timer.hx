@@ -127,6 +127,15 @@ class Timer {
 	}
 
 	/**
+	 * allows this to be removed from the timer update function
+	 * on next update
+	 */
+	public function remove() {
+		status = End;
+		reusable = false;
+	}
+
+	/**
 	 * Stops the timer.
 	 */
 	public function stop() {
