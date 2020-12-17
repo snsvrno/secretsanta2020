@@ -18,6 +18,10 @@ class Debug {
 		var font = hxd.res.DefaultFont.get();
 		var warningtext = new h2d.Text(font, s2d);
 		warningtext.text = "DEBUG ENABLED!";
-		warningtext.setScale(3);
+		warningtext.alpha = 0.20;
+		warningtext.setScale(10);
+		warningtext.maxWidth = Const.WORLDWIDTH / warningtext.scaleX;
+		warningtext.x = Const.WORLDWIDTH / 2 - warningtext.textWidth * warningtext.scaleX / 2;
+		warningtext.y = Const.WORLDHEIGHT / 2 - warningtext.textHeight * warningtext.scaleY / 2;
 	}
 }

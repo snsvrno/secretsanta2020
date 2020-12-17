@@ -7,6 +7,7 @@ class Game extends hxd.App {
 	static public var variables : game.Variables;
 	static private var instance : Game;
 	static public function changeScene(newScene : Data.ScenesKind) instance.changeToScene(newScene);
+	static public function toMap() instance.changeToMap();
 
 	//////////////////////////////////////////////////////////////////////////
 	// member variables
@@ -20,6 +21,8 @@ class Game extends hxd.App {
 	private var activeScene : game.Scene;
 
 	private var map : game.map.Map;
+
+	private var ui : game.Interface;
 
 	override function init() {
 
@@ -59,12 +62,18 @@ class Game extends hxd.App {
 		activeScene = new game.Scene(s2d);
 		activeScene.load(blank); // bug that this will not compile unless there is a load, not sure why...
 
+		// add the interface UI
+		ui = new game.Interface(s2d);
+
 		// creates the corner border thing.
 		game.utils.Corners.make(s2d);
 
 		//////////////////////////////////////////////////////////////////////////
 		// setup the position of the scene so its centered
 		onResize();
+
+		// gets us ready to go to map.
+		toMap();
 
 		// adds debug stuff if we are in debug build.
 		#if debug
@@ -101,5 +110,14 @@ class Game extends hxd.App {
 
 		// disables the background
 		map.disable();
+
+		ui.setLocationName(activeScene.sceneName);
+		ui.onScene();
+	}
+
+	private function changeToMap() {
+		ui.onMap();
+		map.enable();
+		activeScene.disable();
 	}
 }

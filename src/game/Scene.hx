@@ -25,6 +25,22 @@ class Scene extends h2d.Object {
 	 */
 	private var data : Null<Data.Scenes>;
 
+	/**
+	 * This is a quick fix for a bug.
+	 * 
+	 * When you are in a conversation the scene makes adummy interactive that is used to catch
+	 * right clicks, the UI is drawn over it, so if you click on the back button it will go back
+	 * to the map but the cancel interactive will still be there, preventing you from doing anything.
+	 * 
+	 * this will hook into the disable to make sure all these interactives are removed.
+	 * 
+	 * modified this to include all objects, because we have lots of loos items.
+	 */
+	private var looseItems : Array<h2d.Object> = [];
+
+	public var sceneName(get, null) : String;
+	private function get_sceneName() : String return data.location.name;
+
 	//////////////////////////////////////////////////////////////////////////
 	// initalization functions
 
@@ -41,7 +57,6 @@ class Scene extends h2d.Object {
 
 		layerActors = new h2d.Object(this);
 		actors = new Array();
-
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -79,6 +94,9 @@ class Scene extends h2d.Object {
 	public function disable() {
 		alpha = 0;
 		removeChild(layerActors);
+
+		// cleans up interactives
+		while (looseItems.length > 0) looseItems.pop().remove();
 	}
 
 	public function startDialogue(action : Data.DialogueActions) {
@@ -88,10 +106,12 @@ class Scene extends h2d.Object {
 
 				// makes an interactive for cancelling
 				var interactive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, this);
+				looseItems.push(interactive);
 
 				// creates the dialogue wheel and links it so that when the player chooses
 				// something it will start the dialogue conversation.
 				var choices = new game.choice.Wheel(action, a.x, a.y, this);
+				looseItems.push(choices);
 				choices.onSelect = function(choice : Data.DialogueKind) {
 					choices.destroy();
 					interactive.remove();
@@ -132,6 +152,7 @@ class Scene extends h2d.Object {
 
 		// makes the text bubble.
 		var bubble = new game.bubble.Bubble(dialogue, this);
+		looseItems.push(bubble);
 
 		// checks if we need to set something when playing this dialogue.
 		if (dialogue.set != null) for (set in dialogue.set) {
@@ -166,6 +187,7 @@ class Scene extends h2d.Object {
 
 		// makes an interactive that will handle the skipping and nexting.
 		var tempInteractive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, this);
+		looseItems.push(tempInteractive);
 		tempInteractive.onClick = function(e : hxd.Event) {
 
 			if (bubble.next() == false) {
