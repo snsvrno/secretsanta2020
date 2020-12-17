@@ -61,32 +61,4 @@ class Bubble extends h2d.Object {
 		background.endFill();
 	}
 
-	/*
-	private function set() {
-
-		// sets and positions the text.
-		for (l in lines[pos]) switch(l) {
-			case Plain(t): text.text = t;
-			case Italic(t, pos):
-				// we are making a fake italics, so we need to take each letter
-				// and rotate it slightly.
-				for (i in 0 ... t.length) {
-					var nt = new h2d.Text(text.font, text);
-					nt.text = t.charAt(i);
-	
-					var sub = text.text.substr(0,pos) + t.substr(0, i);
-					nt.x = text.calcTextWidth(sub) + text.font.lineHeight * Math.sin(Const.TEXTITALICSANGLE)/2;
-	
-					nt.rotation = Const.TEXTITALICSANGLE;
-				}
-
-			case _:
-		}
-
-		if (pos != lines.length - 1) text.text += " >>"; 
-		text.x = -text.textWidth/2;
-		text.y = -text.textHeight/2;
-
-		// creates the background
-	}*/
 }
