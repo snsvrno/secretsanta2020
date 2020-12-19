@@ -8,6 +8,8 @@ class Game extends hxd.App {
 	static private var instance : Game;
 	static public function changeScene(newScene : Data.ScenesKind) instance.changeToScene(newScene);
 	static public function toMap() instance.changeToMap();
+	static public function foundItem(item : Data.ItemsKind) game.Popup.item(item, true, instance.s2d);
+	static public function lostItem(item : Data.ItemsKind) game.Popup.item(item, false, instance.s2d);
 
 	//////////////////////////////////////////////////////////////////////////
 	// member variables

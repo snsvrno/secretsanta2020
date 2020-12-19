@@ -147,7 +147,10 @@ class Variables {
 	// ITEM RELATED
 
 	public function gets(item : Data.ItemsKind) {
-		if (!items.contains(item)) items.push(item);
+		if (!items.contains(item)) { 
+			items.push(item);
+			Game.foundItem(item);
+		}
 	}
 
 	public function has(item : Data.ItemsKind) : Bool return items.contains(item);
