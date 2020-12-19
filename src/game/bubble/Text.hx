@@ -8,6 +8,7 @@ private enum Style {
 	Bold(t : String);
 	Dancing(t : String);
 	Action(t : String);
+	Variable(t : String);
 }
 
 class Text extends h2d.Object {
@@ -15,6 +16,7 @@ class Text extends h2d.Object {
 	static private var colorItalics : h3d.Vector = new h3d.Vector(1,1,0,1);
 	static private var colorBold : h3d.Vector = new h3d.Vector(1,1,0,1);
 	static private var colorAction : h3d.Vector = new h3d.Vector(0.5,0.5,0.5,1);
+	static private var colorVariable : h3d.Vector = new h3d.Vector(0,0.5,1,1);
 
 	public var width(default, null) : Float = 0;
 
@@ -42,6 +44,16 @@ class Text extends h2d.Object {
 	private static function calculateTextWidth(text : h2d.Text, ?overrideText : String) : Float {
 		var content = if(overrideText != null) overrideText; else text.text;
 		return text.calcTextWidth(content) * Math.cos(text.rotation) + text.textHeight * Math.sin(text.rotation);
+	}
+
+	public function asString():String {
+		var string = "";
+
+		for (t in textObjects) {
+			string += t.text;
+		}
+
+		return string;
 	}
 
 	/**
@@ -128,6 +140,12 @@ class Text extends h2d.Object {
 
 	}
 
+	/**
+	 * Processess text in order to evaluate formatting and variables.
+	 * @param string 
+	 * @param maxLineWidth 
+	 * @return Array<Text>
+	 */
 	static public function parse(string : String, ?maxLineWidth : Float) : Array<Text> {
 		var newSections : Array<Text> = [];
 
@@ -139,12 +157,21 @@ class Text extends h2d.Object {
 			var segments = splitSegments(section);
 			// adds the segments to the text object.
 		
+			// loads the font.
 			var font = hxd.res.DefaultFont.get();
 
+			// splits the text into different segments and evaluating the styling
+			// and the variables
 			for (s in segments) {
 				var tseg = new h2d.Text(font, text);
 
 				switch(s) {
+					case Variable(t):
+						tseg.color = colorVariable;
+						tseg.text = Game.variables.evalulate(t);
+						tseg.dropShadow = { dx : 0.2, dy : 0.2, color: 0x000000, alpha: 0.85 };
+						text.textObjects.push(tseg);
+
 					case Bold(t):
 
 						tseg.color = colorBold;
@@ -195,7 +222,7 @@ class Text extends h2d.Object {
 		
 			// called here because there is a hook that will
 			// rebuild it.
-			text.maxWidth = maxLineWidth;
+			if (maxLineWidth != null) text.maxWidth = maxLineWidth;
 			newSections.push(text);
 		}
 
@@ -254,6 +281,19 @@ class Text extends h2d.Object {
 					if (insideSpecial == true) {
 						insideSpecial = false;
 						segments.push(Italic(segment));
+					} else {
+						insideSpecial = true;
+						if (segment.length > 0) segments.push(Plain(segment));
+					}
+
+					segment = "";
+
+				// variables
+				case "$": 
+
+					if (insideSpecial == true) {
+						insideSpecial = false;
+						segments.push(Variable(segment));
 					} else {
 						insideSpecial = true;
 						if (segment.length > 0) segments.push(Plain(segment));

@@ -4,9 +4,16 @@ private enum Mod {
 	Local(name : String);
 	Lifetime(name : String);
 	Either(name : String);
+	Number(name : String);
 }
 
 class Variables {
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// STATIC
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// Private Members
 
 	/**
 	 * The history of all the conversations that have taken place, stored here
@@ -23,7 +30,22 @@ class Variables {
 
 	private var chosenOptions : Array<Data.DialogueKind> = new Array();
 
-	public function new() load();
+	private var names : Map<String, String> = new Map();
+
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// initalization function
+
+	public function new() { 
+		// loads this from save.
+		load();
+
+		// populates the names with the standard names
+		names.set("mechanic", "Bob");
+	}	
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// SWITCHES RELATED
 
 	/**
 	 * Returns the status of the given switch.
@@ -35,6 +57,7 @@ class Variables {
 			case Local(name): return checkLocal(name);
 			case Lifetime(name): return checkLifetime(name);
 			case Either(name): return checkLifetime(name) || checkLocal(name);
+			case Number(name) : throw('number isnt a valid check.');
 		}
 	}
 
@@ -70,9 +93,27 @@ class Variables {
 		}
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////
+	// NAME RELATED
+	
+	public function evalulate(name : String) : Null<String>  { 
+		switch(checkModifiers(name)) {
+			case Number(name): return '${getValue(name)}';
+			case _: return names.get(name);
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// NUMBER VARIABLE RELATED
+
 	public function setValue(name : String, value : Int) { 
 		values.set(name, value);
 		save();
+	}
+
+	public function getValue(name : String) : Int { 
+		if (values.exists(name)) return values.get(name);
+		else return 0;
 	}
 
 	public function incrementValue(name : String, value : Int) {
@@ -83,6 +124,9 @@ class Variables {
 		}
 		save();
 	}
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// DIALOGE CHOICE RELATED
 
 	/**
 	 * Checks if the given chosen ID was every used.
@@ -99,11 +143,17 @@ class Variables {
 		save();
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////
+	// ITEM RELATED
+
 	public function gets(item : Data.ItemsKind) {
 		if (!items.contains(item)) items.push(item);
 	}
 
 	public function has(item : Data.ItemsKind) : Bool return items.contains(item);
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// SYSTEM TOOLS, LOADING, SAVING, ETC...
 
 	/**
 	 * Attempts to load all applicable aspects of the variables class
@@ -121,6 +171,9 @@ class Variables {
 		});
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////
+	// PRIVATE SHARED FUNCTONS
+
 	/**
 	 * Checks for any modifiers on the name that we got, to see if maybe
 	 * we want lifetime vs local, etc..
@@ -131,6 +184,7 @@ class Variables {
 		switch(name.substr(0,1)) {
 			case "*": return Lifetime(name.substr(1));
 			case "+": return Either(name.substr(1));
+			case "#": return Number(name.substr(1));
 			case _: return Local(name);
 		}
 	}

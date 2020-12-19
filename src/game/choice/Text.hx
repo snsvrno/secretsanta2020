@@ -22,7 +22,7 @@ class Text extends h2d.Object {
 		text = new h2d.Text(font, this);
 		text.maxWidth = maxWidth;
 
-		text.text = dialogue.display;
+		text.text = evalulate(dialogue.display);
 		if (Game.variables.isChosenOption(dialogue.id)) text.color = alreadyColor;
 		else text.color = normalColor;
 
@@ -49,5 +49,22 @@ class Text extends h2d.Object {
 
 	public function setY(y : Float) {
 		this.y = y - text.textHeight	 / 2;
+	}
+
+	/**
+	 * Evaluates formating and variables, but doesn't actually do any style to it.
+	 * No formatting.
+	 * @param string 
+	 * @return String
+	 */
+	private function evalulate(string : String) : String {
+		var newText = "";
+		
+		var items = game.bubble.Text.parse(string);
+		for (i in items) {
+			newText += i.asString();
+		}
+
+		return newText;
 	}
 }
