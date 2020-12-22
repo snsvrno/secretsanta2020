@@ -105,7 +105,7 @@ class Scene extends h2d.Object {
 			if (a.id == action.ownerId) {
 
 				// makes an interactive for cancelling
-				var interactive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, this);
+				var interactive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, this);
 				looseItems.push(interactive);
 
 				// creates the dialogue wheel and links it so that when the player chooses
@@ -177,8 +177,8 @@ class Scene extends h2d.Object {
 		if (dialogue.speakerId == player) {
 
 			// the bubble placement for player's conversation text.
-			bubble.x = Const.WORLDWIDTH/2;
-			bubble.y = Const.WORLDHEIGHT - bubble.height - 10;
+			bubble.x = Const.WORLD_WIDTH/2;
+			bubble.y = Const.WORLD_HEIGHT - bubble.height - 10;
 		
 		} else for (a in actors) if (a.id == dialogue.speakerId) {
 			bubble.x = a.dialogueX;
@@ -186,7 +186,7 @@ class Scene extends h2d.Object {
 		}
 
 		// makes an interactive that will handle the skipping and nexting.
-		var tempInteractive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, this);
+		var tempInteractive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, this);
 		looseItems.push(tempInteractive);
 		tempInteractive.onClick = function(e : hxd.Event) {
 

@@ -68,7 +68,7 @@ class Popup extends h2d.Object {
 		background.endFill();
 
 		// moves the popup to the right location on the screen.
-		popup.x = Const.WORLDWIDTH/2 - overallWidth/2;
+		popup.x = Const.WORLD_WIDTH/2 - overallWidth/2;
 
 		// sets up the animation stuff.
 		var timer = new sn.Timer(Const.POPUP_FADE_DURATION * 2 + Const.POPUP_WAIT_DURATION);

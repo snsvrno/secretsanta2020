@@ -210,7 +210,7 @@ class Text extends h2d.Object {
 
 						var letters = splitText(tseg);
 						for (l in letters) {
-							l.rotation = 0.15;
+							l.rotation = Const.TEXT_ITALICS_SLANT;
 							text.textObjects.push(l);
 						}
 

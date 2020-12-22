@@ -83,8 +83,8 @@ class Actor extends h2d.Object {
 		shaderBackground = new shader.Darken(0.75);
 
 		// set up the world position of this actor.
-		this.x = definition.x * Const.WORLDWIDTH;
-		this.y = definition.y * Const.WORLDHEIGHT;
+		this.x = definition.x * Const.WORLD_WIDTH;
+		this.y = definition.y * Const.WORLD_HEIGHT;
 		this.setScale(definition.scale);
 	}
 

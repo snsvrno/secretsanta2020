@@ -41,8 +41,8 @@ class Interface extends h2d.Object {
 		menuButton = new h2d.Text(hxd.res.DefaultFont.get(), this);
 		menuButton.text = "MENU";
 		menuButton.setScale(2);
-		menuButton.x = Const.SOFTCORNERRADIUS;
-		menuButton.y = Const.WORLDHEIGHT - menuButton.textHeight * menuButton.scaleY;
+		menuButton.x = Const.WORLD_CORNER_RADIUS;
+		menuButton.y = Const.WORLD_HEIGHT - menuButton.textHeight * menuButton.scaleY;
 
 		var menuButtonInteractive = new h2d.Interactive(menuButton.textWidth, menuButton.textHeight, menuButton);
 		menuButtonInteractive.onOver = (e : hxd.Event) -> buttonOver(menuButton);
@@ -52,7 +52,7 @@ class Interface extends h2d.Object {
 		// CLOCK ///////////////////////////////////////////////////////////////////////////
 
 		clock = new game.ui.Clock(this);
-		clock.x = Const.WORLDWIDTH - Const.SOFTCORNERRADIUS - clock.width;
+		clock.x = Const.WORLD_WIDTH - Const.WORLD_CORNER_RADIUS - clock.width;
 
 		// MENU ///////////////////////////////////////////////////////////////////////////
 
@@ -64,7 +64,7 @@ class Interface extends h2d.Object {
 		var text1 = new h2d.Text(hxd.res.DefaultFont.get(), menu);
 		text1.text = "TESTING";
 
-		var backgroudInteractive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, menu);
+		var backgroudInteractive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, menu);
 		backgroudInteractive.onClick = (e : hxd.Event) -> if (e.button == 1) toggleMenu();
 		backgroudInteractive.enableRightButton = true;
 
@@ -72,8 +72,8 @@ class Interface extends h2d.Object {
 
 	public function setLocationName(name : String) {
 		locationName.text = name;
-		locationName.x = Const.WORLDWIDTH - Const.SOFTCORNERRADIUS / 2 - locationName.textWidth * locationName.scaleX;
-		locationName.y = Const.WORLDHEIGHT - 2 - locationName.textHeight * locationName.scaleY;
+		locationName.x = Const.WORLD_WIDTH - Const.WORLD_CORNER_RADIUS / 2 - locationName.textWidth * locationName.scaleX;
+		locationName.y = Const.WORLD_HEIGHT - 2 - locationName.textHeight * locationName.scaleY;
 	
 		adjustBackButton();
 	}
@@ -97,7 +97,7 @@ class Interface extends h2d.Object {
 	private function drawMenuBackground() {
 		menuBackground.clear();
 		menuBackground.beginFill(0x000000, 0.85);
-		menuBackground.drawRect(0, 0, Const.WORLDWIDTH, Const.WORLDHEIGHT);
+		menuBackground.drawRect(0, 0, Const.WORLD_WIDTH, Const.WORLD_HEIGHT);
 		menuBackground.endFill();
 	}
 

@@ -16,34 +16,42 @@ class Const {
 	 * and in the menus.
 	 */
 	inline static public var GAMETITLE : String = "SS2020";
+	
+	////////////////////////////////////////////////////////////////////////////////////////
+	// WORLD CONTAINER SETTINGS
+	// these effect the background and such for the world container
 
+	/** The game world width */
+	inline static public var WORLD_WIDTH : Int = 700;
+	/** The game world height */
+	inline static public var WORLD_HEIGHT : Int = 400;
+	/** The background inside the world (behind the map). */
+	inline static public var WORLD_BACKGROUND_COLOR : Int = 0x000000;
 	/**
 	 * The engine background color, should match whatever the webpage
 	 * color is if building to js. Could be any other color in other
 	 * builds because it doesn't need to match with anything else.
 	 */
-	inline static public var BACKGROUNDCOLOR : Int = 0xFF00FFFF;
-
-	inline static public var WORLDWIDTH : Int = 700;
-	inline static public var WORLDHEIGHT : Int = 400;
-	inline static public var WORLDBACKGROUNDCOLOR : Int = 0x000000;
-	inline static public var WORLDBACKGROUNDDISABLEDOPACTIY : Float = 0.15;
-
+	inline static public var BACKGROUND_COLOR : Int = 0xFF00FFFF;
 	/**
 	 * The amount of screen padding, in pixels to give between the 
 	 * main scene and the container (window, webpage, etc..)
 	 */
-	inline static public var SCREENPADDING : Int = 10;
-
+	inline static public var WORLD_SCREEN_PADDING : Int = 10;
 	/** The rounded screen corners. */
-	inline static public var SOFTCORNERRADIUS : Int = 20;
-	inline static public var RADIUSBLEED : Int = 10;
+	inline static public var WORLD_CORNER_RADIUS : Int = 20;
+	/** How much past the edge of the screen should we draw the corner radius */
+	inline static public var WORLD_CORNER_RADIUS_OVERSHOOT : Int = 10;
 
-	inline static public var PLAYERTEXTHEIGHT : Int = 100;
-	inline static public var PLAYERTEXTPADDING : Int = 10;
-	inline static public var PLAYERTEXTOVEROPACITY : Float = 0.35;
+	////////////////////////////////////////////////////////////////////////////////////////
+	// MAP CONTAINER SETTINGS
 
-	inline static public var TEXTITALICSANGLE : Float = 0.4;
+	/** The map opacity when inside of a scene. */
+	inline static public var MAP_DISABLED_OPACITY : Float = 0.15;
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// GENERAL TEXT SETTINGS
+	inline static public var TEXT_ITALICS_SLANT : Float = 0.1;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// TEXT & SPEECH BUBBLES

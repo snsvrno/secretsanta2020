@@ -23,7 +23,7 @@ class Map extends h2d.Object {
 	}
 
 	public function disable() {
-		alpha = Const.WORLDBACKGROUNDDISABLEDOPACTIY;
+		alpha = Const.MAP_DISABLED_OPACITY;
 
 		for (l in locations) l.disable();
 	}

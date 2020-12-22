@@ -19,14 +19,14 @@ class Debug {
 
 	static public function mouseCoordinatesOverlay(s2d : h2d.Scene) {
 
-		var interactive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, s2d);
+		var interactive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, s2d);
 		interactive.propagateEvents = true;
 
 		var font = hxd.res.DefaultFont.get();
 		var xc = new h2d.Text(font, interactive);
 
 		interactive.onMove = function(e : hxd.Event) {
-			xc.text = '${Math.floor(e.relX / Const.WORLDWIDTH * 100) / 100}, ${Math.floor(e.relY / Const.WORLDHEIGHT * 100) / 100}';
+			xc.text = '${Math.floor(e.relX / Const.WORLD_WIDTH * 100) / 100}, ${Math.floor(e.relY / Const.WORLD_HEIGHT * 100) / 100}';
 			xc.x = e.relX;
 			xc.y = e.relY;
 		};
@@ -38,9 +38,9 @@ class Debug {
 		warningtext.text = "DEBUG ENABLED!";
 		warningtext.alpha = 0.20;
 		warningtext.setScale(10);
-		warningtext.maxWidth = Const.WORLDWIDTH / warningtext.scaleX;
-		warningtext.x = Const.WORLDWIDTH / 2 - warningtext.textWidth * warningtext.scaleX / 2;
-		warningtext.y = Const.WORLDHEIGHT / 2 - warningtext.textHeight * warningtext.scaleY / 2;
+		warningtext.maxWidth = Const.WORLD_WIDTH / warningtext.scaleX;
+		warningtext.x = Const.WORLD_WIDTH / 2 - warningtext.textWidth * warningtext.scaleX / 2;
+		warningtext.y = Const.WORLD_HEIGHT / 2 - warningtext.textHeight * warningtext.scaleY / 2;
 	}
 
 	static public function onEvent(e : hxd.Event) {

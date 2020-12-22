@@ -51,15 +51,15 @@ class Game extends hxd.App {
 		window.addEventTarget(onEvent);
 
 		// set the background color
-		engine.backgroundColor = Const.BACKGROUNDCOLOR;
+		engine.backgroundColor = Const.BACKGROUND_COLOR;
 
 		//////////////////////////////////////////////////////////////////////////
 		// loads the components
 
 		// creates the 'background' of the game
 		var background = new h2d.Graphics(s2d);
-		background.beginFill(Const.WORLDBACKGROUNDCOLOR);
-		background.drawRect(0, 0, Const.WORLDWIDTH, Const.WORLDHEIGHT);
+		background.beginFill(Const.WORLD_BACKGROUND_COLOR);
+		background.drawRect(0, 0, Const.WORLD_WIDTH, Const.WORLD_HEIGHT);
 		background.endFill();
 
 		map = new game.map.Map(s2d);
@@ -105,11 +105,11 @@ class Game extends hxd.App {
 		//////////////////////////////////////////////////////////////////////////
 		// calculating the s2d scene resize stuff.
 		// gets the resize value, and adds padding on the edges.
-		var scale = Math.min((window.width - 2 * Const.SCREENPADDING) / Const.WORLDWIDTH, (window.height - 2 * Const.SCREENPADDING) / Const.WORLDHEIGHT);
+		var scale = Math.min((window.width - 2 * Const.WORLD_SCREEN_PADDING) / Const.WORLD_WIDTH, (window.height - 2 * Const.WORLD_SCREEN_PADDING) / Const.WORLD_HEIGHT);
 		s2d.setScale(scale);
 		// offsets the scene so its in the center.
-		s2d.x = window.width/2 - Const.WORLDWIDTH/2 * scale;
-		s2d.y = window.height/2 - Const.WORLDHEIGHT/2 * scale;
+		s2d.x = window.width/2 - Const.WORLD_WIDTH/2 * scale;
+		s2d.y = window.height/2 - Const.WORLD_HEIGHT/2 * scale;
 	}
 
 	private function onEvent(e : hxd.Event) {
