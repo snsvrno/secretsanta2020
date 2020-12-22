@@ -6,7 +6,7 @@ class Map extends h2d.Object {
 	public function new(?parent : h2d.Object) {
 		super(parent);
 
-		var tile = hxd.Res.map.toTile();
+		var tile = hxd.Res.map.base.toTile();
 		var background = new h2d.Bitmap(tile, this);
 
 		for (l in Data.locations.all) locations.push(new Location(l, this));
