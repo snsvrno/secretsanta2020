@@ -117,6 +117,14 @@ class Const {
 	inline static public var POPUP_BACKGROUND_ALPHA : Float = 0.85;
 	/** popup rounded corner radius */
 	inline static public var POPUP_CORNER_RADIUS : Float = 2.;
+	// variables are defined as integer positions of the passed array, in the
+	// case of popups there is only one variable that is passed and it is the 
+	// name of the item, which is in index [0], so `0` will be replaced with
+	// that item name when parsing the text.
+	/** popup text for finding an item */
+	inline static public var POPUP_TEXT_ITEM_FOUND : String = "Found `0`!";
+	/** popup text for loosing an item */
+	inline static public var POPUP_TEXT_ITEM_LOST : String = "Lost `0`.";
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// CLOCK / TIMEPIECE

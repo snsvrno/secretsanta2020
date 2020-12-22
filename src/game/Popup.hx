@@ -2,9 +2,6 @@ package game;
 
 class Popup extends h2d.Object {
 
-	static private var foundText : Array<String> = ["You have found", "!"];
-	static private var lostText : Array<String> = ["You no longer have", "."];
-	
 	public function new(parent : h2d.Object) { 
 		super(parent);
 	}
@@ -23,7 +20,9 @@ class Popup extends h2d.Object {
 
 		// creates the text.
 		var textLayer = new h2d.Object(popup);
-		var text = game.bubble.Text.parse("Found `0`!", [itemData.displayname], Const.POPUP_MAX_WIDTH);
+		var parseableText = if(found) Const.POPUP_TEXT_ITEM_FOUND;
+		else Const.POPUP_TEXT_ITEM_LOST;
+		var text = game.bubble.Text.parse(parseableText, [itemData.displayname], Const.POPUP_MAX_WIDTH);
 		// variables used for calculating the dimensions of this new text element..
 		// we should probably have something inside the text item.
 		var textWidth = 0.;
