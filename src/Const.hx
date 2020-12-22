@@ -135,6 +135,11 @@ class Const {
 	inline static public var POPUP_TEXT_ITEM_LOST : String = "Lost `0`.";
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// LOCATION
+
+	inline static public var LOCATION_TEXT_SIZE : Float = 2.;
+
+	////////////////////////////////////////////////////////////////////////////////////////
 	// CLOCK / TIMEPIECE
 	// The number of time slots that each period has, basically means
 	// the number of places the player can move too and interact with

@@ -25,11 +25,12 @@ class Location extends h2d.Object {
 		// creates the mouse over text.
 		text = new h2d.Text(hxd.res.DefaultFont.get(), this);
 		text.alpha = 0;
+		text.setScale(Const.LOCATION_TEXT_SIZE);
 		text.text = location.name;
 		text.filter = new h2d.filter.DropShadow(0, 0, 0, 1, 0.5);
 		// centers the text over the image.
-		text.y = - text.textHeight / 2 + tile.height / 2;
-		text.x = - text.textWidth / 2 + tile.width / 2;
+		text.y = - text.textHeight * text.scaleY / 2 + tile.height / 2;
+		text.x = - text.textWidth * text.scaleX / 2 + tile.width / 2;
 
 		target = location.scene.name;
 
