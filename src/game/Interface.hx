@@ -1,5 +1,8 @@
 package game;
 
+import haxe.display.Display.Package;
+import game.choice.Text;
+
 class Interface extends h2d.Object {
 
 	static private var overColor : h3d.Vector = new h3d.Vector(1,1,0,1);
@@ -7,6 +10,10 @@ class Interface extends h2d.Object {
 
 	private var locationName : h2d.Text;
 	private var backButton : h2d.Text;
+	private var menuButton : h2d.Text;
+	private var menu : h2d.Object;
+	private var menuBackground : h2d.Graphics;
+	private var clock : game.ui.Clock;
 
 	public function new(parent : h2d.Object) {
 		super(parent);
@@ -16,16 +23,50 @@ class Interface extends h2d.Object {
 		locationName.setScale(3);
 		locationName.color = normalColor;
 
+		// BACK BUTTON ////////////////////////////////////////////////////////////////////
+
 		backButton = new h2d.Text(hxd.res.DefaultFont.get(), this);
 		backButton.text = " <<";
 		backButton.color = normalColor;
 		backButton.dropShadow = locationName.dropShadow;
 		backButton.setScale(locationName.scaleX);
-
+		
 		var backButtonInteractive = new h2d.Interactive(backButton.textWidth, backButton.textHeight, backButton);
-		backButtonInteractive.onOver = function(e : hxd.Event) backButton.color = overColor;
-		backButtonInteractive.onOut = function(e : hxd.Event) backButton.color = normalColor;
+		backButtonInteractive.onOver = (e : hxd.Event) -> buttonOver(backButton);
+		backButtonInteractive.onOut = (e : hxd.Event) -> buttonOut(backButton);
 		backButtonInteractive.onClick = function (e : hxd.Event) Game.toMap();
+		
+		// MENU BUTTON ////////////////////////////////////////////////////////////////////
+
+		menuButton = new h2d.Text(hxd.res.DefaultFont.get(), this);
+		menuButton.text = "MENU";
+		menuButton.setScale(2);
+		menuButton.x = Const.SOFTCORNERRADIUS;
+		menuButton.y = Const.WORLDHEIGHT - menuButton.textHeight * menuButton.scaleY;
+
+		var menuButtonInteractive = new h2d.Interactive(menuButton.textWidth, menuButton.textHeight, menuButton);
+		menuButtonInteractive.onOver = (e : hxd.Event) -> buttonOver(menuButton);
+		menuButtonInteractive.onOut = (e : hxd.Event) -> buttonOut(menuButton);
+		menuButtonInteractive.onClick = (e : hxd.Event) -> toggleMenu();
+		
+		// CLOCK ///////////////////////////////////////////////////////////////////////////
+
+		clock = new game.ui.Clock(this);
+		clock.x = Const.WORLDWIDTH - Const.SOFTCORNERRADIUS - clock.width;
+
+		// MENU ///////////////////////////////////////////////////////////////////////////
+
+		menu = new h2d.Object();
+		
+		menuBackground = new h2d.Graphics(menu);
+		drawMenuBackground();
+
+		var text1 = new h2d.Text(hxd.res.DefaultFont.get(), menu);
+		text1.text = "TESTING";
+
+		var backgroudInteractive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, menu);
+		backgroudInteractive.onClick = (e : hxd.Event) -> if (e.button == 1) toggleMenu();
+		backgroudInteractive.enableRightButton = true;
 
 	}
 
@@ -42,6 +83,24 @@ class Interface extends h2d.Object {
 		backButton.y = locationName.y + 3;
 	}
 
+	private function buttonOver(t : h2d.Text) t.color = overColor;
+	private function buttonOut(t : h2d.Text) t.color = normalColor;
+
+	private function toggleMenu() {
+		if (menu.parent != null) removeChild(menu);
+		else { 
+			addChild(menu);
+			drawMenuBackground();
+		}
+	}
+
+	private function drawMenuBackground() {
+		menuBackground.clear();
+		menuBackground.beginFill(0x000000, 0.85);
+		menuBackground.drawRect(0, 0, Const.WORLDWIDTH, Const.WORLDHEIGHT);
+		menuBackground.endFill();
+	}
+
 	public function onMap() {
 		backButton.remove();
 		locationName.remove();
@@ -50,6 +109,10 @@ class Interface extends h2d.Object {
 	public function onScene() {
 		if (backButton.parent != this) addChild(backButton);
 		if (locationName.parent != this) addChild(locationName);
+	}
+
+	public function updateClock(clock : game.Clock) {
+		this.clock.drawState(clock);
 	}
 
 }

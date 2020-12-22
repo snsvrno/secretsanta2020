@@ -1,4 +1,20 @@
 class Debug {
+
+	private static var displayItemsState : Bool = false;
+	public static var displayItems : Array<h2d.Object> = [];
+
+	static public function toggleDisplayItems(?state : Bool) {
+
+		if (state == null) displayItemsState = !displayItemsState;
+		else displayItemsState = state;
+
+		for (d in displayItems) {
+			if (displayItemsState) d.alpha = 1;
+			else d.alpha = 0;
+		}
+
+	}
+
 	static public function mouseCoordinatesOverlay(s2d : h2d.Scene) {
 
 		var interactive = new h2d.Interactive(Const.WORLDWIDTH, Const.WORLDHEIGHT, s2d);

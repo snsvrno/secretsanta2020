@@ -52,6 +52,8 @@ class Location extends h2d.Object {
 			interactiveBox.beginFill(0xFF0000, 0.25);
 			interactiveBox.drawRect(c.x, c.y, c.w, c.h);
 			interactiveBox.endFill();
+			interactiveBox.alpha = 0;
+			Debug.displayItems.push(interactiveBox);
 			#end
 
 			var interactive = new h2d.Interactive(c.w, c.h, interactiveLayer);

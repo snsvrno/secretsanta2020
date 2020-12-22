@@ -106,6 +106,17 @@ class Actor extends h2d.Object {
 			inter.onOut = mouseout;
 			inter.onClick = mouseclick;
 
+			#if debug
+			// if we are in debug build, then it will draw the interactives as a graphic, so
+			// we can see the coverage.
+			var interactiveBox = new h2d.Graphics(image);
+			interactiveBox.beginFill(0xFF0000, 0.25);
+			interactiveBox.drawRect(0, 0, image.tile.width, image.tile.height);
+			interactiveBox.endFill();
+			interactiveBox.alpha = 0;
+			Debug.displayItems.push(interactiveBox);
+			#end
+
 		// if we have an interactives defined, then we will use that stuff..
 		// instead of the image size.
 		} else {
@@ -121,6 +132,17 @@ class Actor extends h2d.Object {
 				inter.onOver = mouseover;
 				inter.onOut = mouseout;
 				inter.onClick = mouseclick;
+
+				#if debug
+				// if we are in debug build, then it will draw the interactives as a graphic, so
+				// we can see the coverage.
+				var interactiveBox = new h2d.Graphics(image);
+				interactiveBox.beginFill(0xFF0000, 0.25);
+				interactiveBox.drawRect(i.box.x, i.box.y, i.box.w, i.box.h);
+				interactiveBox.endFill();
+				interactiveBox.alpha = 0;
+				Debug.displayItems.push(interactiveBox);
+				#end
 			}
 
 		}
