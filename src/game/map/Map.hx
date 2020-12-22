@@ -10,6 +10,10 @@ class Map extends h2d.Object {
 		var background = new h2d.Bitmap(tile, this);
 
 		for (l in Data.locations.all) locations.push(new Location(l, this));
+	
+		// need to add this so the layer "compacts" or "flattens" all
+		// the elements and the alpha works as expected.
+		filter = new h2d.filter.Nothing();
 	}
 
 	public function enable() {
