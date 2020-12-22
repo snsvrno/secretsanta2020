@@ -110,7 +110,7 @@ class Scene extends h2d.Object {
 
 				// creates the dialogue wheel and links it so that when the player chooses
 				// something it will start the dialogue conversation.
-				var choices = new game.choice.Wheel(action, a.x, a.y, this);
+				var choices = new game.choice.Wheel(action, a.dialogueX, a.dialogueY, this);
 				looseItems.push(choices);
 				choices.onSelect = function(choice : Data.DialogueKind) {
 					choices.destroy();
@@ -181,8 +181,8 @@ class Scene extends h2d.Object {
 			bubble.y = Const.WORLDHEIGHT - bubble.height - 10;
 		
 		} else for (a in actors) if (a.id == dialogue.speakerId) {
-			bubble.x = a.x;
-			bubble.y = a.y;
+			bubble.x = a.dialogueX;
+			bubble.y = a.dialogueY;
 		}
 
 		// makes an interactive that will handle the skipping and nexting.
