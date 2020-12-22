@@ -1,3 +1,4 @@
+import game.Clock;
 
 class Game extends hxd.App {
 
@@ -26,6 +27,8 @@ class Game extends hxd.App {
 
 	private var ui : game.Interface;
 
+	private var clock : game.Clock;
+
 	override function init() {
 
 		//////////////////////////////////////////////////////////////////////////
@@ -44,6 +47,8 @@ class Game extends hxd.App {
 		var window = hxd.Window.getInstance();
 		// makes the window title.
 		window.title = sn.Window.generateTitle(Const.GAMETITLE);
+		// adds events, for keyboard presses
+		window.addEventTarget(onEvent);
 
 		// set the background color
 		engine.backgroundColor = Const.BACKGROUNDCOLOR;
@@ -67,6 +72,10 @@ class Game extends hxd.App {
 		// add the interface UI
 		ui = new game.Interface(s2d);
 
+		clock = new game.Clock();
+		clock.useSlot();
+		ui.updateClock(clock);
+
 		// creates the corner border thing.
 		game.utils.Corners.make(s2d);
 
@@ -80,7 +89,6 @@ class Game extends hxd.App {
 		// adds debug stuff if we are in debug build.
 		#if debug
 		Debug.mouseCoordinatesOverlay(s2d);
-		Debug.warning(s2d);
 		#end
 	}
 
@@ -102,6 +110,12 @@ class Game extends hxd.App {
 		// offsets the scene so its in the center.
 		s2d.x = window.width/2 - Const.WORLDWIDTH/2 * scale;
 		s2d.y = window.height/2 - Const.WORLDHEIGHT/2 * scale;
+	}
+
+	private function onEvent(e : hxd.Event) {
+		#if debug
+		if (e.kind == EKeyDown && e.keyCode == hxd.Key.F2) Debug.toggleDisplayItems();
+		#end
 	}
 
 	private function changeToScene(newScene : Data.ScenesKind) {
