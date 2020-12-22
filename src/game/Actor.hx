@@ -32,6 +32,18 @@ class Actor extends h2d.Object {
 
 	private final scene : game.Scene;
 
+	public var dialogueX(get, null) : Float;
+	private final dialoguex : Int;
+	private function get_dialogueX() : Float {
+		return x + dialoguex - image.tile.width/2;
+	}
+
+	public var dialogueY(get, null) : Float;
+	private final dialoguey : Int;
+	private function get_dialogueY() : Float {
+		return y + dialoguey - image.tile.height/2;
+	}
+
 	/**
 	 * Creates a new actor. It will not automatically be rendered because it
 	 * will need to manually be added to the correct layer in the scene. By default
@@ -58,6 +70,9 @@ class Actor extends h2d.Object {
 		image = new h2d.Bitmap(t, this);
 		image.x = -t.width/2;
 		image.y = -t.height/2;
+
+		dialoguex = definition.actor.dialoguepoint.x;
+		dialoguey = definition.actor.dialoguepoint.y;
 
 		// creating an interactive that will be used for inital interaction.
 		interactives = new h2d.Object(image);
