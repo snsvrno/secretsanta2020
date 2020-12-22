@@ -114,7 +114,7 @@ class Game extends hxd.App {
 
 	private function onEvent(e : hxd.Event) {
 		#if debug
-		if (e.kind == EKeyDown && e.keyCode == hxd.Key.F2) Debug.toggleDisplayItems();
+		Debug.onEvent(e);
 		#end
 	}
 

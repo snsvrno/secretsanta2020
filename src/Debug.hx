@@ -1,3 +1,5 @@
+import hxd.res.DynamicText.Key;
+
 class Debug {
 
 	private static var displayItemsState : Bool = false;
@@ -39,5 +41,14 @@ class Debug {
 		warningtext.maxWidth = Const.WORLDWIDTH / warningtext.scaleX;
 		warningtext.x = Const.WORLDWIDTH / 2 - warningtext.textWidth * warningtext.scaleX / 2;
 		warningtext.y = Const.WORLDHEIGHT / 2 - warningtext.textHeight * warningtext.scaleY / 2;
+	}
+
+	static public function onEvent(e : hxd.Event) {
+		if (e.kind == EKeyDown) switch(e.keyCode) {
+			case(hxd.Key.F2): Debug.toggleDisplayItems();
+			case(hxd.Key.F3): Game.foundItem(sparetire);
+			case(hxd.Key.F4): Game.lostItem(sparetire);
+			case _:
+		} 
 	}
 }

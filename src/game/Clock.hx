@@ -11,15 +11,7 @@ private enum Period {
 
 class Clock {
 
-	/**
-	 * The number of time slots that each period has, basically means
-	 * the number of places the player can move too and interact with
-	 * during a period.
-	 */
-	inline static public var SLOTSPERPERIOD : Int = 2;
-	inline static public var PERIODS : Int = 6;
-
-	public var slotsLeft(default, null) : Int = SLOTSPERPERIOD;
+	public var slotsLeft(default, null) : Int = Const.CLOCK_SLOTS;
 	public var period(default, null) : Period = EarlyMorning;
 
 	public function new() { }
@@ -52,7 +44,7 @@ class Clock {
 			case EarlyEvening: period = Evening;
 			case Evening: period = EarlyMorning;
 		}
-		slotsLeft = SLOTSPERPERIOD;
+		slotsLeft = Const.CLOCK_SLOTS;
 	}
 
 	
@@ -67,6 +59,6 @@ class Clock {
 		}
 	}
 	
-	public function slotNumber() : Int return SLOTSPERPERIOD - slotsLeft + 1;
+	public function slotNumber() : Int return Const.CLOCK_SLOTS - slotsLeft + 1;
 
 }

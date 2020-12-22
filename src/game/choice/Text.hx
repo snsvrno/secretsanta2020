@@ -2,13 +2,9 @@ package game.choice;
 
 class Text extends h2d.Object {
 
-	static private final maxWidth : Int = 100;
-	static private final cornerRadius : Int  = 4;
-	static private final padding : Int = 6;
-
-	static private final overColor : h3d.Vector = new h3d.Vector(252/255,212/255,15/255,1);
-	static private final normalColor : h3d.Vector = new h3d.Vector(0.75,0.75,0.75,1);
-	static private final alreadyColor : h3d.Vector = new h3d.Vector(0.20,0.20,0.20,1);
+	static private final overColor : h3d.Vector = h3d.Vector.fromColor(Const.CHOICE_TEXT_COLOR_OVER);
+	static private final normalColor : h3d.Vector = h3d.Vector.fromColor(Const.CHOICE_TEXT_COLOR_REGULAR);
+	static private final alreadyColor : h3d.Vector = h3d.Vector.fromColor(Const.CHOICE_TEXT_COLOR_USED);
 
 	private var text : h2d.Text; 
 	private var interactive : h2d.Interactive;
@@ -20,14 +16,14 @@ class Text extends h2d.Object {
 
 		var background = new h2d.Graphics(this);
 		text = new h2d.Text(font, this);
-		text.maxWidth = maxWidth;
+		text.maxWidth = Const.CHOICE_MAX_WIDTH;
 
 		text.text = evalulate(dialogue.display);
 		if (Game.variables.isChosenOption(dialogue.id)) text.color = alreadyColor;
 		else text.color = normalColor;
 
-		background.beginFill(0x000000);
-		background.drawRoundedRect(-padding, -padding, text.textWidth + 2*padding, text.textHeight + 2*padding, cornerRadius);
+		background.beginFill(Const.CHOICE_BACKGROUND_COLOR, Const.CHOICE_BACKGROUND_ALPHA);
+		background.drawRoundedRect(-Const.CHOICE_TEXT_PADDING, -Const.CHOICE_TEXT_PADDING, text.textWidth + 2*Const.CHOICE_TEXT_PADDING, text.textHeight + 2*Const.CHOICE_TEXT_PADDING, Const.CHOICE_CORNER_RADIUS);
 		background.endFill();
 
 		interactive = new h2d.Interactive(text.textWidth, text.textHeight, this);

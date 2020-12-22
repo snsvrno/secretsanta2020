@@ -2,26 +2,22 @@ package game.bubble;
 
 class Bubble extends h2d.Object {
 
-	static private final padding : Int = 10;
-	static private final cornerRadius : Int = 4;
-	static private final maxWidth : Float = 300;
-
 	private var background : h2d.Graphics;
 
 	private var lines : Array<Text>;
 	private var pos : Int = 0;
 
 	public var height(get, null) : Float;
-	private function get_height() : Float return lines[pos].height + 2 * padding;
+	private function get_height() : Float return lines[pos].height + 2 * Const.BUBBLE_TEXT_PADDING;
 
 	public var width(get, null) : Float;
-	private function get_width() : Float return lines[pos].width + 2 * padding;
+	private function get_width() : Float return lines[pos].width + 2 * Const.BUBBLE_TEXT_PADDING;
 
 	public function new(dialogue : Data.Dialogue, parent : h2d.Object) {
 		super(parent);
 
 		background = new h2d.Graphics(this);
-		lines = Text.parse(dialogue.text, maxWidth);
+		lines = Text.parse(dialogue.text, Const.BUBBLE_MAX_WIDTH);
 
 		// adds the text line so it displays.
 		addChild(lines[0]);
@@ -54,10 +50,13 @@ class Bubble extends h2d.Object {
 		}
 	}
 
+	/**
+	 * Creates the background pill where the text resides.
+	 */
 	private function setBackground() {
 		background.clear();
-		background.beginFill(0xFF0000);
-		background.drawRoundedRect(-width/2, -height/2, width, height, cornerRadius);
+		background.beginFill(Const.BUBBLE_BACKGROUND_COLOR, Const.BUBBLE_BACKGROUND_ALPHA);
+		background.drawRoundedRect(-width/2, -height/2, width, height, Const.BUBBLE_CORNER_RADIUS);
 		background.endFill();
 	}
 

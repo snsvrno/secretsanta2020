@@ -24,7 +24,7 @@ class Clock extends h2d.Object {
 
 		graphics = new h2d.Graphics(this);
 
-		width = game.Clock.PERIODS * game.Clock.SLOTSPERPERIOD * (sectionWidth + 2 * lineSize) + 2 * padding;
+		width = Const.CLOCK_PERIODS * Const.CLOCK_SLOTS * (sectionWidth + 2 * lineSize) + 2 * padding;
 		height = sectionHeight + padding;
 	}
 
@@ -38,9 +38,9 @@ class Clock extends h2d.Object {
 		graphics.lineStyle(lineSize, lineColor);
 
 		graphics.setColor(colorDisable);
-		for (i in 0 ... game.Clock.PERIODS) {
-			var px = i * game.Clock.SLOTSPERPERIOD * (sectionWidth + 2 * lineSize) + padding;
-			for (j in 0 ... game.Clock.SLOTSPERPERIOD) {
+		for (i in 0 ... Const.CLOCK_PERIODS) {
+			var px = i * Const.CLOCK_SLOTS * (sectionWidth + 2 * lineSize) + padding;
+			for (j in 0 ... Const.CLOCK_SLOTS) {
 				if (clock.periodNumber() == (i+1) && clock.slotNumber() == (j+1)) graphics.setColor(colorAvailable);
 				graphics.drawRect(px + j * sectionWidth, 0, sectionWidth, sectionHeight);
 			}
@@ -49,7 +49,7 @@ class Clock extends h2d.Object {
 		// draws the pointer arrow.
 		graphics.lineStyle(0);
 		graphics.setColor(colorBackground);
-		var sx = padding + sectionWidth / 2 + (clock.periodNumber() - 1) * (sectionWidth + 2 * lineSize) * game.Clock.SLOTSPERPERIOD; 
+		var sx = padding + sectionWidth / 2 + (clock.periodNumber() - 1) * (sectionWidth + 2 * lineSize) * Const.CLOCK_SLOTS; 
 		var sy = sectionHeight + padding / 2;
 		graphics.moveTo(sx, sy - sectionHeight * triSize);
 		graphics.lineTo(sx - sectionWidth * triSize, sy);

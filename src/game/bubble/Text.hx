@@ -9,14 +9,16 @@ private enum Style {
 	Dancing(t : String);
 	Action(t : String);
 	Variable(t : String);
+	StringVariable(t : String);
 }
 
 class Text extends h2d.Object {
 
-	static private var colorItalics : h3d.Vector = new h3d.Vector(1,1,0,1);
-	static private var colorBold : h3d.Vector = new h3d.Vector(1,1,0,1);
-	static private var colorAction : h3d.Vector = new h3d.Vector(0.5,0.5,0.5,1);
-	static private var colorVariable : h3d.Vector = new h3d.Vector(0,0.5,1,1);
+	static private var colorItalics : h3d.Vector = h3d.Vector.fromColor(Const.BUBBLE_TEXT_COLOR_ITALICS);
+	static private var colorBold : h3d.Vector = h3d.Vector.fromColor(Const.BUBBLE_TEXT_COLOR_BOLD);
+	static private var colorAction : h3d.Vector = h3d.Vector.fromColor(Const.BUBBLE_TEXT_COLOR_ACTION);
+	static private var colorVariable : h3d.Vector = h3d.Vector.fromColor(Const.BUBBLE_TEXT_COLOR_VARIABLE);
+	static private var colorRegular : h3d.Vector = h3d.Vector.fromColor(Const.BUBBLE_TEXT_COLOR_REGULAR);
 
 	public var width(default, null) : Float = 0;
 
@@ -146,7 +148,7 @@ class Text extends h2d.Object {
 	 * @param maxLineWidth 
 	 * @return Array<Text>
 	 */
-	static public function parse(string : String, ?maxLineWidth : Float) : Array<Text> {
+	static public function parse(string : String, ?variables : Array<String>, ?maxLineWidth : Float) : Array<Text> {
 		var newSections : Array<Text> = [];
 
 		// splits the string into different sections.
@@ -166,6 +168,18 @@ class Text extends h2d.Object {
 				var tseg = new h2d.Text(font, text);
 
 				switch(s) {
+					case StringVariable(t):
+						var textvalue = "<undefined>";
+
+						// attempts to load the value from the passed array.
+						var index = Std.parseInt(t);
+						if (variables != null && index != null && variables.length > index) textvalue = variables[index];
+
+						tseg.color = colorVariable;
+						tseg.text = textvalue;
+						tseg.dropShadow = { dx : 0.2, dy : 0.2, color: 0x000000, alpha: 0.85 };
+						text.textObjects.push(tseg);
+
 					case Variable(t):
 						tseg.color = colorVariable;
 						tseg.text = Game.variables.evalulate(t);
@@ -203,6 +217,7 @@ class Text extends h2d.Object {
 					case Dancing(t):
 
 						tseg.text = t;
+						tseg.color = colorRegular;
 
 						var letters = splitText(tseg);
 						for (i in 0 ... letters.length) {
@@ -215,6 +230,7 @@ class Text extends h2d.Object {
 
 					case Plain(t): 
 
+						tseg.color = colorRegular;
 						tseg.text = t;
 						text.textObjects.push(tseg);
 				}
@@ -307,6 +323,19 @@ class Text extends h2d.Object {
 					if (insideSpecial == true) {
 						insideSpecial = false;
 						segments.push(Bold(segment));
+					} else {
+						insideSpecial = true;
+						if (segment.length > 0) segments.push(Plain(segment));
+					}
+					
+					segment = "";
+					
+				// bold
+				case "`":
+
+					if (insideSpecial == true) {
+						insideSpecial = false;
+						segments.push(StringVariable(segment));
 					} else {
 						insideSpecial = true;
 						if (segment.length > 0) segments.push(Plain(segment));
