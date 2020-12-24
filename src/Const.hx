@@ -149,6 +149,16 @@ class Const {
 	inline static public var CLOCK_PERIODS : Int = 6;
 	/** how many "hours" are there per day in the game */
 	inline static public var CLOCK_SLOTS : Int = 2;
+	/** the size of the clock object on the screen. */
+	inline static public var CLOCK_SCALE : Float = 0.5;
+	/** padding between the clock and the edge of the world */
+	inline static public var CLOCK_SCREEN_PADDING : Int = 10;
+	/** whether or not we want the clock to do some minor animating */
+	inline static public var CLOCK_IDLE : Bool = true;
+	/** bouncing period / speed */
+	inline static public var CLOCK_IDLE_PERIOD : Float = 3.;
+	/** bouncing strength */
+	inline static public var CLOCK_IDLE_STRENGTH : Float = 2.;
 
 	static public function initalize() {
 	}

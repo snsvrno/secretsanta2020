@@ -1,3 +1,4 @@
+import game.bubble.Bubble;
 import game.Clock;
 
 class Game extends hxd.App {
@@ -7,10 +8,19 @@ class Game extends hxd.App {
 
 	static public var variables : game.Variables;
 	static private var instance : Game;
+
+	//////////////////////////////////////////////////////////////////////////
+	// static functions
+	
 	static public function changeScene(newScene : Data.ScenesKind) instance.changeToScene(newScene);
 	static public function toMap() instance.changeToMap();
 	static public function foundItem(item : Data.ItemsKind) game.Popup.item(item, true, instance.s2d);
 	static public function lostItem(item : Data.ItemsKind) game.Popup.item(item, false, instance.s2d);
+
+	static public function createDialoge(text : String, x : Float, y : Float, ?wrap : Float) {
+		var bubble = game.bubble.Bubble.manual(text, x, y, wrap);
+		instance.s2d.addChild(bubble);
+	}
 
 	//////////////////////////////////////////////////////////////////////////
 	// member variables
@@ -64,6 +74,10 @@ class Game extends hxd.App {
 
 		map = new game.map.Map(s2d);
 
+		// creates the clock object.
+		clock = new game.Clock();
+		map.addChild(clock);
+
 		// creates the scene object, which contains all the actors.
 		// and props
 		activeScene = new game.Scene(s2d);
@@ -71,10 +85,6 @@ class Game extends hxd.App {
 
 		// add the interface UI
 		ui = new game.Interface(s2d);
-
-		clock = new game.Clock();
-		clock.useSlot();
-		ui.updateClock(clock);
 
 		// creates the corner border thing.
 		game.utils.Corners.make(s2d);

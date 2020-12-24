@@ -13,7 +13,6 @@ class Interface extends h2d.Object {
 	private var menuButton : h2d.Text;
 	private var menu : h2d.Object;
 	private var menuBackground : h2d.Graphics;
-	private var clock : game.ui.Clock;
 
 	public function new(parent : h2d.Object) {
 		super(parent);
@@ -48,11 +47,6 @@ class Interface extends h2d.Object {
 		menuButtonInteractive.onOver = (e : hxd.Event) -> buttonOver(menuButton);
 		menuButtonInteractive.onOut = (e : hxd.Event) -> buttonOut(menuButton);
 		menuButtonInteractive.onClick = (e : hxd.Event) -> toggleMenu();
-		
-		// CLOCK ///////////////////////////////////////////////////////////////////////////
-
-		clock = new game.ui.Clock(this);
-		clock.x = Const.WORLD_WIDTH - Const.WORLD_CORNER_RADIUS - clock.width;
 
 		// MENU ///////////////////////////////////////////////////////////////////////////
 
@@ -109,10 +103,6 @@ class Interface extends h2d.Object {
 	public function onScene() {
 		if (backButton.parent != this) addChild(backButton);
 		if (locationName.parent != this) addChild(locationName);
-	}
-
-	public function updateClock(clock : game.Clock) {
-		this.clock.drawState(clock);
 	}
 
 }

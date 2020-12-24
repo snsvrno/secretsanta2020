@@ -13,14 +13,46 @@ class Bubble extends h2d.Object {
 	public var width(get, null) : Float;
 	private function get_width() : Float return lines[pos].width + 2 * Const.BUBBLE_TEXT_PADDING;
 
-	public function new(dialogue : Data.Dialogue, parent : h2d.Object) {
+	/**
+	 * adds a special manual bubble that will disappear when the mouse moves away.
+	 * 
+	 * @param text 
+	 * @param x 
+	 * @param y 
+	 * @return Bubble
+	 */
+	public static function manual(text : String, x : Float, y : Float, ?wrapWidth : Float) : Bubble {
+		var bubble = new Bubble();
+		bubble.setText(text, wrapWidth);
+
+		bubble.x = x;
+		bubble.y = y;
+
+		var interactive = new h2d.Interactive(bubble.width, bubble.height, bubble);
+		interactive.x = - bubble.width/2;
+		interactive.y = - bubble.height/2;
+		interactive.onOut = function(e : hxd.Event) {
+			bubble.remove();
+		}
+
+		return bubble;
+	}
+
+	public function new(?dialogue : Data.Dialogue, ?parent : h2d.Object) {
 		super(parent);
 
 		background = new h2d.Graphics(this);
-		lines = Text.parse(dialogue.text, Const.BUBBLE_MAX_WIDTH);
+
+		if (dialogue != null) setText(dialogue.text, Const.BUBBLE_MAX_WIDTH);
+	}
+
+	private function setText(text : String, ?maxWidth : Float) {
+
+		lines = Text.parse(text, maxWidth);
 
 		// adds the text line so it displays.
 		addChild(lines[0]);
+
 		// adjusts the background
 		setBackground();
 	}

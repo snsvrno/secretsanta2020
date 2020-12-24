@@ -239,6 +239,7 @@ class Text extends h2d.Object {
 			// called here because there is a hook that will
 			// rebuild it.
 			if (maxLineWidth != null) text.maxWidth = maxLineWidth;
+			else text.rebuild(); // but we call it if we don't have a max width.
 			newSections.push(text);
 		}
 
