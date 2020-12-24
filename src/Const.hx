@@ -59,6 +59,12 @@ class Const {
 	inline static public var MAP_PEAK_OPACITY : Float = 0.15;
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// MAP LOCATION SETTINGS
+
+	inline static public var LOCATION_HIGHLIGHT_ALPHA : Float = 0.25;
+	inline static public var LOCATION_UNACCESSABLE_ALPHA : Float = 0.75;
+
+	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
 	inline static public var TEXT_ITALICS_SLANT : Float = 0.1;
 

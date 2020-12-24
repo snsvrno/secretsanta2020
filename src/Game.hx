@@ -46,6 +46,8 @@ class Game extends hxd.App {
 
 	private var clock : game.Clock;
 
+	private var visits : Array<String> = [];
+
 	override function init() {
 
 		//////////////////////////////////////////////////////////////////////////
@@ -101,7 +103,7 @@ class Game extends hxd.App {
 		onResize();
 
 		// gets us ready to go to map.
-		toMap();
+		changeToMap(true);
 		updateAfterTick();
 
 		// adds debug stuff if we are in debug build.
@@ -137,7 +139,14 @@ class Game extends hxd.App {
 	}
 
 	private function changeToScene(newScene : Data.ScenesKind) {
-		
+
+		var sceneName = Data.scenes.get(newScene).location.name;
+
+		if (clock.donePeriod && !visits.contains(sceneName)) {
+			game.Popup.text("I can't do anything else now, I'll have to wait ~...~", s2d);
+			return;
+		}
+
 		// sets up the scene
 		activeScene.load(newScene);
 		activeScene.enable();
@@ -149,10 +158,22 @@ class Game extends hxd.App {
 		ui.onScene();
 	}
 
-	private function changeToMap() {
+	private function changeToMap(?inital : Bool = false) {
 		ui.onMap();
 		map.enable();
 		activeScene.disable();
+
+		if (!inital && !visits.contains(activeScene.sceneName)) {
+			visits.push(activeScene.sceneName);
+		
+			clock.step();
+
+			// disables the rest of the locations on the map (visually) so
+			// we get the idea that we can't go anywhere else.
+			if (clock.donePeriod) map.disableInaccessableLocations(visits);
+
+			updateAfterTick();
+		}
 	}
 
 	/**

@@ -4,19 +4,25 @@ class Location extends h2d.Object {
 	
 	private var icon : h2d.Bitmap;
 	private var shaderOver : shader.Highlight;
+	private var shaderDisabled : shader.Darken;
 	private var text : h2d.Text;
 	private var target : Data.ScenesKind;
 	private var interactiveLayer : h2d.Object;
+
+	public var data(default, null) : Data.Locations;
 	
 	public function new(location : Data.Locations, ?parent : h2d.Object) {
 		super(parent);
+
+		data = location;
 
 		// loads and sets the image to use.
 		var tile = hxd.Res.load(location.icon).toTile();
 		icon = new h2d.Bitmap(tile, this);
 
 		// creates the shader that will be used when mouse-overing
-		shaderOver = new shader.Highlight(0.25);
+		shaderOver = new shader.Highlight(Const.LOCATION_HIGHLIGHT_ALPHA);
+		shaderDisabled = new shader.Darken(Const.LOCATION_UNACCESSABLE_ALPHA);
 
 		// makes the interactives so we can do mouse overs and clicks
 		interactiveLayer = new h2d.Object(this);
@@ -85,6 +91,11 @@ class Location extends h2d.Object {
 		// in the case that this is the location that changes a scene
 		// and causes the disabling.
 		out();
+	}
+
+	public function notAccessable(?reset : Bool = false) {
+		if (reset) icon.removeShader(shaderDisabled);
+		else icon.addShader(shaderDisabled);
 	}
 
 	public function enable() {

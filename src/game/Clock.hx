@@ -27,6 +27,8 @@ class Clock extends h2d.Object {
 	public var slot(get, null) : Int;
 	private function get_slot() : Int return getTime().slot;
 
+	public var donePeriod(default, null) : Bool = false;
+
 	//////////////////////////////////////////////////////////////////////////
 	// public members
 
@@ -115,7 +117,14 @@ class Clock extends h2d.Object {
 		var periodName = getPeriodName();
 		var left = 3 - getTime().slot;
 		var locations = if (left == 1) "location"; else "locations";
-		Game.createDialoge('It\'s ~$periodName~, looks like I still have time to visit *$left* more $locations.', x, y, width * 0.5);
+
+		var text = if (donePeriod) {
+			'It\'s ~$periodName~, looks like I can\'t visit any more $locations.';
+		} else {
+			'It\'s ~$periodName~, looks like I still have time to visit *$left* more $locations.';
+		}
+		
+		Game.createDialoge(text, x, y, width * 0.5);
 	}
 
 	/**
@@ -152,6 +161,22 @@ class Clock extends h2d.Object {
 		var slot = frame - (period - 1) * 2 + 1;
 
 		return { period: period, slot: slot };
+	}
+
+	/**
+	 * Pushes through the slots, if we don't have any more slots then this doesn't
+	 * do anything.
+	 */
+	public function step() {
+		if (slot < Const.CLOCK_SLOTS) increment();
+		else if (!donePeriod) donePeriod = true;
+	}
+
+	/**
+	 * Moves the clock to the next period regardless of the slots that are left.
+	 */
+	public function nextPeriod() {
+		donePeriod = false;
 	}
 
 	public function increment(?direction : Int = 1) sprite.currentFrame += direction;

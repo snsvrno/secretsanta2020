@@ -55,4 +55,12 @@ class Map extends h2d.Object {
 		lightingLayer.drawRect(0, 0, Const.WORLD_WIDTH, Const.WORLD_HEIGHT);
 		lightingLayer.endFill();
 	}
+
+	public function disableInaccessableLocations(visits : Array<String>) {
+		for (l in locations) if (!visits.contains(l.data.name)) l.notAccessable();
+	}
+
+	public function resetAllInaccessableLocations() {
+		for (l in locations) l.notAccessable(true);
+	}
 }
