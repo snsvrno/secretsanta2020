@@ -49,6 +49,15 @@ class Const {
 	/** The map opacity when inside of a scene. */
 	inline static public var MAP_DISABLED_OPACITY : Float = 0.15;
 
+	inline static public var MAP_MORNING_COLOR : Int = 0xD6751B;
+	inline static public var MAP_AFTERNOON_COLOR : Int = 0xFFFFFF;
+	inline static public var MAP_EVENING_COLOR : Int = 0x233066;
+
+	// different opacity values that it will move between when changing the time
+	// ment to give it an issusion of the sun and different lighting based on different periods.
+	inline static public var MAP_FRINGE_OPACITY : Float = 0.40;
+	inline static public var MAP_PEAK_OPACITY : Float = 0.15;
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
 	inline static public var TEXT_ITALICS_SLANT : Float = 0.1;
@@ -71,7 +80,7 @@ class Const {
 	/** italics text color */
 	inline static public var BUBBLE_TEXT_COLOR_ITALICS : Int = 0xFF00FFFF;
 	/** bold text color */
-	inline static public var BUBBLE_TEXT_COLOR_BOLD : Int = 0xFFFFFFFF;
+	inline static public var BUBBLE_TEXT_COLOR_BOLD : Int = 0xFF7a14e0;
 	/** normal text color */
 	inline static public var BUBBLE_TEXT_COLOR_REGULAR : Int = 0xFFDDDDDD;
 	/** action text color */

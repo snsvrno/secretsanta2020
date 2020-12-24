@@ -20,7 +20,13 @@ class Clock extends h2d.Object {
 
 	public var height(get, null) : Float;
 	private function get_height() : Float return sprite.frames[0].height * sprite.scaleY;
-	
+
+	public var period(get, null) : Int;
+	private function get_period() : Int return getTime().period;
+
+	public var slot(get, null) : Int;
+	private function get_slot() : Int return getTime().slot;
+
 	//////////////////////////////////////////////////////////////////////////
 	// public members
 
@@ -56,8 +62,7 @@ class Clock extends h2d.Object {
 		}
 
 		// testing setting etc ... delete me.
-		setTime(3,1);
-		getTime();
+		setTime(1,1);
 		
 	}
 
@@ -148,4 +153,8 @@ class Clock extends h2d.Object {
 
 		return { period: period, slot: slot };
 	}
+
+	public function increment(?direction : Int = 1) sprite.currentFrame += direction;
+
+	public function reset() setTime(1,1);
 }

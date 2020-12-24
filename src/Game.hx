@@ -22,6 +22,13 @@ class Game extends hxd.App {
 		instance.s2d.addChild(bubble);
 	}
 
+	#if debug
+	static public function debugTickClick(distance : Int) {
+		instance.tickClock(distance);
+		game.Popup.text('tick clock: ${instance.clock.period}-${instance.clock.slot}', instance.s2d);
+	}
+	#end
+
 	//////////////////////////////////////////////////////////////////////////
 	// member variables
 
@@ -95,6 +102,7 @@ class Game extends hxd.App {
 
 		// gets us ready to go to map.
 		toMap();
+		updateAfterTick();
 
 		// adds debug stuff if we are in debug build.
 		#if debug
@@ -145,5 +153,18 @@ class Game extends hxd.App {
 		ui.onMap();
 		map.enable();
 		activeScene.disable();
+	}
+
+	/**
+	 * Function to push the clock forward 1 slot.
+	 */
+	private function tickClock(?distance : Int = 1) {
+		if (distance > 0) while (distance > 0) { clock.increment(); distance--; }
+		else while(distance < 0) { clock.increment(-1); distance++; }
+		updateAfterTick();
+	}
+
+	private function updateAfterTick() {
+		map.setLighting(clock);
 	}
 }
