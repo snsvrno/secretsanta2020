@@ -2,6 +2,18 @@ import hxd.res.DynamicText.Key;
 
 class Debug {
 
+	////////////////////////////////////////////////////////////////////////////////////////
+	// DEBUG OPTION SWITCHES, THESE DON'T DO ANYTHING UNLESS BUILT IN DEBUG MODE.
+	// MOST OF THESE NEED TO BE ON DURING BUILD TO DO ANYHTING, THEY ARE TRIGGERED DURING
+	// INITALIZATION OF ITEMS AND NOT DURING THE UPDATE LOOP.
+
+	/** shows a boundary around bubble.text individual text objects. */
+	inline static public var TEXT_SHOW_BOUNDARIES : Bool = true;
+	/** shows a boundary around bubble.text objects. */
+	inline static public var TEXTBOX_SHOW_BOUNDARIES : Bool = true;
+
+	////////////////////////////////////////////////////////////////////////////////////////
+
 	private static var displayItemsState : Bool = false;
 	public static var displayItems : Array<h2d.Object> = [];
 

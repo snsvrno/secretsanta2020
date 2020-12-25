@@ -137,9 +137,29 @@ class Text extends h2d.Object {
 			t.x -= width / 2;
 			t.y -= height / 2;
 		}
+		
+		#if debug
+		if (Debug.TEXTBOX_SHOW_BOUNDARIES) { 
+			// a bounding box for debug to see what area is acceptable for the text.
+			var bbox = new h2d.Graphics(this);
+			bbox.lineStyle(1,0x0000FF,1.0);
+			bbox.beginFill(0,0.);
+			bbox.drawRect(0-width/2, -height/2, width, height);
+			bbox.endFill();
+		}
 
-		trace('done');
+		if (Debug.TEXT_SHOW_BOUNDARIES) {
+			// makes a box for every text object.
+			for (t in textObjects) {
+				var tt = new h2d.Graphics(t);
+				tt.lineStyle(1,0x0000FF,1.0);
+				tt.beginFill(0,0.);
+				tt.drawRect(0, 0, t.textWidth, t.textHeight);
+				tt.endFill();
+			}
+		}
 
+		#end
 	}
 
 	/**

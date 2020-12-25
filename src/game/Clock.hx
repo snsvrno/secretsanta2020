@@ -1,7 +1,5 @@
 package game;
 
-import haxe.display.Display.Package;
-
 private typedef Time = { period : Int, slot : Int };
 
 class Clock extends h2d.Object {
@@ -11,6 +9,7 @@ class Clock extends h2d.Object {
 
 	private var sprite : h2d.Anim;
 	private var shader : shader.Highlight;
+	private var interactive : h2d.Interactive;
 	
 	//////////////////////////////////////////////////////////////////////////
 	// public members
@@ -46,7 +45,7 @@ class Clock extends h2d.Object {
 
 		// creates the interactive so we get some feedback from the clock and know what its
 		// there for.
-		var interactive = new h2d.Interactive(width, height, this);
+		interactive = new h2d.Interactive(width, height, this);
 		interactive.x = -width / 2;
 		interactive.y = -height / 2;
 		interactive.onOver = onOver;
@@ -105,11 +104,11 @@ class Clock extends h2d.Object {
 		sprite.currentFrame = 0;
 	}
 
-	private function onOver(e : hxd.Event) {
+	private function onOver(?e : hxd.Event) {
 		sprite.addShader(shader);
 	}
 
-	private function onOut(e : hxd.Event) {
+	private function onOut(?e : hxd.Event) {
 		sprite.removeShader(shader);
 	}
 
@@ -118,13 +117,30 @@ class Clock extends h2d.Object {
 		var left = 3 - getTime().slot;
 		var locations = if (left == 1) "location"; else "locations";
 
+		// gets the correct response text for what time is it.
 		var text = if (donePeriod) {
 			'It\'s ~$periodName~, looks like I can\'t visit any more $locations.';
 		} else {
 			'It\'s ~$periodName~, looks like I still have time to visit *$left* more $locations.';
 		}
+
+		var choices = game.choice.Wheel.raw(0, 0, this, addInteractive);
+		choices.addDialogueChoice("/Check the time/", text, addInteractive);
+		choices.addDialogueAction("/Rest/", choiceRest);
 		
-		Game.createDialoge(text, x, y, width * 0.5);
+		// removes the interactive so we don't have to
+		removeChild(interactive);
+		// makes sure we don't have the highlight shader still on us.
+		onOut();
+	}
+
+	private function addInteractive() {
+		if (interactive.parent != this) addChild(interactive);
+	}
+
+	private function choiceRest() {
+		addInteractive();
+		nextPeriod();
 	}
 
 	/**
@@ -177,6 +193,9 @@ class Clock extends h2d.Object {
 	 */
 	public function nextPeriod() {
 		donePeriod = false;
+		var currentPeriod = period;
+		while(period == currentPeriod) increment();
+		Game.updateMapLighting();
 	}
 
 	public function increment(?direction : Int = 1) sprite.currentFrame += direction;

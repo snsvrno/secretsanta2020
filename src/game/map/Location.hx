@@ -38,7 +38,7 @@ class Location extends h2d.Object {
 		text.y = - text.textHeight * text.scaleY / 2 + tile.height / 2;
 		text.x = - text.textWidth * text.scaleX / 2 + tile.width / 2;
 
-		target = location.scene.name;
+		target = location.scene.id;
 
 		x = location.position.x;
 		y = location.position.y;

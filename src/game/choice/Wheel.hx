@@ -6,39 +6,117 @@ class Wheel extends h2d.Object {
 
 	public var onSelect : Null<(choice : Data.DialogueKind) -> Void>;
 
-	public function new(action : Data.DialogueActions, x : Float, y : Float, parent : h2d.Object) {
+	public function new(?action : Data.DialogueActions, x : Float, y : Float, parent : h2d.Object) {
 		super(parent);
 
-		makeChoices(action);
+		// draws the wheel.
+		makeBaseWheel();
+
+		// creates the actions if defined.
+		if (action != null) makeChoices(action);
 
 		this.x = x;
 		this.y = y;
 	}
 
-	private function makeChoices(action : Data.DialogueActions) {
+	static public function raw(x : Float, y : Float, parent : h2d.Object, ?onDestroy : () -> Void) : Wheel {
+		var wheel = new Wheel(null, x, y, parent);
 
-		var radius : Float = 40;
+		// this always needs to be at the top of the stack for this to work correctly, so we need to
+		// add the choices under this.
 
-		// draws the wheel.
+		var interactive = new h2d.Interactive(0,0,wheel, new h2d.col.Circle(0, 0, Const.CHOICE_RADIUS_OUT));
+		interactive.propagateEvents = true;
+		interactive.onOut = function(e : hxd.Event) {
+			onDestroy();
+			wheel.destroy();
+		}
+
+		return wheel;
+	}
+
+	/**
+	 * Adds a simple text and response option, will remove the wheel when done.
+	 * @param text 
+	 * @param response 
+	 */
+	public function addDialogueChoice(text : String, response : String, ?onClick : () -> Void) {
+		var newChoice = game.choice.Text.fromString(text);
+		addChildAt(newChoice, children.length-1); 
+		
+		// sets the hook to display the response and remove the wheel.
+		newChoice.setHook(function(e : hxd.Event) {
+			if (onClick != null) onClick();
+			Game.createDialoge(response, parent.x, parent.y, 80);
+			this.destroy();
+		});
+
+		choices.push(newChoice);
+		arrangeChoices();
+	}
+
+	/**
+	 * Performs some action on click, no response.
+	 * @param text 
+	 * @param onClick 
+	 * @return -> Void)
+	 */
+	public function addDialogueAction(text : String, onClick : () -> Void) {
+		var newChoice = game.choice.Text.fromString(text); 
+		addChildAt(newChoice, children.length-1); 
+
+		// sets the hook to display the response and remove the wheel.
+		newChoice.setHook(function(e : hxd.Event) {
+			onClick();
+			this.destroy();
+		});
+
+		choices.push(newChoice);
+		arrangeChoices();
+	}
+
+	/**
+	 * Creates the base graphic for the wheel.
+	 */
+	private function makeBaseWheel() {
 		var background = new h2d.Graphics(this);
 		background.lineStyle(2, 0x000000, 0.75);
 		background.beginFill(0x000000, 0.75);
-		background.drawCircle(0, 0, radius);
+		background.drawCircle(0, 0, Const.CHOICE_RADIUS);
 		background.endFill();
+	}
+
+	/**
+	 * Arranges the set choices in the wheel.
+	 */
+	private function arrangeChoices() {
+
+		// if we only have one choice we will put him in the center.
+		if (choices.length == 1) {
+
+			choices[0].setX(0);
+			choices[0].setY(0);
+
+		// if we have more then we arrange it around the circle.
+		} else for (i in 0 ... choices.length) {
+			
+			var pos = choicePosition(Math.PI * 2 / choices.length * i, Const.CHOICE_RADIUS);
+
+			choices[i].setX(pos.x);
+			choices[i].setY(pos.y);
+
+		}
+	}
+
+	private function makeChoices(action : Data.DialogueActions) {
+
 
 		var validChoices = getValidChoices(action.options);
 
 		for (i in 0 ... validChoices.length) {
-			// gets the position, if the length of this loop is only one then
-			// we will center the choice inside the wheel. otherwise it will be
-			// around the radius of the wheel.
-			var pos  = if (validChoices.length == 1) { { x : 0.0, y : 0.0 }; } 
-			else { choicePosition(Math.PI * 2 / validChoices.length * i, radius); };
 
 			// adds the text
 			var text = new Text(validChoices[i], this);
-			text.setX(pos.x);
-			text.setY(pos.y);
 			text.setHook(function (e:hxd.Event) {
 				if (onSelect != null) { 
 					var choice = validChoices[i].id;
@@ -52,6 +130,8 @@ class Wheel extends h2d.Object {
 
 			choices.push(text);
 		}
+
+		arrangeChoices();
 	}
 
 	private function getValidChoices(options : cdb.Types.ArrayRead<Data.DialogueActions_options>) : Array<Data.Dialogue> {
@@ -82,7 +162,6 @@ class Wheel extends h2d.Object {
 		if (validOptions.length == 0) throw("asd");
 		return validOptions;
 	}
-
 
 	/**
 	 * Generates the position of the text, is really just doing the points
