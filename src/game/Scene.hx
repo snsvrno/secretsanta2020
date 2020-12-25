@@ -78,11 +78,20 @@ class Scene extends h2d.Object {
 
 		// loads the actors
 		for (actor in data.actors) {
-			// creates the new actor
-			var newActor = new game.Actor(actor, this);
-			// adds the actor to the actor's layer
-			layerActors.addChild(newActor);
-			actors.push(newActor);
+			var makeCharacter = true;
+
+			// checks if the loading condition is valid.
+			if (actor.condition != null) for (c in actor.condition) {
+				if (checkCondition(c.condition) == false) makeCharacter = false;
+			}
+
+			if (makeCharacter) {
+				// creates the new actor
+				var newActor = new game.Actor(actor, this);
+				// adds the actor to the actor's layer
+				layerActors.addChild(newActor);
+				actors.push(newActor);
+			}
 		}
 	}
 
@@ -221,5 +230,18 @@ class Scene extends h2d.Object {
 
 		// removes the actors from the actor array & the actor layer.
 		while (actors.length > 0) actors.pop().remove();
+	}
+
+	/**
+	 * Checks the actor inclusion condition
+	 */
+	private function checkCondition(c : Data.PeriodCondition) : Bool {
+		switch(c) {
+			case LTE(period):
+				var result = Game.currentPeriod() <= period;
+				return result;
+			case GTE(period): return Game.currentPeriod() >= period;
+			case E(period): return Game.currentPeriod() == period;
+		}
 	}
 }

@@ -86,6 +86,7 @@ class Actor extends h2d.Object {
 		this.x = definition.x * Const.WORLD_WIDTH;
 		this.y = definition.y * Const.WORLD_HEIGHT;
 		this.setScale(definition.scale);
+		if (definition.flipX) this.scaleX *= -1;
 	}
 
 	/**

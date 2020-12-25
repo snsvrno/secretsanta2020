@@ -17,6 +17,8 @@ class Game extends hxd.App {
 	static public function foundItem(item : Data.ItemsKind) game.Popup.item(item, true, instance.s2d);
 	static public function lostItem(item : Data.ItemsKind) game.Popup.item(item, false, instance.s2d);
 	static public function updateMapLighting() instance.updateAfterTick();
+	static public function currentPeriod() : Int return instance.clock.period;
+
 
 	static public function createDialoge(text : String, x : Float, y : Float, ?wrap : Float) {
 		var bubble = game.bubble.Bubble.manual(text, x, y, wrap);
@@ -187,6 +189,7 @@ class Game extends hxd.App {
 	}
 
 	private function updateAfterTick() {
+		if(!clock.donePeriod) map.resetAllInaccessableLocations();
 		map.setLighting(clock);
 	}
 }
