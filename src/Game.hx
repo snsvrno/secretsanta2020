@@ -191,5 +191,6 @@ class Game extends hxd.App {
 	private function updateAfterTick() {
 		if(!clock.donePeriod) map.resetAllInaccessableLocations();
 		map.setLighting(clock);
+		map.updateLocationIcons();
 	}
 }

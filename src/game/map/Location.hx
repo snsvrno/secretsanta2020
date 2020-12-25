@@ -8,6 +8,7 @@ class Location extends h2d.Object {
 	private var text : h2d.Text;
 	private var target : Data.ScenesKind;
 	private var interactiveLayer : h2d.Object;
+	private var actorIcons : h2d.Object;
 
 	public var data(default, null) : Data.Locations;
 	
@@ -37,6 +38,9 @@ class Location extends h2d.Object {
 		// centers the text over the image.
 		text.y = - text.textHeight * text.scaleY / 2 + tile.height / 2;
 		text.x = - text.textWidth * text.scaleX / 2 + tile.width / 2;
+
+		// creates the actorIcons layer
+		actorIcons = new h2d.Object(this);
 
 		target = location.scene.id;
 
@@ -100,6 +104,22 @@ class Location extends h2d.Object {
 
 	public function enable() {
 		if (interactiveLayer.parent != this) addChild(interactiveLayer);
+	}
+
+	public function updateIcons() {
+		// removes all the old icons.
+		for (a in actorIcons.children) a.remove();
+
+		// gets new sightings
+		var sightings = Game.variables.seen(data.id, Game.currentPeriod());
+		for (i in 0 ... sightings.length) {
+			var tile = hxd.Res.load(Data.characters.get(sightings[i]).icon).toTile();
+			var bitmap = new h2d.Bitmap(tile, actorIcons);
+			var scale = Math.min(Const.MAP_ICON_SIZE / tile.width, Const.MAP_ICON_SIZE / tile.height);
+			bitmap.setScale(scale);
+			bitmap.x = data.iconslots[i].x - bitmap.width/2;
+			bitmap.y = data.iconslots[i].y - bitmap.height/2;
+		}
 	}
 
 }

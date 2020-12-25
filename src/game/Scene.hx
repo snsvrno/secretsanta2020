@@ -86,11 +86,17 @@ class Scene extends h2d.Object {
 			}
 
 			if (makeCharacter) {
+
 				// creates the new actor
 				var newActor = new game.Actor(actor, this);
+
 				// adds the actor to the actor's layer
 				layerActors.addChild(newActor);
 				actors.push(newActor);
+
+				// tracks that we have scene them here.
+				if (actor.actor.icon != null) 
+					Game.variables.saw(actor.actorId, data.locationId, Game.currentPeriod());
 			}
 		}
 	}

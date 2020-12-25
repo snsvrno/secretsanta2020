@@ -58,6 +58,8 @@ class Const {
 	inline static public var MAP_FRINGE_OPACITY : Float = 0.40;
 	inline static public var MAP_PEAK_OPACITY : Float = 0.15;
 
+	inline static public var MAP_ICON_SIZE : Float = 25;
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// MAP LOCATION SETTINGS
 

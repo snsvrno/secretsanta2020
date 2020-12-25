@@ -26,12 +26,17 @@ class Map extends h2d.Object {
 		alpha = 1.0;
 
 		for (l in locations) l.enable();
+		updateLocationIcons();
 	}
 
 	public function disable() {
 		alpha = Const.MAP_DISABLED_OPACITY;
 
 		for (l in locations) l.disable();
+	}
+
+	public function updateLocationIcons() {
+		for (l in locations) l.updateIcons();
 	}
 
 	public function setLighting(clock : game.Clock) {

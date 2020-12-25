@@ -1,5 +1,7 @@
 package game;
 
+private typedef Where = { actor : Data.CharactersKind, location : Data.LocationsKind };
+
 private enum Mod {
 	Local(name : String);
 	Lifetime(name : String);
@@ -48,7 +50,11 @@ class Variables {
 	 */
 	private var chosenOptions : Array<Data.DialogueKind> = new Array();
 
-
+	/**
+	 * Where you think (or know) where the characters are. This is populated as you
+	 * encounter characters.
+	 */
+	private var whereAreThey : Map<Int, Array<Where>> = new Map();
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// initalization function
@@ -170,6 +176,39 @@ class Variables {
 	}
 
 	public function has(item : Data.ItemsKind) : Bool return items.contains(item);
+
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// WHO IS WHERE RELATED
+
+	public function saw(actor : Data.CharactersKind, location : Data.LocationsKind, period : Int) {
+		var sightings : Array<Where> = switch(whereAreThey.get(period)) {
+			case null: new Array();
+			case array: array;
+		};
+
+		var alreadySeen = false;
+		for (entry in sightings) {
+			if (entry.actor == actor) alreadySeen = true;
+		}
+
+		if (!alreadySeen) {
+			sightings.push({ actor : actor, location : location });
+		}
+
+		whereAreThey.set(period, sightings);
+	}
+
+	public function seen(location : Data.LocationsKind, period : Int) : Array<Data.CharactersKind> {
+		var array : Array<Data.CharactersKind> = [];
+
+		var sightings = whereAreThey.get(period);
+		if (sightings != null) for (s in sightings) {
+			if (s.location == location) array.push(s.actor);
+		}
+
+		return array;
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// SYSTEM TOOLS, LOADING, SAVING, ETC...
