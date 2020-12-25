@@ -21,16 +21,33 @@ class Variables {
 	 */
 	private var conversationLog : Array<String> = [];
 
+	/**
+	 * The marker switches that are set during conversation, they are mainly used 
+	 * in order to track conversational choices, these are only persistent in one 'cycle'
+	 */
 	private var switches : Map<String, Bool> = new Map();
+	/**
+	 * The same as the above switches, but are presistent forever until the player removes
+	 * the save file. this is suppose to allow for more complex things because you know 
+	 * things that you shouldn't really know.
+	 */
 	private var lifetimeSwitches : Array<String> = new Array();
 
+	/**
+	 * Collected and stored items for the current cycle
+	 */
 	private var items : Array<Data.ItemsKind> = [];
 
+	/**
+	 * Numberical values, mainly used for things like money.
+	 */
 	private var values : Map<String, Int> = new Map();
 
+	/**
+	 * All the used dialogues during the current cycle.
+	 */
 	private var chosenOptions : Array<Data.DialogueKind> = new Array();
 
-	private var names : Map<String, String> = new Map();
 
 
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -39,9 +56,6 @@ class Variables {
 	public function new() { 
 		// loads this from save.
 		load();
-
-		// populates the names with the standard names
-		names.set("mechanic", "Bob");
 	}	
 
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -96,11 +110,13 @@ class Variables {
 	////////////////////////////////////////////////////////////////////////////////////////
 	// NAME RELATED
 	
-	public function evalulate(name : String) : Null<String>  { 
-		switch(checkModifiers(name)) {
-			case Number(name): return '${getValue(name)}';
-			case _: return names.get(name);
+	public function evalulate(name : String) : Null<String>  {
+		// we are assuming we want to know a certain characters name...
+		for (c in Data.characters.all) {
+			if (c.id.toString() == name) return c.name;
 		}
+
+		return 'name "$name" not a valid name';
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////
