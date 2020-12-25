@@ -197,6 +197,7 @@ class Variables {
 		}
 
 		whereAreThey.set(period, sightings);
+		save();
 	}
 
 	public function seen(location : Data.LocationsKind, period : Int) : Array<Data.CharactersKind> {
@@ -217,16 +218,27 @@ class Variables {
 	 * Attempts to load all applicable aspects of the variables class
 	 */
 	private function load() {
+		#if js
+
+		#else
 		var ll = hxd.Save.load(null);
 		if (ll != null) {
-			lifetimeSwitches = ll.lifetime; 
+			if (ll.lifetime != null) lifetimeSwitches = ll.lifetime;
+			if (ll.where != null) whereAreThey = ll.where;
 		}
+		#end
 	}
 
 	private function save() {
+		#if js
+
+
+		#else
 		hxd.Save.save({
-			lifetime : lifetimeSwitches
+			lifetime : lifetimeSwitches,
+			where : whereAreThey,
 		});
+		#end
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////

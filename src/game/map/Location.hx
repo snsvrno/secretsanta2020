@@ -20,6 +20,7 @@ class Location extends h2d.Object {
 		// loads and sets the image to use.
 		var tile = hxd.Res.load(location.icon).toTile();
 		icon = new h2d.Bitmap(tile, this);
+		icon.name = "icon";
 
 		// creates the shader that will be used when mouse-overing
 		shaderOver = new shader.Highlight(Const.LOCATION_HIGHLIGHT_ALPHA);
@@ -27,10 +28,12 @@ class Location extends h2d.Object {
 
 		// makes the interactives so we can do mouse overs and clicks
 		interactiveLayer = new h2d.Object(this);
+		interactiveLayer.name = "interactiveLayer";
 		createInteractives(location.collision);
 
 		// creates the mouse over text.
 		text = new h2d.Text(hxd.res.DefaultFont.get(), this);
+		text.name = "text";
 		text.alpha = 0;
 		text.setScale(Const.LOCATION_TEXT_SIZE);
 		text.text = location.name;
@@ -41,6 +44,7 @@ class Location extends h2d.Object {
 
 		// creates the actorIcons layer
 		actorIcons = new h2d.Object(this);
+		actorIcons.name = "actorIcons";
 
 		target = location.scene.id;
 
@@ -117,8 +121,8 @@ class Location extends h2d.Object {
 			var bitmap = new h2d.Bitmap(tile, actorIcons);
 			var scale = Math.min(Const.MAP_ICON_SIZE / tile.width, Const.MAP_ICON_SIZE / tile.height);
 			bitmap.setScale(scale);
-			bitmap.x = data.iconslots[i].x - bitmap.width/2;
-			bitmap.y = data.iconslots[i].y - bitmap.height/2;
+			bitmap.x = data.iconslots[i].x - tile.width / 2 * bitmap.scaleX;
+			bitmap.y = data.iconslots[i].y - tile.height / 2 * bitmap.scaleX;
 		}
 	}
 
