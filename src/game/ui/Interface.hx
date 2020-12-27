@@ -263,7 +263,10 @@ class Interface extends h2d.Object {
 		clear.setContainerHook(buttonStack);
 		clear.description = "Reset all status, start from nothing.";
 		clear.descriptionObject = description;
-		clear.onClick = Game.clearData;
+		clear.onClick = function() {
+			Game.clearData();
+			start.setText("Start");
+		}
 
 		var gamemenu = new game.ui.Button("Game Menu");
 		gamemenu.setContainerHook(buttonStack);

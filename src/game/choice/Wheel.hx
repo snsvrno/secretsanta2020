@@ -140,6 +140,22 @@ class Wheel extends h2d.Object {
 		for (i in 0 ... options.length) {
 			var d = options[i].option;
 			
+			var valid = true;
+			if (d.condition != null) for (c in d.condition) {
+				if (valid)
+					switch(c.condition) {
+						case Forwarder(condition, action): if (Conditions.check(condition)) {
+								var newOptions = getValidChoices(action.options);
+								for (n in newOptions) validOptions.push(n);
+								valid = false;
+							}
+						case other: if (!Conditions.check(other)) valid = false;
+					}
+			}
+
+			if (valid) validOptions.push(d);
+
+			/*
 			switch (d.condition) {
 				// checks if we have a forwarder option. which means that we check a certain 
 				// condition, if we meet that condition then we should actually be skipping
@@ -152,11 +168,11 @@ class Wheel extends h2d.Object {
 					} else validOptions.push(d);
 
 				// if no condition that we just add it and don't care.
-				case null: validOptions.push(d);
+				case null: 
 
 				// we have a condition that isn't a forwarder, so we check it.
 				case other: if (Conditions.check(other)) validOptions.push(d);
-			}
+			}*/
 		}
 
 		if (validOptions.length == 0) throw("asd");

@@ -747,10 +747,9 @@
 					"opt": true
 				},
 				{
-					"typeStr": "9:Condition",
+					"typeStr": "8",
 					"name": "condition",
-					"opt": true,
-					"documentation": "what is the variable condition that must be met for this dialogue option to be present."
+					"opt": true
 				},
 				{
 					"typeStr": "8",
@@ -787,14 +786,6 @@
 					"chain": "mechanic_car_response",
 					"text": "What is going on with the car over there?",
 					"display": "That Car?",
-					"condition": [
-						2,
-						[
-							0,
-							"mechanic_car"
-						],
-						"mechanic_whatiscar"
-					],
 					"set": [
 						{
 							"set": [
@@ -802,12 +793,17 @@
 								"mechanic_car",
 								true
 							]
-						},
+						}
+					],
+					"condition": [
 						{
-							"set": [
-								0,
-								"true_ending",
-								true
+							"condition": [
+								2,
+								[
+									0,
+									"mechanic_car"
+								],
+								"mechanic_whatiscar"
 							]
 						}
 					]
@@ -817,7 +813,7 @@
 					"speaker": "mechanic",
 					"id": "mechanic_car_response",
 					"action": "mechanic_whatiscar",
-					"text": "Oh that *one*?\\nWell `...~ \\nIts got a _ton_ of trouble. I'm not sure what they did to it, but ~WOW~ its in bad shape."
+					"text": "Oh that one?\\nWell `...~ \\nIts got a _ton_ of trouble. I'm not sure what they did to it, but ~WOW~ its in bad shape."
 				},
 				{
 					"id": "mechanic_fixit",
@@ -842,16 +838,20 @@
 					"text": "Who?",
 					"chain": "mechanic_who_response",
 					"display": "Who?",
-					"condition": [
-						1,
-						"mechanic_who"
-					],
 					"set": [
 						{
 							"set": [
 								0,
 								"mechanic_who",
 								true
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"mechanic_who"
 							]
 						}
 					]
@@ -864,8 +864,12 @@
 					"chain": "mechanic_whoisthat_response",
 					"display": "Who???",
 					"condition": [
-						0,
-						"mechanic_who"
+						{
+							"condition": [
+								0,
+								"mechanic_who"
+							]
+						}
 					]
 				},
 				{
@@ -905,8 +909,12 @@
 					"chain": "mechanic_whoisme_xxx_response",
 					"display": "$mechanic$",
 					"condition": [
-						0,
-						"*mechanic_name"
+						{
+							"condition": [
+								0,
+								"*mechanic_name"
+							]
+						}
 					]
 				},
 				{
@@ -1020,18 +1028,21 @@
 					"target": "mechanic",
 					"text": "Sounds like it needs some transmission work.",
 					"display": "Transmission Problems?",
+					"chain": "mechanic_soundstransmission_response",
 					"condition": [
-						3,
-						[
-							1,
-							"mechanic_fix_transmission"
-						],
-						[
-							0,
-							"*mechanic_fix_transmission"
-						]
-					],
-					"chain": "mechanic_soundstransmission_response"
+						{
+							"condition": [
+								1,
+								"mechanic_fix_transmission"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"*mechanic_fix_transmission"
+							]
+						}
+					]
 				},
 				{
 					"id": "mechanic_soundstransmission_response",
@@ -1141,6 +1152,21 @@
 				{
 					"typeStr": "9:Variable",
 					"name": "set",
+					"kind": null
+				}
+			]
+		},
+		{
+			"name": "dialogue@condition",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "9:Condition",
+					"name": "condition",
 					"kind": null
 				}
 			]
@@ -1286,13 +1312,6 @@
 							"y": 0.5,
 							"scale": 0.75,
 							"action": "mechanic_start",
-							"flipX": false
-						},
-						{
-							"actor": "car",
-							"x": 0.25,
-							"y": 0.5,
-							"scale": 0.6,
 							"flipX": false
 						},
 						{
@@ -1778,6 +1797,19 @@
 							"typeStr": "3"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Operators",
+			"cases": [
+				{
+					"name": "And",
+					"args": []
+				},
+				{
+					"name": "Or",
+					"args": []
 				}
 			]
 		}
