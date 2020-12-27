@@ -1,0 +1,1786 @@
+{
+	"sheets": [
+		{
+			"name": "backgrounds",
+			"columns": [
+				{
+					"typeStr": "13",
+					"name": "image"
+				},
+				{
+					"typeStr": "0",
+					"name": "name",
+					"scope": null
+				},
+				{
+					"typeStr": "17",
+					"name": "center",
+					"documentation": "the important area in the image, this is where the resize will focus on when resizing and setting the image in the window.\n\nthe size (w,h) is defined by the constants IDEALWIDTH and IDEALHEIGHT inside the game."
+				}
+			],
+			"lines": [
+				{
+					"name": "test",
+					"center": {
+						"x": 1314,
+						"y": 725
+					},
+					"image": "bg.jpg"
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "locations",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				},
+				{
+					"typeStr": "1",
+					"name": "name",
+					"kind": null
+				},
+				{
+					"typeStr": "13",
+					"name": "icon"
+				},
+				{
+					"typeStr": "8",
+					"name": "collision",
+					"opt": true
+				},
+				{
+					"typeStr": "17",
+					"name": "position"
+				},
+				{
+					"typeStr": "8",
+					"name": "iconslots"
+				},
+				{
+					"typeStr": "6:scenes",
+					"name": "scene",
+					"kind": null
+				}
+			],
+			"lines": [
+				{
+					"id": "office",
+					"name": "the Office",
+					"icon": "map/office.png",
+					"position": {
+						"x": 357,
+						"y": 21
+					},
+					"scene": "office",
+					"collision": [
+						{
+							"x": 1,
+							"y": 32,
+							"w": 42,
+							"h": 88
+						},
+						{
+							"x": 3,
+							"y": 6,
+							"w": 205,
+							"h": 65
+						},
+						{
+							"x": 88,
+							"y": 70,
+							"w": 118,
+							"h": 33
+						}
+					],
+					"iconslots": [
+						{
+							"x": 25,
+							"y": 45
+						},
+						{
+							"x": 73,
+							"y": 50
+						},
+						{
+							"x": 121,
+							"y": 72
+						},
+						{
+							"x": 173,
+							"y": 68
+						}
+					]
+				},
+				{
+					"id": "school",
+					"name": "the School",
+					"icon": "map/school.png",
+					"position": {
+						"x": 169,
+						"y": 15
+					},
+					"scene": "school",
+					"collision": [
+						{
+							"x": 8,
+							"y": 32,
+							"w": 55,
+							"h": 79
+						},
+						{
+							"x": 64,
+							"y": 13,
+							"w": 102,
+							"h": 80
+						},
+						{
+							"x": 14,
+							"y": 2,
+							"w": 105,
+							"h": 26
+						}
+					],
+					"iconslots": [
+						{
+							"x": 45,
+							"y": 55
+						},
+						{
+							"x": 91,
+							"y": 71
+						},
+						{
+							"x": 143,
+							"y": 90
+						}
+					]
+				},
+				{
+					"id": "market",
+					"name": "the Market",
+					"icon": "map/market.png",
+					"position": {
+						"x": 228,
+						"y": 91
+					},
+					"scene": "market",
+					"collision": [
+						{
+							"x": 1,
+							"y": 21,
+							"w": 64,
+							"h": 95
+						},
+						{
+							"x": 66,
+							"y": 8,
+							"w": 48,
+							"h": 84
+						},
+						{
+							"x": 32,
+							"y": 12,
+							"w": 51,
+							"h": 17
+						}
+					],
+					"iconslots": [
+						{
+							"x": 75,
+							"y": 0
+						},
+						{
+							"x": 100,
+							"y": 100
+						}
+					]
+				},
+				{
+					"icon": "map/mechanic.png",
+					"position": {
+						"x": 490,
+						"y": 100
+					},
+					"scene": "garage",
+					"id": "garage",
+					"name": "the Garage",
+					"collision": [
+						{
+							"x": 20,
+							"y": 55,
+							"w": 106,
+							"h": 41
+						},
+						{
+							"x": 21,
+							"y": 17,
+							"w": 105,
+							"h": 34
+						},
+						{
+							"x": 47,
+							"y": 3,
+							"w": 41,
+							"h": 13
+						}
+					],
+					"iconslots": [
+						{
+							"x": 47,
+							"y": 93
+						},
+						{
+							"x": 80,
+							"y": 90
+						},
+						{
+							"x": 104,
+							"y": 88
+						}
+					]
+				},
+				{
+					"id": "cafe",
+					"name": "the Cafe",
+					"icon": "map/cafe.png",
+					"position": {
+						"x": 384,
+						"y": 87
+					},
+					"scene": "cafe",
+					"collision": [
+						{
+							"x": 11,
+							"y": 11,
+							"w": 59,
+							"h": 89
+						},
+						{
+							"x": 71,
+							"y": 36,
+							"w": 38,
+							"h": 105
+						},
+						{
+							"x": 109,
+							"y": 57,
+							"w": 14,
+							"h": 92
+						},
+						{
+							"x": 40,
+							"y": 100,
+							"w": 31,
+							"h": 38
+						}
+					],
+					"iconslots": [
+						{
+							"x": 15,
+							"y": 90
+						},
+						{
+							"x": 40,
+							"y": 97
+						},
+						{
+							"x": 55,
+							"y": 121
+						}
+					]
+				},
+				{
+					"id": "park",
+					"name": "the Park",
+					"icon": "map/park.png",
+					"position": {
+						"x": 86,
+						"y": 143
+					},
+					"scene": "park",
+					"collision": [
+						{
+							"x": 30,
+							"y": 6,
+							"w": 112,
+							"h": 102
+						}
+					],
+					"iconslots": [
+						{
+							"x": 63,
+							"y": 82
+						},
+						{
+							"x": 92,
+							"y": 84
+						},
+						{
+							"x": 118,
+							"y": 55
+						}
+					]
+				},
+				{
+					"id": "towncenter",
+					"name": "Town Center",
+					"icon": "map/towncenter.png",
+					"position": {
+						"x": 290,
+						"y": 162
+					},
+					"scene": "towncenter",
+					"collision": [
+						{
+							"x": 6,
+							"y": 22,
+							"w": 128,
+							"h": 56
+						},
+						{
+							"x": 62,
+							"y": 10,
+							"w": 10,
+							"h": 31
+						}
+					],
+					"iconslots": [
+						{
+							"x": 20,
+							"y": 55
+						},
+						{
+							"x": 65,
+							"y": 66
+						},
+						{
+							"x": 103,
+							"y": 62
+						}
+					]
+				},
+				{
+					"id": "beach",
+					"name": "the Beach",
+					"icon": "map/beach.png",
+					"position": {
+						"x": 105,
+						"y": 218
+					},
+					"scene": "beach",
+					"collision": [
+						{
+							"x": 3,
+							"y": 30,
+							"w": 117,
+							"h": 52
+						},
+						{
+							"x": 25,
+							"y": 82,
+							"w": 113,
+							"h": 28
+						},
+						{
+							"x": 88,
+							"y": 111,
+							"w": 412,
+							"h": 38
+						},
+						{
+							"x": 414,
+							"y": 80,
+							"w": 103,
+							"h": 22
+						},
+						{
+							"x": 382,
+							"y": 96,
+							"w": 41,
+							"h": 29
+						}
+					],
+					"iconslots": [
+						{
+							"x": 95,
+							"y": 85
+						},
+						{
+							"x": 200,
+							"y": 120
+						},
+						{
+							"x": 310,
+							"y": 111
+						}
+					]
+				}
+			],
+			"separators": [],
+			"props": {
+				"hasGroup": true
+			}
+		},
+		{
+			"name": "locations@position",
+			"props": {
+				"hide": true,
+				"isProps": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "3",
+					"name": "x"
+				},
+				{
+					"typeStr": "3",
+					"name": "y"
+				}
+			]
+		},
+		{
+			"name": "locations@iconslots",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "3",
+					"name": "x",
+					"kind": null
+				},
+				{
+					"typeStr": "3",
+					"name": "y",
+					"kind": null
+				}
+			]
+		},
+		{
+			"name": "locations@collision",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "3",
+					"name": "x",
+					"kind": null
+				},
+				{
+					"typeStr": "3",
+					"name": "y",
+					"kind": null
+				},
+				{
+					"typeStr": "3",
+					"name": "w",
+					"kind": null
+				},
+				{
+					"typeStr": "3",
+					"name": "h",
+					"kind": null
+				}
+			]
+		},
+		{
+			"name": "characters",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id",
+					"scope": null
+				},
+				{
+					"typeStr": "1",
+					"name": "name",
+					"kind": null,
+					"documentation": "Their formal display name."
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"opt": true,
+					"kind": null
+				},
+				{
+					"typeStr": "13",
+					"name": "image"
+				},
+				{
+					"typeStr": "13",
+					"name": "icon",
+					"opt": true
+				},
+				{
+					"typeStr": "8",
+					"name": "interactives",
+					"opt": true,
+					"documentation": "boxes that define the mouse over area, if not defined then it will take the size of the image as the over box."
+				},
+				{
+					"typeStr": "17",
+					"name": "dialoguepoint",
+					"kind": null
+				}
+			],
+			"lines": [
+				{
+					"id": "player",
+					"image": "characters/sun-base.png",
+					"name": "the Player",
+					"dialoguepoint": {
+						"y": 0,
+						"x": 0
+					}
+				},
+				{
+					"id": "mechanic",
+					"image": "characters/duck.png",
+					"interactives": [
+						{
+							"box": {
+								"x": 70,
+								"y": 7,
+								"w": 120,
+								"h": 150
+							}
+						},
+						{
+							"box": {
+								"x": 8,
+								"y": 100,
+								"w": 85,
+								"h": 48
+							}
+						},
+						{
+							"box": {
+								"x": 80,
+								"y": 150,
+								"w": 130,
+								"h": 170
+							}
+						}
+					],
+					"name": "Jay",
+					"dialoguepoint": {
+						"x": 130,
+						"y": 230
+					}
+				},
+				{
+					"id": "fox",
+					"name": "",
+					"image": "characters/fox.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					},
+					"description": "",
+					"icon": "characters/fox-icon.png"
+				},
+				{
+					"id": "fish",
+					"name": "",
+					"image": "characters/fish.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					},
+					"description": ""
+				},
+				{
+					"id": "lamb",
+					"name": "",
+					"image": "characters/lamb.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					},
+					"description": ""
+				},
+				{
+					"id": "mole",
+					"name": "",
+					"image": "characters/mole.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					},
+					"description": ""
+				},
+				{
+					"id": "weasel",
+					"name": "",
+					"image": "characters/weasel.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					},
+					"description": ""
+				},
+				{
+					"id": "car",
+					"image": "car.png",
+					"name": "car",
+					"dialoguepoint": {
+						"y": 250,
+						"x": 250
+					}
+				},
+				{
+					"id": "boxes",
+					"name": "Some boxes",
+					"image": "items/boxes.png",
+					"description": "some random boxes, none descript.",
+					"interactives": [
+						{
+							"box": {
+								"x": 25,
+								"y": 45,
+								"w": 360,
+								"h": 350
+							}
+						}
+					],
+					"dialoguepoint": {
+						"y": 250,
+						"x": 250
+					}
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "characters@interactives",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "17",
+					"name": "box"
+				}
+			]
+		},
+		{
+			"name": "characters@dialoguepoint",
+			"props": {
+				"hide": true,
+				"isProps": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "3",
+					"name": "x"
+				},
+				{
+					"typeStr": "3",
+					"name": "y",
+					"kind": null
+				}
+			]
+		},
+		{
+			"name": "characters@interactives@box",
+			"props": {
+				"hide": true,
+				"isProps": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "3",
+					"name": "x"
+				},
+				{
+					"typeStr": "3",
+					"name": "y"
+				},
+				{
+					"typeStr": "3",
+					"name": "w"
+				},
+				{
+					"typeStr": "3",
+					"name": "h"
+				}
+			]
+		},
+		{
+			"name": "dialogue",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id",
+					"scope": null
+				},
+				{
+					"typeStr": "6:characters",
+					"name": "speaker"
+				},
+				{
+					"typeStr": "6:characters",
+					"name": "target"
+				},
+				{
+					"typeStr": "1",
+					"name": "display",
+					"opt": true
+				},
+				{
+					"typeStr": "9:Condition",
+					"name": "condition",
+					"opt": true,
+					"documentation": "what is the variable condition that must be met for this dialogue option to be present."
+				},
+				{
+					"typeStr": "8",
+					"name": "set",
+					"opt": true,
+					"documentation": "set this if we want choosing this dialogue to set something in the variables."
+				},
+				{
+					"typeStr": "1",
+					"name": "text"
+				},
+				{
+					"typeStr": "6:dialogue",
+					"name": "chain",
+					"opt": true
+				},
+				{
+					"typeStr": "6:dialogueActions",
+					"name": "action",
+					"opt": true
+				},
+				{
+					"typeStr": "8",
+					"name": "branch",
+					"opt": true,
+					"documentation": "if there could be certain chains, this is where the conditions and branches are laid out, they are checked in order and the first valid one is taken."
+				}
+			],
+			"lines": [
+				{
+					"speaker": "player",
+					"target": "mechanic",
+					"id": "mechanic_car",
+					"chain": "mechanic_car_response",
+					"text": "What is going on with the car over there?",
+					"display": "That Car?",
+					"condition": [
+						2,
+						[
+							0,
+							"mechanic_car"
+						],
+						"mechanic_whatiscar"
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"mechanic_car",
+								true
+							]
+						},
+						{
+							"set": [
+								0,
+								"true_ending",
+								true
+							]
+						}
+					]
+				},
+				{
+					"target": "player",
+					"speaker": "mechanic",
+					"id": "mechanic_car_response",
+					"action": "mechanic_whatiscar",
+					"text": "Oh that *one*?\\nWell `...~ \\nIts got a _ton_ of trouble. I'm not sure what they did to it, but ~WOW~ its in bad shape."
+				},
+				{
+					"id": "mechanic_fixit",
+					"target": "mechanic",
+					"speaker": "player",
+					"text": "Can you fix it?",
+					"chain": "mechanic_fixit_response",
+					"display": "You can Fix it?"
+				},
+				{
+					"id": "mechanic_needanything",
+					"target": "mechanic",
+					"speaker": "player",
+					"text": "What does it need?",
+					"display": "How bad?",
+					"chain": "mechanic_needanything_response"
+				},
+				{
+					"id": "mechanic_who",
+					"target": "mechanic",
+					"speaker": "player",
+					"text": "Who?",
+					"chain": "mechanic_who_response",
+					"display": "Who?",
+					"condition": [
+						1,
+						"mechanic_who"
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"mechanic_who",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mechanic_whoisthat",
+					"target": "mechanic",
+					"speaker": "player",
+					"text": "Who is that?",
+					"chain": "mechanic_whoisthat_response",
+					"display": "Who???",
+					"condition": [
+						0,
+						"mechanic_who"
+					]
+				},
+				{
+					"id": "mechanic_who_response",
+					"target": "player",
+					"speaker": "mechanic",
+					"text": "The Owner.",
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "mechanic_whoisthat_response",
+					"target": "player",
+					"speaker": "mechanic",
+					"text": "/Looks at you suspiciously../\\nI can't be giving that kind of information out to anyone.",
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "mechanic_fixit_response",
+					"target": "player",
+					"speaker": "mechanic",
+					"text": "Of course I can!\\nWho do you think I am?",
+					"action": "mechanic_whoisme"
+				},
+				{
+					"id": "mechanic_whoisme_idk",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "I don't know.",
+					"chain": "mechanic_whoisme_idk_response",
+					"display": "Not sure."
+				},
+				{
+					"id": "mechanic_whoisme_xxx",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "$mechanic$",
+					"chain": "mechanic_whoisme_xxx_response",
+					"display": "$mechanic$",
+					"condition": [
+						0,
+						"*mechanic_name"
+					]
+				},
+				{
+					"id": "mechanic_whoisme_idk_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Oh /chuckles quietly/ ~...~\\nMy name is $mechanic$, nice to meet you.",
+					"action": "mechanic_whatiscar",
+					"set": [
+						{
+							"set": [
+								0,
+								"mechanic_name",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mechanic_whoisme_xxx_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Actually ~...~ yes.\\nHow did you know?",
+					"action": "mechanic_youknowwho"
+				},
+				{
+					"id": "mechanic_iknowwho",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "People in town have said great things about you.",
+					"chain": "mechanic_iknowwho_response",
+					"display": "I've heard things..."
+				},
+				{
+					"id": "mechanic_iknowwho_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Oh really, thats nice.",
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "mechanic_needanything_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Well, there is a lot.",
+					"chain": "mechanic_needanything_response2"
+				},
+				{
+					"id": "mechanic_needanything_response2",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Where do I begin.",
+					"chain": "mechanic_needanything_response3"
+				},
+				{
+					"id": "mechanic_needanything_response3",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "First off, I need to rebuild the transmission; It keeps poping out of gear.",
+					"chain": "mechanic_needanything_response4",
+					"set": [
+						{
+							"set": [
+								0,
+								"mechanic_fix_transmission",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mechanic_needanything_response4",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Second, I need to replace the tire.",
+					"chain": "mechanic_needanything_response5",
+					"set": [
+						{
+							"set": [
+								0,
+								"mechanic_fix_tire",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mechanic_needanything_response5",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "I thought I had a spare tire around here somewhere ...",
+					"chain": "mechanic_needanything_response6"
+				},
+				{
+					"id": "mechanic_needanything_response6",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "I'll need to order one.",
+					"chain": "mechanic_needanything_response7"
+				},
+				{
+					"id": "mechanic_needanything_response7",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "That should be all of it.",
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "mechanic_soundstransmission",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "Sounds like it needs some transmission work.",
+					"display": "Transmission Problems?",
+					"condition": [
+						3,
+						[
+							1,
+							"mechanic_fix_transmission"
+						],
+						[
+							0,
+							"*mechanic_fix_transmission"
+						]
+					],
+					"chain": "mechanic_soundstransmission_response"
+				},
+				{
+					"id": "mechanic_soundstransmission_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Wow. You must have worked on cars before.",
+					"chain": "mechanic_soundstransmission_response2"
+				},
+				{
+					"id": "mechanic_soundstransmission_response2",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "You know, I can use a little help around here. I can pay you if you're interested.",
+					"action": "mechanic_transmissionwork"
+				},
+				{
+					"id": "mechanic_workontransmissionnope",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "No thanks. I've got some other things to take care of.",
+					"display": "No",
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "mechanic_workontransmission",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "Sounds great. I could use a little extra money.",
+					"display": "Yes",
+					"set": [
+						{
+							"set": [
+								1,
+								"money",
+								10
+							]
+						},
+						{
+							"set": [
+								2,
+								2
+							]
+						}
+					],
+					"chain": "mechanic_workontransmission_response"
+				},
+				{
+					"id": "mechanic_workontransmission_response",
+					"speaker": "player",
+					"target": "player",
+					"text": "*Awesome!* Lets get to work.",
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "garage_look",
+					"speaker": "player",
+					"target": "boxes",
+					"text": "/You look around./",
+					"display": "Look Around",
+					"branch": [
+						{
+							"dialogue": "garage_findtire",
+							"condition": [
+								6,
+								"sparetire"
+							]
+						},
+						{
+							"dialogue": "garage_findnothing"
+						}
+					]
+				},
+				{
+					"id": "garage_findtire",
+					"speaker": "player",
+					"target": "boxes",
+					"text": "/You find something in the back behind some boxes./",
+					"set": [
+						{
+							"set": [
+								3,
+								"sparetire"
+							]
+						}
+					],
+					"action": "garage_search_boxes"
+				},
+				{
+					"id": "garage_findnothing",
+					"speaker": "player",
+					"target": "boxes",
+					"text": "/You find nothing./",
+					"action": "garage_search_boxes"
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "dialogue@set",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "9:Variable",
+					"name": "set",
+					"kind": null
+				}
+			]
+		},
+		{
+			"name": "dialogue@branch",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "6:dialogue",
+					"name": "dialogue",
+					"kind": null
+				},
+				{
+					"typeStr": "9:Condition",
+					"name": "condition",
+					"opt": true
+				}
+			]
+		},
+		{
+			"name": "dialogueActions",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id",
+					"scope": null
+				},
+				{
+					"typeStr": "6:characters",
+					"name": "owner"
+				},
+				{
+					"typeStr": "8",
+					"name": "options"
+				}
+			],
+			"lines": [
+				{
+					"id": "mechanic_start",
+					"options": [
+						{
+							"option": "mechanic_car"
+						}
+					],
+					"owner": "mechanic"
+				},
+				{
+					"id": "mechanic_whatiscar",
+					"options": [
+						{
+							"option": "mechanic_fixit"
+						},
+						{
+							"option": "mechanic_needanything"
+						},
+						{
+							"option": "mechanic_who"
+						},
+						{
+							"option": "mechanic_whoisthat"
+						},
+						{
+							"option": "mechanic_soundstransmission"
+						}
+					],
+					"owner": "mechanic"
+				},
+				{
+					"id": "mechanic_whoisme",
+					"options": [
+						{
+							"option": "mechanic_whoisme_idk"
+						},
+						{
+							"option": "mechanic_whoisme_xxx"
+						}
+					],
+					"owner": "mechanic"
+				},
+				{
+					"id": "mechanic_youknowwho",
+					"options": [],
+					"owner": "mechanic"
+				},
+				{
+					"id": "mechanic_transmissionwork",
+					"owner": "mechanic",
+					"options": [
+						{
+							"option": "mechanic_workontransmission"
+						},
+						{
+							"option": "mechanic_workontransmissionnope"
+						}
+					]
+				},
+				{
+					"id": "garage_search_boxes",
+					"owner": "boxes",
+					"options": [
+						{
+							"option": "garage_look"
+						}
+					]
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "scenes",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				},
+				{
+					"typeStr": "6:locations",
+					"name": "location",
+					"kind": null
+				},
+				{
+					"typeStr": "8",
+					"name": "actors"
+				}
+			],
+			"lines": [
+				{
+					"actors": [],
+					"location": "office",
+					"id": "blank"
+				},
+				{
+					"actors": [
+						{
+							"actor": "mechanic",
+							"x": 0.75,
+							"y": 0.5,
+							"scale": 0.75,
+							"action": "mechanic_start",
+							"flipX": false
+						},
+						{
+							"actor": "car",
+							"x": 0.25,
+							"y": 0.5,
+							"scale": 0.6,
+							"flipX": false
+						},
+						{
+							"actor": "boxes",
+							"x": 0.1,
+							"y": 0.63,
+							"scale": 0.25,
+							"action": "garage_search_boxes",
+							"flipX": false
+						},
+						{
+							"actor": "fox",
+							"x": 0.3,
+							"y": 0.6,
+							"scale": 1,
+							"condition": [
+								{
+									"condition": [
+										1,
+										4
+									]
+								}
+							],
+							"flipX": true
+						}
+					],
+					"location": "garage",
+					"id": "garage"
+				},
+				{
+					"location": "beach",
+					"actors": [
+						{
+							"actor": "fish",
+							"x": 0.75,
+							"y": 0.56,
+							"scale": 0.5,
+							"flipX": false
+						}
+					],
+					"id": "beach"
+				},
+				{
+					"location": "office",
+					"actors": [
+						{
+							"actor": "lamb",
+							"x": 0.66,
+							"y": 0.4,
+							"scale": 0.75,
+							"flipX": false
+						}
+					],
+					"id": "office"
+				},
+				{
+					"location": "towncenter",
+					"actors": [
+						{
+							"actor": "weasel",
+							"x": 0.3,
+							"y": 0.5,
+							"scale": 0.75,
+							"flipX": false
+						},
+						{
+							"actor": "fox",
+							"x": 0.7,
+							"y": 0.6,
+							"scale": 1,
+							"condition": [
+								{
+									"condition": [
+										1,
+										5
+									]
+								}
+							],
+							"flipX": false
+						}
+					],
+					"id": "towncenter"
+				},
+				{
+					"location": "cafe",
+					"actors": [
+						{
+							"actor": "fox",
+							"x": 0.79,
+							"y": 0.6,
+							"scale": 1,
+							"condition": [
+								{
+									"condition": [
+										0,
+										3
+									]
+								}
+							],
+							"flipX": false
+						}
+					],
+					"id": "cafe"
+				},
+				{
+					"location": "school",
+					"actors": [],
+					"id": "school"
+				},
+				{
+					"location": "park",
+					"actors": [],
+					"id": "park"
+				},
+				{
+					"location": "market",
+					"actors": [],
+					"id": "market"
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "items",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "name",
+					"kind": null,
+					"scope": null
+				},
+				{
+					"typeStr": "1",
+					"name": "displayname",
+					"kind": null
+				},
+				{
+					"typeStr": "13",
+					"name": "icon",
+					"kind": null
+				}
+			],
+			"lines": [
+				{
+					"name": "sparetire",
+					"icon": "items/sparetire.png",
+					"displayname": "Spare Tire"
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "achievements",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				},
+				{
+					"typeStr": "1",
+					"name": "title",
+					"kind": null
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"kind": null
+				}
+			],
+			"lines": [
+				{
+					"id": "true_ending",
+					"title": "Got the Message",
+					"description": "Fully understand what you're doing here."
+				},
+				{
+					"id": "fox_car_trouble",
+					"title": "the Mechanic",
+					"description": "<description>"
+				},
+				{
+					"id": "fox_living_vicariously",
+					"title": "There and Back Again",
+					"description": "Help someone explore "
+				},
+				{
+					"id": "student_animal_chat",
+					"title": "All about Animals",
+					"description": "Talk to someone about animals."
+				},
+				{
+					"id": "student_deep_sea_explorer",
+					"title": "Deep Sea Explorer",
+					"description": "Help someone go diving."
+				},
+				{
+					"id": "student_new_animal_friends",
+					"title": "Animal Friends",
+					"description": "Help someone find a similar interest."
+				},
+				{
+					"id": "mole_nice_bike_ride",
+					"title": "Fix a Flat",
+					"description": "Help someone fix their bike and go on a ride."
+				},
+				{
+					"id": "mole_short_hike",
+					"title": "a Short Hike",
+					"description": "Help someone get their affairs in order so they can go backpacking."
+				},
+				{
+					"id": "lamb_soccer_star",
+					"title": "Soccer Star",
+					"description": "Help someone get to their soccer game."
+				},
+				{
+					"id": "lamb_soccer_star_sorta",
+					"title": "a Runner Up",
+					"description": "<description>"
+				},
+				{
+					"id": "lamb_a_date",
+					"title": "It's a Date",
+					"description": "Help two friends go further."
+				},
+				{
+					"id": "know_everyone",
+					"title": "Friend to All",
+					"description": "Learn everyone's name."
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "scenes@actors",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "6:characters",
+					"name": "actor"
+				},
+				{
+					"typeStr": "6:dialogueActions",
+					"name": "action",
+					"opt": true
+				},
+				{
+					"typeStr": "8",
+					"name": "condition",
+					"opt": true,
+					"kind": null
+				},
+				{
+					"typeStr": "4",
+					"name": "x"
+				},
+				{
+					"typeStr": "4",
+					"name": "y"
+				},
+				{
+					"typeStr": "4",
+					"name": "scale"
+				},
+				{
+					"typeStr": "2",
+					"name": "flipX"
+				}
+			]
+		},
+		{
+			"name": "scenes@actors@condition",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "9:PeriodCondition",
+					"name": "condition",
+					"kind": null
+				}
+			]
+		},
+		{
+			"name": "dialogueActions@options",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "6:dialogue",
+					"name": "option"
+				}
+			]
+		},
+		{
+			"name": "backgrounds@center",
+			"props": {
+				"hide": true,
+				"isProps": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "3",
+					"name": "x"
+				},
+				{
+					"typeStr": "3",
+					"name": "y"
+				}
+			]
+		}
+	],
+	"customTypes": [
+		{
+			"name": "Condition",
+			"cases": [
+				{
+					"name": "Exists",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						}
+					]
+				},
+				{
+					"name": "NotExists",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						}
+					]
+				},
+				{
+					"name": "Forwarder",
+					"args": [
+						{
+							"name": "condition",
+							"typeStr": "9:Condition"
+						},
+						{
+							"name": "action",
+							"typeStr": "6:dialogueActions"
+						}
+					]
+				},
+				{
+					"name": "And",
+					"args": [
+						{
+							"name": "c1",
+							"typeStr": "9:Condition"
+						},
+						{
+							"name": "c2",
+							"typeStr": "9:Condition"
+						}
+					]
+				},
+				{
+					"name": "Or",
+					"args": [
+						{
+							"name": "c1",
+							"typeStr": "9:Condition"
+						},
+						{
+							"name": "c2",
+							"typeStr": "9:Condition"
+						}
+					]
+				},
+				{
+					"name": "Have",
+					"args": [
+						{
+							"name": "item",
+							"typeStr": "6:items"
+						}
+					]
+				},
+				{
+					"name": "NotHave",
+					"args": [
+						{
+							"name": "item",
+							"typeStr": "6:items"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Variable",
+			"cases": [
+				{
+					"name": "Switch",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						},
+						{
+							"name": "state",
+							"typeStr": "2"
+						}
+					]
+				},
+				{
+					"name": "Add",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						},
+						{
+							"name": "value",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "Sleep",
+					"args": [
+						{
+							"name": "duration",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"args": [
+						{
+							"name": "item",
+							"typeStr": "6:items"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PeriodCondition",
+			"cases": [
+				{
+					"name": "LTE",
+					"args": [
+						{
+							"name": "p",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "E",
+					"args": [
+						{
+							"name": "p",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "GTE",
+					"args": [
+						{
+							"name": "p",
+							"typeStr": "3"
+						}
+					]
+				}
+			]
+		}
+	],
+	"compress": false
+}

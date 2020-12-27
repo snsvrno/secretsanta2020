@@ -1,0 +1,14 @@
+= Issues
+
+== Clock
+
+- [ ] the dialogue has weird width correction, looks bad.
+- [ ] it looks like some text formatting isn't working?
+
+== scene
+
+- [ ] i made a better way to remove the wheel with the sun / clock item. refactor the scene's version of that (the fake interactive) with this way instead.
+
+== Menu / UI
+
+- [ ] mouse over buttons don't expand from the vertical middle as expected.

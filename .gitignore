@@ -10,8 +10,14 @@ redist/*
 
 # raw asset files, working directory for assets.
 *res.raw
+*res.source
+res/.tmp
 
 # saved screenshots, development gifs, etc ...
 # included locally with the project
 *press/*
 sketches/*
+
+# local save files for the game.
+*.sav
+

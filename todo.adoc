@@ -1,0 +1,18 @@
+= TODO
+
+list of things that i want to implement in the game before finishing (moving on).
+
+== Clock
+
+- [ ] change the `onClick` action to be a dialogue circle where you can ask for the time and push the period over if needed (you'll have to do this at the end of each period).
+
+== Map
+
+- [ ] markers on the map that show where each character is (if you've actively witness that character at that location during this period.)
+
+== General
+
+- [ ] need to develop an UI
+- [ ] achievements logging and tracking
+- [ ] need a cycle summary page that tells you what you've accomplished at the end of each cycle. gives some "outro text" on certain questlines that you accomplish.
+- [ ] put the text on an different layer that doesn't scale, so if the game resolution is 1080p, i want to the text to be renderd in 1080p, not in the game native resolution and then scaled up to 1080p
