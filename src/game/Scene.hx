@@ -186,14 +186,23 @@ class Scene extends h2d.Object {
 					Game.variables.setSwitch(name, state);
 				
 				// we are asking to increment a value by some amount
-				case Add(name, value): Game.variables.incrementValue(name, value);
+				case Add(name, value): 
+					Game.variables.incrementValue(name, value);
 
 				// we found an item!
-				case Get(item) : Game.variables.gets(item.name);
+				case Get(item):
+					Game.variables.gets(item.name);
 
 				// we are asked to sleep the game a certain amount of time, this is moving the 
 				// clock forward.
-				case Sleep(duration): throw("unimplemented");
+				case Sleep(duration):
+					
+					Game.toMap();
+					Game.tickClockForward(duration);
+					Game.popup(dialogue.text, 3);
+
+					// stop the processing.
+					return;
 			}
 		}
 

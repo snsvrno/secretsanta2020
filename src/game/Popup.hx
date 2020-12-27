@@ -91,16 +91,18 @@ class Popup extends h2d.Object {
 		x = Const.WORLD_WIDTH/2 - overallWidth/2;
 	}
 
-	private function setAnimation() {
+	private function setAnimation(?duration : Float) {
 		
+		var waitTime = if (duration != null) duration; else Const.POPUP_WAIT_DURATION;
+
 		// sets up the animation stuff.
-		var timer = new sn.Timer(Const.POPUP_FADE_DURATION * 2 + Const.POPUP_WAIT_DURATION);
+		var timer = new sn.Timer(Const.POPUP_FADE_DURATION * 2 + waitTime);
 		timer.updateCallback = function() {
 			// using the same timer to fade in and fade out.
 
 			// fade out.
-			if (timer.timer > Const.POPUP_FADE_DURATION + Const.POPUP_WAIT_DURATION) {
-				alpha = (Const.POPUP_FADE_DURATION * 2 + Const.POPUP_WAIT_DURATION - timer.timer) / Const.POPUP_FADE_DURATION;
+			if (timer.timer > Const.POPUP_FADE_DURATION + waitTime) {
+				alpha = (Const.POPUP_FADE_DURATION * 2 + waitTime - timer.timer) / Const.POPUP_FADE_DURATION;
 			// fade in
 			} else if (timer.timer < Const.POPUP_FADE_DURATION) {
 				alpha = timer.timer / Const.POPUP_FADE_DURATION;
@@ -110,11 +112,11 @@ class Popup extends h2d.Object {
 		timer.finalCallback = () -> remove();
 	}
 
-	static public function text(text : String, parent : h2d.Object) {
+	static public function text(text : String, ?duration : Float, parent : h2d.Object) {
 		var popup = new Popup(parent);
 		popup.setText(text);
 		popup.updateAppearance();
-		popup.setAnimation();
+		popup.setAnimation(duration);
 	} 
 
 	static public function item(name : Data.ItemsKind, found : Bool, parent : h2d.Object) {

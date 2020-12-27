@@ -1072,6 +1072,20 @@
 					"target": "mechanic",
 					"text": "Sounds great. I could use a little extra money.",
 					"display": "Yes",
+					"chain": "mechanic_workontransmission_response"
+				},
+				{
+					"id": "mechanic_workontransmission_response",
+					"speaker": "player",
+					"target": "player",
+					"text": "*Awesome!* Lets get to work.",
+					"chain": "mechanic_workontransmission_yes"
+				},
+				{
+					"id": "mechanic_workontransmission_yes",
+					"speaker": "player",
+					"target": "player",
+					"text": "You work on the car. You spend some time and earn $10.",
 					"set": [
 						{
 							"set": [
@@ -1086,15 +1100,7 @@
 								2
 							]
 						}
-					],
-					"chain": "mechanic_workontransmission_response"
-				},
-				{
-					"id": "mechanic_workontransmission_response",
-					"speaker": "player",
-					"target": "player",
-					"text": "*Awesome!* Lets get to work.",
-					"action": "mechanic_whatiscar"
+					]
 				},
 				{
 					"id": "garage_look",

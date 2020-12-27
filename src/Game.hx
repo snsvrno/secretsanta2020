@@ -17,6 +17,8 @@ class Game extends hxd.App {
 	static public function updateMapLighting() instance.updateAfterTick();
 	static public function currentPeriod() : Int return instance.clock.period;
 	static public function earnedAchievement(achievement : Data.Achievements) game.Popup.achievement(achievement, instance.s2d);
+	static public function popup(text : String, ?duration : Float) game.Popup.text(text, duration, instance.s2d);
+	static public function tickClockForward(periods : Int) instance.tickClock(periods); 
 
 	static public function quit() {
 		variables.save();
