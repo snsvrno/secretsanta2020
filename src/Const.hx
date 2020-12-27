@@ -16,6 +16,10 @@ class Const {
 	 * and in the menus.
 	 */
 	inline static public var GAMETITLE : String = "an Unexpected Sojourn";
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// SAVE INFORMATION
+	inline static public var SAVE_FILE_NAME : String ="progress";
 	
 	////////////////////////////////////////////////////////////////////////////////////////
 	// WORLD CONTAINER SETTINGS
@@ -37,7 +41,7 @@ class Const {
 	 * The amount of screen padding, in pixels to give between the 
 	 * main scene and the container (window, webpage, etc..)
 	 */
-	inline static public var WORLD_SCREEN_PADDING : Int = 10;
+	inline static public var WORLD_SCREEN_PADDING : Int = 30;
 	/** The rounded screen corners. */
 	inline static public var WORLD_CORNER_RADIUS : Int = 20;
 	/** How much past the edge of the screen should we draw the corner radius */
@@ -60,6 +64,25 @@ class Const {
 	static public var MENU_TITLE_FONT : h2d.Font;
 	static public var MENU_FONT : h2d.Font;
 	static public var MENU_FONT_SMALL : h2d.Font;
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// PROGRESS VARIABLES
+
+	inline static public var PROGRESS_SIZE : Float = 0.5;
+	inline static public var PROGRESS_DESCRIPTION_SIZE : Float = 0.30;
+	inline static public var PROGRESS_CYCLES : String = "completedCycles";
+	inline static public var PROGRESS_COLOR_TEXT : Int = 0xFFCCCCCC;
+	inline static public var PROGRESS_COLOR_DESCRIPTION : Int = 0xFF777777;
+	inline static public var PROGRESS_COLOR_VALUE : Int = 0xFF77FF77;
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// ACHIEVEMENTS
+
+	inline static public var ACHIEVEMENTS_DISABLED : Int = 0xFF777777;
+	inline static public var ACHIEVEMENTS_ACHIEVED : Int = 0xFFFF7777;
+	inline static public var ACHIEVEMENTS_SIZE : Float = 0.5;
+	inline static public var ACHIEVEMENTS_DESCRIPTION_SIZE : Float = 0.30;
+	inline static public var ACHIEVEMENTS_POPUP_TEXT : String = "Achievement `0`!";
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// MAP CONTAINER SETTINGS

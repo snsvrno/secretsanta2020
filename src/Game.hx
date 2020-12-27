@@ -16,7 +16,22 @@ class Game extends hxd.App {
 	static public function lostItem(item : Data.ItemsKind) game.Popup.item(item, false, instance.s2d);
 	static public function updateMapLighting() instance.updateAfterTick();
 	static public function currentPeriod() : Int return instance.clock.period;
+	static public function earnedAchievement(achievement : Data.Achievements) game.Popup.achievement(achievement, instance.s2d);
 
+	static public function quit() {
+		variables.save();
+	}
+
+	/**
+	 * Clears the save data and reloads it. Also resets the game back to the original cycle.
+	 */
+	static public function clearData() {
+		game.Variables.deleteLocalData();
+		variables = new game.Variables();
+
+		instance.clock.restart();
+		instance.updateAfterTick();
+	}
 
 	static public function createDialoge(text : String, x : Float, y : Float, ?wrap : Float) {
 		var bubble = game.bubble.Bubble.manual(text, x, y, wrap);

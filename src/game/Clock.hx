@@ -189,6 +189,11 @@ class Clock extends h2d.Object {
 	}
 
 	/**
+	 * Moves the clock back to 1-1
+	 */
+	public function restart() setTime(1,1);
+
+	/**
 	 * Moves the clock to the next period regardless of the slots that are left.
 	 */
 	public function nextPeriod() {

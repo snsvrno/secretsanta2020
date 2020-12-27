@@ -18,6 +18,8 @@ class Interface extends h2d.Object {
 	private var mainMenu : h2d.Object;
 
 	private var gameMenu : h2d.Object;
+	private var gameMenuTitle : game.ui.Text;
+	private var gameMenuContent : game.ui.VStack;
 
 	private var gameui : h2d.Object;
 	private var locationText : game.ui.Button;
@@ -33,9 +35,14 @@ class Interface extends h2d.Object {
 	
 		// the background for the menu.
 		background = new h2d.Graphics(this);
-		background.beginFill(0x000000, Const.MENU_BACKGROUND_OPACITY);
-		background.drawRect(0, 0, Const.WORLD_WIDTH, Const.WORLD_HEIGHT);
-		background.endFill();
+		drawBackgroundLayer();
+
+		// the title, that will be used in submenus and stuff
+		gameMenuTitle = new game.ui.Text("", Const.MENU_TITLE_FONT, gameMenu);
+		gameMenuTitle.setScale(0.75);
+		gameMenuTitle.x = Const.WORLD_WIDTH - 10;
+		gameMenuTitle.y = 10;
+		gameMenuTitle.setAlignment(Right, Top);
 	
 		var versionText = new game.ui.Text("Version: " + sn.Macros.getVersionNumberFromGit(), Const.MENU_FONT_SMALL, background);
 		versionText.x = Const.WORLD_WIDTH - 10;
@@ -67,8 +74,138 @@ class Interface extends h2d.Object {
 		locationText.onClick = () -> Game.toMap();
 	}
 
+	private function createProgressSection(stack : VStack) {
+		gameMenuTitle.setText("Progress");
+
+		var items : Array<{ text : String, value : String, description : String }> = [
+			{
+				text: "Achievements",
+				value: countAchievements(),
+				description: "",
+			},
+			{ 
+				text: "Completed Cycles",
+				value: '${Game.variables.getValue(Const.PROGRESS_CYCLES)}',
+				description: "How many days have passed.",
+			},
+		];
+
+		stack.clear();
+		stack.padding = 5;
+		
+		for (i in items) {
+
+			var hstack = new game.ui.HStack();
+			hstack.setChildrenAlignment(Middle);
+
+			var text = new game.ui.Text(i.text + ": ");
+			text.setScale(Const.PROGRESS_SIZE);
+			text.setColor(Const.PROGRESS_COLOR_TEXT);
+
+			var textValue = new game.ui.Text(i.value);
+			textValue.setScale(Const.PROGRESS_SIZE);
+			textValue.setColor(Const.PROGRESS_COLOR_VALUE);
+
+			var textDescription = new game.ui.Text(i.description);
+			textDescription.setScale(Const.PROGRESS_DESCRIPTION_SIZE);
+			textDescription.setColor(Const.PROGRESS_COLOR_DESCRIPTION);
+
+			hstack.push(text);
+			hstack.push(textValue);
+			stack.push(hstack);
+			stack.push(textDescription);
+
+		}
+
+		stack.setChildrenAlignment(Right);
+	}
+
+	private function createAchievementsSection(stack : VStack) {
+		gameMenuTitle.setText("Achievements");
+		
+		stack.clear();
+		stack.padding = 0;
+
+		// sorts the achievements alphabetically.
+		var achievements = Data.achievements.all.toArrayCopy();
+		achievements.sort((a,b) -> if (a.title > b.title) return 1 else return -1);
+
+		for (a in achievements) {
+
+			var achievementColor = if (Game.variables.checkLifetime(a.id.toString())) {
+				Const.ACHIEVEMENTS_ACHIEVED;
+			} else {
+				Const.ACHIEVEMENTS_DISABLED;
+			}
+
+			var text = new game.ui.Text(a.title);
+			text.setColor(achievementColor);
+			text.setScale(Const.ACHIEVEMENTS_SIZE);
+			stack.push(text);
+
+			var description = new game.ui.Text(a.description);
+			description.setColor(Const.ACHIEVEMENTS_DISABLED);
+			description.setScale(Const.ACHIEVEMENTS_DESCRIPTION_SIZE);
+			stack.push(description);
+
+			var spacer = new game.ui.Text("");
+			spacer.setScale(0.15);
+			stack.push(spacer);
+		}
+		
+		stack.setChildrenAlignment(Right);
+	}
+
 	private function createGameMenu() {
 		gameMenu = new h2d.Object();
+
+		gameMenuContent = new VStack(gameMenu);
+		gameMenuContent.x = Const.WORLD_WIDTH - 10;
+		gameMenuContent.y = Const.WORLD_HEIGHT / 2;
+		gameMenuContent.setAlignment(Right, Middle);
+
+		var description = new game.ui.Text("", Const.MENU_FONT_SMALL, gameMenu);
+		description.x = 10;
+		description.y = Const.WORLD_HEIGHT - 10;
+		description.setWrapWidth(Math.floor(Const.WORLD_WIDTH / 2));
+		description.setAlignment(Left,Bottom);
+
+		var buttonStack = new game.ui.VStack(gameMenu);
+
+		var con = new game.ui.Button("Continue");
+		con.setContainerHook(buttonStack);
+		con.description = "";
+		con.descriptionObject = description;
+		con.onClick = () -> setState(GameState);
+
+		var prog = new game.ui.Button("Progress");
+		prog.setContainerHook(buttonStack);
+		prog.description = "Check on exploration progress.";
+		prog.descriptionObject = description;
+		prog.onClick = () -> createProgressSection(gameMenuContent);
+
+		var achi = new game.ui.Button("Achievements");
+		achi.setContainerHook(buttonStack);
+		achi.description = "Check on story and quest achievements.";
+		achi.descriptionObject = description;
+		achi.onClick = () -> createAchievementsSection(gameMenuContent);
+
+		var mainmenu = new game.ui.Button("Main Menu");
+		mainmenu.setContainerHook(buttonStack);
+		mainmenu.description = "To the game main menu.";
+		mainmenu.descriptionObject = description;
+		mainmenu.onClick = () -> setState(MainMenuState);
+
+		buttonStack.x = 10;
+		buttonStack.y = Const.WORLD_HEIGHT / 2;
+		buttonStack.setAlignment(Left, Middle);
+		buttonStack.setChildrenAlignment(Left, Bottom);
+
+		buttonStack.push(con);
+		buttonStack.push(prog);
+		buttonStack.push(achi);
+		buttonStack.push(mainmenu);
+
 	}
 
 	private function createMainMenu() {
@@ -115,7 +252,8 @@ class Interface extends h2d.Object {
 
 		var buttonStack = new game.ui.VStack(mainMenu);
 
-		var start = new game.ui.Button("Start");
+		var startText = if (Game.variables.loaded) "Continue"; else "Start";
+		var start = new game.ui.Button(startText);
 		start.setContainerHook(buttonStack);
 		start.description = "Start or Continue a game.";
 		start.descriptionObject = description;
@@ -125,6 +263,23 @@ class Interface extends h2d.Object {
 		clear.setContainerHook(buttonStack);
 		clear.description = "Reset all status, start from nothing.";
 		clear.descriptionObject = description;
+		clear.onClick = Game.clearData;
+
+		var gamemenu = new game.ui.Button("Game Menu");
+		gamemenu.setContainerHook(buttonStack);
+		gamemenu.description = "Menu";
+		gamemenu.descriptionObject = description;
+		gamemenu.onClick = () -> setState(MenuState);
+
+		#if !js
+		// we aren't going to add quit on web, not sure what it would
+		// do there anyway.
+		var quit = new game.ui.Button("Quit");
+		quit.setContainerHook(buttonStack);
+		quit.description = "Quits the game, progress will be saved.";
+		quit.descriptionObject = description;
+		quit.onClick = Game.quit;
+		#end
 
 		buttonStack.x = 10;
 		buttonStack.y = Const.WORLD_HEIGHT / 2;
@@ -132,6 +287,11 @@ class Interface extends h2d.Object {
 		buttonStack.setChildrenAlignment(Left, Bottom);
 		buttonStack.push(start);
 		buttonStack.push(clear);
+		buttonStack.push(gamemenu);
+
+		#if !js
+		buttonStack.push(quit);
+		#end
 	}
 
 	public function setState(newState) {
@@ -156,6 +316,7 @@ class Interface extends h2d.Object {
 
 			case MainMenuState: 
 				if (background.parent != this) addChild(background);
+				drawBackgroundLayer();
 				if (mainMenu.parent != this) addChild(mainMenu);
 
 			case GameState: 
@@ -163,10 +324,20 @@ class Interface extends h2d.Object {
 
 			case MenuState:
 				if (background.parent != this) addChild(background);
+				drawBackgroundLayer();
 				if (gameMenu.parent != this) addChild(gameMenu);
+				gameMenuContent.clear();
+				gameMenuTitle.setText("Game Menu");
 		}
 
 		state = newState;
+	}
+
+	private function drawBackgroundLayer() {
+		background.clear();
+		background.beginFill(0x000000, Const.MENU_BACKGROUND_OPACITY);
+		background.drawRect(0, 0, Const.WORLD_WIDTH, Const.WORLD_HEIGHT);
+		background.endFill();
 	}
 
 	public function onScene(locationName : String) {
@@ -185,5 +356,14 @@ class Interface extends h2d.Object {
 				cast(c, game.ui.Button).normalColor = Const.MENU_BUTTON_COLOR_GAMEMENU_ONLIGHT;
 
 		locationText.remove();
+	}
+
+	private function countAchievements() : String {
+		var total = Data.achievements.all.length;
+
+		var earned = 0;
+		for (a in Data.achievements.all) if (Game.variables.checkLifetime(a.id.toString())) earned++;
+
+		return '$earned of $total';
 	}
 }

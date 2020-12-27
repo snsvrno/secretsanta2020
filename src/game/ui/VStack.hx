@@ -6,7 +6,7 @@ class VStack extends game.ui.Element {
 	private var horizontal : game.ui.alignment.Horizontal = Left;
 	private var vertical : game.ui.alignment.Vertical = Top;
 
-	private var padding : Int = 0;
+	public var padding : Int = 10;
 
 	private var stack : h2d.Object;
 	private var elements : Array<game.ui.Element> = [];
@@ -62,6 +62,11 @@ class VStack extends game.ui.Element {
 		childrenAlignment = horizontal;
 		if (vertical != null) for (a in elements) a.setAlignment(null, vertical);
 		alignChildren();
+	}
+
+	public function clear() {
+		while (elements.length > 0)
+			stack.removeChild(elements.pop());
 	}
 
 	public function alignChildren() {

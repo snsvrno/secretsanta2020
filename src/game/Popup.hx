@@ -20,6 +20,10 @@ class Popup extends h2d.Object {
 
 		// loads the new image.
 		var tile = hxd.Res.load(path).toTile();
+		setImageRaw(tile);
+	}
+
+	private function setImageRaw(tile : h2d.Tile) {
 		image = new h2d.Bitmap(tile, this);
 		image.setScale(Math.min(Const.POPUP_MIN_IMAGE_SIZE / tile.width, Const.POPUP_MIN_IMAGE_SIZE / tile.height));
 		image.x = Const.POPUP_PADDING;
@@ -124,6 +128,19 @@ class Popup extends h2d.Object {
 		else Const.POPUP_TEXT_ITEM_LOST;
 		popup.setText(parseableText, [itemData.displayname], Const.POPUP_MAX_WIDTH);
 
+		popup.updateAppearance();
+
+		popup.setAnimation();
+	}
+
+	static public function achievement(achievement : Data.Achievements, parent : h2d.Object) {
+		var popup = new Popup(parent);
+		
+		popup.setImageRaw(hxd.Res.clock.sun_11.toTile());
+
+		// creates the text.
+		popup.setText(Const.ACHIEVEMENTS_POPUP_TEXT, [achievement.title], Const.POPUP_MAX_WIDTH);
+		
 		popup.updateAppearance();
 
 		popup.setAnimation();

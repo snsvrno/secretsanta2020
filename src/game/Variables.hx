@@ -14,6 +14,16 @@ class Variables {
 	////////////////////////////////////////////////////////////////////////////////////////
 	// STATIC
 
+	static public function deleteLocalData() {
+		#if js
+
+		#else
+		// delete the save file that we create
+		if (sys.FileSystem.exists(Const.SAVE_FILE_NAME + ".sav"))
+			sys.FileSystem.deleteFile(Const.SAVE_FILE_NAME + ".sav");
+		#end
+	}
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// Private Members
 
@@ -55,6 +65,10 @@ class Variables {
 	 * encounter characters.
 	 */
 	private var whereAreThey : Map<Int, Array<Where>> = new Map();
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// Public Members
+	public var loaded(default, null) : Bool = false;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// initalization function
@@ -104,7 +118,7 @@ class Variables {
 			case bool: return bool;
 		}
 	}
-	private function checkLifetime(name : String) : Bool return lifetimeSwitches.contains(name);
+	public function checkLifetime(name : String) : Bool return lifetimeSwitches.contains(name);
 
 	public function value(name : String) : Int {
 		switch(values.get(name)) {
@@ -221,15 +235,17 @@ class Variables {
 		#if js
 
 		#else
-		var ll = hxd.Save.load(null);
+		var ll = hxd.Save.load(null, Const.SAVE_FILE_NAME, true);
 		if (ll != null) {
+			loaded = true;
+
 			if (ll.lifetime != null) lifetimeSwitches = ll.lifetime;
 			if (ll.where != null) whereAreThey = ll.where;
 		}
 		#end
 	}
 
-	private function save() {
+	public function save() {
 		#if js
 
 
@@ -237,7 +253,7 @@ class Variables {
 		hxd.Save.save({
 			lifetime : lifetimeSwitches,
 			where : whereAreThey,
-		});
+		}, Const.SAVE_FILE_NAME, true);
 		#end
 	}
 
