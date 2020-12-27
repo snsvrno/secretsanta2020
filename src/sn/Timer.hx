@@ -61,6 +61,8 @@ class Timer {
 	 */
 	private var status : TimerState = Play;
 
+	private var reversed : Bool = false;
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// PUBLIC INSTANCE MEMBERS
 
@@ -101,16 +103,30 @@ class Timer {
 	 private function instanceUpdate(dt : Float) : TimerState {
 		if (status != Play) return status;
 
-		timer += dt;
+		if (reversed == false) {
+			timer += dt;
 
-		if (timeLimit <= timer) {
-			timer = timeLimit;
-			if (finalCallback != null) finalCallback();
-			
-			if (infinite) reset();
-			else status = End;
+			if (timeLimit <= timer) {
+				timer = timeLimit;
+				if (finalCallback != null) finalCallback();
+				
+				if (infinite) reset();
+				else status = End;
+			} else {
+				if (updateCallback != null) updateCallback();
+			}
+
 		} else {
-			if (updateCallback != null) updateCallback();
+			timer -= dt;
+
+			if (0 >= timer) {
+				timer = 0;
+				if (infinite) reset();
+				else status = End;
+			} else {
+				if (updateCallback != null) updateCallback();
+			}
+
 		}
 
 		return status;
@@ -158,7 +174,13 @@ class Timer {
 	 */
 	public function reset() {
 		status = Play;
+		reversed = false;
 		timer = 0;
+	}
+
+	public function reverse() {
+		if (status == End) status = Play;
+		reversed = true;
 	}
 
 }

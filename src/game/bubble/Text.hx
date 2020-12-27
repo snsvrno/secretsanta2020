@@ -179,13 +179,10 @@ class Text extends h2d.Object {
 			var segments = splitSegments(section);
 			// adds the segments to the text object.
 		
-			// loads the font.
-			var font = hxd.res.DefaultFont.get();
-
 			// splits the text into different segments and evaluating the styling
 			// and the variables
 			for (s in segments) {
-				var tseg = new h2d.Text(font, text);
+				var tseg = new h2d.Text(Const.TEXT_FONT_NORMAL, text);
 
 				switch(s) {
 					case StringVariable(t):
@@ -208,9 +205,12 @@ class Text extends h2d.Object {
 
 					case Bold(t):
 
+						// change the font to the bold font
+						tseg.font = Const.TEXT_FONT_BOLD;
 						tseg.color = colorBold;
 						tseg.text = t;
 						text.textObjects.push(tseg);
+						text.y += Const.TEXT_FONT_BOLD_Y_OFFSET;
 
 					case Action(t):
 

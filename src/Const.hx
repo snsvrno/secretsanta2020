@@ -15,7 +15,7 @@ class Const {
 	 * The game title that is displayed throughout the game, in the window
 	 * and in the menus.
 	 */
-	inline static public var GAMETITLE : String = "SS2020";
+	inline static public var GAMETITLE : String = "an Unexpected Sojourn";
 	
 	////////////////////////////////////////////////////////////////////////////////////////
 	// WORLD CONTAINER SETTINGS
@@ -44,6 +44,24 @@ class Const {
 	inline static public var WORLD_CORNER_RADIUS_OVERSHOOT : Int = 10;
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// MENU SETTINGS
+
+	inline static public var MENU_BACKGROUND_OPACITY : Float = 0.85;
+
+	inline static public var MENU_TITLE_SIZE : Float = 1.0;
+	inline static public var MENU_BUTTON_SIZE_NORMAL : Float = 1.0;
+	inline static public var MENU_BUTTON_SIZE_OVER : Float = 1.5;
+	inline static public var MENU_BUTTON_COLOR : Int = 0xAAAAAA;
+	inline static public var MENU_BUTTON_COLOR_GAMEMENU_ONLIGHT : Int = 0x000000;
+	inline static public var MENU_BUTTON_COLOR_GAMEMENU_ONDARK : Int = 0xAAAAAA;
+	inline static public var MENU_BUTTON_OVER_COLOR : Int = 0xFFFFFF;
+	inline static public var MENU_BUTTON_OVEROUT_TIMER : Float = 0.1;
+
+	static public var MENU_TITLE_FONT : h2d.Font;
+	static public var MENU_FONT : h2d.Font;
+	static public var MENU_FONT_SMALL : h2d.Font;
+
+	////////////////////////////////////////////////////////////////////////////////////////
 	// MAP CONTAINER SETTINGS
 
 	/** The map opacity when inside of a scene. */
@@ -70,6 +88,13 @@ class Const {
 	// GENERAL TEXT SETTINGS
 	inline static public var TEXT_ITALICS_SLANT : Float = 0.1;
 
+	static public var TEXT_FONT_NORMAL : h2d.Font;
+	static public var TEXT_FONT_BOLD : h2d.Font;
+	inline static public var TEXT_FONT_BOLD_Y_OFFSET : Int = 3; 
+
+	static public var TEXT_FONT_CHOICE_NORMAL : h2d.Font;
+	static public var TEXT_FONT_CHOICE_BOLD : h2d.Font;
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// TEXT & SPEECH BUBBLES
 	// these options deal with the actual dialogue bubbles.
@@ -88,7 +113,7 @@ class Const {
 	/** italics text color */
 	inline static public var BUBBLE_TEXT_COLOR_ITALICS : Int = 0xFF00FFFF;
 	/** bold text color */
-	inline static public var BUBBLE_TEXT_COLOR_BOLD : Int = 0xFF7a14e0;
+	inline static public var BUBBLE_TEXT_COLOR_BOLD : Int = 0xFFfcc035;
 	/** normal text color */
 	inline static public var BUBBLE_TEXT_COLOR_REGULAR : Int = 0xFFDDDDDD;
 	/** action text color */
@@ -183,5 +208,15 @@ class Const {
 	inline static public var CLOCK_IDLE_STRENGTH : Float = 2.;
 
 	static public function initalize() {
+
+		// loads the fonts.
+		MENU_TITLE_FONT = hxd.Res.fonts.sket64.toFont();
+		MENU_FONT = hxd.Res.fonts.gra24.toFont();
+		MENU_FONT_SMALL = hxd.Res.fonts.gra16.toFont();
+		
+		TEXT_FONT_NORMAL = hxd.Res.fonts.wolf24.toFont();
+		TEXT_FONT_BOLD = hxd.Res.fonts.edi24.toFont();
+		TEXT_FONT_CHOICE_NORMAL = hxd.Res.fonts.wolf16.toFont();
+		TEXT_FONT_CHOICE_BOLD = hxd.Res.fonts.edi16.toFont();
 	}
 }

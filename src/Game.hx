@@ -1,5 +1,3 @@
-import game.bubble.Bubble;
-import game.Clock;
 
 class Game extends hxd.App {
 
@@ -43,9 +41,12 @@ class Game extends hxd.App {
 	 */
 	private var activeScene : game.Scene;
 
+	/**
+	 * The map
+	 */
 	private var map : game.map.Map;
 
-	private var ui : game.Interface;
+	private var ui : game.ui.Interface;
 
 	private var clock : game.Clock;
 
@@ -96,7 +97,7 @@ class Game extends hxd.App {
 		activeScene.load(blank); // bug that this will not compile unless there is a load, not sure why...
 
 		// add the interface UI
-		ui = new game.Interface(s2d);
+		ui = new game.ui.Interface(s2d);
 
 		// creates the corner border thing.
 		game.utils.Corners.make(s2d);
@@ -157,8 +158,8 @@ class Game extends hxd.App {
 		// disables the background
 		map.disable();
 
-		ui.setLocationName(activeScene.sceneName);
-		ui.onScene();
+		//ui.setLocationName(activeScene.sceneName);
+		ui.onScene(activeScene.sceneName);
 	}
 
 	private function changeToMap(?inital : Bool = false) {

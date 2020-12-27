@@ -13,10 +13,8 @@ class Text extends h2d.Object {
 	public function new(?dialogue : Data.Dialogue, ?parent : h2d.Object) {
 		super(parent);
 
-		var font = hxd.res.DefaultFont.get();
-
 		background = new h2d.Graphics(this);
-		text = new h2d.Text(font, this);
+		text = new h2d.Text(Const.TEXT_FONT_CHOICE_NORMAL, this);
 		text.maxWidth = Const.CHOICE_MAX_WIDTH;
 		text.color = normalColor;
 

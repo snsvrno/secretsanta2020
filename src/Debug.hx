@@ -8,9 +8,9 @@ class Debug {
 	// INITALIZATION OF ITEMS AND NOT DURING THE UPDATE LOOP.
 
 	/** shows a boundary around bubble.text individual text objects. */
-	inline static public var TEXT_SHOW_BOUNDARIES : Bool = true;
+	inline static public var TEXT_SHOW_BOUNDARIES : Bool = false;
 	/** shows a boundary around bubble.text objects. */
-	inline static public var TEXTBOX_SHOW_BOUNDARIES : Bool = true;
+	inline static public var TEXTBOX_SHOW_BOUNDARIES : Bool = false;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 
