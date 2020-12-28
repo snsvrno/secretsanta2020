@@ -149,10 +149,12 @@ class Const {
 	// these options are only for choices (part of the choice circle
 	// wheel).
 
-	/** The radius of the choice circle. */
+	/** The minimum radius of the choice circle. */
 	inline static public var CHOICE_RADIUS : Int = 40;
 	/** The radius of the choice circle onOut interactive object. */
 	inline static public var CHOICE_RADIUS_OUT : Int = 60;
+	/** Padding between choice items. */	
+	inline static public var CHOICE_PADDING : Int = 10;
 
 	/** The wordwrap width for speech bubbles. */
 	inline static public var CHOICE_MAX_WIDTH : Float = 100.;

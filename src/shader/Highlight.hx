@@ -21,7 +21,7 @@ class Highlight extends hxsl.Shader {
 	public function new(intensity : Float, ?color : Int = 0xFFFFFF) {
 		super();
 
-		this.intensity = sn.Math.clampf(intensity, 0.0, 1.0);
+		this.intensity = sn.Maths.clampf(intensity, 0.0, 1.0);
 		this.color.setColor(color); 
 	}
 }

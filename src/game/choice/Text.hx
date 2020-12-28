@@ -6,6 +6,12 @@ class Text extends h2d.Object {
 	static private final normalColor : h3d.Vector = h3d.Vector.fromColor(Const.CHOICE_TEXT_COLOR_REGULAR);
 	static private final alreadyColor : h3d.Vector = h3d.Vector.fromColor(Const.CHOICE_TEXT_COLOR_USED);
 
+	public var height(get, null) : Float;
+	private function get_height() : Float return text.textHeight * scaleY;
+
+	public var width(get, null) : Float;
+	private function get_width() : Float return text.textWidth * scaleX;
+
 	private var text : h2d.Text; 
 	private var interactive : h2d.Interactive;
 	private var background : h2d.Graphics;

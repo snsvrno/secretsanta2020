@@ -3,17 +3,22 @@ package game.choice;
 class Wheel extends h2d.Object {
 
 	private var choices : Array<Text> = [];
+	private var background : h2d.Graphics;
+	private var radius : Int = Const.CHOICE_RADIUS;
 
 	public var onSelect : Null<(choice : Data.DialogueKind) -> Void>;
 
 	public function new(?action : Data.DialogueActions, x : Float, y : Float, parent : h2d.Object) {
 		super(parent);
 
-		// draws the wheel.
-		makeBaseWheel();
+		background = new h2d.Graphics(this);
 
 		// creates the actions if defined.
 		if (action != null) makeChoices(action);
+
+		// draws the wheel & arranges the choices around the wheel.
+		arrangeChoices();
+		makeBaseWheel();
 
 		this.x = x;
 		this.y = y;
@@ -79,10 +84,10 @@ class Wheel extends h2d.Object {
 	 * Creates the base graphic for the wheel.
 	 */
 	private function makeBaseWheel() {
-		var background = new h2d.Graphics(this);
+		background.clear();
 		background.lineStyle(2, 0x000000, 0.75);
 		background.beginFill(0x000000, 0.75);
-		background.drawCircle(0, 0, Const.CHOICE_RADIUS);
+		background.drawCircle(0, 0, radius);
 		background.endFill();
 	}
 
@@ -90,7 +95,6 @@ class Wheel extends h2d.Object {
 	 * Arranges the set choices in the wheel.
 	 */
 	private function arrangeChoices() {
-
 		// if we only have one choice we will put him in the center.
 		if (choices.length == 1) {
 
@@ -98,14 +102,23 @@ class Wheel extends h2d.Object {
 			choices[0].setY(0);
 
 		// if we have more then we arrange it around the circle.
-		} else for (i in 0 ... choices.length) {
+		} else {
 			
-			var pos = choicePosition(Math.PI * 2 / choices.length * i, Const.CHOICE_RADIUS);
+			for (c in choices) {
+				var r = Math.max(c.width, c.height) / 2 + Const.CHOICE_PADDING;
+				if (r > radius) radius = Math.ceil(r);
+			}
 
-			choices[i].setX(pos.x);
-			choices[i].setY(pos.y);
+			for (i in 0 ... choices.length) {
+				var pos = choicePosition(Math.PI * 2 / choices.length * i, radius);
+
+				choices[i].setX(pos.x);
+				choices[i].setY(pos.y);
+			}
+
 
 		}
+
 	}
 
 	private function makeChoices(action : Data.DialogueActions) {
@@ -130,8 +143,6 @@ class Wheel extends h2d.Object {
 
 			choices.push(text);
 		}
-
-		arrangeChoices();
 	}
 
 	private function getValidChoices(options : cdb.Types.ArrayRead<Data.DialogueActions_options>) : Array<Data.Dialogue> {

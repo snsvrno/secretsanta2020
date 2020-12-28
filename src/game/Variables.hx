@@ -155,8 +155,8 @@ class Variables {
 	public function incrementValue(name : String, value : Int) {
 		var currentValue = values.get(name);
 		switch(currentValue) {
-			case null: values.set(name, sn.Math.clamp(value, 0, null));
-			case n: values.set(name, sn.Math.clamp(n + value, 0, null));
+			case null: values.set(name, sn.Maths.clamp(value, 0, null));
+			case n: values.set(name, sn.Maths.clamp(n + value, 0, null));
 		}
 		save();
 	}
@@ -196,7 +196,7 @@ class Variables {
 		} 
 		return false;
 	}
-	
+
 	public function has(item : Data.ItemsKind) : Bool return items.contains(item);
 
 

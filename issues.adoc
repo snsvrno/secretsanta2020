@@ -1,11 +1,12 @@
 = Issues
 
-== Clock
+== General
 
 - [ ] the dialogue has weird width correction, looks bad.
 - [ ] it looks like some text formatting isn't working?
+- [ ] dialogue choice wheel should change diameter based on choice options.
 
-== scene
+== Scene
 
 - [ ] i made a better way to remove the wheel with the sun / clock item. refactor the scene's version of that (the fake interactive) with this way instead.
 
