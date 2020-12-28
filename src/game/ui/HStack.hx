@@ -1,5 +1,7 @@
 package game.ui;
 
+import h2d.Object;
+
 class HStack extends game.ui.Element {
 
 	private var childrenAlignment : game.ui.alignment.Vertical = Top;
@@ -16,14 +18,25 @@ class HStack extends game.ui.Element {
 		stack = new h2d.Object(this);
 	}
 
-	public function push(object : game.ui.Element) {
-		elements.push(object);
-		stack.addChild(object);
+	public function push(object : game.ui.Element, ?index : Int) {
+		if (index != null) {
+			stack.addChildAt(object, index);
+			elements.insert(index, object);
+		} else { 
+			stack.addChild(object);
+			elements.push(object);
+		}
 		setAlignment();
 	}
 
 	public function pushAll(objects : Array<game.ui.Element>) {
 		for (o in objects) push(o);
+	}
+	
+	public function removeObject(object : game.ui.Element) {
+		elements.remove(object);
+		stack.removeChild(object);
+		setAlignment();
 	}
 
 	override public function setAlignment(?horizontal : game.ui.alignment.Horizontal, ?vertical : game.ui.alignment.Vertical) {

@@ -1865,6 +1865,11 @@
 					"kind": null
 				},
 				{
+					"typeStr": "1",
+					"name": "description",
+					"kind": null
+				},
+				{
 					"typeStr": "13",
 					"name": "icon",
 					"kind": null
@@ -1874,7 +1879,8 @@
 				{
 					"name": "sparetire",
 					"icon": "items/sparetire.png",
-					"displayname": "Spare Tire"
+					"displayname": "Spare Tire",
+					"description": "A spare tire, looks to be for a car or truck."
 				}
 			],
 			"separators": [],

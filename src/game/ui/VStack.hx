@@ -22,6 +22,16 @@ class VStack extends game.ui.Element {
 		setAlignment();
 	}
 
+	public function pushAll(objects : Array<game.ui.Element>) {
+		for (o in objects) push(o);
+	}
+	
+	public function removeObject(object : game.ui.Element) {
+		elements.remove(object);
+		stack.removeChild(object);
+		setAlignment();
+	}
+
 	override public function setAlignment(?horizontal : game.ui.alignment.Horizontal, ?vertical : game.ui.alignment.Vertical) {
 
 		if (horizontal != null) this.horizontal = horizontal;

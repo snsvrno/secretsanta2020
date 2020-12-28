@@ -1,5 +1,7 @@
 package game.ui;
 
+import h3d.scene.Graphics;
+
 class Text extends game.ui.Element {
 
 	var textObject : h2d.Text;
@@ -10,17 +12,44 @@ class Text extends game.ui.Element {
 	override public function getHeight() : Float return textObject.textHeight * scaleY;
 	override public function getWidth() : Float return textObject.textWidth * scaleX;
 
+	#if debug
+	var background : h2d.Graphics;
+	#end
+
 	public function new(text : String, ?font : h2d.Font, ?parent : h2d.Object) {
 		super(parent);
 
 		var loadedfont = if (font != null) font; else Const.MENU_FONT;
 		textObject = new h2d.Text(loadedfont, this);
+		#if debug
+		background = new h2d.Graphics(textObject);
+		#end
 		setText(text);
+		
+		#if debug
+		
+		if (Debug.UI_BOXES_TEXT) {
+			var background2 = new h2d.Graphics(this);
+			background2.lineStyle(1, 0xff0000);
+			background2.beginFill(0xFF0000,1);
+			background2.drawCircle(0, 0, 6);
+			background2.endFill();
+		}
+		#end
 	}
 
 	public function setText(text : String) {
 		textObject.text = text;
 		setAlignment();
+		
+		#if debug
+		if (Debug.UI_BOXES_TEXT) {
+			background.clear();
+			background.beginFill(0xFF0000,0.5);
+			background.drawRect(0, 0, textObject.textWidth, textObject.textHeight);
+			background.endFill();
+		}
+		#end
 	}
 
 	public function setColor(color : Int) {

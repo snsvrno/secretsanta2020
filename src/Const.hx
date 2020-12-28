@@ -114,6 +114,13 @@ class Const {
 	inline static public var LOCATION_UNACCESSABLE_ALPHA : Float = 0.75;
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// ICON UI OBJECT
+
+	inline static public var ICON_MAX_SIZE : Int = 50;
+	inline static public var ICON_TITLE_SIZE : Float = 0.5;
+	inline static public var ICON_DESCRIPTION_SIZE : Float = 0.25;
+
+	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
 	inline static public var TEXT_ITALICS_SLANT : Float = 0.1;
 

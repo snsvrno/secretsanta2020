@@ -12,14 +12,22 @@ class Game extends hxd.App {
 	
 	static public function changeScene(newScene : Data.ScenesKind) instance.changeToScene(newScene);
 	static public function toMap() instance.changeToMap();
-	static public function foundItem(item : Data.ItemsKind) game.Popup.item(item, true, instance.s2d);
-	static public function lostItem(item : Data.ItemsKind) game.Popup.item(item, false, instance.s2d);
 	static public function updateMapLighting() instance.updateAfterTick();
 	static public function currentPeriod() : Int return instance.clock.period;
 	static public function earnedAchievement(achievement : Data.Achievements) game.Popup.achievement(achievement, instance.s2d);
 	static public function popup(text : String, ?duration : Float) game.Popup.text(text, duration, instance.s2d);
 	static public function tickClockForward(periods : Int) instance.tickClock(periods); 
 	
+	static public function foundItem(item : Data.ItemsKind) { 
+		game.Popup.item(item, true, instance.s2d);
+		instance.ui.addToInventory(item);
+	}
+
+	static public function lostItem(item : Data.ItemsKind) { 
+		game.Popup.item(item, false, instance.s2d);
+		instance.ui.removeFromInventory(item);
+	}
+
 	static public function restartCycle() {
 		while(instance.visits.length > 0) instance.visits.pop();
 
@@ -62,6 +70,10 @@ class Game extends hxd.App {
 
 	static public function debugGameOverScreen() {
 		instance.ui.setState(End);
+	}
+
+	static public function debugAddToScene(item : h2d.Object) {
+		instance.s2d.addChild(item);
 	}
 
 	#end
