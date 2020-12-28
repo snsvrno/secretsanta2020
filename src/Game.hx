@@ -19,6 +19,20 @@ class Game extends hxd.App {
 	static public function earnedAchievement(achievement : Data.Achievements) game.Popup.achievement(achievement, instance.s2d);
 	static public function popup(text : String, ?duration : Float) game.Popup.text(text, duration, instance.s2d);
 	static public function tickClockForward(periods : Int) instance.tickClock(periods); 
+	
+	static public function restartCycle() {
+		while(instance.visits.length > 0) instance.visits.pop();
+
+		variables.cycleReset();
+
+		// updates the time.
+		instance.clock.restart();
+		instance.updateAfterTick();
+
+		// sets up the beginning.
+		instance.changeToScene(towncenter);
+		popup("You wake up on a bus, it is bright outside ~...~", 4);
+	}
 
 	static public function quit() {
 		variables.save();
@@ -45,6 +59,11 @@ class Game extends hxd.App {
 		instance.tickClock(distance);
 		game.Popup.text('tick clock: ${instance.clock.period}-${instance.clock.slot}', instance.s2d);
 	}
+
+	static public function debugGameOverScreen() {
+		instance.ui.setState(End);
+	}
+
 	#end
 
 	//////////////////////////////////////////////////////////////////////////
@@ -68,6 +87,12 @@ class Game extends hxd.App {
 	private var clock : game.Clock;
 
 	private var visits : Array<String> = [];
+
+	/**
+	 * tracker for the first time you leave a location, so it doesn't count the
+	 * towncenter as a travel the first time.
+	 */
+	private var firstVisit : Bool = true;
 
 	override function init() {
 
@@ -123,14 +148,15 @@ class Game extends hxd.App {
 		// setup the position of the scene so its centered
 		onResize();
 
-		// gets us ready to go to map.
-		changeToMap(true);
+		// we start at the bus.
 		updateAfterTick();
 
 		// adds debug stuff if we are in debug build.
 		#if debug
 		Debug.mouseCoordinatesOverlay(s2d);
 		#end
+
+		restartCycle();
 	}
 
 	override function update(dt:Float) {
@@ -179,12 +205,15 @@ class Game extends hxd.App {
 		ui.onScene(activeScene.sceneName);
 	}
 
-	private function changeToMap(?inital : Bool = false) {
+	private function changeToMap() {
 		ui.onMap();
 		map.enable();
 		activeScene.disable();
 
-		if (!inital && !visits.contains(activeScene.sceneName)) {
+		if (!firstVisit && !Game.variables.visitedLocations.contains(activeScene.sceneName)) 
+			Game.variables.visitedLocations.push(activeScene.sceneName);
+
+		if (!firstVisit && !visits.contains(activeScene.sceneName)) {
 			visits.push(activeScene.sceneName);
 		
 			clock.step();
@@ -195,6 +224,7 @@ class Game extends hxd.App {
 
 			updateAfterTick();
 		}
+		if (firstVisit) firstVisit = false;
 	}
 
 	/**
@@ -207,8 +237,12 @@ class Game extends hxd.App {
 	}
 
 	private function updateAfterTick() {
-		if(!clock.donePeriod) map.resetAllInaccessableLocations();
-		map.setLighting(clock);
-		map.updateLocationIcons();
+		if (clock.completeRevolution) {
+			ui.setState(End);
+		} else {
+			if(!clock.donePeriod) map.resetAllInaccessableLocations();
+			map.setLighting(clock);
+			map.updateLocationIcons();
+		}
 	}
 }

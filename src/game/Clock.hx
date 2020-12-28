@@ -27,6 +27,8 @@ class Clock extends h2d.Object {
 	private function get_slot() : Int return getTime().slot;
 
 	public var donePeriod(default, null) : Bool = false;
+	public var completeRevolution(default, null) : Bool = false;
+
 
 	//////////////////////////////////////////////////////////////////////////
 	// public members
@@ -191,7 +193,11 @@ class Clock extends h2d.Object {
 	/**
 	 * Moves the clock back to 1-1
 	 */
-	public function restart() setTime(1,1);
+	public function restart() { 
+		setTime(1,1);
+		donePeriod = false;
+		completeRevolution = false;
+	}
 
 	/**
 	 * Moves the clock to the next period regardless of the slots that are left.
@@ -203,7 +209,9 @@ class Clock extends h2d.Object {
 		Game.updateMapLighting();
 	}
 
-	public function increment(?direction : Int = 1) sprite.currentFrame += direction;
+	public function increment(?direction : Int = 1) { 
+		sprite.currentFrame += direction;
 
-	public function reset() setTime(1,1);
+		if (sprite.currentFrame == 0) completeRevolution = true;
+	}
 }

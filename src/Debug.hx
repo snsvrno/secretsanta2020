@@ -60,6 +60,7 @@ class Debug {
 			case(hxd.Key.F2): Debug.toggleDisplayItems();
 			case(hxd.Key.F3): Game.foundItem(sparetire);
 			case(hxd.Key.F4): Game.lostItem(sparetire);
+			case(hxd.Key.F5): Game.debugGameOverScreen();
 			case(hxd.Key.Q): Game.debugTickClick(-1);
 			case(hxd.Key.W): Game.debugTickClick(1);
 			case _:

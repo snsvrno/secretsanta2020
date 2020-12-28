@@ -102,6 +102,12 @@ class Const {
 	inline static public var MAP_ICON_SIZE : Float = 25;
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// CYCLE OVER SCREEN SETTINGS
+
+	inline static public var CYCLEOVER_ITEM_COLOR : Int = 0xFFFFFF;
+	inline static public var CYCLEOVER_VALUE_COLOR : Int = 0xFF00FF;
+
+	////////////////////////////////////////////////////////////////////////////////////////
 	// MAP LOCATION SETTINGS
 
 	inline static public var LOCATION_HIGHLIGHT_ALPHA : Float = 0.25;

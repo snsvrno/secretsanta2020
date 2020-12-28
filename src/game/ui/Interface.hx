@@ -1,11 +1,10 @@
 package game.ui;
 
-import h3d.scene.Object;
-
 private enum State {
 	MainMenuState;
 	GameState;
 	MenuState;
+	End;
 }
 
 class Interface extends h2d.Object {
@@ -16,6 +15,8 @@ class Interface extends h2d.Object {
 	private var background : h2d.Graphics;
 
 	private var mainMenu : h2d.Object;
+
+	private var endScreen : game.ui.CycleEnd;
 
 	private var gameMenu : h2d.Object;
 	private var gameMenuTitle : game.ui.Text;
@@ -32,6 +33,11 @@ class Interface extends h2d.Object {
 		createMainMenu();
 		createGameMenu();
 		createGameui();
+		endScreen = new game.ui.CycleEnd();
+		endScreen.onClick = function() {
+			Game.restartCycle();
+			setState(GameState);
+		}
 	
 		// the background for the menu.
 		background = new h2d.Graphics(this);
@@ -52,7 +58,7 @@ class Interface extends h2d.Object {
 		// an interactive used to block events to the game below it.
 		var interactive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, background);
 		
-		setState(MainMenuState);
+		setState(GameState);
 	}
 
 	private function createGameui() {
@@ -312,6 +318,11 @@ class Interface extends h2d.Object {
 			case MenuState:
 				background.remove();
 				gameMenu.remove();
+
+			case End:
+				background.remove();
+				endScreen.remove();
+
 		}
 
 		// adds the new elements.
@@ -331,6 +342,12 @@ class Interface extends h2d.Object {
 				if (gameMenu.parent != this) addChild(gameMenu);
 				gameMenuContent.clear();
 				gameMenuTitle.setText("Game Menu");
+
+			case End:
+				if (background.parent != this) addChild(background);
+				drawBackgroundLayer();
+				if (endScreen.parent != this) addChild(endScreen);
+				endScreen.update();
 		}
 
 		state = newState;

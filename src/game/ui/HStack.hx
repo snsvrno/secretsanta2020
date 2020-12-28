@@ -22,6 +22,10 @@ class HStack extends game.ui.Element {
 		setAlignment();
 	}
 
+	public function pushAll(objects : Array<game.ui.Element>) {
+		for (o in objects) push(o);
+	}
+
 	override public function setAlignment(?horizontal : game.ui.alignment.Horizontal, ?vertical : game.ui.alignment.Vertical) {
 
 		if (horizontal != null) this.horizontal = horizontal;

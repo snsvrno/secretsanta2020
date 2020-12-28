@@ -70,6 +70,12 @@ class Variables {
 	// Public Members
 	public var loaded(default, null) : Bool = false;
 
+	// all for tracking things fro the cycle end screen.
+	/** List of all the locations that have been visited. */
+	public var visitedLocations : Array<String> = [ ];
+	/** List of all the locations that have been visited. */
+	public var itemsFound : Array<Data.ItemsKind> = [ ];
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// initalization function
 
@@ -77,6 +83,22 @@ class Variables {
 		// loads this from save.
 		load();
 	}	
+
+	/**
+	 * Clears everything that is tracked on a per-cycle basis.
+	 */
+	public function cycleReset() {
+
+		// removes some end screen cycle progress variables.
+		while (visitedLocations.length > 0) visitedLocations.pop();
+		while (itemsFound.length > 0) itemsFound.pop();
+
+		// other tracking
+		while(chosenOptions.length > 0) chosenOptions.pop();
+		while(conversationLog.length > 0) conversationLog.pop();
+		for (nv in values.keys()) values.remove(nv);
+		for (s in switches.keys()) switches.remove(s);
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// SWITCHES RELATED
