@@ -623,17 +623,17 @@
 				},
 				{
 					"id": "weasel",
-					"name": "",
+					"name": "Linda",
 					"image": "characters/weasel.png",
 					"dialoguepoint": {
-						"x": 0,
-						"y": 0
+						"x": 50,
+						"y": 200
 					},
 					"description": ""
 				},
 				{
 					"id": "car",
-					"image": "car.png",
+					"image": "",
 					"name": "car",
 					"dialoguepoint": {
 						"y": 250,
@@ -1338,6 +1338,172 @@
 					"target": "boxes",
 					"text": "/You find nothing./",
 					"action": "garage_search_boxes"
+				},
+				{
+					"id": "weasel_whystop",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Why did we stop?",
+					"display": "Stopped?",
+					"chain": "weasel_whystop_response"
+				},
+				{
+					"id": "weasel_whystop_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "This is one of the smaller towns on the way to the Old City.\\nA good place to explore the local culture and cuisine.\\nPlus I've been driving all night and I need a break.",
+					"action": "weasel_start",
+					"set": [
+						{
+							"set": [
+								0,
+								"weasel_stop",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "weasel_whattodo",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "What is there to do around here?",
+					"display": "What to do?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"weasel_stop"
+							]
+						}
+					],
+					"chain": "weasel_whattodo_response"
+				},
+				{
+					"id": "weasel_whattodo_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "People around here are super friendly.\\nJust ask around.",
+					"action": "weasel_start"
+				},
+				{
+					"id": "weasel_whenleaving",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "When does the bus leave?",
+					"display": "Leaving?",
+					"chain": "weasel_whenleaving_response"
+				},
+				{
+					"id": "weasel_whenleaving_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "We're going to drive through the night, so we leave tonight.",
+					"chain": "weasel_leavingwarning"
+				},
+				{
+					"id": "weasel_leavingwarning",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "Be sure to be back by ~Late Evening~ or we'll leave you behind.",
+					"action": "weasel_start"
+				},
+				{
+					"id": "weasel_howlong",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "How long are we going to stay here?",
+					"display": "How Long?",
+					"chain": "weasel_howlong_response"
+				},
+				{
+					"id": "weasel_howlong_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "Just the day, we're leaving tonight.",
+					"chain": "weasel_leavingwarning"
+				},
+				{
+					"id": "weasel_boardbus",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Can I get on the bus?",
+					"display": "Board Bus?",
+					"branch": [
+						{
+							"dialogue": "weasel_boardbus_response2",
+							"condition": [
+								7,
+								2
+							]
+						},
+						{
+							"dialogue": "weasel_boardbus_response"
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"weasel_bus"
+							]
+						}
+					]
+				},
+				{
+					"id": "weasel_boardbus_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "Sure if you want to sit and wait.\\nBut at least look around a bit.",
+					"set": [
+						{
+							"set": [
+								0,
+								"weasel_bus",
+								true
+							]
+						}
+					],
+					"action": "weasel_start"
+				},
+				{
+					"id": "weasel_boardbus_response2",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "What you're done already?",
+					"set": [
+						{
+							"set": [
+								0,
+								"weasel_bus",
+								true
+							]
+						}
+					],
+					"action": "weasel_start"
+				},
+				{
+					"id": "weasel_boardbus_action",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You get on the bus./",
+					"display": "Board Bus.",
+					"set": [
+						{
+							"set": [
+								2,
+								100
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*weasel_bus"
+							]
+						}
+					]
 				}
 			],
 			"separators": [],
@@ -1500,6 +1666,30 @@
 							"option": "garage_look"
 						}
 					]
+				},
+				{
+					"id": "weasel_start",
+					"owner": "weasel",
+					"options": [
+						{
+							"option": "weasel_boardbus"
+						},
+						{
+							"option": "weasel_howlong"
+						},
+						{
+							"option": "weasel_whattodo"
+						},
+						{
+							"option": "weasel_whenleaving"
+						},
+						{
+							"option": "weasel_whystop"
+						},
+						{
+							"option": "weasel_boardbus_action"
+						}
+					]
 				}
 			],
 			"separators": [],
@@ -1599,7 +1789,8 @@
 							"x": 0.3,
 							"y": 0.5,
 							"scale": 0.75,
-							"flipX": false
+							"flipX": false,
+							"action": "weasel_start"
 						},
 						{
 							"actor": "fox",
@@ -1938,6 +2129,15 @@
 						{
 							"name": "item",
 							"typeStr": "6:items"
+						}
+					]
+				},
+				{
+					"name": "AtLeast",
+					"args": [
+						{
+							"name": "period",
+							"typeStr": "3"
 						}
 					]
 				}

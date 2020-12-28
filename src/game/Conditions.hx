@@ -13,6 +13,8 @@ class Conditions {
 			case Have(item): return Game.variables.has(item.name);
 			case NotHave(item): return !Game.variables.has(item.name);
 
+			case AtLeast(period): return Game.currentPeriod() >= period;
+
 			case null: return true;
 		}
 	}
