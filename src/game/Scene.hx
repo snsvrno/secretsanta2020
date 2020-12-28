@@ -193,6 +193,10 @@ class Scene extends h2d.Object {
 				case Get(item):
 					Game.variables.gets(item.name);
 
+				// we found an item!
+				case Lose(item):
+					Game.variables.loses(item.name);
+
 				// we are asked to sleep the game a certain amount of time, this is moving the 
 				// clock forward.
 				case Sleep(duration):

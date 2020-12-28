@@ -189,6 +189,14 @@ class Variables {
 		}
 	}
 
+	public function loses(item : Data.ItemsKind) : Bool {
+		if (items.remove(item)) {
+			Game.lostItem(item);
+			return true;
+		} 
+		return false;
+	}
+	
 	public function has(item : Data.ItemsKind) : Bool return items.contains(item);
 
 

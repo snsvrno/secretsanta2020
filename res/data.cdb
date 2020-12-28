@@ -800,6 +800,23 @@
 							"condition": [
 								2,
 								[
+									3,
+									[
+										0,
+										"mechanic_fixes_tire"
+									],
+									[
+										0,
+										"mechanic_fixes_transmission"
+									]
+								],
+								"mechanic_done"
+							]
+						},
+						{
+							"condition": [
+								2,
+								[
 									0,
 									"mechanic_car"
 								],
@@ -963,18 +980,43 @@
 					"chain": "mechanic_needanything_response2"
 				},
 				{
+					"id": "mechanic_iknowguess",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "Really! Wow, what a lucky guess!",
+					"display": "Lucky guess??",
+					"chain": "mechanic_iknowguess_response"
+				},
+				{
+					"id": "mechanic_iknowguess_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Ok ... thats ~weird~.",
+					"action": "mechanic_whatiscar"
+				},
+				{
 					"id": "mechanic_needanything_response2",
 					"speaker": "mechanic",
 					"target": "player",
 					"text": "Where do I begin.",
-					"chain": "mechanic_needanything_response3"
+					"branch": [
+						{
+							"dialogue": "mechanic_needanything_response3",
+							"condition": [
+								1,
+								"mechanic_fixes_transmission"
+							]
+						},
+						{
+							"dialogue": "mechanic_needanything_response3_fixed"
+						}
+					]
 				},
 				{
 					"id": "mechanic_needanything_response3",
 					"speaker": "mechanic",
 					"target": "player",
 					"text": "First off, I need to rebuild the transmission; It keeps poping out of gear.",
-					"chain": "mechanic_needanything_response4",
 					"set": [
 						{
 							"set": [
@@ -982,6 +1024,36 @@
 								"mechanic_fix_transmission",
 								true
 							]
+						}
+					],
+					"branch": [
+						{
+							"dialogue": "mechanic_needanything_response4",
+							"condition": [
+								1,
+								"mechanic_fixes_tire"
+							]
+						},
+						{
+							"dialogue": "mechanic_needanything_response4_fixed"
+						}
+					]
+				},
+				{
+					"id": "mechanic_needanything_response3_fixed",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "First was the transmission, but you helped me with that.",
+					"branch": [
+						{
+							"dialogue": "mechanic_needanything_response4",
+							"condition": [
+								1,
+								"mechanic_fixes_tire"
+							]
+						},
+						{
+							"dialogue": "mechanic_needanything_response4_fixed"
 						}
 					]
 				},
@@ -1000,6 +1072,13 @@
 							]
 						}
 					]
+				},
+				{
+					"id": "mechanic_needanything_response4_fixed",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Second was the tire, but we fixed that.",
+					"chain": "mechanic_needanything_response7"
 				},
 				{
 					"id": "mechanic_needanything_response5",
@@ -1040,6 +1119,12 @@
 							"condition": [
 								0,
 								"*mechanic_fix_transmission"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"mechanic_fixes_transmission"
 							]
 						}
 					]
@@ -1089,6 +1174,13 @@
 					"set": [
 						{
 							"set": [
+								0,
+								"mechanic_fixes_transmission",
+								true
+							]
+						},
+						{
+							"set": [
 								1,
 								"money",
 								10
@@ -1103,6 +1195,96 @@
 					]
 				},
 				{
+					"id": "mechanic_give_tire",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "Here, I found this.",
+					"display": "Give Spare Tire",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*mechanic_fix_tire"
+							]
+						},
+						{
+							"condition": [
+								5,
+								"sparetire"
+							]
+						}
+					],
+					"chain": "mechanic_give_tire_response"
+				},
+				{
+					"id": "mechanic_give_tire_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Thanks! I know it was around here somewhere.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mechanic_fixes_tire",
+								true
+							]
+						},
+						{
+							"set": [
+								4,
+								"sparetire"
+							]
+						}
+					],
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "mechanic_done",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "Hi, whats up?",
+					"display": "Hi",
+					"chain": "mechanic_done_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"*mechanic_name"
+							]
+						}
+					]
+				},
+				{
+					"id": "mechanic_done_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Might close up early.\\nNothing else to do since we took care of that car.",
+					"action": "mechanic_done"
+				},
+				{
+					"id": "mechanic_donename",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "Hey $mechanic$, how are you doing?",
+					"display": "Hi",
+					"chain": "mechanic_donename_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*mechanic_name"
+							]
+						}
+					]
+				},
+				{
+					"id": "mechanic_donename_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Hey $player$! Not much, its pretty quiet now.\\nThanks for the help eariler.",
+					"action": "mechanic_done"
+				},
+				{
 					"id": "garage_look",
 					"speaker": "player",
 					"target": "boxes",
@@ -1112,8 +1294,15 @@
 						{
 							"dialogue": "garage_findtire",
 							"condition": [
-								6,
-								"sparetire"
+								3,
+								[
+									6,
+									"sparetire"
+								],
+								[
+									1,
+									"found_sparetire"
+								]
 							]
 						},
 						{
@@ -1131,6 +1320,13 @@
 							"set": [
 								3,
 								"sparetire"
+							]
+						},
+						{
+							"set": [
+								0,
+								"found_sparetire",
+								true
 							]
 						}
 					],
@@ -1241,6 +1437,9 @@
 						},
 						{
 							"option": "mechanic_soundstransmission"
+						},
+						{
+							"option": "mechanic_give_tire"
 						}
 					],
 					"owner": "mechanic"
@@ -1259,7 +1458,14 @@
 				},
 				{
 					"id": "mechanic_youknowwho",
-					"options": [],
+					"options": [
+						{
+							"option": "mechanic_iknowwho"
+						},
+						{
+							"option": "mechanic_iknowguess"
+						}
+					],
 					"owner": "mechanic"
 				},
 				{
@@ -1271,6 +1477,18 @@
 						},
 						{
 							"option": "mechanic_workontransmissionnope"
+						}
+					]
+				},
+				{
+					"id": "mechanic_done",
+					"owner": "mechanic",
+					"options": [
+						{
+							"option": "mechanic_done"
+						},
+						{
+							"option": "mechanic_donename"
 						}
 					]
 				},
@@ -1765,6 +1983,15 @@
 				},
 				{
 					"name": "Get",
+					"args": [
+						{
+							"name": "item",
+							"typeStr": "6:items"
+						}
+					]
+				},
+				{
+					"name": "Lose",
 					"args": [
 						{
 							"name": "item",
