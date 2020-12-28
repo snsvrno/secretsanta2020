@@ -171,4 +171,12 @@ class Popup extends h2d.Object {
 		processQueue();
 	}
 
+	static public function clearQueue() {
+		while (queue.length > 0) queue.pop();
+		if (activeItem != null) { 
+			activeItem.remove();
+			activeItem = null;
+		}
+	}
+
 }

@@ -1016,7 +1016,7 @@
 					"id": "mechanic_needanything_response3",
 					"speaker": "mechanic",
 					"target": "player",
-					"text": "First off, I need to rebuild the transmission; It keeps poping out of gear.",
+					"text": "First off, I need to rebuild the transmission.\\nIt keeps poping out of gear.",
 					"set": [
 						{
 							"set": [

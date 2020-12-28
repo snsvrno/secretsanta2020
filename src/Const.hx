@@ -48,6 +48,18 @@ class Const {
 	inline static public var WORLD_CORNER_RADIUS_OVERSHOOT : Int = 10;
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// SPLASH SETTINGS
+
+	inline static public var SPLASH_TEXT_COLOR : Int = 0x000000;
+	inline static public var SPLASH_TOOL_LOGO_MAXWIDTH : Int = 200;
+	inline static public var SPLASH_TOOL_LOGO_PADDING : Int = 50;
+	inline static public var SPLASH_TIMER_WAIT : Float = 2.0;
+	inline static public var SPLASH_TIMER_FADE : Float = 0.5;
+	inline static public var SPLASH_OVER_LINK_ALPHA : Float = 0.65;
+	inline static public var SPLASH_SNSVRNO_SWITCHTIME : Float = 0.2;
+	inline static public var SPLASH_SNSVRNO_WEBSITE : String = "http://snsvrno.github.io";
+
+	////////////////////////////////////////////////////////////////////////////////////////
 	// MENU SETTINGS
 
 	inline static public var MENU_BACKGROUND_OPACITY : Float = 0.85;
@@ -130,6 +142,8 @@ class Const {
 
 	static public var TEXT_FONT_CHOICE_NORMAL : h2d.Font;
 	static public var TEXT_FONT_CHOICE_BOLD : h2d.Font;
+
+	static public var TEXT_FONT_SNSVRNO : h2d.Font;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// TEXT & SPEECH BUBBLES
@@ -256,5 +270,6 @@ class Const {
 		TEXT_FONT_BOLD = hxd.Res.fonts.edi24.toFont();
 		TEXT_FONT_CHOICE_NORMAL = hxd.Res.fonts.wolf16.toFont();
 		TEXT_FONT_CHOICE_BOLD = hxd.Res.fonts.edi16.toFont();
+		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
 	}
 }

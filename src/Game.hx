@@ -29,6 +29,9 @@ class Game extends hxd.App {
 	}
 
 	static public function restartCycle() {
+		// clear the popup queue
+		game.Popup.clearQueue();
+		
 		while(instance.visits.length > 0) instance.visits.pop();
 
 		variables.cycleReset();
@@ -168,7 +171,14 @@ class Game extends hxd.App {
 		Debug.mouseCoordinatesOverlay(s2d);
 		#end
 
+		// kind of a hack, setting up the start, but then resetting the popup.
+		// the popup will then be redone whenever the splash finishes.
 		restartCycle();
+		game.Popup.clearQueue();
+
+		// starts the new game splash, which is the titlecard.
+		var splash = new game.ui.Splash(s2d);
+		splash.onFinish = restartCycle;
 	}
 
 	override function update(dt:Float) {

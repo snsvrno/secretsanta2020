@@ -242,7 +242,8 @@ class Interface extends h2d.Object {
 
 		var titleLineStack = new game.ui.HStack();
 		var text = new game.ui.Text("a game by ");
-		var snsv = new game.ui.Text("snsvrno");
+		var snsv = new game.ui.Snsvrno();
+		snsv.setScale(0.5);
 		titleLineStack.push(text);
 		titleLineStack.push(snsv);
 	

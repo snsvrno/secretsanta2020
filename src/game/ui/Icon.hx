@@ -32,6 +32,11 @@ class Icon extends game.ui.Element {
 		#end
 	}
 
+	public function setWidth(width : Int) {
+		var scale = width / image.tile.width;
+		setScale(scale);
+	}
+
 	override public function setAlignment(?horizontal : game.ui.alignment.Horizontal, ?vertical : game.ui.alignment.Vertical) {
 
 		if (horizontal != null) this.horizontal = horizontal;
