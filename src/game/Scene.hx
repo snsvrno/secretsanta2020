@@ -187,7 +187,16 @@ class Scene extends h2d.Object {
 				
 				// we are asking to increment a value by some amount
 				case Add(name, value): 
+					var oldValue = Game.variables.value(name);
+					if (oldValue == 0 && name == "money") Game.foundItem(money);
+
 					Game.variables.incrementValue(name, value);
+				
+				case Subtract(name, value):
+					Game.variables.incrementValue(name, -value);
+
+					var newValue = Game.variables.value(name);
+					if (newValue == 0 && name == "money") Game.foundItem(money);
 
 				// we found an item!
 				case Get(item):

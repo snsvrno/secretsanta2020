@@ -47,12 +47,12 @@ class CycleEnd extends h2d.Object {
 			{ 
 				d: "Locations Visited: ",
 				k: LOCATIONS,
-				e: " of 0",
+				e: ' of ${Data.locations.all.length-1}', // -1 because of the `blank` location.
 			},
 			{ 
 				d: "Items Collected: ",
 				k: ITEMS,
-				e: " of 0",
+				e: ' of ${Data.items.all.length}',
 			},
 		];
 

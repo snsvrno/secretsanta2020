@@ -2,10 +2,21 @@ package game;
 
 class Popup extends h2d.Object {
 
+	static private var queue : Array<Popup> = [];
+	static private var activeItem : Null<Popup> = null;
+	static private function processQueue() {
+		if (activeItem == null && queue.length > 0) {
+			activeItem = queue.shift();
+
+			activeItem.setAnimation(activeItem.duration);
+		}
+	}
+
 	private var background : h2d.Graphics;
 	private var image : h2d.Bitmap;
 	private var textLayer : h2d.Object;
 	private var textItems : Array<game.bubble.Text>;
+	private var duration : Null<Float>;
 
 	public function new(parent : h2d.Object) { 
 		super(parent);
@@ -109,14 +120,22 @@ class Popup extends h2d.Object {
 			// the wait
 			} else alpha = 1;
 		}	
-		timer.finalCallback = () -> remove();
+		timer.finalCallback = function() {
+			activeItem = null;
+			remove();
+			processQueue();
+		}
 	}
 
 	static public function text(text : String, ?duration : Float, parent : h2d.Object) {
 		var popup = new Popup(parent);
 		popup.setText(text);
 		popup.updateAppearance();
-		popup.setAnimation(duration);
+		popup.duration = duration;
+
+		popup.alpha = 0;
+		queue.push(popup);
+		processQueue();
 	} 
 
 	static public function item(name : Data.ItemsKind, found : Bool, parent : h2d.Object) {
@@ -132,7 +151,9 @@ class Popup extends h2d.Object {
 
 		popup.updateAppearance();
 
-		popup.setAnimation();
+		popup.alpha = 0;
+		queue.push(popup);
+		processQueue();
 	}
 
 	static public function achievement(achievement : Data.Achievements, parent : h2d.Object) {
@@ -145,7 +166,9 @@ class Popup extends h2d.Object {
 		
 		popup.updateAppearance();
 
-		popup.setAnimation();
+		popup.alpha = 0;
+		queue.push(popup);
+		processQueue();
 	}
 
 }

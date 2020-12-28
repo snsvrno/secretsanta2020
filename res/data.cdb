@@ -1188,7 +1188,7 @@
 						},
 						{
 							"set": [
-								2,
+								3,
 								2
 							]
 						}
@@ -1231,7 +1231,7 @@
 						},
 						{
 							"set": [
-								4,
+								5,
 								"sparetire"
 							]
 						}
@@ -1318,7 +1318,7 @@
 					"set": [
 						{
 							"set": [
-								3,
+								4,
 								"sparetire"
 							]
 						},
@@ -1491,7 +1491,7 @@
 					"set": [
 						{
 							"set": [
-								2,
+								3,
 								100
 							]
 						}
@@ -1881,6 +1881,12 @@
 					"icon": "items/sparetire.png",
 					"displayname": "Spare Tire",
 					"description": "A spare tire, looks to be for a car or truck."
+				},
+				{
+					"name": "money",
+					"displayname": "Money",
+					"description": "Some money, looks to be $money in there.",
+					"icon": "items/boxes.png"
 				}
 			],
 			"separators": [],
@@ -2167,6 +2173,19 @@
 				},
 				{
 					"name": "Add",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						},
+						{
+							"name": "value",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "Subtract",
 					"args": [
 						{
 							"name": "name",

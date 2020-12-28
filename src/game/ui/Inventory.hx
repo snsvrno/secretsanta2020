@@ -23,7 +23,7 @@ class Inventory extends game.ui.VStack {
 		descriptionStack.padding = 10;
 		var title = new game.ui.Text(data.displayname);
 		title.setScale(Const.ICON_TITLE_SIZE);
-		var description = new game.ui.Text(data.description);
+		var description = new game.ui.Text("placeholder");
 		description.setScale(Const.ICON_DESCRIPTION_SIZE);
 
 		descriptionStack.setChildrenAlignment(Right, Middle);
@@ -35,6 +35,7 @@ class Inventory extends game.ui.VStack {
 		iconStack.setChildrenAlignment(Middle);
 
 		interactive.onOver = function(e : hxd.Event) {
+			description.setText(evaluateVariables(data.description));
 			iconStack.push(descriptionStack, 0);
 			iconStack.setAlignment();
 		};
@@ -54,5 +55,14 @@ class Inventory extends game.ui.VStack {
 
 	public function removeAllItems() {
 		for (i in items.keys()) removeItem(i);
+	}
+
+	private function evaluateVariables(text : String) : String {
+		var pos = text.indexOf("$money"); 
+		if (pos > 0) { 
+			return text.substr(0, pos) + "$" + '${Game.variables.value("money")}' + text.substr(pos+6);
+		} else {
+			return text;
+		}
 	}
 }
