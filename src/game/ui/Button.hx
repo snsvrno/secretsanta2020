@@ -1,7 +1,5 @@
 package game.ui;
 
-import dx.Driver.DepthStencilDesc;
-
 class Button extends Text {
 	private var timer : sn.Timer;
 	private var container : Null<VStack>;

@@ -42,6 +42,7 @@ class Splash extends h2d.Object {
 
 		var subtitle = new game.ui.HStack();
 		subtitle.setChildrenAlignment(Middle);
+
 		var gameby = new game.ui.Text("a game by ");
 		gameby.setColor(Const.SPLASH_TEXT_COLOR);
 		gameby.setScale(0.75);
@@ -60,35 +61,53 @@ class Splash extends h2d.Object {
 
 		var toolStack = new game.ui.VStack(this);
 		toolStack.x = Const.WORLD_WIDTH / 2;
-		toolStack.y = Const.WORLD_HEIGHT - Const.WORLD_SCREEN_PADDING;
+		toolStack.y = Const.WORLD_HEIGHT - Const.WORLD_SCREEN_PADDING / 2;
 		toolStack.setAlignment(Center, Bottom);
 		toolStack.setChildrenAlignment(Center);
-		var toolstext = new game.ui.Text("made with");
-		toolstext.setColor(Const.SPLASH_TEXT_COLOR);
-		toolStack.push(toolstext);
-		var tools = new game.ui.HStack();
+
+		var midStack = new game.ui.HStack();
+		midStack.padding = 150;
+
+		var tools = new game.ui.VStack();
 		tools.padding = Const.SPLASH_TOOL_LOGO_PADDING;
-		toolStack.push(tools);
+		tools.setAlignment(Center, Middle);
+		tools.setChildrenAlignment(Center);
+
+		var toolstext = new game.ui.Text("made with");
+		toolstext.setScale(0.5);
+		toolstext.setColor(Const.SPLASH_TEXT_COLOR);
+		tools.push(toolstext);
+		tools.push(new game.ui.HorizontalLine(150));
+
+		var assets = new game.ui.VStack();
+		assets.padding = Const.SPLASH_TOOL_LOGO_PADDING;
+		assets.setAlignment(Center, Middle);
+		assets.setChildrenAlignment(Center);
+		
+		var assetstest = new game.ui.Text("using fonts");
+		assetstest.setScale(0.5);
+		assetstest.setColor(Const.SPLASH_TEXT_COLOR);
+		assets.push(assetstest);
+		assets.push(new game.ui.HorizontalLine(150));
+
+		midStack.push(tools);
+		midStack.push(assets);
+		toolStack.push(midStack);
 
 		var logos = [
 			{ t: hxd.Res.tools.haxe_logo_white_background.toTile(), l: "https://haxe.org/" },
 			{ t: hxd.Res.tools.logo_heaps_color.toTile(), l: "https://heaps.io/" },
 		];
 
-		var logoWidth = (Const.WORLD_WIDTH - (logos.length + 1) * Const.SPLASH_TOOL_LOGO_PADDING) / logos.length;
+		var logoHeight = (Const.WORLD_HEIGHT - (logos.length + 1) * Const.SPLASH_TOOL_LOGO_PADDING) / logos.length;
 		for (l in logos) {
 			var licon = new game.ui.Icon(l.t);
 			licon.setAlignment(Center, Middle);
-			licon.setWidth(Math.floor(Math.min(Const.SPLASH_TOOL_LOGO_MAXWIDTH, logoWidth)));
+			licon.setHeight(Math.floor(Math.min(Const.SPLASH_TOOL_LOGO_MAXWIDTH, logoHeight)));
 
-			#if debug
-			var g = new h2d.Graphics(licon);
-			g.beginFill(0xFF0000, 0.25);
-			g.drawRect(0,0,licon.getWidth() / licon.scaleX, licon.getHeight() / licon.scaleY);
-			g.endFill();
-			#end
 
 			var interactive = new h2d.Interactive(licon.getWidth() / licon.scaleX, licon.getHeight() / licon.scaleY);
+			interactive.x = - licon.getWidth() / licon.scaleX / 2;
 			interactive.onOver = function(e : hxd.Event) {
 				fadeTimer.stop();
 				licon.alpha = Const.SPLASH_OVER_LINK_ALPHA;
@@ -100,11 +119,48 @@ class Splash extends h2d.Object {
 			interactive.onClick = (e: hxd.Event) -> hxd.System.openURL(l.l);
 			licon.addChild(interactive);
 
+			#if debug
+			var g = new h2d.Graphics(licon);
+			g.beginFill(0xFF0000, 0.25);
+			g.drawRect(interactive.x,interactive.y,interactive.width, interactive.height);
+			g.endFill();
+			#end
+
 			tools.push(licon);
 		}
+		
+		var fonts = [
+			{ font: hxd.Res.fonts.wolf24.toFont(), t: "Wolfganger", a: "Nalgames", l: "https://nalgames.com/" },
+			{ font: hxd.Res.fonts.sket64.toFont(), t: "Sketches", a: "Fani Rizky", l: "https://www.dafont.com/fani-rizky.d6677" },
+			{ font: hxd.Res.fonts.edi24.toFont(), t: "Edson Comics", a: "edy2012", l: "https://www.dafont.com/edson-comics.d4391" },
+			{ font: hxd.Res.fonts.sye64.toFont(), t: "Syemox", a: "Faqih Fawaji", l: "https://www.dafont.com/faqih-fawaji.d7431" },
+		];
+
+		for (a in fonts) {
+			var text = new game.ui.Text(a.t, a.font);
+			text.setColor(Const.SPLASH_TEXT_COLOR);
+			text.setHeight(Const.SPLASH_TOOL_FONT_MAXHEIGHT);
+
+			var interactive = new h2d.Interactive(text.getWidth() / text.scaleX, text.getHeight() / text.scaleY);
+			interactive.x = - text.getWidth() / text.scaleX / 2;
+			interactive.onOver = function(e : hxd.Event) {
+				fadeTimer.stop();
+				text.alpha = Const.SPLASH_OVER_LINK_ALPHA;
+			}
+			interactive.onOut = function(e : hxd.Event) {
+				fadeTimer.start();
+				text.alpha = 1;
+			}
+			interactive.onClick = (e: hxd.Event) -> hxd.System.openURL(a.l);
+			text.addChild(interactive);
+
+			assets.push(text);
+		}
+
+		midStack.setAlignment(Center, Bottom);
+		midStack.setChildrenAlignment(Middle);
+
 		toolStack.setAlignment(Center, Bottom);
 		toolStack.setChildrenAlignment(Center);
-
-
 	}
 }

@@ -51,8 +51,9 @@ class Const {
 	// SPLASH SETTINGS
 
 	inline static public var SPLASH_TEXT_COLOR : Int = 0x000000;
-	inline static public var SPLASH_TOOL_LOGO_MAXWIDTH : Int = 200;
-	inline static public var SPLASH_TOOL_LOGO_PADDING : Int = 50;
+	inline static public var SPLASH_TOOL_LOGO_MAXWIDTH : Int = 50;
+	inline static public var SPLASH_TOOL_FONT_MAXHEIGHT : Int = 30;
+	inline static public var SPLASH_TOOL_LOGO_PADDING : Int = 10;
 	inline static public var SPLASH_TIMER_WAIT : Float = 2.0;
 	inline static public var SPLASH_TIMER_FADE : Float = 0.5;
 	inline static public var SPLASH_OVER_LINK_ALPHA : Float = 0.65;

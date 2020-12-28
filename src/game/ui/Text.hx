@@ -38,6 +38,12 @@ class Text extends game.ui.Element {
 		#end
 	}
 
+	public function setHeight(height : Int) {
+		var scale = height / textObject.textHeight;
+		setScale(scale);
+	}
+
+
 	public function setText(text : String) {
 		textObject.text = text;
 		setAlignment();
