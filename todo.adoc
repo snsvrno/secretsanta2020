@@ -16,3 +16,8 @@ list of things that i want to implement in the game before finishing (moving on)
 - [ ] achievements logging and tracking
 - [ ] need a cycle summary page that tells you what you've accomplished at the end of each cycle. gives some "outro text" on certain questlines that you accomplish.
 - [ ] put the text on an different layer that doesn't scale, so if the game resolution is 1080p, i want to the text to be renderd in 1080p, not in the game native resolution and then scaled up to 1080p
+
+== Inventory
+
+- [ ] change cursor icon to normal so people don't think its a button.
+- [ ] add a drop shadow to the text, or change the color with outline so its easier to read.

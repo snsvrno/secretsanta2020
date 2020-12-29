@@ -539,7 +539,7 @@
 				{
 					"id": "player",
 					"image": "characters/sun-base.png",
-					"name": "the Player",
+					"name": "####",
 					"dialoguepoint": {
 						"y": 0,
 						"x": 0
@@ -582,7 +582,7 @@
 				},
 				{
 					"id": "fox",
-					"name": "",
+					"name": "Gregoria",
 					"image": "characters/fox.png",
 					"dialoguepoint": {
 						"x": 0,
@@ -929,7 +929,7 @@
 						{
 							"condition": [
 								0,
-								"*mechanic_name"
+								"*name_mechanic"
 							]
 						}
 					]
@@ -944,7 +944,7 @@
 						{
 							"set": [
 								0,
-								"mechanic_name",
+								"name_mechanic",
 								true
 							]
 						}
@@ -969,7 +969,36 @@
 					"id": "mechanic_iknowwho_response",
 					"speaker": "mechanic",
 					"target": "player",
-					"text": "Oh really, thats nice.",
+					"text": "Oh really ~...~, thats nice.",
+					"action": "mechanic_whatiscar"
+				},
+				{
+					"id": "mechanic_iknowfox",
+					"speaker": "player",
+					"target": "mechanic",
+					"text": "$fox$ mentioned you are working on their car.",
+					"display": "From $fox$",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*name_fox"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"*fox_talk_car"
+							]
+						}
+					],
+					"chain": "mechanic_iknowfox_response"
+				},
+				{
+					"id": "mechanic_iknowfox_response",
+					"speaker": "mechanic",
+					"target": "player",
+					"text": "Ah, that makes sense ~...~\\n Yeah, that's their car here.",
 					"action": "mechanic_whatiscar"
 				},
 				{
@@ -1272,7 +1301,7 @@
 						{
 							"condition": [
 								0,
-								"*mechanic_name"
+								"*name_mechanic"
 							]
 						}
 					]
@@ -1487,7 +1516,7 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "/You get on the bus./",
-					"display": "Board Bus.",
+					"display": "Board Bus",
 					"set": [
 						{
 							"set": [
@@ -1504,10 +1533,145 @@
 							]
 						}
 					]
+				},
+				{
+					"id": "fox_ordercoffee",
+					"speaker": "player",
+					"target": "fox",
+					"text": "I'd like a coffee.",
+					"display": "Order Coffee",
+					"branch": [
+						{
+							"dialogue": "fox_ordercoffee_response2",
+							"condition": [
+								0,
+								"fox_coffee_nomoney"
+							]
+						},
+						{
+							"dialogue": "fox_ordercoffee_response"
+						}
+					]
+				},
+				{
+					"id": "fox_ordercoffee_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Sure, that'll be $5",
+					"action": "fox_coffee"
+				},
+				{
+					"id": "fox_ordercoffee_response2",
+					"speaker": "fox",
+					"target": "player",
+					"text": "You got money this time?\\nIts still $5.",
+					"action": "fox_coffee"
+				},
+				{
+					"id": "fox_coffee_pay",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Ok.",
+					"display": "Yes",
+					"branch": [
+						{
+							"dialogue": "fox_coffee_pay_response",
+							"condition": [
+								8,
+								"money",
+								5
+							]
+						},
+						{
+							"dialogue": "fox_coffee_pay_response2"
+						}
+					]
+				},
+				{
+					"id": "fox_coffee_pay_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Here you go.",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								2,
+								"money",
+								5
+							]
+						},
+						{
+							"set": [
+								4,
+								"coffee"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_coffee_pay_response2",
+					"speaker": "fox",
+					"target": "player",
+					"text": "That's not $5, you can't trick me.",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_coffee_nomoney",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_coffee_nothanks",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Nevermind.",
+					"display": "No",
+					"action": "fox_cafe"
+				},
+				{
+					"id": "fox_name",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Hi, my name is $player$",
+					"chain": "fox_name_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"name_fox"
+							]
+						}
+					],
+					"display": "Introduce Yourself"
+				},
+				{
+					"id": "fox_name_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Hi $player$, my name is $fox$",
+					"set": [
+						{
+							"set": [
+								0,
+								"name_fox",
+								true
+							]
+						}
+					],
+					"action": "fox_cafe"
 				}
 			],
-			"separators": [],
-			"props": {}
+			"props": {},
+			"separatorIds": [
+				"garage_look",
+				"weasel_whystop",
+				"fox_ordercoffee"
+			]
 		},
 		{
 			"name": "dialogue@set",
@@ -1630,6 +1794,9 @@
 						},
 						{
 							"option": "mechanic_iknowguess"
+						},
+						{
+							"option": "mechanic_iknowfox"
 						}
 					],
 					"owner": "mechanic"
@@ -1690,6 +1857,35 @@
 							"option": "weasel_boardbus_action"
 						}
 					]
+				},
+				{
+					"id": "fox_cafe",
+					"owner": "fox",
+					"options": [
+						{
+							"option": "fox_ordercoffee"
+						},
+						{
+							"option": "fox_name"
+						}
+					]
+				},
+				{
+					"id": "fox_coffee",
+					"owner": "fox",
+					"options": [
+						{
+							"option": "fox_coffee_pay"
+						},
+						{
+							"option": "fox_coffee_nothanks"
+						}
+					]
+				},
+				{
+					"id": "fox_garage",
+					"owner": "fox",
+					"options": []
 				}
 			],
 			"separators": [],
@@ -1749,7 +1945,8 @@
 									]
 								}
 							],
-							"flipX": true
+							"flipX": true,
+							"action": "fox_garage"
 						}
 					],
 					"location": "garage",
@@ -1826,7 +2023,8 @@
 									]
 								}
 							],
-							"flipX": false
+							"flipX": false,
+							"action": "fox_cafe"
 						}
 					],
 					"id": "cafe"
@@ -1886,6 +2084,12 @@
 					"name": "money",
 					"displayname": "Money",
 					"description": "Some money, looks to be $money in there.",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "coffee",
+					"displayname": "Cup of Coffee",
+					"description": "A cup of black coffee. Smells strong.",
 					"icon": "items/boxes.png"
 				}
 			],
@@ -2149,6 +2353,19 @@
 					"args": [
 						{
 							"name": "period",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "ValueAtLeast",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						},
+						{
+							"name": "value",
 							"typeStr": "3"
 						}
 					]
