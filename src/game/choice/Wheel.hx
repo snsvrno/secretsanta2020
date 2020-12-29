@@ -124,7 +124,7 @@ class Wheel extends h2d.Object {
 	private function makeChoices(action : Data.DialogueActions) {
 
 
-		var validChoices = getValidChoices(action.options);
+		var validChoices = getValidChoices(action);
 
 		for (i in 0 ... validChoices.length) {
 
@@ -145,31 +145,32 @@ class Wheel extends h2d.Object {
 		}
 	}
 
-	private function getValidChoices(options : cdb.Types.ArrayRead<Data.DialogueActions_options>) : Array<Data.Dialogue> {
+	private function getValidChoices(action : Data.DialogueActions, ?importer : Bool = false) : Array<Data.Dialogue> {
 		var validOptions : Array<Data.Dialogue> = new Array();
 
-		for (i in 0 ... options.length) {
-			var d = options[i].option;
+		// gets the options
+		for (i in 0 ... action.options.length) {
+			var d = action.options[i].option;
 			
 			var valid = true;
 			if (d.condition != null) for (c in d.condition) {
 				if (valid)
 					switch(c.condition) {
-						case Forwarder(condition, action):
-							if (Conditions.check(condition)) {
-								/*
-								var newOptions = getValidChoices(action.options);
-								for (n in newOptions) validOptions.push(n);
-								valid = false;
-								*/
-								return getValidChoices(action.options);
-							}
+
+						// forwarding, meaning we ignore what we did here and instead'
+						// give it to forwardedAction
+						case Forwarder(condition, forwardedAction):
+							if (Conditions.check(condition))
+								return getValidChoices(forwardedAction);
 						
-						case InsertChoices(condition, action): if (Conditions.check(condition)) {
-							var newOptions = getValidChoices(action.options);
-							for (n in newOptions) validOptions.push(n);
-							valid = false;
-						}
+						// i don't really know how this is suppose to work?
+						case InsertChoices(condition, insertAction, cont):
+							throw("this probably doesn't work"); 
+							if (Conditions.check(condition)) {
+								var newOptions = getValidChoices(insertAction, true);
+								for (n in newOptions) validOptions.push(n);
+							}
+							if (cont) valid = false;
 
 						case other: if (!Conditions.check(other)) valid = false;
 					}
@@ -178,7 +179,22 @@ class Wheel extends h2d.Object {
 			if (valid) validOptions.push(d);
 		}
 
-		if (validOptions.length == 0) throw("asd");
+		// checks if we have an imports
+		if (action.imports != null) for (i in 0 ... action.imports.length) {
+			var choices = getValidChoices(action.imports[i].action, true);
+			for (c in choices){
+				// checks if we already loaded this. 
+				var alreadyLoaded = false;
+				for (vo in validOptions) if (vo.id == c.id)  alreadyLoaded = true;
+				
+				if (!alreadyLoaded) validOptions.push(c);
+			}
+		}
+
+		// safety check, adds a checker clause because only the final check should 
+		// care if its empty.
+		if (importer == false && validOptions.length == 0) throw("no options!?! why are we here!");
+		
 		return validOptions;
 	}
 
