@@ -5,6 +5,7 @@ class Conditions {
 	static public function check(condition : Data.Condition) : Bool {
 		switch (condition) {
 			case Forwarder(condition, action): return true;
+			case InsertChoices(condition, action): return true;
 
 			case Exists(name): return Game.variables.check(name);
 			case NotExists(name):return !Game.variables.check(name);
