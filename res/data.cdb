@@ -503,16 +503,15 @@
 					"scope": null
 				},
 				{
+					"typeStr": "5:Character,Object",
+					"name": "type",
+					"kind": null
+				},
+				{
 					"typeStr": "1",
 					"name": "name",
 					"kind": null,
 					"documentation": "Their formal display name."
-				},
-				{
-					"typeStr": "1",
-					"name": "description",
-					"opt": true,
-					"kind": null
 				},
 				{
 					"typeStr": "13",
@@ -543,7 +542,8 @@
 					"dialoguepoint": {
 						"y": 0,
 						"x": 0
-					}
+					},
+					"type": 0
 				},
 				{
 					"id": "mechanic",
@@ -578,18 +578,19 @@
 					"dialoguepoint": {
 						"x": 130,
 						"y": 230
-					}
+					},
+					"type": 0
 				},
 				{
 					"id": "fox",
 					"name": "Gregoria",
 					"image": "characters/fox.png",
 					"dialoguepoint": {
-						"x": 0,
-						"y": 0
+						"x": 60,
+						"y": 120
 					},
-					"description": "",
-					"icon": "characters/fox-icon.png"
+					"icon": "characters/fox-icon.png",
+					"type": 0
 				},
 				{
 					"id": "fish",
@@ -599,7 +600,7 @@
 						"x": 0,
 						"y": 0
 					},
-					"description": ""
+					"type": 0
 				},
 				{
 					"id": "lamb",
@@ -609,7 +610,7 @@
 						"x": 0,
 						"y": 0
 					},
-					"description": ""
+					"type": 0
 				},
 				{
 					"id": "mole",
@@ -619,7 +620,7 @@
 						"x": 0,
 						"y": 0
 					},
-					"description": ""
+					"type": 0
 				},
 				{
 					"id": "weasel",
@@ -629,22 +630,22 @@
 						"x": 50,
 						"y": 200
 					},
-					"description": ""
+					"type": 0
 				},
 				{
 					"id": "car",
 					"image": "",
-					"name": "car",
+					"name": "Matthew",
 					"dialoguepoint": {
 						"y": 250,
 						"x": 250
-					}
+					},
+					"type": 1
 				},
 				{
 					"id": "boxes",
 					"name": "Some boxes",
 					"image": "items/boxes.png",
-					"description": "some random boxes, none descript.",
 					"interactives": [
 						{
 							"box": {
@@ -658,11 +659,14 @@
 					"dialoguepoint": {
 						"y": 250,
 						"x": 250
-					}
+					},
+					"type": 1
 				}
 			],
-			"separators": [],
-			"props": {}
+			"props": {},
+			"separatorIds": [
+				"car"
+			]
 		},
 		{
 			"name": "characters@interactives",
@@ -800,7 +804,7 @@
 							"condition": [
 								2,
 								[
-									3,
+									4,
 									[
 										0,
 										"mechanic_fixes_tire"
@@ -1238,7 +1242,7 @@
 						},
 						{
 							"condition": [
-								5,
+								6,
 								"sparetire"
 							]
 						}
@@ -1323,9 +1327,9 @@
 						{
 							"dialogue": "garage_findtire",
 							"condition": [
-								3,
+								4,
 								[
-									6,
+									7,
 									"sparetire"
 								],
 								[
@@ -1462,7 +1466,7 @@
 						{
 							"dialogue": "weasel_boardbus_response2",
 							"condition": [
-								7,
+								8,
 								2
 							]
 						},
@@ -1577,7 +1581,7 @@
 						{
 							"dialogue": "fox_coffee_pay_response",
 							"condition": [
-								8,
+								9,
 								"money",
 								5
 							]
@@ -1664,10 +1668,643 @@
 						}
 					],
 					"action": "fox_cafe"
+				},
+				{
+					"id": "fox_whattodo",
+					"speaker": "player",
+					"target": "fox",
+					"text": "I'm visiting, what cool stuff is there to do around here?",
+					"display": "What to do?",
+					"chain": "fox_whattodo_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"fox_whattodo"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_whattodo_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "I know the feeling.\\nI've only been here a few months but I found a few cool places if you're interested.",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_whattodo",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_whattocheckout",
+					"speaker": "player",
+					"target": "fox",
+					"text": "What are some cool must visits?",
+					"display": "Some must visits?",
+					"chain": "fox_whattocheckout_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"fox_whattodo"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"fox_whattodo2"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_whattocheckout_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "The beach is probably *the* star attraction.\\n It's always beautiful and the sand is so soft and warm.",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_whattodo2",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_anythingelse",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Anywhere else?",
+					"chain": "fox_anythingelse_response",
+					"display": "Anywhere else to visit?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"fox_whattodo2"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"fox_whattodo3"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_anythingelse_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "There is this _amazing_ cafe ~...~\\nJust kidding, though not really.\\nEveryone comes here for the beach.",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_whattodo3",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_comefrom",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Where'd you move from?",
+					"display": "Before here?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"fox_whattodo"
+							]
+						}
+					],
+					"chain": "fox_comefrom_response"
+				},
+				{
+					"id": "fox_comefrom_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Didn't _move_ per-say.\\nI was driving up and down the coast\\nwhen I had some car trouble.\\nStopped here to get it fixed.\\nIt was too much money at the time so I hung around.",
+					"chain": "fox_comefrom2"
+				},
+				{
+					"id": "fox_comefrom2",
+					"speaker": "player",
+					"target": "fox",
+					"text": "So you plan on staying?",
+					"chain": "fox_comefrom2_response"
+				},
+				{
+					"id": "fox_comefrom2_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Definitely Not~!~\\nNothing wrong with this place but I love exploring\\nand I'm not ready to stop just yet.",
+					"chain": "fox_comefrom3"
+				},
+				{
+					"id": "fox_comefrom3",
+					"speaker": "player",
+					"target": "fox",
+					"text": "So when is the next trip?",
+					"chain": "fox_comefrom3_response"
+				},
+				{
+					"id": "fox_comefrom3_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Not sure, the sooner the better.\\nThe main thing stopping me is the car.\\nIt's still in the shop.",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_carinshop",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_carinshop",
+					"speaker": "player",
+					"target": "fox",
+					"text": "The car is still broken from when you first came?",
+					"display": "Car still broken?",
+					"chain": "fox_carinshop_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"fox_carinshop2"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"fox_carinshop"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_carinshop_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Oh, no. I've driven it since.\\nIts getting old and might be too much effort.\\nBut it is my adventure mobile.",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_carinshop2",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_carinshop2",
+					"speaker": "player",
+					"target": "player",
+					"text": "So whats wrong with it?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"fox_carinshop2"
+							]
+						}
+					],
+					"chain": "fox_carinshop2_response",
+					"display": "Car problems?"
+				},
+				{
+					"id": "fox_carinshop2_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "I'm not a gearhead so I have no idea.\\nAll I know is that it makes a funny noise when I drive it.\\nI trust $mechanic$, he's worked on $car$ since I've been here and treats him well.",
+					"action": "fox_names"
+				},
+				{
+					"id": "fox_whoismech",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Who is $mechanic$?",
+					"display": "$mechanic$?",
+					"chain": "fox_whoismech_response",
+					"condition": [
+						{
+							"condition": [
+								2,
+								[
+									4,
+									[
+										0,
+										"name_car"
+									],
+									[
+										0,
+										"name_mechanic"
+									]
+								],
+								"fox_cafe"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_whoismech_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "$mechanic$ is the lead mechanic at the garage.\\nDoes great work.",
+					"set": [
+						{
+							"set": [
+								0,
+								"name_mechanic",
+								true
+							]
+						},
+						{
+							"set": [
+								0,
+								"fox_talk_car",
+								true
+							]
+						}
+					],
+					"action": "fox_names"
+				},
+				{
+					"id": "fox_whoiscar",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Who is $car$?",
+					"display": "$car$?",
+					"chain": "fox_whoiscar_response"
+				},
+				{
+					"id": "fox_whoiscar_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Thats what I call my car!",
+					"set": [
+						{
+							"set": [
+								0,
+								"name_car",
+								true
+							]
+						}
+					],
+					"action": "fox_names"
+				},
+				{
+					"id": "fox_givebook",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Hey, I found this.",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"adventurebook"
+							]
+						}
+					],
+					"display": "Give Book",
+					"chain": "fox_givebook_response"
+				},
+				{
+					"id": "fox_givebook_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "What's this?\\nOh this seems great!. I love reading these things.\\nMakes me feel like I'm on the road again, exploring the countryside.\\nI'll be sure to let you know what I think of it! *Thanks!*",
+					"set": [
+						{
+							"set": [
+								5,
+								"adventurebook"
+							]
+						},
+						{
+							"set": [
+								0,
+								"fox_gave_adventurebook",
+								true
+							]
+						}
+					],
+					"action": "fox_cafe"
+				},
+				{
+					"id": "fox_bookfollowup",
+					"speaker": "player",
+					"target": "fox",
+					"text": "How are you liking the book?",
+					"display": "Hows the Book?",
+					"action": "fox_beach"
+				},
+				{
+					"id": "fox_bookfollowup_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "So far ~I'm loving it!~Just the thing I needed.\\nMissing out on traveling because of the car issues.",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_howsthecar",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_howsthecar",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Any update on the car?",
+					"branch": [
+						{
+							"dialogue": "fox_howsthecar_response1",
+							"condition": [
+								4,
+								[
+									0,
+									"mechanic_fixes_tire"
+								],
+								[
+									0,
+									"mechanic_fixes_transmission"
+								]
+							]
+						},
+						{
+							"dialogue": "fox_howsthecar_response2"
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								0,
+								"fox_howsthecar"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_howsthecar_response1",
+					"speaker": "fox",
+					"target": "player",
+					"text": "~Yes!~ They said they fixed it. I'm so *excited*.\\nThis book reminds me how much I _love_ travelling!",
+					"action": "fox_beach"
+				},
+				{
+					"id": "fox_howsthecar_response2",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Truthfully, I don't know ~...~\\nIt was making these ~horrible~ noises and kept going back to *first gear*.\\nI had a lot of trouble driving it.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mechanic_fix_transmission",
+								true
+							]
+						}
+					],
+					"chain": "fox_howsthecar_response21"
+				},
+				{
+					"id": "fox_howsthecar_response21",
+					"speaker": "fox",
+					"target": "player",
+					"text": "It was *smoking* too!, can you believe it~!!!~",
+					"branch": [
+						{
+							"dialogue": "fox_howsthecar_response22name",
+							"condition": [
+								0,
+								"name_car"
+							]
+						},
+						{
+							"dialogue": "fox_howsthecar_response22"
+						}
+					]
+				},
+				{
+					"id": "fox_howsthecar_response22",
+					"speaker": "fox",
+					"target": "player",
+					"text": "It might be time to replace it ~...~",
+					"action": "fox_beach"
+				},
+				{
+					"id": "fox_howsthecar_response22name",
+					"speaker": "fox",
+					"target": "player",
+					"text": "It might be time to replace it ~...~, poor *$car$*",
+					"action": "fox_beach"
+				},
+				{
+					"id": "fox_adventurer",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Would you say you go on adventures with that car?",
+					"display": "Adventurers?",
+					"chain": "fox_adventurer_response"
+				},
+				{
+					"id": "fox_adventurer_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "~Most definitely yes!~\\nHe has gotten me out of some many binds, and made sure I was safe.\\nHis last hard time was right before we got here.\\nI can't wait to get him back in good shape so we can go somewhere together.",
+					"action": "fox_beach"
+				},
+				{
+					"id": "fox_carisfixed",
+					"speaker": "fox",
+					"target": "mechanic",
+					"text": "~Wow!~ I wasn't expecting to see it finished!",
+					"display": "Listen In",
+					"chain": "fox_carisfixed2"
+				},
+				{
+					"id": "fox_carisfixed2",
+					"speaker": "mechanic",
+					"target": "fox",
+					"text": "Well, almost ~...~ We're finishing it up right now.",
+					"chain": "fox_carisfixed3"
+				},
+				{
+					"id": "fox_carisfixed3",
+					"speaker": "fox",
+					"target": "mechanic",
+					"text": "~oooooo~ thats so exciting!\\nCan't wait to take it out!\\nHow'd you get it done so fast?",
+					"chain": "fox_carisfixed4"
+				},
+				{
+					"id": "fox_carisfixed4",
+					"speaker": "mechanic",
+					"target": "fox",
+					"text": "I originally didn't have the help I needed.\\nBut thanks to $player$ we got it finished.",
+					"branch": [
+						{
+							"dialogue": "fox_carisfixed5name",
+							"condition": [
+								0,
+								"name_fox"
+							]
+						},
+						{
+							"dialogue": "fox_carisfixed5met",
+							"condition": [
+								10,
+								"fox"
+							]
+						},
+						{
+							"dialogue": "fox_carisfixed5notmet"
+						}
+					]
+				},
+				{
+					"id": "fox_carisfixed5met",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Oh hey! You know stuff about cars? *Thanks!*",
+					"action": "fox_fixcar"
+				},
+				{
+					"id": "fox_carisfixed5name",
+					"speaker": "fox",
+					"target": "player",
+					"text": "$player$! I didn't know you knew anything about cars!\\nIf I did I'd have asked you for help!\\How can I repay you?",
+					"action": "fox_fixcar"
+				},
+				{
+					"id": "fox_carisfixed_paid",
+					"speaker": "player",
+					"target": "fox",
+					"text": "No worries, I already got paid.",
+					"display": "Already got Paid",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"*name_mechanic"
+							]
+						}
+					],
+					"chain": "fox_carisfixed_humble"
+				},
+				{
+					"id": "fox_carisfixed_paid2",
+					"speaker": "player",
+					"target": "fox",
+					"text": "No worries, $mechanic$ already paid me.",
+					"display": "Already got Paid",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*name_mechanic"
+							]
+						}
+					],
+					"chain": "fox_carisfixed_reward"
+				},
+				{
+					"id": "fox_carisfixed_humble",
+					"speaker": "fox",
+					"target": "player",
+					"text": "I just can't leave it at that!",
+					"chain": "fox_carisfixed_reward"
+				},
+				{
+					"id": "fox_carisfixed_reward",
+					"speaker": "fox",
+					"target": "player",
+					"text": "I'll be sure to bring you something back. *Stop by the cafe sometime* and check for me!\\But first I need to get ready!"
+				},
+				{
+					"id": "fox_carisfixed5notmet",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Why thank you Mx. $player$.\\nI appreciate that you've made him feel better.",
+					"action": "fox_fixcar"
+				},
+				{
+					"id": "fox_carisfixed_him",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Him?",
+					"display": "Him?",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"*name_car"
+							]
+						}
+					],
+					"chain": "fox_carisfixed_him_response"
+				},
+				{
+					"id": "fox_carisfixed_him_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Oh, my car's name is $car$.\\We go on *adventures* together!",
+					"set": [
+						{
+							"set": [
+								0,
+								"name_car",
+								true
+							]
+						}
+					],
+					"chain": "fox_carisfixed_leaves"
+				},
+				{
+					"id": "fox_carisfixed_leaves",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Speaking of which, I need to get some things together before I leave.\\n~I'm so excited!~"
+				},
+				{
+					"id": "fox_ontheroadagain",
+					"speaker": "player",
+					"target": "fox",
+					"text": "Of course, I bet *he* is excited to get back on the road.",
+					"chain": "fox_ontheroadagain_response"
+				},
+				{
+					"id": "fox_ontheroadagain_response",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Oh you know it!",
+					"chain": "fox_carisfixed_leaves"
 				}
 			],
 			"props": {},
 			"separatorIds": [
+				"mechanic_car",
 				"garage_look",
 				"weasel_whystop",
 				"fox_ordercoffee"
@@ -1738,6 +2375,11 @@
 				{
 					"typeStr": "8",
 					"name": "options"
+				},
+				{
+					"typeStr": "8",
+					"name": "imports",
+					"opt": true
 				}
 			],
 			"lines": [
@@ -1867,6 +2509,20 @@
 						},
 						{
 							"option": "fox_name"
+						},
+						{
+							"option": "fox_comefrom"
+						},
+						{
+							"option": "fox_givebook"
+						}
+					],
+					"imports": [
+						{
+							"action": "fox_cars"
+						},
+						{
+							"action": "fox_travel"
 						}
 					]
 				},
@@ -1883,13 +2539,88 @@
 					]
 				},
 				{
+					"id": "fox_travel",
+					"owner": "fox",
+					"options": [
+						{
+							"option": "fox_whattocheckout"
+						},
+						{
+							"option": "fox_whattodo"
+						},
+						{
+							"option": "fox_anythingelse"
+						}
+					]
+				},
+				{
+					"id": "fox_cars",
+					"owner": "fox",
+					"options": [
+						{
+							"option": "fox_carinshop"
+						},
+						{
+							"option": "fox_carinshop2"
+						}
+					]
+				},
+				{
+					"id": "fox_names",
+					"owner": "fox",
+					"options": [
+						{
+							"option": "fox_whoiscar"
+						},
+						{
+							"option": "fox_whoismech"
+						}
+					]
+				},
+				{
+					"id": "fox_beach",
+					"owner": "fox",
+					"options": [
+						{
+							"option": "fox_bookfollowup"
+						},
+						{
+							"option": "fox_howsthecar"
+						},
+						{
+							"option": "fox_adventurer"
+						}
+					],
+					"imports": []
+				},
+				{
 					"id": "fox_garage",
 					"owner": "fox",
-					"options": []
+					"options": [
+						{
+							"option": "fox_givebook"
+						}
+					]
+				},
+				{
+					"id": "fox_fixcar",
+					"owner": "player",
+					"options": [
+						{
+							"option": "fox_carisfixed_paid"
+						},
+						{
+							"option": "fox_carisfixed_paid2"
+						}
+					]
 				}
 			],
-			"separators": [],
-			"props": {}
+			"props": {},
+			"separatorIds": [
+				"garage_search_boxes",
+				"weasel_start",
+				"fox_cafe"
+			]
 		},
 		{
 			"name": "scenes",
@@ -2091,6 +2822,18 @@
 					"displayname": "Cup of Coffee",
 					"description": "A cup of black coffee. Smells strong.",
 					"icon": "items/boxes.png"
+				},
+				{
+					"name": "omnibook",
+					"displayname": "Mystical Book",
+					"description": "Strange looking book, doesn't seem to have any contents...",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "adventurebook",
+					"displayname": "Book of Adventures",
+					"description": "A book describing different adventures in far away places.",
+					"icon": "items/boxes.png"
 				}
 			],
 			"separators": [],
@@ -2250,6 +2993,20 @@
 			]
 		},
 		{
+			"name": "dialogueActions@imports",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "6:dialogueActions",
+					"name": "action"
+				}
+			]
+		},
+		{
 			"name": "backgrounds@center",
 			"props": {
 				"hide": true,
@@ -2301,6 +3058,23 @@
 						{
 							"name": "action",
 							"typeStr": "6:dialogueActions"
+						}
+					]
+				},
+				{
+					"name": "InsertChoices",
+					"args": [
+						{
+							"name": "condition",
+							"typeStr": "9:Condition"
+						},
+						{
+							"name": "action",
+							"typeStr": "6:dialogueActions"
+						},
+						{
+							"name": "keepDialogue",
+							"typeStr": "2"
 						}
 					]
 				},
@@ -2367,6 +3141,24 @@
 						{
 							"name": "value",
 							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "Talked",
+					"args": [
+						{
+							"name": "character",
+							"typeStr": "6:characters"
+						}
+					]
+				},
+				{
+					"name": "NotTalked",
+					"args": [
+						{
+							"name": "character",
+							"typeStr": "6:characters"
 						}
 					]
 				}

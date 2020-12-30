@@ -17,6 +17,9 @@ class Conditions {
 			case AtLeast(period): return Game.currentPeriod() >= period;
 			case ValueAtLeast(name, value): return Game.variables.value(name) >= value;
 
+			case Talked(character): return Game.variables.hasMet(character.id);
+			case NotTalked(character): return !Game.variables.hasMet(character.id);
+
 			case null: return true;
 		}
 	}

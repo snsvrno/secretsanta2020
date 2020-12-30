@@ -1,6 +1,7 @@
 package game;
 
 private typedef Where = { actor : Data.CharactersKind, location : Data.LocationsKind };
+private typedef DialoguePair = { c : Data.CharactersKind, t : String };
 
 private enum Mod {
 	Local(name : String);
@@ -27,11 +28,14 @@ class Variables {
 	////////////////////////////////////////////////////////////////////////////////////////
 	// Private Members
 
+
 	/**
 	 * The history of all the conversations that have taken place, stored here
 	 * so that the player can review them if he chooses.
 	 */
-	private var conversationLog : Array<String> = [];
+	private var conversationLog : Array<DialoguePair> = [];
+
+	private var metCharacters : Array<Data.CharactersKind> = [];
 
 	/**
 	 * The marker switches that are set during conversation, they are mainly used 
@@ -95,9 +99,16 @@ class Variables {
 
 		// other tracking
 		while(chosenOptions.length > 0) chosenOptions.pop();
+		while(metCharacters.length > 0) metCharacters.pop();
 		while(conversationLog.length > 0) conversationLog.pop();
 		for (nv in values.keys()) values.remove(nv);
 		for (s in switches.keys()) switches.remove(s);
+	}
+	////////////////////////////////////////////////////////////////////////////////////////
+	// CONVERSATION RELATED
+
+	public function hasMet(character : Data.CharactersKind) : Bool {
+		return metCharacters.contains(character);
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////
