@@ -1,0 +1,23 @@
+= Design by Items
+
+This file intends to design the game by choosing what the items will be, and then work backwards to characters, locations, and endings.
+
+- want no more than 6 items to work with, anything more will be too much.
+- want all characters to use all items
+- shooting for 4 characters. too many characters will be too much complexity.
+- 1 character must by a cyclist or rollerblader.
+
+[%header]
+|===
+|Parent|Item|Cyclist|Barista|Explorer|Mechanic
+|-|Spare Tire|Fixes bike flate tire and goes on a ride, gives the player ?|Separates the spare tire into an Inner Tube and Outside rubber | puts the tire on their car and goes on an adventure away from the map.|Has a spare tire the player can take.
+|Spare Tire|Inner Tube||||
+|Spare Tire|Outside Rubber||Will create Rubber Shoes if given with Old Shoes||
+||||||
+|-|Old Shoes|Doesn't want|Coverts to Upcycled Shoes||Converts to Rollerblades if has Sparetire
+|Old Shoes|Upcycled Shoes||Puts them on and loves the design. Gives the player ?||
+|Outside Rubber / Sport Shoes|Rubber Shoes||Takes the shoes and uses them as hiking boots. Goes on a hike and gives the player ?||
+|Spare Tire / Old Shoes|Rollerblades|Puts them on a rides with them instead of the bike|||
+||||||
+||Bottle of Wine||||
+|===

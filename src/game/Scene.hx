@@ -243,14 +243,18 @@ class Scene extends h2d.Object {
 				if (dialogue.chain != null) displayDialogue(dialogue.chain);
 				else if (dialogue.branch != null) { 
 					for (b in dialogue.branch) { 
-						if (Conditions.check(b.condition)) { 
-							displayDialogue(b.dialogue);
+						if (Conditions.check(b.condition)) {
+							if (b.dialogue != null && b.action != null) throw ("error, don't know where to go.")
+							else if (b.dialogue != null) displayDialogue(b.dialogue);
+							else if (b.action != null) startDialogue(b.action);
+							else throw("don't know what to do!");
+
 							return;
 						}
 					}
-				} else {
+				} else { //if (dialogue.action != null) {
 					startDialogue(dialogue.action);
-				}
+				} 
 			}
 		}
 		

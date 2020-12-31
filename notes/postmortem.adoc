@@ -1,0 +1,5 @@
+= Post Mortem Notes
+
+== Some Notes While Making It
+
+- I wish i thought about having to test the dialogue when building the systems, to allow for easier testing or fast forwarding of dialogue.

@@ -1,0 +1,3 @@
+= Notes
+
+This section contains my notes for designing the jam game. *V1* is the first conception, which later evolved into *V2* and then finally what was actually made (which was a working version of *V2*).

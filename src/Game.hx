@@ -17,6 +17,7 @@ class Game extends hxd.App {
 	static public function earnedAchievement(achievement : Data.Achievements) game.Popup.achievement(achievement, instance.s2d);
 	static public function popup(text : String, ?duration : Float) game.Popup.text(text, duration, instance.s2d);
 	static public function tickClockForward(periods : Int) instance.tickClock(periods); 
+	static public function currentScene() : String return instance.activeScene.sceneName;
 	
 	static public function foundItem(item : Data.ItemsKind) { 
 		game.Popup.item(item, true, instance.s2d);

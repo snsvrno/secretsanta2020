@@ -22,6 +22,9 @@ class Conditions {
 			case Talked(character): return Game.variables.hasMet(character.id);
 			case NotTalked(character): return !Game.variables.hasMet(character.id);
 
+			case Location(location): return Game.currentScene() == location.name;
+			case NotLocation(location): return Game.currentScene() != location.name;
+
 			case null: return true;
 		}
 	}

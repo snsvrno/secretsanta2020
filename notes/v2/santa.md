@@ -134,7 +134,7 @@ The timeline will be the same as in **General**. The player must give the person
 
 | Early Morning              | Late Morning              | Early Afternoon                  | Late Afternoon                                               | Early Evening                                                | Late Evening                 |
 | -------------------------- | ------------------------- | -------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------- |
-| **walking** on the *beach* | **writing** at the *café* | **grading papers** at the *café* | teacher calls in a sub and decides to go on that bike ride, leaves and bikes around the country. | **grading papers** at the *café*                             | **shopping** at the *market* |
+| **walking** on the *beach* | **writing** at the *café* | **grading papers** at the *café* | teacher calls in a sub and decides to go on that bike ride, leaves and bikes around the country. <mark>**mole_bikeride**</mark> switch | **grading papers** at the *café*                             | **shopping** at the *market* |
 |                            |                           |                                  | only happens if the player gives them the spare before this time period | gives the player a **<u>bottle of wine</u>** that they picked up from the country, only happens if **Three** is gone for 2 periods. (player needs to give the tire by ***Late Morning***). If **Three** is only gone for 1 period then they will comment that they didn't get too far, and could have done more if they had more time. |                              |
 
 ###### :flags: a Short Hike
@@ -146,7 +146,7 @@ This one is confusing, because in order to do this you have to attend the lectur
 |  Cycle  | Early Morning                                                | Late Morning              | Early Afternoon                                              | Late Afternoon                                               | Early Evening             | Late Evening                 |
 | :-----: | ------------------------------------------------------------ | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------- | ---------------------------- |
 | ***1*** | **walking** on the *beach*                                   | **writing** at the *café* | **grading papers** at the *café*                             | **teaching** a class at the *school*                         | **reading** at the *café* | **shopping** at the *market* |
-|         |                                                              |                           |                                                              | the player needs to attend this, and use the <u>**Empty Book**</u> which will make **<u>Class Notes</u>** |                           |                              |
+|         |                                                              |                           | <mark>**mole_backpacking**</mark> switch                     | the player needs to attend this, and use the <u>**Empty Book**</u> which will make **<u>Class Notes</u>** |                           |                              |
 | ***2*** | **walking** on the *beach*                                   | **writing** at the *café* | out **backpacking** (offscreen)                              | -                                                            | -                         | -                            |
 |         | the player will need to give **<u>Class Notes</u>** to the **TA** at one point before ***Early Afternoon*** |                           | the player needs to talk to the **TA** and **Three** before this period in order to trigger this. If they talk to them later **Three** will thank you but won't be able to get his gear together fast enough to enjoy it. <br /><br />If successful **Three** will leave an item at the *café* starting at this point until the end of this cycle. |                                                              |                           |                              |
 ##### :bust_in_silhouette: Four
@@ -190,13 +190,7 @@ These characters stay to one place and don't move around that much. They don't h
 
 ##### :busts_in_silhouette: Life Guard
 
-##### :busts_in_silhouette: Co-worker
-
-**Four**'s co-worker.
-
-##### :busts_in_silhouette: Teaching TA
-
-**Three**'s teaching assistant.
+##### :busts_in_silhouette: Mechanic
 
 ##### Seagulls
 

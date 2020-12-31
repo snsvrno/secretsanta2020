@@ -546,6 +546,57 @@
 					"type": 0
 				},
 				{
+					"id": "fox",
+					"name": "Georgie",
+					"image": "characters/fox.png",
+					"dialoguepoint": {
+						"x": 60,
+						"y": 120
+					},
+					"icon": "characters/fox-icon.png",
+					"type": 0
+				},
+				{
+					"id": "lamb",
+					"name": "",
+					"image": "characters/lamb.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					},
+					"type": 0
+				},
+				{
+					"id": "cat",
+					"type": 0,
+					"name": "",
+					"image": "",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"id": "mole",
+					"name": "Kelly",
+					"image": "characters/mole.png",
+					"dialoguepoint": {
+						"x": 178,
+						"y": 227
+					},
+					"type": 0
+				},
+				{
+					"id": "fish",
+					"name": "",
+					"image": "characters/fish.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					},
+					"type": 0
+				},
+				{
 					"id": "mechanic",
 					"image": "characters/duck.png",
 					"interactives": [
@@ -578,47 +629,6 @@
 					"dialoguepoint": {
 						"x": 130,
 						"y": 230
-					},
-					"type": 0
-				},
-				{
-					"id": "fox",
-					"name": "Gregoria",
-					"image": "characters/fox.png",
-					"dialoguepoint": {
-						"x": 60,
-						"y": 120
-					},
-					"icon": "characters/fox-icon.png",
-					"type": 0
-				},
-				{
-					"id": "fish",
-					"name": "",
-					"image": "characters/fish.png",
-					"dialoguepoint": {
-						"x": 0,
-						"y": 0
-					},
-					"type": 0
-				},
-				{
-					"id": "lamb",
-					"name": "",
-					"image": "characters/lamb.png",
-					"dialoguepoint": {
-						"x": 0,
-						"y": 0
-					},
-					"type": 0
-				},
-				{
-					"id": "mole",
-					"name": "",
-					"image": "characters/mole.png",
-					"dialoguepoint": {
-						"x": 0,
-						"y": 0
 					},
 					"type": 0
 				},
@@ -661,10 +671,22 @@
 						"x": 250
 					},
 					"type": 1
+				},
+				{
+					"id": "bookshelf",
+					"type": 1,
+					"name": "Bookshelf",
+					"image": "items/boxes.png",
+					"dialoguepoint": {
+						"x": 250,
+						"y": 250
+					}
 				}
 			],
 			"props": {},
 			"separatorIds": [
+				"fox",
+				"fish",
 				"car"
 			]
 		},
@@ -850,7 +872,21 @@
 					"speaker": "player",
 					"text": "What does it need?",
 					"display": "How bad?",
-					"chain": "mechanic_needanything_response"
+					"chain": "mechanic_needanything_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"mechanic_fixes_transmission"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"mechanic_fixes_tire"
+							]
+						}
+					]
 				},
 				{
 					"id": "mechanic_who",
@@ -1373,6 +1409,51 @@
 					"action": "garage_search_boxes"
 				},
 				{
+					"id": "weasel_whatsgoingon",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Whats going on, where are we?",
+					"display": "Whats going on?",
+					"set": [
+						{
+							"set": [
+								0,
+								"weasel_first",
+								true
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								2,
+								[
+									0,
+									"*weasel_first"
+								],
+								"weasel_start"
+							]
+						}
+					],
+					"chain": "weasel_whatsgoingon_response"
+				},
+				{
+					"id": "weasel_whatsgoingon_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "You must have had too much fun yesteday.\\nWe're stopping in this town for the day and then we'll continue driving tonight.",
+					"set": [
+						{
+							"set": [
+								0,
+								"weasel_first",
+								true
+							]
+						}
+					],
+					"action": "weasel_start"
+				},
+				{
 					"id": "weasel_whystop",
 					"speaker": "player",
 					"target": "weasel",
@@ -1581,7 +1662,7 @@
 						{
 							"dialogue": "fox_coffee_pay_response",
 							"condition": [
-								9,
+								10,
 								"money",
 								5
 							]
@@ -2174,7 +2255,7 @@
 						{
 							"dialogue": "fox_carisfixed5met",
 							"condition": [
-								10,
+								11,
 								"fox"
 							]
 						},
@@ -2300,14 +2381,533 @@
 					"target": "player",
 					"text": "Oh you know it!",
 					"chain": "fox_carisfixed_leaves"
+				},
+				{
+					"id": "bookshelf_look",
+					"speaker": "player",
+					"target": "bookshelf",
+					"text": "/You dig through some books./",
+					"display": "Browse",
+					"set": [
+						{
+							"set": [
+								1,
+								"bookshelf_browse",
+								1
+							]
+						}
+					],
+					"branch": [
+						{
+							"dialogue": "bookshelf_look2",
+							"condition": [
+								9,
+								"bookshelf_browse",
+								2
+							]
+						},
+						{
+							"dialogue": "bookshelf_look3",
+							"condition": [
+								9,
+								"bookshelf_browse",
+								3
+							]
+						},
+						{
+							"dialogue": "bookshelf_nothingnew",
+							"condition": [
+								10,
+								"bookshelf_browse",
+								4
+							]
+						},
+						{
+							"dialogue": "bookshelf_nothing"
+						}
+					]
+				},
+				{
+					"id": "bookshelf_nothing",
+					"speaker": "player",
+					"target": "bookshelf",
+					"text": "/You find nothing yet./",
+					"action": "bookshelf_search"
+				},
+				{
+					"id": "bookshelf_nothingnew",
+					"speaker": "player",
+					"target": "player",
+					"text": "/Looks like you've seen all these already./",
+					"action": "bookshelf_search"
+				},
+				{
+					"id": "bookshelf_look2",
+					"speaker": "player",
+					"target": "player",
+					"text": "/More books, nothing very interesting yet./",
+					"action": "bookshelf_search"
+				},
+				{
+					"id": "bookshelf_look3",
+					"speaker": "player",
+					"target": "player",
+					"text": "/A strange book is jammed in the back .../",
+					"action": "bookshelf_search",
+					"set": [
+						{
+							"set": [
+								0,
+								"bookshelf_look",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "bookshelf_takeomni",
+					"speaker": "player",
+					"target": "bookshelf",
+					"text": "/You take the book./",
+					"action": "bookshelf_search",
+					"display": "Take Mysterious Book",
+					"set": [
+						{
+							"set": [
+								0,
+								"bookshelf_takeomni",
+								true
+							]
+						},
+						{
+							"set": [
+								4,
+								"omnibook"
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"bookshelf_takeomni"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"bookshelf_look"
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_beachwalk",
+					"speaker": "player",
+					"target": "mole",
+					"text": "A beautiful day for a walk.",
+					"display": "a Walk?",
+					"chain": "mole_beachwalk_response"
+				},
+				{
+					"id": "mole_beachwalk_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "I agree, though would be an even better day for a bike ride.\\n~... SIGH ...~\\nI'll have to wait another day.",
+					"chain": "mole_beachintro_reponse",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_cantride",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_beachintro_reponse",
+					"speaker": "mole",
+					"target": "player",
+					"text": "My name is $mole$ by the way.",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"name_mole"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"name_mole",
+								true
+							]
+						}
+					],
+					"chain": "mole_beachintro2"
+				},
+				{
+					"id": "mole_beachintro2",
+					"speaker": "player",
+					"target": "mole",
+					"text": "I'm $player$, pleasure.",
+					"chain": "mole_beachintro2_response"
+				},
+				{
+					"id": "mole_beachintro2_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Likewise. I'm a professor at the local college.\\nDo you work there or attend by any change?",
+					"chain": "mole_beachintro3"
+				},
+				{
+					"id": "mole_beachintro3",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Oh no, I'm just passing through.",
+					"chain": "mole_beachintro3_response"
+				},
+				{
+					"id": "mole_beachintro3_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Hopefully you'll be staying a while, it is quite a beautiful place.",
+					"branch": [
+						{
+							"dialogue": "mole_beachintro4",
+							"condition": [
+								9,
+								"cycles",
+								0
+							]
+						},
+						{
+							"dialogue": "mole_beachintro4cycle"
+						}
+					]
+				},
+				{
+					"id": "mole_beachintro4",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Just the day.",
+					"chain": "mole_justvisiting2_response"
+				},
+				{
+					"id": "mole_beachintro4cycle",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Its suppose to be just the day ~....~",
+					"chain": "mole_justvisiting2_response"
+				},
+				{
+					"id": "mole_justvisiting",
+					"speaker": "player",
+					"target": "mole",
+					"text": "I'm visiting, is there anything I should check out?",
+					"display": "What to do?",
+					"chain": "mole_justvisiting_response"
+				},
+				{
+					"id": "mole_justvisiting_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "For how long?",
+					"branch": [
+						{
+							"dialogue": "mole_beachintro4",
+							"condition": [
+								9,
+								"cycles",
+								0
+							]
+						},
+						{
+							"dialogue": "mole_beachintro4cycle"
+						}
+					]
+				},
+				{
+					"id": "mole_justvisiting2_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "That's a shame. There are some amazing hikes and *backpacking* trails in the countryside.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_backpacker",
+								true
+							]
+						}
+					],
+					"branch": [
+						{
+							"condition": [
+								13,
+								"beach"
+							],
+							"action": "mole_beach"
+						},
+						{
+							"action": "mole_standard"
+						}
+					]
+				},
+				{
+					"id": "mole_backpacker",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Are you a *Backpacker*?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_backpacker"
+							]
+						}
+					],
+					"display": "Backpacking?",
+					"chain": "mole_backpacker_response"
+				},
+				{
+					"id": "mole_backpacker_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~I am!~ I love hiking and general nature walks.\\nSome places are quite a bit a ways and I'm not as spry as I once was ~...~\\nSo now the only way I can get anywhere is *backpacking*.",
+					"chain": "mole_backpacker_response2"
+				},
+				{
+					"id": "mole_backpacker_response2",
+					"speaker": "mole",
+					"target": "player",
+					"text": "But its actually really great because I love camping too!",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_tripplanning",
+								true
+							]
+						}
+					],
+					"branch": [
+						{
+							"condition": [
+								13,
+								"beach"
+							],
+							"action": "mole_beach"
+						},
+						{
+							"action": "mole_standard"
+						}
+					]
+				},
+				{
+					"id": "mole_planningtrip",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Are you planning a trip anytime soon?",
+					"display": "Planning a Trip?",
+					"chain": "mole_planningtrip_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_tripplanning"
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_planningtrip_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "I would _love_ to, but school has been *busy* lately.\\nThere is some nice weather tonight, so the stars would be ~amazing~.\\nNormally I would give my *notes* to the TA and they would talk care of it,\\nbut today is a new topic and I haven't prepared it yet.",
+					"branch": [
+						{
+							"condition": [
+								13,
+								"beach"
+							],
+							"action": "mole_beach"
+						},
+						{
+							"action": "mole_standard"
+						}
+					]
+				},
+				{
+					"id": "mole_sparetire",
+					"speaker": "player",
+					"target": "mole",
+					"text": "I have this tire, would it work?",
+					"display": "/Give Spare Tire/",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"sparetire"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"mole_hasaflat"
+							]
+						}
+					],
+					"branch": [
+						{
+							"dialogue": "mole_sparetire_response2",
+							"condition": [
+								0,
+								"mole_withheldtire"
+							]
+						},
+						{
+							"dialogue": "mole_sparetire_response"
+						}
+					]
+				},
+				{
+					"id": "mole_sparetire_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~Actually ...~\\n*Yes!* it would work!\\nWhy are you carrying that around?\\nAre you sure I can have it?",
+					"action": "mole_sparetire"
+				},
+				{
+					"id": "mole_sparetire_response2",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~ha~ ~ha~ ~ha~ funny man.\\nI'll just wait for a tire.",
+					"branch": [
+						{
+							"dialogue": "mole_sparetire_response2",
+							"condition": [
+								0,
+								"mole_withheldtire"
+							]
+						},
+						{
+							"dialogue": "mole_sparetire_response"
+						}
+					]
+				},
+				{
+					"id": "mole_sparetireno",
+					"speaker": "player",
+					"target": "mole",
+					"text": "On second thought, I need it for something else.",
+					"chain": "mole_sparetireno_response",
+					"display": "No"
+				},
+				{
+					"id": "mole_sparetireno_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~Why .....~\\nWould you ~offer~\\nand then take it away ~???~\\nI mean its yours, you can do whatever\\nbut thats not very nice.",
+					"action": "mole_beach",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_withheldtire",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_sparetireyes",
+					"speaker": "player",
+					"target": "mole",
+					"text": "I was going to use it for something else, but it can wait.\\nYou can have it.",
+					"set": [
+						{
+							"set": [
+								5,
+								"sparetire"
+							]
+						},
+						{
+							"set": [
+								0,
+								"mole_fixspare",
+								true
+							]
+						}
+					],
+					"chain": "mole_sparetireyes_response",
+					"display": "Yes"
+				},
+				{
+					"id": "mole_sparetireyes_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~Thank you so much!~\\nI'll have to get someone to sub my calss and then i'm off!\\nTry and find me this evening,\\nI'll be sure to grab *something* on my ride.",
+					"action": "mole_beach"
+				},
+				{
+					"id": "mole_goride",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Why not go on a bike ride?",
+					"display": "Why not Ride?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_cantride"
+							]
+						}
+					],
+					"chain": "mole_goride_response",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_hasaflat",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_goride_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Alas, my *bike* has a *flat tire* and I haven't taken care of it yet.",
+					"chain": "mole_goride2"
+				},
+				{
+					"id": "mole_goride2",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Need any help?",
+					"chain": "mole_goride2_response"
+				},
+				{
+					"id": "mole_goride2_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Thank you, but I can do it.\\nI enjoy working on my bike, but the I don't have a tire!\\nThe shop said it was _back ordered_ ~...~\\n~Can you Imagine!~\\nIf I had a *spare* *tire* I'd be able to replace it.",
+					"action": "mole_beach"
 				}
 			],
 			"props": {},
 			"separatorIds": [
 				"mechanic_car",
 				"garage_look",
-				"weasel_whystop",
-				"fox_ordercoffee"
+				"weasel_whatsgoingon",
+				"fox_ordercoffee",
+				"bookshelf_look",
+				"mole_beachwalk"
 			]
 		},
 		{
@@ -2351,6 +2951,12 @@
 				{
 					"typeStr": "6:dialogue",
 					"name": "dialogue",
+					"opt": true
+				},
+				{
+					"typeStr": "6:dialogueActions",
+					"name": "action",
+					"opt": true,
 					"kind": null
 				},
 				{
@@ -2473,6 +3079,15 @@
 					"options": [
 						{
 							"option": "garage_look"
+						}
+					]
+				},
+				{
+					"id": "weasel_first",
+					"owner": "weasel",
+					"options": [
+						{
+							"option": "weasel_whatsgoingon"
 						}
 					]
 				},
@@ -2604,7 +3219,7 @@
 				},
 				{
 					"id": "fox_fixcar",
-					"owner": "player",
+					"owner": "fox",
 					"options": [
 						{
 							"option": "fox_carisfixed_paid"
@@ -2613,13 +3228,99 @@
 							"option": "fox_carisfixed_paid2"
 						}
 					]
+				},
+				{
+					"id": "bookshelf_search",
+					"owner": "bookshelf",
+					"options": [
+						{
+							"option": "bookshelf_look"
+						},
+						{
+							"option": "bookshelf_takeomni"
+						}
+					]
+				},
+				{
+					"id": "mole_standard",
+					"owner": "mole",
+					"options": [
+						{
+							"option": "mole_justvisiting"
+						},
+						{
+							"option": "mole_backpacker"
+						},
+						{
+							"option": "mole_planningtrip"
+						},
+						{
+							"option": "mole_sparetire"
+						}
+					]
+				},
+				{
+					"id": "mole_beach",
+					"owner": "mole",
+					"options": [
+						{
+							"option": "mole_beachwalk"
+						},
+						{
+							"option": "mole_goride"
+						}
+					],
+					"imports": [
+						{
+							"action": "mole_standard"
+						}
+					]
+				},
+				{
+					"id": "mole_sparetire",
+					"owner": "mole",
+					"options": [
+						{
+							"option": "mole_sparetireyes"
+						},
+						{
+							"option": "mole_sparetireno"
+						}
+					]
+				},
+				{
+					"id": "mole_writing",
+					"owner": "mole",
+					"options": []
+				},
+				{
+					"id": "mole_grading",
+					"owner": "mole",
+					"options": []
+				},
+				{
+					"id": "mole_reading",
+					"owner": "mole",
+					"options": []
+				},
+				{
+					"id": "mole_teaching",
+					"owner": "mole",
+					"options": []
+				},
+				{
+					"id": "mole_shopping",
+					"owner": "mole",
+					"options": []
 				}
 			],
 			"props": {},
 			"separatorIds": [
 				"garage_search_boxes",
-				"weasel_start",
-				"fox_cafe"
+				"weasel_first",
+				"fox_cafe",
+				"bookshelf_search",
+				"mole_standard"
 			]
 		},
 		{
@@ -2692,6 +3393,44 @@
 							"y": 0.56,
 							"scale": 0.5,
 							"flipX": false
+						},
+						{
+							"actor": "fox",
+							"x": 0.3,
+							"y": 0.6,
+							"scale": 1,
+							"flipX": true,
+							"condition": [
+								{
+									"condition": [
+										1,
+										4
+									]
+								},
+								{
+									"condition": [
+										3,
+										"fox_gave_adventurebook"
+									]
+								}
+							],
+							"action": "fox_beach"
+						},
+						{
+							"actor": "mole",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": true,
+							"condition": [
+								{
+									"condition": [
+										1,
+										1
+									]
+								}
+							],
+							"action": "mole_beach"
 						}
 					],
 					"id": "beach"
@@ -2718,7 +3457,7 @@
 							"y": 0.5,
 							"scale": 0.75,
 							"flipX": false,
-							"action": "weasel_start"
+							"action": "weasel_first"
 						},
 						{
 							"actor": "fox",
@@ -2730,6 +3469,19 @@
 									"condition": [
 										1,
 										5
+									]
+								},
+								{
+									"condition": [
+										5,
+										[
+											4,
+											"mechanic_fixes_transmission"
+										],
+										[
+											4,
+											"mechanic_fixes_tire"
+										]
 									]
 								}
 							],
@@ -2756,13 +3508,90 @@
 							],
 							"flipX": false,
 							"action": "fox_cafe"
+						},
+						{
+							"actor": "mole",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": false,
+							"condition": [
+								{
+									"condition": [
+										1,
+										2
+									]
+								}
+							],
+							"action": "mole_writing"
+						},
+						{
+							"actor": "mole",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": false,
+							"condition": [
+								{
+									"condition": [
+										1,
+										3
+									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_backpacking"
+									]
+								}
+							],
+							"action": "mole_grading"
+						},
+						{
+							"actor": "mole",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": false,
+							"condition": [
+								{
+									"condition": [
+										1,
+										5
+									]
+								}
+							],
+							"action": "mole_reading"
 						}
 					],
 					"id": "cafe"
 				},
 				{
 					"location": "school",
-					"actors": [],
+					"actors": [
+						{
+							"actor": "mole",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": false,
+							"condition": [
+								{
+									"condition": [
+										1,
+										5
+									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_bikeride"
+									]
+								}
+							],
+							"action": "mole_teaching"
+						}
+					],
 					"id": "school"
 				},
 				{
@@ -2772,7 +3601,24 @@
 				},
 				{
 					"location": "market",
-					"actors": [],
+					"actors": [
+						{
+							"actor": "bookshelf",
+							"x": 0.5,
+							"y": 0.5,
+							"scale": 0.25,
+							"flipX": true,
+							"action": "bookshelf_search"
+						},
+						{
+							"actor": "mole",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": false,
+							"action": "mole_shopping"
+						}
+					],
 					"id": "market"
 				}
 			],
@@ -2826,7 +3672,7 @@
 				{
 					"name": "omnibook",
 					"displayname": "Mystical Book",
-					"description": "Strange looking book, doesn't seem to have any contents...",
+					"description": "Strange looking book, doesn't seem to have any contents ... ",
 					"icon": "items/boxes.png"
 				},
 				{
@@ -2847,6 +3693,11 @@
 					"name": "id"
 				},
 				{
+					"typeStr": "6:characters",
+					"name": "character",
+					"kind": null
+				},
+				{
 					"typeStr": "1",
 					"name": "title",
 					"kind": null
@@ -2861,62 +3712,74 @@
 				{
 					"id": "true_ending",
 					"title": "Got the Message",
-					"description": "Fully understand what you're doing here."
+					"description": "Fully understand what you're doing here.",
+					"character": "player"
 				},
 				{
 					"id": "fox_car_trouble",
 					"title": "the Mechanic",
-					"description": "<description>"
+					"description": "<description>",
+					"character": "fox"
 				},
 				{
 					"id": "fox_living_vicariously",
 					"title": "There and Back Again",
-					"description": "Help someone explore "
+					"description": "Help someone explore ",
+					"character": "fox"
 				},
 				{
 					"id": "student_animal_chat",
 					"title": "All about Animals",
-					"description": "Talk to someone about animals."
+					"description": "Talk to someone about animals.",
+					"character": "player"
 				},
 				{
 					"id": "student_deep_sea_explorer",
 					"title": "Deep Sea Explorer",
-					"description": "Help someone go diving."
+					"description": "Help someone go diving.",
+					"character": "player"
 				},
 				{
 					"id": "student_new_animal_friends",
 					"title": "Animal Friends",
-					"description": "Help someone find a similar interest."
+					"description": "Help someone find a similar interest.",
+					"character": "player"
 				},
 				{
 					"id": "mole_nice_bike_ride",
 					"title": "Fix a Flat",
-					"description": "Help someone fix their bike and go on a ride."
+					"description": "Help someone fix their bike and go on a ride.",
+					"character": "mole"
 				},
 				{
 					"id": "mole_short_hike",
 					"title": "a Short Hike",
-					"description": "Help someone get their affairs in order so they can go backpacking."
+					"description": "Help someone get their affairs in order so they can go backpacking.",
+					"character": "mole"
 				},
 				{
 					"id": "lamb_soccer_star",
 					"title": "Soccer Star",
-					"description": "Help someone get to their soccer game."
+					"description": "Help someone get to their soccer game.",
+					"character": "lamb"
 				},
 				{
 					"id": "lamb_soccer_star_sorta",
 					"title": "a Runner Up",
-					"description": "<description>"
+					"description": "<description>",
+					"character": "lamb"
 				},
 				{
 					"id": "lamb_a_date",
 					"title": "It's a Date",
-					"description": "Help two friends go further."
+					"description": "Help two friends go further.",
+					"character": "lamb"
 				},
 				{
 					"id": "know_everyone",
 					"title": "Friend to All",
-					"description": "Learn everyone's name."
+					"description": "Learn everyone's name.",
+					"character": "player"
 				}
 			],
 			"separators": [],
@@ -3132,6 +3995,19 @@
 					]
 				},
 				{
+					"name": "Value",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						},
+						{
+							"name": "value",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
 					"name": "ValueAtLeast",
 					"args": [
 						{
@@ -3159,6 +4035,24 @@
 						{
 							"name": "character",
 							"typeStr": "6:characters"
+						}
+					]
+				},
+				{
+					"name": "Location",
+					"args": [
+						{
+							"name": "location",
+							"typeStr": "6:locations"
+						}
+					]
+				},
+				{
+					"name": "NotLocation",
+					"args": [
+						{
+							"name": "location",
+							"typeStr": "6:locations"
 						}
 					]
 				}
@@ -3262,6 +4156,37 @@
 						{
 							"name": "p",
 							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "Exists",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						}
+					]
+				},
+				{
+					"name": "NotExists",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						}
+					]
+				},
+				{
+					"name": "And",
+					"args": [
+						{
+							"name": "c1",
+							"typeStr": "9:PeriodCondition"
+						},
+						{
+							"name": "c2",
+							"typeStr": "9:PeriodCondition"
 						}
 					]
 				}
