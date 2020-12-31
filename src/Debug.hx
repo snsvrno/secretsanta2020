@@ -119,4 +119,5 @@ class Debug {
 
 		return test;
 	}
+
 }

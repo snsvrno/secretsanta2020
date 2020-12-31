@@ -279,6 +279,9 @@ class Scene extends h2d.Object {
 				return result;
 			case GTE(period): return Game.currentPeriod() >= period;
 			case E(period): return Game.currentPeriod() == period;
+			case Exists(name): return Game.variables.check(name);
+			case NotExists(name): return !Game.variables.check(name);
+			case And(c1, c2): return checkCondition(c1) && checkCondition(c2);
 		}
 	}
 }

@@ -17,8 +17,9 @@ class Wheel extends h2d.Object {
 		if (action != null) makeChoices(action);
 
 		// draws the wheel & arranges the choices around the wheel.
-		arrangeChoices();
-		makeBaseWheel();
+		//arrangeChoices();
+		arrangeChoicesStack();
+		// makeBaseWheel();
 
 		this.x = x;
 		this.y = y;
@@ -57,7 +58,8 @@ class Wheel extends h2d.Object {
 		});
 
 		choices.push(newChoice);
-		arrangeChoices();
+		//arrangeChoices();
+		arrangeChoicesStack();
 	}
 
 	/**
@@ -77,7 +79,8 @@ class Wheel extends h2d.Object {
 		});
 
 		choices.push(newChoice);
-		arrangeChoices();
+		//arrangeChoices();
+		arrangeChoicesStack();
 	}
 
 	/**
@@ -89,6 +92,23 @@ class Wheel extends h2d.Object {
 		background.beginFill(0x000000, 0.75);
 		background.drawCircle(0, 0, radius);
 		background.endFill();
+	}
+
+	private function arrangeChoicesStack() {
+		var padding = Const.CHOICE_TEXT_PADDING + Const.CHOICE_STACK_PADDING;
+		var y = 0.;
+		var height = 0.;
+		for (i in 0 ... choices.length) {
+			y += padding + choices[i].height/2;
+			choices[i].setX(0);
+			choices[i].setY(y);
+
+			y += padding + choices[i].height/2;
+			height += padding * 2 + choices[i].height;
+		}
+
+		for (c in choices) c.setY(c.y - height/2);
+
 	}
 
 	/**
@@ -122,7 +142,6 @@ class Wheel extends h2d.Object {
 	}
 
 	private function makeChoices(action : Data.DialogueActions) {
-
 
 		var validChoices = getValidChoices(action);
 

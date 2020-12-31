@@ -15,6 +15,8 @@ class Conditions {
 			case NotHave(item): return !Game.variables.has(item.name);
 
 			case AtLeast(period): return Game.currentPeriod() >= period;
+
+			case Value(name, value): return Game.variables.value(name) == value;
 			case ValueAtLeast(name, value): return Game.variables.value(name) >= value;
 
 			case Talked(character): return Game.variables.hasMet(character.id);

@@ -45,7 +45,7 @@ class Text extends h2d.Object {
 
 	private static function calculateTextWidth(text : h2d.Text, ?overrideText : String) : Float {
 		var content = if(overrideText != null) overrideText; else text.text;
-		return text.calcTextWidth(content) * Math.cos(text.rotation) + text.textHeight * Math.sin(text.rotation);
+		return text.calcTextWidth(content);// * Math.cos(text.rotation) + text.textHeight * Math.sin(text.rotation);
 	}
 
 	public function asString():String {
@@ -219,7 +219,7 @@ class Text extends h2d.Object {
 
 						var letters = splitText(tseg);
 						for (l in letters) {
-							l.rotation = 0.15;
+							l.rotation = Const.TEXT_ACTION_SLANT;
 							text.textObjects.push(l);
 						}
 

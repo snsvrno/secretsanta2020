@@ -136,6 +136,7 @@ class Const {
 	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
 	inline static public var TEXT_ITALICS_SLANT : Float = 0.1;
+	inline static public var TEXT_ACTION_SLANT : Float = 0.1;
 
 	static public var TEXT_FONT_NORMAL : h2d.Font;
 	static public var TEXT_FONT_BOLD : h2d.Font;
@@ -168,7 +169,7 @@ class Const {
 	/** normal text color */
 	inline static public var BUBBLE_TEXT_COLOR_REGULAR : Int = 0xFFDDDDDD;
 	/** action text color */
-	inline static public var BUBBLE_TEXT_COLOR_ACTION : Int = 0xFFFF00FF;
+	inline static public var BUBBLE_TEXT_COLOR_ACTION : Int = 0xFF000000;
 	/** variable's text color */
 	inline static public var BUBBLE_TEXT_COLOR_VARIABLE : Int = 0xFFFFFF00;
 
@@ -183,6 +184,7 @@ class Const {
 	inline static public var CHOICE_RADIUS_OUT : Int = 60;
 	/** Padding between choice items. */	
 	inline static public var CHOICE_PADDING : Int = 10;
+	inline static public var CHOICE_STACK_PADDING : Int = 2;
 
 	/** The wordwrap width for speech bubbles. */
 	inline static public var CHOICE_MAX_WIDTH : Float = 100.;
