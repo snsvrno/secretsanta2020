@@ -413,104 +413,22 @@ class Text extends h2d.Object {
 		return splits;
 	}
 
+
 	static private function splitSegments(content : String) : Array<Style> {
 		var segments : Array<Style> = new Array();
-		
-		var segment : String = "";
-		var insideSpecial : Bool = false;
-		for (i in 0 ... content.length) {
-			switch(content.charAt(i)) {
-				// italics
-				case "_": 
 
-					if (insideSpecial == true) {
-						insideSpecial = false;
-						segments.push(Italic(segment));
-					} else {
-						insideSpecial = true;
-						if (segment.length > 0) segments.push(Plain(segment));
-					}
-
-					segment = "";
-
-				// variables
-				case "$": 
-
-					if (insideSpecial == true) {
-						insideSpecial = false;
-						segments.push(Variable(segment));
-					} else {
-						insideSpecial = true;
-						if (segment.length > 0) segments.push(Plain(segment));
-					}
-
-					segment = "";
-					
-				// bold
-				case "*":
-
-					if (insideSpecial == true) {
-						insideSpecial = false;
-						segments.push(Bold(segment));
-					} else {
-						insideSpecial = true;
-						if (segment.length > 0) segments.push(Plain(segment));
-					}
-					
-					segment = "";
-					
-				// bold
-				case "`":
-
-					if (insideSpecial == true) {
-						insideSpecial = false;
-						segments.push(StringVariable(segment));
-					} else {
-						insideSpecial = true;
-						if (segment.length > 0) segments.push(Plain(segment));
-					}
-					
-					segment = "";
-					
-				// dancing
-				case "~":
-
-					if (insideSpecial == true) {
-						insideSpecial = false;
-						segments.push(Dancing(segment));
-					} else {
-						insideSpecial = true;
-						if (segment.length > 0) segments.push(Plain(segment));
-					}
-					
-					segment = "";
-					
-				// action
-				case "/":
-
-					if (insideSpecial == true) {
-						insideSpecial = false;
-						segments.push(Action(segment));
-					} else {
-						insideSpecial = true;
-						if (segment.length > 0) segments.push(Plain(segment));
-					}
-					
-					segment = "";
-
-				// no special character
-				case c:
-					segment += c;
-			}
+		for (segs in game.utils.Quoted.parse(content)) switch(segs.quote) {
+			case "_": segments.push(Italic(segs.text));
+			case "$": segments.push(Variable(segs.text));
+			case "*": segments.push(Bold(segs.text));
+			case "~": segments.push(Dancing(segs.text));
+			case "/": segments.push(Action(segs.text));
+			case "`": segments.push(StringVariable(segs.text));
+			case null: segments.push(Plain(segs.text));
+			case _: throw("unhandled.");
 		}
 
-		// catching the last one if it was normal.
-		if (segment.length > 0) segments.push(Plain(segment));
-
-		// we check if we actually split anything, maybe there weren't any 
-		// of these special characters in the text, so then we just return
-		// the entire content as a plain text.
-		if (segments.length == 0) return [ Plain(content) ];
-		else return segments;
+		return segments;
 	}
+
 }

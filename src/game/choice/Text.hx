@@ -41,7 +41,7 @@ class Text extends h2d.Object {
 			// moves this to the top, hopefully this will
 			// fix the issue with overlapping in the wheel if
 			// i don't get around to fixing it some otherway.
-			parent.addChild(this);
+			// parent.addChild(this);
 		};
 		interactive.onOut = function(e : hxd.Event) text.color = lastColor;
 

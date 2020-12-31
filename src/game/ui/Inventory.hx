@@ -1,6 +1,5 @@
 package game.ui;
 
-
 class Inventory extends game.ui.VStack {
 
 	var items : Map<Data.ItemsKind, game.ui.HStack> = new Map();
@@ -58,11 +57,17 @@ class Inventory extends game.ui.VStack {
 	}
 
 	private function evaluateVariables(text : String) : String {
-		var pos = text.indexOf("$money"); 
-		if (pos > 0) { 
-			return text.substr(0, pos) + "$" + '${Game.variables.value("money")}' + text.substr(pos+6);
-		} else {
-			return text;
+
+		var parsedText = "";
+		for (qt in game.utils.Quoted.parse(text)) {
+			switch(qt.quote) {
+				case "%": parsedText += Data.characters.resolve(qt.text).name;
+				case "#": parsedText += Game.variables.getValue(qt.text);
+				case null: parsedText += qt.text;
+				case _: throw("unknown quote");
+			}
 		}
+
+		return parsedText;
 	}
 }

@@ -18,6 +18,7 @@ class Conditions {
 
 			case Value(name, value): return Game.variables.value(name) == value;
 			case ValueAtLeast(name, value): return Game.variables.value(name) >= value;
+			case ValueLessThan(name, value): return Game.variables.value(name) < value;
 
 			case Talked(character): return Game.variables.hasMet(character.id);
 			case NotTalked(character): return !Game.variables.hasMet(character.id);

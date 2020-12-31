@@ -191,6 +191,9 @@ class Scene extends h2d.Object {
 					if (oldValue == 0 && name == "money") Game.foundItem(money);
 
 					Game.variables.incrementValue(name, value);
+
+				case SetValueToPeriod(name):
+					Game.variables.setValue(name, Game.currentPeriod());
 				
 				case Subtract(name, value):
 					Game.variables.incrementValue(name, -value);
@@ -211,7 +214,7 @@ class Scene extends h2d.Object {
 				case Sleep(duration):
 					
 					Game.toMap();
-					Game.tickClockForward(duration);
+					Game.tickClockForwardPeriods(duration);
 					Game.popup(dialogue.text, 3);
 
 					// stop the processing.
