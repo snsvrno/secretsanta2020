@@ -69,14 +69,51 @@ class Debug {
 			case(hxd.Key.F6):
 				var test = testUiElements();
 				Game.debugAddToScene(test);
+			case(hxd.Key.F7):
+				var test = testTextElements();
+				Game.debugAddToScene(test);
 			case(hxd.Key.Q): Game.debugTickClick(-1);
 			case(hxd.Key.W): Game.debugTickClick(1);
 			case _:
 		} 
 	}
 
+	static public function testTextElements() : h2d.Object {
+		var test = new h2d.Object();
+		test.name = "debugcover";
+
+		var background = new h2d.Graphics(test);
+		background.beginFill(0x000000,0.8);
+		background.drawRect(0,0,Const.WORLD_WIDTH,Const.WORLD_HEIGHT);
+		background.endFill();
+
+		var sampeltext = "This is some *long* text, /to/ _test_ the ~word wrap~";
+		//var sampeltext = "This is some long text, to test the word wrap";
+
+		var graphics = new h2d.Graphics();
+		graphics.lineStyle(2, 0x00FF00);
+
+		var padding = 3;
+		var y = 0.;
+		for (tw in [null, 100, 200]) {
+			var text = game.bubble.Bubble.manual(sampeltext, Const.WORLD_WIDTH / 2,0, tw);
+			test.addChild(text);
+			text.y = y + text.height/2 + padding;
+
+			graphics.drawRect(Const.WORLD_WIDTH / 2 - tw/2, text.y - tw/2, tw, tw);
+			
+			y = text.y + text.height/2 + padding;
+		}
+
+		test.addChild(graphics);
+
+
+		return test;
+	}
+
 	static public function testUiElements() : h2d.Object {
 		var test = new h2d.Object();
+		test.name = "debugcover";
 
 		var background = new h2d.Graphics(test);
 		background.beginFill(0x000000,0.8);
