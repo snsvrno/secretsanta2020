@@ -588,7 +588,7 @@
 				},
 				{
 					"id": "fish",
-					"name": "",
+					"name": "Brenda",
 					"image": "characters/fish.png",
 					"dialoguepoint": {
 						"x": 0,
@@ -641,6 +641,16 @@
 						"y": 200
 					},
 					"type": 0
+				},
+				{
+					"id": "grocer",
+					"type": 0,
+					"name": "Jimmie",
+					"image": "characters/fish.png",
+					"dialoguepoint": {
+						"x": 200,
+						"y": 200
+					}
 				},
 				{
 					"id": "car",
@@ -1257,7 +1267,7 @@
 						},
 						{
 							"set": [
-								3,
+								4,
 								2
 							]
 						}
@@ -1300,7 +1310,7 @@
 						},
 						{
 							"set": [
-								5,
+								6,
 								"sparetire"
 							]
 						}
@@ -1387,7 +1397,7 @@
 					"set": [
 						{
 							"set": [
-								4,
+								5,
 								"sparetire"
 							]
 						},
@@ -1414,15 +1424,6 @@
 					"target": "weasel",
 					"text": "Whats going on, where are we?",
 					"display": "Whats going on?",
-					"set": [
-						{
-							"set": [
-								0,
-								"weasel_first",
-								true
-							]
-						}
-					],
 					"condition": [
 						{
 							"condition": [
@@ -1605,7 +1606,7 @@
 					"set": [
 						{
 							"set": [
-								3,
+								4,
 								100
 							]
 						}
@@ -1681,14 +1682,14 @@
 					"set": [
 						{
 							"set": [
-								2,
+								3,
 								"money",
 								5
 							]
 						},
 						{
 							"set": [
-								4,
+								5,
 								"coffee"
 							]
 						}
@@ -2077,7 +2078,7 @@
 					"set": [
 						{
 							"set": [
-								5,
+								6,
 								"adventurebook"
 							]
 						},
@@ -2255,7 +2256,7 @@
 						{
 							"dialogue": "fox_carisfixed5met",
 							"condition": [
-								11,
+								12,
 								"fox"
 							]
 						},
@@ -2481,7 +2482,7 @@
 						},
 						{
 							"set": [
-								4,
+								5,
 								"omnibook"
 							]
 						}
@@ -2647,7 +2648,7 @@
 					"branch": [
 						{
 							"condition": [
-								13,
+								14,
 								"beach"
 							],
 							"action": "mole_beach"
@@ -2697,7 +2698,7 @@
 					"branch": [
 						{
 							"condition": [
-								13,
+								14,
 								"beach"
 							],
 							"action": "mole_beach"
@@ -2731,7 +2732,7 @@
 					"branch": [
 						{
 							"condition": [
-								13,
+								14,
 								"beach"
 							],
 							"action": "mole_beach"
@@ -2831,7 +2832,7 @@
 					"set": [
 						{
 							"set": [
-								5,
+								6,
 								"sparetire"
 							]
 						},
@@ -2851,7 +2852,16 @@
 					"speaker": "mole",
 					"target": "player",
 					"text": "~Thank you so much!~\\nI'll have to get someone to sub my calss and then i'm off!\\nTry and find me this evening,\\nI'll be sure to grab *something* on my ride.",
-					"action": "mole_beach"
+					"action": "mole_beach",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_fixaflat",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "mole_goride",
@@ -2898,6 +2908,811 @@
 					"target": "player",
 					"text": "Thank you, but I can do it.\\nI enjoy working on my bike, but the I don't have a tire!\\nThe shop said it was _back ordered_ ~...~\\n~Can you Imagine!~\\nIf I had a *spare* *tire* I'd be able to replace it.",
 					"action": "mole_beach"
+				},
+				{
+					"id": "mole_bikeride",
+					"speaker": "player",
+					"target": "mole",
+					"text": "How was the ride?",
+					"display": "How was the Ride?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_fixaflat"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								2,
+								"mole_fixesflat"
+							]
+						}
+					],
+					"chain": "mole_bikeride_response"
+				},
+				{
+					"id": "mole_bikeride_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "It was ~amazing~, just what I needed.",
+					"branch": [
+						{
+							"dialogue": "mole_bikeride_response31",
+							"condition": [
+								11,
+								"mole_fixesflat",
+								3
+							]
+						},
+						{
+							"dialogue": "mole_bikeride_response2"
+						}
+					]
+				},
+				{
+					"id": "mole_bikeride_response2",
+					"speaker": "mole",
+					"target": "player",
+					"text": "I was going to get you *something* but I didn't have enough time.\\nI had to turn back too soon.",
+					"branch": [
+						{
+							"action": "mole_cafe",
+							"condition": [
+								14,
+								"cafe"
+							]
+						},
+						{
+							"action": "mole_shopping"
+						}
+					]
+				},
+				{
+					"id": "mole_bikeride_response31",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~Oh~\\nI got you *something*.",
+					"chain": "mole_bikeride_response32"
+				},
+				{
+					"id": "mole_bikeride_response32",
+					"speaker": "mole",
+					"target": "player",
+					"text": "There is this winery in the country that I _love_.\\nI thought I'd share that since you were so kind to share the tire with me.",
+					"set": [
+						{
+							"set": [
+								5,
+								"winebottle"
+							]
+						}
+					],
+					"branch": [
+						{
+							"action": "mole_cafe",
+							"condition": [
+								14,
+								"cafe"
+							]
+						},
+						{
+							"action": "mole_shopping"
+						}
+					]
+				},
+				{
+					"id": "mole_lecture",
+					"speaker": "player",
+					"target": "mole",
+					"text": "~...~ and that's one reason why *Swallows* are majestic birds.\\nand why they are our topic for todays lecture.",
+					"display": "/Listen to Lecture/",
+					"set": [
+						{
+							"set": [
+								1,
+								"mole_lecture",
+								1
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								9,
+								"mole_lecture",
+								0
+							]
+						}
+					],
+					"action": "mole_teaching"
+				},
+				{
+					"id": "mole_lecture2",
+					"speaker": "player",
+					"target": "mole",
+					"text": "It is well known that the *African Swallow* is more heartier than the *European*.\\nSome would even argue that it could carry a *coconut*\\n which could be ~10 times~ its _size_.",
+					"display": "/Continue Listening/",
+					"condition": [
+						{
+							"condition": [
+								9,
+								"mole_lecture",
+								1
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								1,
+								"mole_lecture",
+								1
+							]
+						}
+					],
+					"action": "mole_teaching"
+				},
+				{
+					"id": "mole_lecture3",
+					"speaker": "player",
+					"target": "mole",
+					"text": "The feathers are one interesting difference ~...~",
+					"chain": "mole_fallasleep",
+					"display": "/Continue Listening/",
+					"condition": [
+						{
+							"condition": [
+								9,
+								"mole_lecture",
+								2
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_fallasleep",
+					"speaker": "player",
+					"target": "player",
+					"text": "/It's too much ... You fall asleep, waking up shortly after class./",
+					"set": [
+						{
+							"set": [
+								4,
+								1
+							]
+						},
+						{
+							"set": [
+								0,
+								"mole_fallasleep",
+								true
+							]
+						},
+						{}
+					]
+				},
+				{
+					"id": "mole_recordclass",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You open the mysterious book/\\n/It seems to transcribe what is being said./",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_useomnibook",
+								true
+							]
+						},
+						{
+							"set": [
+								6,
+								"omnibook"
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								6,
+								"omnibook"
+							]
+						}
+					],
+					"display": "Open Mysterious Book",
+					"chain": "mole_recordclass2"
+				},
+				{
+					"id": "mole_recordclass2",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You finish the lecture, and take the class notes./",
+					"set": [
+						{
+							"set": [
+								5,
+								"classnotes"
+							]
+						},
+						{
+							"set": [
+								4,
+								1
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_howareyou",
+					"speaker": "player",
+					"target": "mole",
+					"text": "How are you doing?",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"mole_name"
+							]
+						}
+					],
+					"display": "Whats up?",
+					"chain": "mole_howareyou_response",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_howareyou",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_howareyouname",
+					"speaker": "player",
+					"target": "mole",
+					"text": "$mole$, how are you doing?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_name"
+							]
+						}
+					],
+					"display": "Whats up?",
+					"chain": "mole_howareyouname_reponse"
+				},
+				{
+					"id": "mole_howareyou_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Oh hi.",
+					"branch": [
+						{
+							"dialogue": "mole_writing",
+							"condition": [
+								16,
+								2
+							]
+						},
+						{
+							"dialogue": "mole_grading",
+							"condition": [
+								16,
+								3
+							]
+						},
+						{
+							"dialogue": "mole_reading",
+							"condition": [
+								16,
+								5
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_howareyouname_reponse",
+					"speaker": "mole",
+					"target": "player",
+					"text": "$player$! I'm doing well.",
+					"branch": [
+						{
+							"dialogue": "mole_writing",
+							"condition": [
+								16,
+								2
+							]
+						},
+						{
+							"condition": [
+								16,
+								3
+							],
+							"action": "mole_cafe",
+							"dialogue": "mole_grading"
+						},
+						{
+							"dialogue": "mole_reading",
+							"condition": [
+								16,
+								5
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_reading",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Is that interesting?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_howareyou"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"*mole_interestingquestion"
+							]
+						},
+						{
+							"condition": [
+								16,
+								5
+							]
+						}
+					],
+					"chain": "mole_readingwhat",
+					"display": "Intersting Book?",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_interestingquestion",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_readingwhat",
+					"speaker": "mole",
+					"target": "player",
+					"text": "What?",
+					"chain": "mole_readingwhat2"
+				},
+				{
+					"id": "mole_readingwhat2",
+					"speaker": "player",
+					"target": "mole",
+					"text": "That *book* you're reading, is it interesting?",
+					"chain": "mole_readingwhat3"
+				},
+				{
+					"id": "mole_readingwhat3",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~....~",
+					"chain": "mole_readinginteresting"
+				},
+				{
+					"id": "mole_readinginterested",
+					"speaker": "player",
+					"target": "mole",
+					"text": "That *book* looks really interesting.",
+					"display": "Interesting Book!",
+					"chain": "mole_readinginteresting",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*mole_interestingquestion"
+							]
+						},
+						{
+							"condition": [
+								16,
+								5
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_interested",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_readinginteresting",
+					"speaker": "mole",
+					"target": "player",
+					"text": "*Oh*! Yes, it is _very_ interesting.\\nIt is about some of those rarer ocean animals.\\nI'm almost finished with it.",
+					"branch": [
+						{
+							"dialogue": "mole_borrowit",
+							"condition": [
+								0,
+								"mole_interested"
+							]
+						},
+						{
+							"action": "mole_cafe"
+						}
+					]
+				},
+				{
+					"id": "mole_borrowit",
+					"speaker": "mole",
+					"target": "player",
+					"text": "I could let you _borrow_ it if you're interested.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_borrowbook",
+								true
+							]
+						}
+					],
+					"action": "mole_cafe"
+				},
+				{
+					"id": "mole_borrowbook",
+					"speaker": "player",
+					"target": "player",
+					"text": "~Really?!~ I would love to borrow it.",
+					"display": "Borrow Book",
+					"chain": "mole_borrowbook_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_borrowbook"
+							]
+						},
+						{
+							"condition": [
+								16,
+								5
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_borrowbook_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Here you go, you don't have to return it.\\nI got it from one of the faculty at the university.\\nBooks should be shared!\\nBe sure to *pass it on* when you've finished with it.",
+					"action": "mole_cafe",
+					"set": [
+						{
+							"set": [
+								5,
+								"seabook"
+							]
+						},
+						{
+							"set": [
+								0,
+								"mole_gotseabook",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_writing",
+					"speaker": "mole",
+					"target": "player",
+					"text": "I'm just working on a story.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_writer",
+								true
+							]
+						}
+					],
+					"action": "mole_cafe"
+				},
+				{
+					"id": "mole_writing2",
+					"speaker": "player",
+					"target": "mole",
+					"text": "If you don't mind, what are you writing?",
+					"display": "Writing What?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_writer"
+							]
+						},
+						{
+							"condition": [
+								16,
+								2
+							]
+						}
+					],
+					"branch": [
+						{
+							"dialogue": "mole_writing2_response",
+							"condition": [
+								0,
+								"mole_name"
+							]
+						},
+						{
+							"dialogue": "mole_writing31"
+						}
+					]
+				},
+				{
+					"id": "mole_writing2_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Of course not! I love talking about my work.",
+					"chain": "mole_writing31"
+				},
+				{
+					"id": "mole_writing31",
+					"speaker": "mole",
+					"target": "player",
+					"text": "I'm a teacher btw, I ~love~ talking about things!",
+					"chain": "mole_writing32"
+				},
+				{
+					"id": "mole_writing32",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Its a *science fiction* story.\\nIts set in the near future where people have colonized the solar system.\\nSome kind of galactic event occurs and all the different colonies start warring with each other.",
+					"chain": "mole_writing4"
+				},
+				{
+					"id": "mole_writing4",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Sounds familiar ... are you close to done?",
+					"chain": "mole_writing41"
+				},
+				{
+					"id": "mole_writing41",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~Oh, definitely not.~ I just started.\\nI'm working on an outline to better understand it.",
+					"action": "mole_cafe"
+				},
+				{
+					"id": "mole_grading",
+					"speaker": "mole",
+					"target": "player",
+					"text": "Just working through my coarse work.\\nOh and grading papers ~...~",
+					"action": "mole_cafe"
+				},
+				{
+					"id": "grocer_whattopurchase",
+					"speaker": "player",
+					"target": "grocer",
+					"text": "What do you have to buy?",
+					"display": "What do purchase?",
+					"branch": [
+						{
+							"condition": [
+								1,
+								"grocer_soldsandwich"
+							],
+							"dialogue": "grocer_sandwich"
+						},
+						{
+							"dialogue": "grocer_smoothie",
+							"condition": [
+								1,
+								"grocer_soldsmoothie"
+							]
+						},
+						{
+							"dialogue": "grocer_nothing"
+						}
+					]
+				},
+				{
+					"id": "grocer_buysandwich",
+					"speaker": "player",
+					"target": "grocer",
+					"text": "I'd like the sandwich.",
+					"display": "Buy Sandwich",
+					"branch": [
+						{
+							"dialogue": "grocer_nosandwich",
+							"condition": [
+								0,
+								"grocer_soldsandwich"
+							]
+						},
+						{
+							"dialogue": "grocer_soldsandwich",
+							"condition": [
+								10,
+								"money",
+								10
+							]
+						},
+						{
+							"dialogue": "grocer_nomoney"
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*grocer_sellssandwich"
+							]
+						}
+					]
+				},
+				{
+					"id": "grocer_buysmoothie",
+					"speaker": "player",
+					"target": "grocer",
+					"text": "I'd like the smoothie.",
+					"display": "Buy Smoothie",
+					"branch": [
+						{
+							"dialogue": "grocer_nosmoothie",
+							"condition": [
+								0,
+								"grocer_soldsmoothie"
+							]
+						},
+						{
+							"dialogue": "grocer_soldsmoothie",
+							"condition": [
+								10,
+								"money",
+								5
+							]
+						},
+						{
+							"dialogue": "grocer_nomoney"
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*grocer_sellssmoothie"
+							]
+						}
+					]
+				},
+				{
+					"id": "grocer_sandwich",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "We have a sandwich for $10",
+					"branch": [
+						{
+							"dialogue": "grocer_smoothie",
+							"condition": [
+								1,
+								"grocer_soldsmoothie"
+							]
+						},
+						{
+							"action": "grocer_start"
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"grocer_sellssandwich",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "grocer_nosandwich",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "We don't have any more sandwiches",
+					"action": "grocer_start"
+				},
+				{
+					"id": "grocer_soldsandwich",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "One *sandwich* coming right up! ",
+					"action": "grocer_start",
+					"set": [
+						{
+							"set": [
+								0,
+								"grocer_soldsandwich",
+								true
+							]
+						},
+						{
+							"set": [
+								5,
+								"sandwich"
+							]
+						}
+					]
+				},
+				{
+					"id": "grocer_smoothie",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "We have a fruit smoothie for $5",
+					"action": "grocer_start",
+					"set": [
+						{
+							"set": [
+								0,
+								"grocer_sellssmoothie",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "grocer_nosmoothie",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "We don't have any more smoothies",
+					"action": "grocer_start"
+				},
+				{
+					"id": "grocer_soldsmoothie",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "Here you go, one ~amazing~ *smoothie*.",
+					"action": "grocer_start",
+					"set": [
+						{
+							"set": [
+								0,
+								"grocer_soldsmoothie",
+								true
+							]
+						},
+						{
+							"set": [
+								5,
+								"smoothie"
+							]
+						}
+					]
+				},
+				{
+					"id": "grocer_nomoney",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "You don't have enough money.",
+					"action": "grocer_start"
+				},
+				{
+					"id": "grocer_nothing",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "We don't have anything right now.",
+					"action": "grocer_start"
 				}
 			],
 			"props": {},
@@ -2907,7 +3722,8 @@
 				"weasel_whatsgoingon",
 				"fox_ordercoffee",
 				"bookshelf_look",
-				"mole_beachwalk"
+				"mole_beachwalk",
+				"grocer_whattopurchase"
 			]
 		},
 		{
@@ -3289,29 +4105,81 @@
 					]
 				},
 				{
-					"id": "mole_writing",
+					"id": "mole_cafe",
 					"owner": "mole",
-					"options": []
-				},
-				{
-					"id": "mole_grading",
-					"owner": "mole",
-					"options": []
-				},
-				{
-					"id": "mole_reading",
-					"owner": "mole",
-					"options": []
+					"options": [
+						{
+							"option": "mole_bikeride"
+						},
+						{
+							"option": "mole_sparetire"
+						},
+						{
+							"option": "mole_howareyouname"
+						},
+						{
+							"option": "mole_howareyou"
+						},
+						{
+							"option": "mole_reading"
+						},
+						{
+							"option": "mole_readinginterested"
+						},
+						{
+							"option": "mole_borrowbook"
+						},
+						{
+							"option": "mole_writing2"
+						}
+					]
 				},
 				{
 					"id": "mole_teaching",
 					"owner": "mole",
-					"options": []
+					"options": [
+						{
+							"option": "mole_lecture2"
+						},
+						{
+							"option": "mole_lecture3"
+						},
+						{
+							"option": "mole_lecture"
+						},
+						{
+							"option": "mole_recordclass"
+						}
+					]
 				},
 				{
 					"id": "mole_shopping",
 					"owner": "mole",
-					"options": []
+					"options": [
+						{
+							"option": "mole_bikeride"
+						}
+					],
+					"imports": [
+						{
+							"action": "mole_standard"
+						}
+					]
+				},
+				{
+					"id": "grocer_start",
+					"owner": "grocer",
+					"options": [
+						{
+							"option": "grocer_whattopurchase"
+						},
+						{
+							"option": "grocer_buysandwich"
+						},
+						{
+							"option": "grocer_buysmoothie"
+						}
+					]
 				}
 			],
 			"props": {},
@@ -3320,7 +4188,8 @@
 				"weasel_first",
 				"fox_cafe",
 				"bookshelf_search",
-				"mole_standard"
+				"mole_standard",
+				"grocer_start"
 			]
 		},
 		{
@@ -3428,6 +4297,12 @@
 										1,
 										1
 									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_fixaflat"
+									]
 								}
 							],
 							"action": "mole_beach"
@@ -3521,9 +4396,15 @@
 										1,
 										2
 									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_fixaflat"
+									]
 								}
 							],
-							"action": "mole_writing"
+							"action": "mole_cafe"
 						},
 						{
 							"actor": "mole",
@@ -3543,9 +4424,15 @@
 										4,
 										"mole_backpacking"
 									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_fixaflat"
+									]
 								}
 							],
-							"action": "mole_grading"
+							"action": "mole_cafe"
 						},
 						{
 							"actor": "mole",
@@ -3561,7 +4448,7 @@
 									]
 								}
 							],
-							"action": "mole_reading"
+							"action": "mole_cafe"
 						}
 					],
 					"id": "cafe"
@@ -3579,13 +4466,13 @@
 								{
 									"condition": [
 										1,
-										5
+										4
 									]
 								},
 								{
 									"condition": [
 										4,
-										"mole_bikeride"
+										"mole_fixaflat"
 									]
 								}
 							],
@@ -3611,12 +4498,28 @@
 							"action": "bookshelf_search"
 						},
 						{
+							"actor": "grocer",
+							"x": 0.75,
+							"y": 0.5,
+							"scale": 0.4,
+							"flipX": true,
+							"action": "grocer_start"
+						},
+						{
 							"actor": "mole",
 							"x": 0.2,
 							"y": 0.5,
 							"scale": 0.5,
 							"flipX": false,
-							"action": "mole_shopping"
+							"action": "mole_shopping",
+							"condition": [
+								{
+									"condition": [
+										1,
+										6
+									]
+								}
+							]
 						}
 					],
 					"id": "market"
@@ -3660,7 +4563,7 @@
 				{
 					"name": "money",
 					"displayname": "Money",
-					"description": "Some money, looks to be $money in there.",
+					"description": "Some money, looks to be $#money# in there.",
 					"icon": "items/boxes.png"
 				},
 				{
@@ -3679,6 +4582,42 @@
 					"name": "adventurebook",
 					"displayname": "Book of Adventures",
 					"description": "A book describing different adventures in far away places.",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "seabook",
+					"displayname": "Book of Ocean Animals",
+					"description": "A book describing rare and interesting ocean creatures.",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "classnotes",
+					"displayname": "Class Notes",
+					"description": "Notes from %mole%'s lecture about birds, specifically the differences between swallows.",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "winebottle",
+					"displayname": "a Bottle of Wine",
+					"description": "A bottle of nice wine, seems fancy.",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "emptybottle",
+					"displayname": "an Empty Bottle",
+					"description": "An empty bottle.",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "sandwich",
+					"displayname": "a Chicken Sandwich",
+					"description": "",
+					"icon": "items/boxes.png"
+				},
+				{
+					"name": "smoothie",
+					"displayname": "a Fruit Smoothie",
+					"description": "",
 					"icon": "items/boxes.png"
 				}
 			],
@@ -3705,6 +4644,12 @@
 				{
 					"typeStr": "1",
 					"name": "description",
+					"kind": null
+				},
+				{
+					"typeStr": "8",
+					"name": "triggers",
+					"opt": true,
 					"kind": null
 				}
 			],
@@ -3758,6 +4703,20 @@
 					"character": "mole"
 				},
 				{
+					"id": "mole_fallasleep",
+					"character": "mole",
+					"title": "Bad Student",
+					"description": "Fall sleep in class.",
+					"triggers": [
+						{
+							"trigger": [
+								1,
+								"mole_fallasleep"
+							]
+						}
+					]
+				},
+				{
 					"id": "lamb_soccer_star",
 					"title": "Soccer Star",
 					"description": "Help someone get to their soccer game.",
@@ -3784,6 +4743,21 @@
 			],
 			"separators": [],
 			"props": {}
+		},
+		{
+			"name": "achievements@triggers",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "9:Trigger",
+					"name": "trigger",
+					"kind": null
+				}
+			]
 		},
 		{
 			"name": "scenes@actors",
@@ -4021,6 +4995,19 @@
 					]
 				},
 				{
+					"name": "ValueLessThan",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						},
+						{
+							"name": "value",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
 					"name": "Talked",
 					"args": [
 						{
@@ -4055,6 +5042,15 @@
 							"typeStr": "6:locations"
 						}
 					]
+				},
+				{
+					"name": "Period",
+					"args": [
+						{
+							"name": "period",
+							"typeStr": "3"
+						}
+					]
 				}
 			]
 		},
@@ -4084,6 +5080,15 @@
 						{
 							"name": "value",
 							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "SetValueToPeriod",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
 						}
 					]
 				},
@@ -4202,6 +5207,33 @@
 				{
 					"name": "Or",
 					"args": []
+				}
+			]
+		},
+		{
+			"name": "Trigger",
+			"cases": [
+				{
+					"name": "Value",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						},
+						{
+							"name": "value",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "Exists",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						}
+					]
 				}
 			]
 		}

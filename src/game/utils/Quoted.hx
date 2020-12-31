@@ -21,19 +21,24 @@ class Quoted {
 				if (char == vc) {
 					if (lastMatchChar == null) { 
 						
-						lastMatchChar = char; lastMatchInt = i;
+						lastMatchChar = char; 
+						lastMatchInt = i;
 						if (i > 0) parsed.push({quote: null, text: string.substr(0, i)});
 
 					} else {
 
+						// we are checking if this character matches the last character, doing this because 
+						// we need to know if we are keeping the character or not.
+						// if they are the same character then we should not include it because it is just a quote / 
+						// special character that we don't want to track.
 						var currentChar : Null<String> = if (lastMatchChar == char) char else null;
 						var currentPos : Int = if (lastMatchChar == char) lastMatchInt + 1 else lastMatchInt; 
 
 						parsed.push({quote: currentChar, text: string.substr(currentPos, i - currentPos)});
 						
-						lastMatchChar = char;
-						if (lastMatchChar == char) lastMatchInt = i + 1;
-						else lastMatchInt = i;
+						if (lastMatchChar == char) lastMatchChar = "z";
+						else lastMatchChar = char;
+						lastMatchInt = i;
 					}
 
 					break;
@@ -43,7 +48,8 @@ class Quoted {
 		}
 
 		// capture the last thing
-		parsed.push({quote: null, text: string.substr(lastMatchInt)});
+		var pos = if (lastMatchChar == "z") lastMatchInt + 1 else lastMatchInt;
+		parsed.push({quote: null, text: string.substr(pos)});
 
 		return parsed;
 	}
