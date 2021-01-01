@@ -1,5 +1,9 @@
-package game.bubble;
+package game.dialogue;
 
+
+/**
+ * The dialogue talkie bubble.
+ */
 class Bubble extends h2d.Object {
 
 	private var background : h2d.Graphics;

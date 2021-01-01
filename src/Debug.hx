@@ -120,7 +120,7 @@ class Debug {
 		var padding = 3;
 		var y = 0.;
 		for (tw in [null, 100, 200]) {
-			var text = game.bubble.Bubble.manual(sampeltext, Const.WORLD_WIDTH / 2,0, tw);
+			var text = game.dialogue.Bubble.manual(sampeltext, Const.WORLD_WIDTH / 2,0, tw);
 			test.addChild(text);
 			text.y = y + text.height/2 + padding;
 

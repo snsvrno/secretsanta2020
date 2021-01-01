@@ -135,15 +135,15 @@ class Const {
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
-	inline static public var TEXT_ITALICS_SLANT : Float = 0.1;
-	inline static public var TEXT_ACTION_SLANT : Float = 0.1;
+	inline static public var TEXT_ITALICS_SLANT : Float = 0.15;
+	inline static public var TEXT_ACTION_SLANT : Float = 0.0;
+	inline static public var TEXT_DANCING_INTENSITY : Float = 0.2;
+	inline static public var TEXT_DANCING_SPEED : Float = 0.55;
 
 	static public var TEXT_FONT_NORMAL : h2d.Font;
 	static public var TEXT_FONT_BOLD : h2d.Font;
+	static public var TEXT_FONT_ACTION : h2d.Font;
 	inline static public var TEXT_FONT_BOLD_Y_OFFSET : Int = 3; 
-
-	static public var TEXT_FONT_CHOICE_NORMAL : h2d.Font;
-	static public var TEXT_FONT_CHOICE_BOLD : h2d.Font;
 
 	static public var TEXT_FONT_SNSVRNO : h2d.Font;
 
@@ -163,15 +163,15 @@ class Const {
 	inline static public var BUBBLE_BACKGROUND_ALPHA : Float = 1;
 
 	/** italics text color */
-	inline static public var BUBBLE_TEXT_COLOR_ITALICS : Int = 0xFF00FFFF;
+	inline static public var BUBBLE_TEXT_COLOR_ITALICS : Int = 0xFFFFFFFF;
 	/** bold text color */
 	inline static public var BUBBLE_TEXT_COLOR_BOLD : Int = 0xFFfcc035;
 	/** normal text color */
 	inline static public var BUBBLE_TEXT_COLOR_REGULAR : Int = 0xFFDDDDDD;
 	/** action text color */
-	inline static public var BUBBLE_TEXT_COLOR_ACTION : Int = 0xFF000000;
+	inline static public var BUBBLE_TEXT_COLOR_ACTION : Int = 0xFFea8d12;
 	/** variable's text color */
-	inline static public var BUBBLE_TEXT_COLOR_VARIABLE : Int = 0xFFFFFF00;
+	inline static public var BUBBLE_TEXT_COLOR_VARIABLE : Int = 0xFF712ce8;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// TEXT & SPEECH CHOICE WHEELS
@@ -187,22 +187,23 @@ class Const {
 	inline static public var CHOICE_STACK_PADDING : Int = 2;
 
 	/** The wordwrap width for speech bubbles. */
-	inline static public var CHOICE_MAX_WIDTH : Float = 100.;
+	inline static public var CHOICE_MAX_WIDTH : Float = 150.;
 	/** The radius of the rounded corners for speech bubbles. */
 	inline static public var CHOICE_CORNER_RADIUS : Int = 4;
 	/** Padding around the text in a speech bubble. */
 	inline static public var CHOICE_TEXT_PADDING : Int = 6;
+	/** the padding between choices in the wheel */
 	/** Color of the dialogue bubble. */
 	inline static public var CHOICE_BACKGROUND_COLOR : Int = 0x000000;
 	/** Color of the dialogue bubble. */
 	inline static public var CHOICE_BACKGROUND_ALPHA : Float = 1;
 
 	/** choice's mouse over text color */
-	inline static public var CHOICE_TEXT_COLOR_OVER : Int = 0xFFFFFFFF;
+	inline static public var CHOICE_TEXT_OPACITY_OVER : Float = 1;
 	/** choice's normal text color */
-	inline static public var CHOICE_TEXT_COLOR_REGULAR : Int = 0xFFAAAAAA;
+	inline static public var CHOICE_TEXT_OPACITY_NORMAL : Float = 0.75;
 	/** choice's used text color */
-	inline static public var CHOICE_TEXT_COLOR_USED : Int = 0xFF444444;
+	inline static public var CHOICE_TEXT_OPACITY_USED : Float = 0.5;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// POPUP 
@@ -265,14 +266,14 @@ class Const {
 	static public function initalize() {
 
 		// loads the fonts.
-		MENU_TITLE_FONT = hxd.Res.fonts.sket64.toFont();
+		MENU_TITLE_FONT = hxd.Res.fonts.moga64.toFont();
 		MENU_FONT = hxd.Res.fonts.gra24.toFont();
 		MENU_FONT_SMALL = hxd.Res.fonts.gra16.toFont();
 		
 		TEXT_FONT_NORMAL = hxd.Res.fonts.wolf24.toFont();
 		TEXT_FONT_BOLD = hxd.Res.fonts.edi24.toFont();
-		TEXT_FONT_CHOICE_NORMAL = hxd.Res.fonts.wolf16.toFont();
-		TEXT_FONT_CHOICE_BOLD = hxd.Res.fonts.edi16.toFont();
+		TEXT_FONT_ACTION = hxd.Res.fonts.bra24.toFont();
+
 		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
 	}
 }

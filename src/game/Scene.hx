@@ -125,7 +125,7 @@ class Scene extends h2d.Object {
 
 				// creates the dialogue wheel and links it so that when the player chooses
 				// something it will start the dialogue conversation.
-				var choices = new game.choice.Wheel(action, a.dialogueX, a.dialogueY, this);
+				var choices = new game.dialogue.Wheel(action, a.dialogueX, a.dialogueY, this);
 				looseItems.push(choices);
 				choices.onSelect = function(choice : Data.DialogueKind) {
 					choices.destroy();
@@ -166,7 +166,7 @@ class Scene extends h2d.Object {
 	private function displayDialogue(dialogue : Data.Dialogue) {
 
 		// makes the text bubble.
-		var bubble = new game.bubble.Bubble(dialogue, this);
+		var bubble = new game.dialogue.Bubble(dialogue, this);
 		looseItems.push(bubble);
 
 		// checks if we need to set something when playing this dialogue.

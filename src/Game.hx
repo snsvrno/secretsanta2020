@@ -63,7 +63,7 @@ class Game extends hxd.App {
 	}
 
 	static public function createDialoge(text : String, x : Float, y : Float, ?wrap : Float) {
-		var bubble = game.bubble.Bubble.manual(text, x, y, wrap);
+		var bubble = game.dialogue.Bubble.manual(text, x, y, wrap);
 		instance.s2d.addChild(bubble);
 	}
 

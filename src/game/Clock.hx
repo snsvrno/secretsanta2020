@@ -126,7 +126,7 @@ class Clock extends h2d.Object {
 			'It\'s ~$periodName~, looks like I still have time to visit *$left* more $locations.';
 		}
 
-		var choices = game.choice.Wheel.raw(0, 0, this, addInteractive);
+		var choices = game.dialogue.Wheel.raw(0, 0, this, addInteractive);
 		choices.addDialogueChoice("/Check the time/", text, addInteractive);
 		choices.addDialogueAction("/Rest/", choiceRest);
 		

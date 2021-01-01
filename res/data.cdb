@@ -1459,7 +1459,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "Why did we stop?",
-					"display": "Stopped?",
+					"display": "~Stopped?~",
 					"chain": "weasel_whystop_response"
 				},
 				{
@@ -1476,7 +1476,8 @@
 								true
 							]
 						}
-					]
+					],
+					"display": ""
 				},
 				{
 					"id": "weasel_whattodo",
@@ -4250,7 +4251,7 @@
 					"id": "lamb_postgametrophy_response4",
 					"speaker": "lamb",
 					"target": "player",
-					"text": "So you should have it. Here you go.\\nBut please return it next week!\\nWe need to *keep this tradition going*.",
+					"text": "So you should have it. Here you go.\\nBut please return it next week!\\nWe need to keep this *tradition* going.",
 					"set": [
 						{
 							"set": [
@@ -4376,10 +4377,31 @@
 					"text": "/All the players look very focused,/\\n/as if this was the only thing that matters./\\n/The teams run back and forth./",
 					"branch": [
 						{
+							"dialogue": "lamb_watchgame31mis",
+							"condition": [
+								4,
+								[
+									0,
+									"*name_lamb"
+								],
+								[
+									1,
+									"lamb_gotfood"
+								]
+							]
+						},
+						{
 							"dialogue": "lamb_watchgame31",
 							"condition": [
-								0,
-								"*name_lamb"
+								4,
+								[
+									0,
+									"*name_lamb"
+								],
+								[
+									0,
+									"lamb_gotfood"
+								]
 							]
 						},
 						{
@@ -4393,6 +4415,12 @@
 					"target": "player",
 					"text": "/One of the the opposing team's players shoots to score!/\\n/$lamb$ does an amazing dive in front of the ball./\\nTHE BALL IS BLOCKED!/\\n/Amazing play./",
 					"chain": "lamb_watchgame32"
+				},
+				{
+					"id": "lamb_watchgame31mis",
+					"speaker": "player",
+					"target": "player",
+					"text": "/One of the the opposing team's players shoots to score!/\\n/$lamb$ does an amazing dive in front of the ball./\\nBut misses the ball~!!~/\\n/The other team scores ~...~/"
 				},
 				{
 					"id": "lamb_watchgame32",
@@ -4463,6 +4491,187 @@
 							]
 						}
 					]
+				},
+				{
+					"id": "lamb_cafefox",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "Hey $lamb!\\nHow are you doing today?",
+					"display": "/Listen/",
+					"condition": [],
+					"set": [
+						{
+							"set": [
+								0,
+								"name_lamb",
+								true
+							]
+						}
+					],
+					"chain": "lamb_cafefox1"
+				},
+				{
+					"id": "lamb_cafefox1",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "Hi $fox$.\\nThe day's getting better now that I'm here ~...~\\n you know, for the coffee.",
+					"chain": "lamb_cafefox2"
+				},
+				{
+					"id": "lamb_cafefox2",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "~ha ha ha~, yeah we have good coffee.\\nThe *usual* coming up.",
+					"chain": "lamb_cafefox3"
+				},
+				{
+					"id": "lamb_cafefox3",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "Thanks",
+					"action": "lamb_fox",
+					"display": ""
+				},
+				{
+					"id": "lamb_encourage",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Now's your chance.",
+					"display": "/Encourage/",
+					"chain": "lamb_encourage1"
+				},
+				{
+					"id": "lamb_encourage1",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Um ~...~ ok ~...~\\nHere it goes.",
+					"chain": "lamb_encourage2"
+				},
+				{
+					"id": "lamb_encourage2",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "So ~...~ I was thinking we could get some *dinner*,\\nand talk about places we've been\\nand want to go.",
+					"chain": "lamb_encourage3"
+				},
+				{
+					"id": "lamb_encourage3",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "~Oooo~, that sounds great!\\nWhen do you have in mind?",
+					"branch": [
+						{
+							"condition": [
+								0,
+								"lamb_carisbroke"
+							],
+							"dialogue": "lamb_encourage4"
+						},
+						{
+							"dialogue": "lamb_encourage5"
+						}
+					]
+				},
+				{
+					"id": "lamb_encourage4",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "In light of the bad news about $car$, we  an do *tonight*.\\nIt'll be like a little *adventure*.",
+					"chain": "lamb_encourage6"
+				},
+				{
+					"id": "lamb_encourage5",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "Lets do *tonight*",
+					"chain": "lamb_encourage6"
+				},
+				{
+					"id": "lamb_encourage6",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "~Sounds great!~",
+					"action": "lamb_fox"
+				},
+				{
+					"id": "lamb_cafelisten",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "How has today been?",
+					"display": "/Continue Listening/",
+					"chain": "lamb_cafelisten1"
+				},
+				{
+					"id": "lamb_cafelisten1",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "You know how lunch time gets, ~very~ ~busy~\\nYou want some food this time too?\\nForgot your lunch at home again?",
+					"chain": "lamb_cafelisten2"
+				},
+				{
+					"id": "lamb_cafelisten2",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "~Yeah ...~ you got me.\\nI'd love the sandwich.\\nLast time you mentioned that trip you were taking,\\nwasn't it suppose to be soon?\\nHows $car$?",
+					"chain": "lamb_cafelisten3"
+				},
+				{
+					"id": "lamb_cafelisten3",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "~Oh!~ It must have happened after we talked.",
+					"chain": "lamb_cafelisten4"
+				},
+				{
+					"id": "lamb_cafelisten4",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "What happened? Is everyone ok?",
+					"chain": "lamb_cafelisten5"
+				},
+				{
+					"id": "lamb_cafelisten5",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "$car$ isn't doing well. I can't leave until he feels better.",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_carisbroke",
+								true
+							]
+						}
+					],
+					"chain": "lamb_cafelisten6"
+				},
+				{
+					"id": "lamb_cafelisten6",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "Oh no, what happened?",
+					"chain": "lamb_cafelisten7"
+				},
+				{
+					"id": "lamb_cafelisten7",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "He was making weird noises, but $mechanic$ is taking care of him.",
+					"chain": "lamb_cafelisten8"
+				},
+				{
+					"id": "lamb_cafelisten8",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "Ok good.\\nA shame though, I know you were looking forward to the trip.",
+					"chain": "lamb_cafelisten9"
+				},
+				{
+					"id": "lamb_cafelisten9",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "Its ok, I'm sure I'll find something else to do this weekend.",
+					"action": "lamb_fox"
 				}
 			],
 			"props": {},
@@ -4947,7 +5156,11 @@
 				{
 					"id": "lamb_cafe",
 					"owner": "lamb",
-					"options": []
+					"options": [
+						{
+							"option": "lamb_cafefox"
+						}
+					]
 				},
 				{
 					"id": "lamb_office",
@@ -5022,6 +5235,21 @@
 						},
 						{
 							"option": "lamb_continuetowatch"
+						}
+					]
+				},
+				{
+					"id": "lamb_fox",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_cafelisten"
+						},
+						{
+							"option": "lamb_cafefox"
+						},
+						{
+							"option": "lamb_encourage"
 						}
 					]
 				}
@@ -5339,6 +5567,12 @@
 										1,
 										3
 									]
+								},
+								{
+									"condition": [
+										4,
+										"lamb_pickupfood"
+									]
 								}
 							]
 						}
@@ -5497,13 +5731,13 @@
 					"name": "cup",
 					"displayname": "",
 					"description": "",
-					"icon": ""
+					"icon": "items/boxes.png"
 				},
 				{
 					"name": "trophy",
 					"displayname": "",
 					"description": "",
-					"icon": ""
+					"icon": "items/boxes.png"
 				},
 				{
 					"name": "omnibook",

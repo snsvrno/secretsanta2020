@@ -1,6 +1,6 @@
-package game.bubble;
+package game.dialogue;
 
-import h3d.Vector;
+import sn.Timer;
 
 private enum Style {
 	Plain(t : String);
@@ -12,6 +12,12 @@ private enum Style {
 	StringVariable(t : String);
 }
 
+/**
+ * Complex text object for dialogue.
+ * 
+ * Allows for complex formatting in a sentance, so multiple different colors and styles available
+ * in one dialogue object.
+ */
 class Text extends h2d.Object {
 
 	//////////////////////////////////////////////////////////////////////////
@@ -46,6 +52,11 @@ class Text extends h2d.Object {
 	//////////////////////////////////////////////////////////////////////////
 	// initalization and creation functions
 	
+	public function new(?parent : h2d.Object) {
+		super(parent);
+		filter = new h2d.filter.Nothing();
+	}
+
 	/**
 	 * A simple copy function, for cloning text.
 	 * @param text 
@@ -56,6 +67,7 @@ class Text extends h2d.Object {
 
 		newText.text = text.text;
 		newText.color = text.color;
+
 
 		return newText;
 	}
@@ -126,6 +138,7 @@ class Text extends h2d.Object {
 				case Action(t):
 
 					tseg.color = colorAction;
+					tseg.font = Const.TEXT_FONT_ACTION;
 					tseg.text = t;
 
 					var letters = splitText(tseg);
@@ -152,9 +165,11 @@ class Text extends h2d.Object {
 
 					var letters = splitText(tseg);
 					for (i in 0 ... letters.length) {
-						var timer = new sn.Timer(1);
+						var timer = new sn.Timer(Const.TEXT_DANCING_SPEED);
 						timer.infinite = true;
-						timer.updateCallback = function() letters[i].y += Math.sin((timer.timerPercent + i / letters.length) * 2 * Math.PI) * 0.10;
+						timer.updateCallback = function() { 
+							letters[i].y += Math.sin((timer.timerPercent + i / letters.length) * 2 * Math.PI) * Const.TEXT_DANCING_INTENSITY;
+						}
 						textObjects.push(letters[i]);
 						timers.push(timer);
 					}
@@ -361,6 +376,29 @@ class Text extends h2d.Object {
 
 	//////////////////////////////////////////////////////////////////////////
 	// public functions
+
+	public function setText(text : String) {
+		// drains the existing text objects.
+		while (textObjects.length > 0) textObjects.pop().remove();
+		while (timers.length > 0) timers.pop();
+
+		var parsed = parse(text, null, maxWidth);
+		if (parsed.length != 1) throw("error, can't load into this multi-lines");
+
+		textObjects = parsed[0].textObjects;
+		timers = parsed[0].timers;
+		rawInputString = parsed[0].rawInputString;
+		variables = parsed[0].variables;
+
+		width = parsed[0].width;
+		height = parsed[0].height;
+
+		// set as the correct parent.
+		for (to in textObjects) {
+			to.remove();
+			addChild(to);
+		}
+	}
 
 	override function onRemove() {
 		super.onRemove();

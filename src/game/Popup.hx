@@ -15,7 +15,7 @@ class Popup extends h2d.Object {
 	private var background : h2d.Graphics;
 	private var image : h2d.Bitmap;
 	private var textLayer : h2d.Object;
-	private var textItems : Array<game.bubble.Text>;
+	private var textItems : Array<game.dialogue.Text>;
 	private var duration : Null<Float>;
 
 	public function new(parent : h2d.Object) { 
@@ -42,7 +42,7 @@ class Popup extends h2d.Object {
 	}
 
 	private function setText(template : String, ?variables : Array<String>, ?maxWidth : Float) {
-		textItems = game.bubble.Text.parse(template, variables, maxWidth);
+		textItems = game.dialogue.Text.parse(template, variables, maxWidth);
 	}
 
 	private function updateAppearance() {

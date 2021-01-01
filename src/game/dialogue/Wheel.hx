@@ -1,8 +1,13 @@
-package game.choice;
+package game.dialogue;
 
+/**
+ * The collection of choices. 
+ * 
+ * could be called a choice or dialogue wheel, but probably isn't in the shape of a wheel.
+ */
 class Wheel extends h2d.Object {
 
-	private var choices : Array<Text> = [];
+	private var choices : Array<Choice> = [];
 	private var background : h2d.Graphics;
 	private var radius : Int = Const.CHOICE_RADIUS;
 
@@ -47,7 +52,7 @@ class Wheel extends h2d.Object {
 	 * @param response 
 	 */
 	public function addDialogueChoice(text : String, response : String, ?onClick : () -> Void) {
-		var newChoice = game.choice.Text.fromString(text);
+		var newChoice = Choice.fromString(text);
 		addChildAt(newChoice, children.length-1); 
 		
 		// sets the hook to display the response and remove the wheel.
@@ -69,7 +74,7 @@ class Wheel extends h2d.Object {
 	 * @return -> Void)
 	 */
 	public function addDialogueAction(text : String, onClick : () -> Void) {
-		var newChoice = game.choice.Text.fromString(text); 
+		var newChoice = Choice.fromString(text); 
 		addChildAt(newChoice, children.length-1); 
 
 		// sets the hook to display the response and remove the wheel.
@@ -95,16 +100,15 @@ class Wheel extends h2d.Object {
 	}
 
 	private function arrangeChoicesStack() {
-		var padding = Const.CHOICE_TEXT_PADDING + Const.CHOICE_STACK_PADDING;
 		var y = 0.;
 		var height = 0.;
 		for (i in 0 ... choices.length) {
-			y += padding + choices[i].height/2;
+			y += Const.CHOICE_PADDING + choices[i].height/2;
 			choices[i].setX(0);
 			choices[i].setY(y);
 
-			y += padding + choices[i].height/2;
-			height += padding * 2 + choices[i].height;
+			y += Const.CHOICE_PADDING + choices[i].height/2;
+			height += Const.CHOICE_PADDING * 2 + choices[i].height;
 		}
 
 		for (c in choices) c.setY(c.y - height/2);
@@ -148,7 +152,7 @@ class Wheel extends h2d.Object {
 		for (i in 0 ... validChoices.length) {
 
 			// adds the text
-			var text = new Text(validChoices[i], this);
+			var text = new Choice(validChoices[i], this);
 			text.setHook(function (e:hxd.Event) {
 				if (onSelect != null) { 
 					var choice = validChoices[i].id;
