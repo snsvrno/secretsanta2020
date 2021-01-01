@@ -142,8 +142,13 @@ class Const {
 
 	static public var TEXT_FONT_NORMAL : h2d.Font;
 	static public var TEXT_FONT_BOLD : h2d.Font;
+	inline static public var TEXT_FONT_BOLD_Y_OFFSET : Int = 2; 
 	static public var TEXT_FONT_ACTION : h2d.Font;
-	inline static public var TEXT_FONT_BOLD_Y_OFFSET : Int = 3; 
+	inline static public var TEXT_FONT_ACTION_Y_OFFSET : Int = 3; 
+	static public var TEXT_FONT_ITALICS : h2d.Font;
+	inline static public var TEXT_FONT_ITALICS_Y_OFFSET : Int = 0; 
+	static public var TEXT_FONT_DANCING : h2d.Font;
+	inline static public var TEXT_FONT_DANCING_Y_OFFSET : Int = 0; 
 
 	static public var TEXT_FONT_SNSVRNO : h2d.Font;
 
@@ -272,7 +277,9 @@ class Const {
 		
 		TEXT_FONT_NORMAL = hxd.Res.fonts.wolf24.toFont();
 		TEXT_FONT_BOLD = hxd.Res.fonts.edi24.toFont();
+		TEXT_FONT_ITALICS = hxd.Res.fonts.edi24.toFont();
 		TEXT_FONT_ACTION = hxd.Res.fonts.bra24.toFont();
+		TEXT_FONT_DANCING = hxd.Res.fonts.wolf24.toFont();
 
 		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
 	}

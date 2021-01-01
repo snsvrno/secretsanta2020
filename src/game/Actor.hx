@@ -150,7 +150,9 @@ class Actor extends h2d.Object {
 	}
 
 	private function mouseover(e : hxd.Event) {
-		image.addShader(shaderOver);
+		var wheel = new game.dialogue.Wheel(action, 0, 0, this);
+		if (wheel.length > 0) image.addShader(shaderOver);
+		wheel.destroy();
 	}
 
 	private function mouseout(e : hxd.Event) {

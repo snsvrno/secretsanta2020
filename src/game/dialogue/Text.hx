@@ -32,7 +32,7 @@ class Text extends h2d.Object {
 	//////////////////////////////////////////////////////////////////////////
 	// private members
 
-	private var textObjects : Array<h2d.Text> = [];
+	private var textObjects : Array<TextMod> = [];
 
 	// collecting the timers so we can destroy them when they are done.
 	private var timers : Array<sn.Timer> = [];
@@ -62,11 +62,12 @@ class Text extends h2d.Object {
 	 * @param text 
 	 * @return h2d.Text
 	 */
-	static private function copyText(text : h2d.Text) : h2d.Text {
-		var newText = new h2d.Text(text.font, text.parent);
+	static private function copyText(text : TextMod) : TextMod {
+		var newText = new TextMod(text.font, text.parent);
 
 		newText.text = text.text;
 		newText.color = text.color;
+		newText.styleType = text.styleType;
 
 
 		return newText;
@@ -94,8 +95,8 @@ class Text extends h2d.Object {
 		return newSections;
 	}
 
-	static private function parseSection(sectionText : String, ?variables : Array<String>) : { text: Array<h2d.Text>, timers: Array<sn.Timer> } {
-		var textObjects : Array<h2d.Text> = [];
+	static private function parseSection(sectionText : String, ?variables : Array<String>) : { text: Array<TextMod>, timers: Array<sn.Timer> } {
+		var textObjects : Array<TextMod> = [];
 		var timers : Array<sn.Timer> = [];
 	
 		// splits the section into different segments.
@@ -105,7 +106,7 @@ class Text extends h2d.Object {
 		// splits the text into different segments and evaluating the styling
 		// and the variables
 		for (s in segments) {
-			var tseg = new h2d.Text(Const.TEXT_FONT_NORMAL);
+			var tseg = new TextMod(Const.TEXT_FONT_NORMAL);
 
 			switch(s) {
 				case StringVariable(t):
@@ -132,7 +133,7 @@ class Text extends h2d.Object {
 					tseg.font = Const.TEXT_FONT_BOLD;
 					tseg.color = colorBold;
 					tseg.text = t;
-					tseg.y += Const.TEXT_FONT_BOLD_Y_OFFSET;
+					tseg.styleType = Bold;
 					textObjects.push(tseg);
 
 				case Action(t):
@@ -140,6 +141,7 @@ class Text extends h2d.Object {
 					tseg.color = colorAction;
 					tseg.font = Const.TEXT_FONT_ACTION;
 					tseg.text = t;
+					tseg.styleType = Action;
 
 					var letters = splitText(tseg);
 					for (l in letters) {
@@ -150,7 +152,9 @@ class Text extends h2d.Object {
 				case Italic(t):
 
 					tseg.color = colorItalics;
+					tseg.font = Const.TEXT_FONT_ITALICS;
 					tseg.text = t;
+					tseg.styleType = Italics;
 
 					var letters = splitText(tseg);
 					for (l in letters) {
@@ -162,6 +166,8 @@ class Text extends h2d.Object {
 
 					tseg.text = t;
 					tseg.color = colorRegular;
+					tseg.font = Const.TEXT_FONT_DANCING;
+					tseg.styleType = Dancing;
 
 					var letters = splitText(tseg);
 					for (i in 0 ... letters.length) {
@@ -192,7 +198,7 @@ class Text extends h2d.Object {
 		var content = if(overrideText != null) overrideText; else text.text;
 		return text.calcTextWidth(content);// * Math.cos(text.rotation) + text.textHeight * Math.sin(text.rotation);
 	}
-
+/*
 	private function build() {
 		
 		// don't do anything if we don't have anything in here.
@@ -209,6 +215,10 @@ class Text extends h2d.Object {
 		for (to in textObjects) {
 			to.x = -to.textWidth / 2;
 			to.y = y;
+			// for individual font offsets, so like fonts look aligned.
+			switch(to.font.name) {
+				case _:
+			}
 			y += to.textHeight;
 
 			if (to.textWidth > w) w = to.textWidth;
@@ -220,7 +230,7 @@ class Text extends h2d.Object {
 
 		// moves the text so that it is centered at 0;
 		for (to in textObjects) to.y -= h/2;
-	}
+	}*/
 
 	private function wrap(?wrapWidth : Float) {
 		// set the value
@@ -248,6 +258,14 @@ class Text extends h2d.Object {
 
 				pt.x = x;
 				pt.y = y;
+
+				switch(pt.styleType) {
+					case Bold: pt.y += Const.TEXT_FONT_BOLD_Y_OFFSET;
+					case Italics: pt.y += Const.TEXT_FONT_ITALICS_Y_OFFSET;
+					case Action: pt.y += Const.TEXT_FONT_ACTION_Y_OFFSET;
+					case Dancing: pt.y += Const.TEXT_FONT_DANCING_Y_OFFSET;
+					case None:
+				}
 
 				x += pt.textWidth;
 				lineWidth += pt.textWidth;
@@ -426,8 +444,8 @@ class Text extends h2d.Object {
 	// STATIC PRIVATE FUNCTIONS
 	// helper functions used for parsing and instantation. 
 
-	static private function splitText(text : h2d.Text, ?characters : Int = 1, ?breakWords : Bool = true) : Array<h2d.Text> {
-		var splits : Array<h2d.Text> = new Array();
+	static private function splitText(text : TextMod, ?characters : Int = 1, ?breakWords : Bool = true) : Array<TextMod> {
+		var splits : Array<TextMod> = new Array();
 
 		var pos = 0;
 		while ((pos + characters) < text.text.length) {

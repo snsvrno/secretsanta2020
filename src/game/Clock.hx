@@ -121,9 +121,9 @@ class Clock extends h2d.Object {
 
 		// gets the correct response text for what time is it.
 		var text = if (donePeriod) {
-			'It\'s ~$periodName~, looks like I can\'t visit any more $locations.';
+			'It\'s ~$periodName~,\nlooks like I can\'t visit any more $locations.';
 		} else {
-			'It\'s ~$periodName~, looks like I still have time to visit *$left* more $locations.';
+			'It\'s ~$periodName~,\nlooks like I still have time to visit *$left* more $locations.';
 		}
 
 		var choices = game.dialogue.Wheel.raw(0, 0, this, addInteractive);

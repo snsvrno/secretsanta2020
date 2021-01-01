@@ -7,6 +7,9 @@ package game.dialogue;
  */
 class Wheel extends h2d.Object {
 
+	public var length(get, null) : Int;
+	private function get_length() : Int return choices.length;
+
 	private var choices : Array<Choice> = [];
 	private var background : h2d.Graphics;
 	private var radius : Int = Const.CHOICE_RADIUS;
@@ -216,7 +219,7 @@ class Wheel extends h2d.Object {
 
 		// safety check, adds a checker clause because only the final check should 
 		// care if its empty.
-		if (importer == false && validOptions.length == 0) throw("no options!?! why are we here!");
+		// if (importer == false && validOptions.length == 0) throw("no options!?! why are we here!");
 		
 		return validOptions;
 	}

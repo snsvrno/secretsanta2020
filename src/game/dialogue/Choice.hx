@@ -65,6 +65,8 @@ class Choice extends h2d.Object {
 		var newText = new Choice(null, parent);
 
 		newText.text.setText(text);
+		newText.text.x = newText.text.width/2;
+		newText.text.y = newText.text.height/2;
 		newText.updateSize();
 
 		return newText;

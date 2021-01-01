@@ -138,10 +138,8 @@ class Scene extends h2d.Object {
 					displayDialogue(d);
 				};
 
-				// sets the action to cancel the dialogue
-				interactive.enableRightButton = true;
-				interactive.onClick = function(e : hxd.Event) {
-					if (e.button == 1) {
+				var onclick = function(?e : hxd.Event) {
+					if (e == null || e.button == 1) {
 						choices.destroy();
 
 						for (a in actors) { 
@@ -151,7 +149,15 @@ class Scene extends h2d.Object {
 
 						interactive.remove();
 					}
-				}
+				};
+
+				// sets the action to cancel the dialogue
+				interactive.enableRightButton = true;
+				interactive.onClick = onclick;
+
+				// now we check if we actually have choices here, if we don't then we just
+				// cancel the creation of this week and go back to the real world.
+				if (choices.length == 0) onclick();
 
 			} else {
 				a.inBackground(true);
