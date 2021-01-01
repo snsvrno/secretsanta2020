@@ -558,11 +558,11 @@
 				},
 				{
 					"id": "lamb",
-					"name": "",
+					"name": "Bharel",
 					"image": "characters/lamb.png",
 					"dialoguepoint": {
-						"x": 0,
-						"y": 0
+						"x": 63,
+						"y": 140
 					},
 					"type": 0
 				},
@@ -1267,7 +1267,7 @@
 						},
 						{
 							"set": [
-								4,
+								5,
 								2
 							]
 						}
@@ -1310,7 +1310,7 @@
 						},
 						{
 							"set": [
-								6,
+								7,
 								"sparetire"
 							]
 						}
@@ -1397,7 +1397,7 @@
 					"set": [
 						{
 							"set": [
-								5,
+								6,
 								"sparetire"
 							]
 						},
@@ -1606,7 +1606,7 @@
 					"set": [
 						{
 							"set": [
-								4,
+								5,
 								100
 							]
 						}
@@ -1689,7 +1689,7 @@
 						},
 						{
 							"set": [
-								5,
+								6,
 								"coffee"
 							]
 						}
@@ -2078,7 +2078,7 @@
 					"set": [
 						{
 							"set": [
-								6,
+								7,
 								"adventurebook"
 							]
 						},
@@ -2482,7 +2482,7 @@
 						},
 						{
 							"set": [
-								5,
+								6,
 								"omnibook"
 							]
 						}
@@ -2832,7 +2832,7 @@
 					"set": [
 						{
 							"set": [
-								6,
+								7,
 								"sparetire"
 							]
 						},
@@ -2985,7 +2985,7 @@
 					"set": [
 						{
 							"set": [
-								5,
+								6,
 								"winebottle"
 							]
 						}
@@ -3080,7 +3080,7 @@
 					"set": [
 						{
 							"set": [
-								4,
+								5,
 								1
 							]
 						},
@@ -3109,7 +3109,7 @@
 						},
 						{
 							"set": [
-								6,
+								7,
 								"omnibook"
 							]
 						}
@@ -3133,13 +3133,13 @@
 					"set": [
 						{
 							"set": [
-								5,
+								6,
 								"classnotes"
 							]
 						},
 						{
 							"set": [
-								4,
+								5,
 								1
 							]
 						}
@@ -3399,7 +3399,7 @@
 					"set": [
 						{
 							"set": [
-								5,
+								6,
 								"seabook"
 							]
 						},
@@ -3649,8 +3649,15 @@
 						},
 						{
 							"set": [
-								5,
+								6,
 								"sandwich"
+							]
+						},
+						{
+							"set": [
+								3,
+								"money",
+								10
 							]
 						}
 					]
@@ -3694,8 +3701,15 @@
 						},
 						{
 							"set": [
-								5,
+								6,
 								"smoothie"
+							]
+						},
+						{
+							"set": [
+								3,
+								"money",
+								5
 							]
 						}
 					]
@@ -3713,6 +3727,742 @@
 					"target": "player",
 					"text": "We don't have anything right now.",
 					"action": "grocer_start"
+				},
+				{
+					"id": "lamb_whattodo",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "I'm visiting. Anything cool I should do?",
+					"chain": "lamb_whattodo_response",
+					"display": "What to do?",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_lovessports",
+								true
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_lovessports"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_whattodo_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Hey! _Welcome_!\\nYes. You should totally come hangout at the park with us and play *soccer*.\\nOr the beach is ~beautiful~,\\n we also play volleyball there from time to time.",
+					"action": "lamb_office"
+				},
+				{
+					"id": "lamb_whoiswe",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Who plays?",
+					"display": "We?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_lovessports"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_whowe"
+							]
+						}
+					],
+					"chain": "lamb_whoiswe_response"
+				},
+				{
+					"id": "lamb_whoiswe_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "So of the people here at the office.\\nWe have a team and we play against a few other offices.",
+					"action": "lamb_office",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_whowe",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_playingtoday",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Are you playing today?",
+					"display": "Playing Today?",
+					"chain": "lamb_playingtoday_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_gameday"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_lovessports"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_playingtoday_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Yeah, well I mean no.\\n_The Team_ is playing today, but _I_ have too much work.\\nUsually I bring my *lunch* so I can go play during ~Early Afternoon~,\\nand eat beforehand at my desk.\\nBut today I ~forgot~ my lunch at home.",
+					"action": "lamb_office",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_gameday",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_pickuplunch",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "I could pick up some lunch and drop it off.",
+					"display": "Pickup Lunch?",
+					"chain": "lamb_pickuplunch_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_pickupfood"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_gameday"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_pickuplunch_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "~Really!?!~\\nThat would be so great.\\nCan you get me a *sandwich* and a *smoothie*.\\nThey sell both at the market,\\nI'd really appreciate it appreciate it.",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_pickupfood",
+								true
+							]
+						}
+					],
+					"chain": "lamb_pickuplunch_response2"
+				},
+				{
+					"id": "lamb_pickuplunch_response2",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Here is $20 it should cover it.\\nTry and get it here before the game.\\nI'll need that extra *energy*.",
+					"set": [
+						{
+							"set": [
+								1,
+								"money",
+								20
+							]
+						}
+					],
+					"action": "lamb_office"
+				},
+				{
+					"id": "lamb_returnmoneyearly",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "I won't have time to pick anything up.",
+					"display": "Give Money Back",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_pickupfood"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"grocer_soldsandwich"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"grocer_soldsmoothie"
+							]
+						},
+						{
+							"condition": [
+								17,
+								2
+							]
+						},
+						{
+							"condition": [
+								10,
+								"money",
+								20
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								3,
+								"money",
+								20
+							]
+						}
+					],
+					"chain": "lamb_returnmoneyearly_response"
+				},
+				{
+					"id": "lamb_returnmoneyearly_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Thats cool, thanks for offering.\\I'll just grab something myself then.",
+					"action": "lamb_office",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_pickupfood",
+								false
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_returnmoneylate",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "I didn't have time to get the food.",
+					"display": "Give Money Back",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_pickupfood"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"grocer_soldsandwich"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"grocer_soldsmoothie"
+							]
+						},
+						{
+							"condition": [
+								18,
+								4
+							]
+						},
+						{
+							"condition": [
+								10,
+								"money",
+								20
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								3,
+								"money",
+								20
+							]
+						}
+					],
+					"chain": "lamb_returnmoneylate_response"
+				},
+				{
+					"id": "lamb_returnmoneylate_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Aw ~come on~ man! You left me *hanging*.\\nNow what am I going to *eat*?",
+					"action": "lamb_office"
+				},
+				{
+					"id": "lamb_returnchange",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "It was only $15, here is the change.",
+					"display": "Give Change Back",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_pickupfood"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"grocer_soldsandwich"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"grocer_soldsmoothie"
+							]
+						},
+						{
+							"condition": [
+								10,
+								"money",
+								5
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								3,
+								"money",
+								5
+							]
+						}
+					],
+					"chain": "lamb_returnchange_response"
+				},
+				{
+					"id": "lamb_returnchange_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Thanks!",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_honest",
+								true
+							]
+						}
+					],
+					"action": "lamb_office"
+				},
+				{
+					"id": "lamb_doforwork",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "What do you do here?",
+					"chain": "lamb_doforwork_response",
+					"display": "Do for Work?"
+				},
+				{
+					"id": "lamb_givefoodc",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Here you go, I got these from the *Market*",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"sandwich"
+							]
+						},
+						{
+							"condition": [
+								6,
+								"smoothie"
+							]
+						}
+					],
+					"display": "Give Food",
+					"branch": [
+						{
+							"condition": [
+								17,
+								2
+							],
+							"dialogue": "lamb_givefoodc_response"
+						},
+						{
+							"dialogue": "lamb_givefoodclate_response"
+						}
+					]
+				},
+				{
+					"id": "lamb_givefoodc_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "*Perfect*. Just want I wanted.\\nYou should totally come join us.\\nWe'll be there ~Early~ ~Afternoon~.",
+					"action": "lamb_office",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_gotfood",
+								true
+							]
+						},
+						{
+							"set": [
+								7,
+								"sandwich"
+							]
+						},
+						{
+							"set": [
+								7,
+								"smoothie"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_givefoodclate_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Thanks! I thought I was going to have to ~starve~.\\nWish I had the energy before the game, _maybe_ would have blocked that one kick.",
+					"action": "lamb_office"
+				},
+				{
+					"id": "lamb_doforwork_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "For work, I'm a data analyst.\\nI look at numbers and try and make sense of it.\\nPatterns and things.\\nNot everyone's ~cup of tea~ but I love it.",
+					"action": "lamb_office"
+				},
+				{
+					"id": "lamb_postgame",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "You guys played a great game!",
+					"display": "Great Game!",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_gotfood"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_lambgottrophy"
+							]
+						}
+					],
+					"chain": "lamb_postgame_response"
+				},
+				{
+					"id": "lamb_postgame_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Really! *Thanks*!\\nSeems like everyone thinks that.\\nThey even gave me this *trophy*.",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_lambgottrophy",
+								true
+							]
+						}
+					],
+					"action": "lamb_officeafternoon"
+				},
+				{
+					"id": "lamb_postgametrophy",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "A trophy?",
+					"display": "Trophy?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_lambgottrophy"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_teamtrophy"
+							]
+						}
+					],
+					"chain": "lamb_postgametrophy_response"
+				},
+				{
+					"id": "lamb_postgametrophy_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Yeah. The team has this *trophy* they give to players every week.\\nWe use it like an *MVP* trophy.\\n~Everyone~ agreed that I killed it today.",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_teamtrophy",
+								true
+							]
+						}
+					],
+					"chain": "lamb_postgametrophy_response2"
+				},
+				{
+					"id": "lamb_postgametrophy_response2",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Congrats!",
+					"chain": "lamb_postgametrophy_response3"
+				},
+				{
+					"id": "lamb_postgametrophy_response3",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "You know what. I couldn't have done it without you.\\nNo really! Because of that awesome sandwich I had that extra energy,\\nand saved the game right at the end.",
+					"chain": "lamb_postgametrophy_response4"
+				},
+				{
+					"id": "lamb_postgametrophy_response4",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "So you should have it. Here you go.\\nBut please return it next week!\\nWe need to *keep this tradition going*.",
+					"set": [
+						{
+							"set": [
+								6,
+								"trophy"
+							]
+						},
+						{
+							"set": [
+								0,
+								"lamb_gettropy",
+								true
+							]
+						}
+					],
+					"action": "lamb_officeafternoon"
+				},
+				{
+					"id": "lamb_concessionprize",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Here you go.",
+					"display": "Give Trophy",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"trophy"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"*lamb_teamtrophy"
+							]
+						},
+						{
+							"condition": [
+								18,
+								4
+							]
+						},
+						{
+							"condition": [
+								14,
+								"office"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_pickupfood"
+							]
+						}
+					],
+					"chain": "lamb_concessionprize_response1"
+				},
+				{
+					"id": "lamb_concessionprize_response1",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Whats this?",
+					"chain": "lamb_concessionprize_response2"
+				},
+				{
+					"id": "lamb_concessionprize_response2",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "I was talking to the guys and the game seemed to be a good one today.",
+					"chain": "lamb_concessionprize_response3"
+				},
+				{
+					"id": "lamb_concessionprize_response3",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "~Yeah ....~ no need to remind me that I couldn't make it.",
+					"chain": "lamb_concessionprize_response4"
+				},
+				{
+					"id": "lamb_concessionprize_response4",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Yeah, I felt bad that you missed the game, the rest of the team let me borrow this.",
+					"chain": "lamb_concessionprize_response5"
+				},
+				{
+					"id": "lamb_concessionprize_response5",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "~No way! ...~\\n~ha ha ha~\\nThe guys are great.\\We're a close team, we always notice when someone is missing.\\n*Thanks*!",
+					"action": "lamb_office"
+				},
+				{
+					"id": "lamb_watchgame",
+					"speaker": "player",
+					"target": "player",
+					"text": "/The game has already started./\\n/",
+					"display": "Watch",
+					"branch": [
+						{
+							"dialogue": "lamb_watchgame21",
+							"condition": [
+								0,
+								"*name_lamb"
+							]
+						},
+						{
+							"dialogue": "lamb_watchgame22"
+						}
+					]
+				},
+				{
+					"id": "lamb_watchgame21",
+					"speaker": "player",
+					"target": "player",
+					"text": "/$lamb$ is full of energy./",
+					"chain": "lamb_watchgame22"
+				},
+				{
+					"id": "lamb_watchgame22",
+					"speaker": "player",
+					"target": "player",
+					"text": "/All the players look very focused,/\\n/as if this was the only thing that matters./\\n/The teams run back and forth./",
+					"branch": [
+						{
+							"dialogue": "lamb_watchgame31",
+							"condition": [
+								0,
+								"*name_lamb"
+							]
+						},
+						{
+							"dialogue": "lamb_watchgame32"
+						}
+					]
+				},
+				{
+					"id": "lamb_watchgame31",
+					"speaker": "player",
+					"target": "player",
+					"text": "/One of the the opposing team's players shoots to score!/\\n/$lamb$ does an amazing dive in front of the ball./\\nTHE BALL IS BLOCKED!/\\n/Amazing play./",
+					"chain": "lamb_watchgame32"
+				},
+				{
+					"id": "lamb_watchgame32",
+					"speaker": "player",
+					"target": "player",
+					"text": "/The drive and energy reminds you of pro level games./",
+					"branch": [
+						{
+							"dialogue": "lamb_watchgame4",
+							"condition": [
+								0,
+								"lamb_name"
+							]
+						},
+						{
+							"dialogue": "lamb_endgame"
+						}
+					]
+				},
+				{
+					"id": "lamb_watchgame4",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Hey $player$!,\\nYou should join us.",
+					"action": "lamb_game"
+				},
+				{
+					"id": "lamb_joingame",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You join in, are definitely the worst player on the field./\\n/No one besides you seems to notice, though./\\n/You end up enjoying yourself./",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_playerplayssoccer",
+								true
+							]
+						}
+					],
+					"display": "Join",
+					"chain": "lamb_endgame"
+				},
+				{
+					"id": "lamb_continuetowatch",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You decide not to join in./\\n/You regret the choice because everyone is having fun./\\n/Then again, you haven't played soccer in years,/\\n/and everyone here looks like they know what they are doing./",
+					"display": "Keep Watching",
+					"chain": "lamb_endgame"
+				},
+				{
+					"id": "lamb_endgame",
+					"speaker": "player",
+					"target": "player",
+					"text": "The game is over, it was a great match.",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_gameisover",
+								true
+							]
+						},
+						{
+							"set": [
+								4
+							]
+						}
+					]
 				}
 			],
 			"props": {},
@@ -3723,7 +4473,8 @@
 				"fox_ordercoffee",
 				"bookshelf_look",
 				"mole_beachwalk",
-				"grocer_whattopurchase"
+				"grocer_whattopurchase",
+				"lamb_whattodo"
 			]
 		},
 		{
@@ -4180,6 +4931,99 @@
 							"option": "grocer_buysmoothie"
 						}
 					]
+				},
+				{
+					"id": "lamb_start",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_doforwork"
+						},
+						{
+							"option": "lamb_whattodo"
+						}
+					]
+				},
+				{
+					"id": "lamb_cafe",
+					"owner": "lamb",
+					"options": []
+				},
+				{
+					"id": "lamb_office",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_returnchange"
+						},
+						{
+							"option": "lamb_returnmoneyearly"
+						},
+						{
+							"option": "lamb_returnmoneylate"
+						},
+						{
+							"option": "lamb_whoiswe"
+						},
+						{
+							"option": "lamb_playingtoday"
+						},
+						{
+							"option": "lamb_pickuplunch"
+						},
+						{
+							"option": "lamb_givefoodc"
+						}
+					],
+					"imports": [
+						{
+							"action": "lamb_start"
+						}
+					]
+				},
+				{
+					"id": "lamb_officeafternoon",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_postgame"
+						},
+						{
+							"option": "lamb_postgametrophy"
+						},
+						{
+							"option": "lamb_concessionprize"
+						}
+					],
+					"imports": [
+						{
+							"action": "lamb_start"
+						},
+						{
+							"action": "lamb_office"
+						}
+					]
+				},
+				{
+					"id": "lamb_park",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_watchgame"
+						}
+					]
+				},
+				{
+					"id": "lamb_game",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_joingame"
+						},
+						{
+							"option": "lamb_continuetowatch"
+						}
+					]
 				}
 			],
 			"props": {},
@@ -4189,7 +5033,8 @@
 				"fox_cafe",
 				"bookshelf_search",
 				"mole_standard",
-				"grocer_start"
+				"grocer_start",
+				"lamb_start"
 			]
 		},
 		{
@@ -4318,7 +5163,38 @@
 							"x": 0.66,
 							"y": 0.4,
 							"scale": 0.75,
-							"flipX": false
+							"flipX": false,
+							"condition": [
+								{
+									"condition": [
+										0,
+										2
+									]
+								}
+							],
+							"action": "lamb_office"
+						},
+						{
+							"actor": "lamb",
+							"x": 0.5,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": false,
+							"condition": [
+								{
+									"condition": [
+										2,
+										4
+									]
+								},
+								{
+									"condition": [
+										0,
+										5
+									]
+								}
+							],
+							"action": "lamb_officeafternoon"
 						}
 					],
 					"id": "office"
@@ -4449,6 +5325,22 @@
 								}
 							],
 							"action": "mole_cafe"
+						},
+						{
+							"actor": "lamb",
+							"x": 0.5,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": false,
+							"action": "lamb_cafe",
+							"condition": [
+								{
+									"condition": [
+										1,
+										3
+									]
+								}
+							]
 						}
 					],
 					"id": "cafe"
@@ -4483,7 +5375,36 @@
 				},
 				{
 					"location": "park",
-					"actors": [],
+					"actors": [
+						{
+							"actor": "lamb",
+							"x": 0.5,
+							"y": 0.5,
+							"scale": 0.5,
+							"flipX": true,
+							"action": "lamb_park",
+							"condition": [
+								{
+									"condition": [
+										1,
+										3
+									]
+								},
+								{
+									"condition": [
+										3,
+										"lamb_pickupfood"
+									]
+								},
+								{
+									"condition": [
+										4,
+										"lamb_gameisover"
+									]
+								}
+							]
+						}
+					],
 					"id": "park"
 				},
 				{
@@ -4571,6 +5492,18 @@
 					"displayname": "Cup of Coffee",
 					"description": "A cup of black coffee. Smells strong.",
 					"icon": "items/boxes.png"
+				},
+				{
+					"name": "cup",
+					"displayname": "",
+					"description": "",
+					"icon": ""
+				},
+				{
+					"name": "trophy",
+					"displayname": "",
+					"description": "",
+					"icon": ""
 				},
 				{
 					"name": "omnibook",
@@ -5051,6 +5984,24 @@
 							"typeStr": "3"
 						}
 					]
+				},
+				{
+					"name": "PeriodLTE",
+					"args": [
+						{
+							"name": "period",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "PeriodGTE",
+					"args": [
+						{
+							"name": "period",
+							"typeStr": "3"
+						}
+					]
 				}
 			]
 		},
@@ -5104,6 +6055,10 @@
 							"typeStr": "3"
 						}
 					]
+				},
+				{
+					"name": "Leave",
+					"args": []
 				},
 				{
 					"name": "Sleep",

@@ -19,8 +19,30 @@ class Debug {
 
 	////////////////////////////////////////////////////////////////////////////////////////
 
+
 	private static var displayItemsState : Bool = false;
+
 	public static var displayItems : Array<h2d.Object> = [];
+	public static var console : h2d.Console;
+
+	static public function initalize(parent : h2d.Object) {
+		console = new h2d.Console(hxd.Res.fonts.edi32.toFont(), parent);
+		console.addCommand(
+			"switch", null, [{ t: AString, opt: false, name: "name" }],
+			function(name:String) {
+				var localColor = if (Game.variables.check(name)) 0x00FF00 else 0xFF0000;
+				var lifetimeColor = if (Game.variables.check("*" + name)) 0x00FF00 else 0xFF0000;
+				console.log('${name}: local', localColor);
+				console.log('${name}: lifetime', lifetimeColor);
+			}
+		);
+		console.addCommand(
+			"set", null, [{ t: AString, opt: false, name: "name" }, { t : ABool, opt: false, name : "value"}],
+			function(name : String, value : Bool) {
+				Game.variables.setSwitch(name, value);
+			}
+		);
+	}
 
 	static public function toggleDisplayItems(?state : Bool) {
 
@@ -62,6 +84,8 @@ class Debug {
 
 	static public function onEvent(e : hxd.Event) {
 		if (e.kind == EKeyDown) switch(e.keyCode) {
+			case(hxd.Key.F1): 
+				console.show();
 			case(hxd.Key.F2): Debug.toggleDisplayItems();
 			case(hxd.Key.F3): Game.foundItem(sparetire);
 			case(hxd.Key.F4): Game.lostItem(sparetire);

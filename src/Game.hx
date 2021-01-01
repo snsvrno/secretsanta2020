@@ -181,6 +181,10 @@ class Game extends hxd.App {
 		// starts the new game splash, which is the titlecard.
 		var splash = new game.ui.Splash(s2d);
 		splash.onFinish = restartCycle;
+
+		#if debug
+		Debug.initalize(s2d);
+		#end
 	}
 
 	override function update(dt:Float) {

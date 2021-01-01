@@ -27,6 +27,8 @@ class Conditions {
 			case NotLocation(location): return Game.currentScene() != location.name;
 
 			case Period(period): return Game.currentPeriod() == period;
+			case PeriodGTE(period): return Game.currentPeriod() >= period;
+			case PeriodLTE(period): return Game.currentPeriod() <= period;
 
 			case null: return true;
 		}

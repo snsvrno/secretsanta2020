@@ -199,7 +199,7 @@ class Scene extends h2d.Object {
 					Game.variables.incrementValue(name, -value);
 
 					var newValue = Game.variables.value(name);
-					if (newValue == 0 && name == "money") Game.foundItem(money);
+					if (newValue == 0 && name == "money") Game.lostItem(money);
 
 				// we found an item!
 				case Get(item):
@@ -215,10 +215,23 @@ class Scene extends h2d.Object {
 					
 					Game.toMap();
 					Game.tickClockForwardPeriods(duration);
-					Game.popup(dialogue.text, 3);
+
+					// only show something if we have something to show.
+					if (dialogue.text.length > 0) Game.popup(dialogue.text, 3);
 
 					// stop the processing.
 					return;
+
+				case Leave:
+
+					Game.toMap();
+
+					// only show something if we have something to show.
+					if (dialogue.text.length > 0) Game.popup(dialogue.text, 3);
+
+					// stop the processing.
+					return;
+
 			}
 		}
 
