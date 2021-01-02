@@ -3758,8 +3758,93 @@
 					"id": "lamb_whattodo_response",
 					"speaker": "lamb",
 					"target": "player",
-					"text": "Hey! _Welcome_!\\nYes. You should totally come hangout at the park with us and play *soccer*.\\nOr the beach is ~beautiful~,\\n we also play volleyball there from time to time.",
-					"action": "lamb_office"
+					"text": "Hey! _Welcome_!\\nYes. You should totally come hangout at the park with us and play *soccer*.\\nOr the beach is ~beautiful~,\\n we also play volleyball there from time to time.\\nAnd the *cafe* is a great place to hang out.",
+					"action": "lamb_office",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_likecafe",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_cafe",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Why the *Cafe*?",
+					"display": "Cafe?",
+					"chain": "lamb_cafe1",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_likecafe"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_barista"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_cafe1",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Oh you know, its a cool place ~...~\\n~Good coffee~ ~...~\\nand a cute barista ~...~",
+					"action": "lamb_office",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_barista",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_barista",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Have you asked them out?",
+					"display": "Barista?",
+					"chain": "lamb_barista_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_support"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_barista"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_barista_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "What _no_!\\nI mean I want to.\\nWe chat all the time,\\nand I'm afraid to ruin a good thing.\\nYou know what, it might be the time.\\nCan you do me a favor,\\nif you see me talking to them and you give me a *push*?\\nThanks",
+					"action": "lamb_office",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_support",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_whoiswe",
@@ -4361,6 +4446,14 @@
 						{
 							"dialogue": "lamb_watchgame22"
 						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_gameisover"
+							]
+						}
 					]
 				},
 				{
@@ -4484,11 +4577,6 @@
 								"lamb_gameisover",
 								true
 							]
-						},
-						{
-							"set": [
-								4
-							]
 						}
 					]
 				},
@@ -4496,9 +4584,8 @@
 					"id": "lamb_cafefox",
 					"speaker": "fox",
 					"target": "lamb",
-					"text": "Hey $lamb!\\nHow are you doing today?",
+					"text": "Hey $lamb$!\\nHow are you doing today?",
 					"display": "/Listen/",
-					"condition": [],
 					"set": [
 						{
 							"set": [
@@ -4506,16 +4593,40 @@
 								"name_lamb",
 								true
 							]
+						},
+						{
+							"set": [
+								0,
+								"lamb_foxlistenin",
+								true
+							]
 						}
 					],
-					"chain": "lamb_cafefox1"
+					"chain": "lamb_cafefox1",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_foxlistenin"
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_cafefox1",
 					"speaker": "lamb",
 					"target": "fox",
 					"text": "Hi $fox$.\\nThe day's getting better now that I'm here ~...~\\n you know, for the coffee.",
-					"chain": "lamb_cafefox2"
+					"chain": "lamb_cafefox2",
+					"set": [
+						{
+							"set": [
+								0,
+								"name_fox",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_cafefox2",
@@ -4538,7 +4649,30 @@
 					"target": "lamb",
 					"text": "Now's your chance.",
 					"display": "/Encourage/",
-					"chain": "lamb_encourage1"
+					"chain": "lamb_encourage1",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_encourage"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_support"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_encourage",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_encourage1",
@@ -4576,7 +4710,7 @@
 					"id": "lamb_encourage4",
 					"speaker": "lamb",
 					"target": "fox",
-					"text": "In light of the bad news about $car$, we  an do *tonight*.\\nIt'll be like a little *adventure*.",
+					"text": "In light of the bad news about $car$, we should do *tonight*.\\nIt'll be like a little *adventure*.",
 					"chain": "lamb_encourage6"
 				},
 				{
@@ -4598,14 +4732,31 @@
 					"speaker": "lamb",
 					"target": "fox",
 					"text": "How has today been?",
-					"display": "/Continue Listening/",
-					"chain": "lamb_cafelisten1"
+					"display": "/Continue/ /Listening/",
+					"chain": "lamb_cafelisten1",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_contlist",
+								true
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_contlist"
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_cafelisten1",
 					"speaker": "fox",
 					"target": "lamb",
-					"text": "You know how lunch time gets, ~very~ ~busy~\\nYou want some food this time too?\\nForgot your lunch at home again?",
+					"text": "You know how lunch time gets, ~very busy~\\nYou want some food this time too?\\nForgot your lunch at home again?",
 					"chain": "lamb_cafelisten2"
 				},
 				{
@@ -5186,6 +5337,12 @@
 						},
 						{
 							"option": "lamb_givefoodc"
+						},
+						{
+							"option": "lamb_cafe"
+						},
+						{
+							"option": "lamb_barista"
 						}
 					],
 					"imports": [
