@@ -96,6 +96,9 @@ class Debug {
 			case(hxd.Key.F7):
 				var test = testTextElements();
 				Game.debugAddToScene(test);
+			case(hxd.Key.F8):
+				Game.popup("you now have all items.");
+				for (i in Data.items.all) Game.variables.gets(i.name);
 			case(hxd.Key.Q): Game.debugTickClick(-1);
 			case(hxd.Key.W): Game.debugTickClick(1);
 			case _:

@@ -135,6 +135,24 @@ class Const {
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
+	inline static public var BACKPACK_COLOR : Int = 0x00FF44;
+	inline static public var BACKPACK_COLOROVER : Int = 0x00FFFF;
+	inline static public var BACKPACK_ICONSIZE : Int = 25;
+	inline static public var BACKPACK_ROUNDEDCORNERS : Int = 10;
+	inline static public var BACKPACK_ICONPADDING : Int = 10;
+	inline static public var BACKPACK_ICONOVERALPHA : Float = 0.75;
+	inline static public var BACKPACK_ITEMSIZE : Int = 50;
+	inline static public var BACKPACK_ITEMOPACITY : Float = 0.75;
+	inline static public var BACKPACK_ITEMPADDING : Int = 10;
+	inline static public var BACKPACK_NAMECOLOR : Int = 0xFF333333;
+	inline static public var BACKPACK_DESCRIPTIONCOLOR : Int = 0xFFAAAAAA;
+	static public var BACKPACK_NAMEFONT : h2d.Font;
+	static public var BACKPACK_DESCRIPTIONFONT : h2d.Font;
+	inline static public var BACKPACK_NOTIFICATIONTIMER : Float = 1.5;
+	inline static public var BACKPACK_NOTIFICATIONTIMERINTENSITY : Float = 0.05;
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// GENERAL TEXT SETTINGS
 	inline static public var TEXT_ITALICS_SLANT : Float = 0.15;
 	inline static public var TEXT_ACTION_SLANT : Float = 0.0;
 	inline static public var TEXT_DANCING_INTENSITY : Float = 0.2;
@@ -282,5 +300,8 @@ class Const {
 		TEXT_FONT_DANCING = hxd.Res.fonts.wolf24.toFont();
 
 		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
+
+		BACKPACK_NAMEFONT = hxd.Res.fonts.edi16.toFont();
+		BACKPACK_DESCRIPTIONFONT = hxd.Res.fonts.edi16.toFont();
 	}
 }

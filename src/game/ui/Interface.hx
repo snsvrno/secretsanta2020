@@ -24,7 +24,8 @@ class Interface extends h2d.Object {
 
 	private var gameui : h2d.Object;
 	private var locationText : game.ui.Button;
-	private var inventory : game.ui.Inventory;
+	// private var inventory : game.ui.Inventory;
+	private var backpack : game.ui.Backpack;
 
 	public function new (?parent : h2d.Scene) {
 		super(parent);
@@ -80,15 +81,21 @@ class Interface extends h2d.Object {
 		locationText.setAlignment(Right, Bottom);
 		locationText.onClick = () -> Game.toMap();
 
+		/*
 		inventory = new game.ui.Inventory(gameui);
 		inventory.x = Const.WORLD_WIDTH - 10;
 		inventory.y = Const.WORLD_HEIGHT / 2;
 		inventory.setAlignment(Right, Middle);
 		inventory.setChildrenAlignment(Right);
+		*/
+		backpack = new Backpack(gameui);
 	}
 
+	/*
 	public function addToInventory(item : Data.ItemsKind) inventory.addItem(item);
-	public function removeFromInventory(item : Data.ItemsKind) inventory.removeItem(item);
+	public function removeFromInventory(item : Data.ItemsKind) inventory.removeItem(item);*/
+	public function addToInventory(item : Data.ItemsKind) backpack.addItem(item);
+	public function removeFromInventory(item : Data.ItemsKind) backpack.removeItem(item);
 
 	private function createProgressSection(stack : VStack) {
 		gameMenuTitle.setText("Progress");
@@ -359,7 +366,8 @@ class Interface extends h2d.Object {
 				drawBackgroundLayer();
 				if (endScreen.parent != this) addChild(endScreen);
 				endScreen.update();
-				inventory.removeAllItems();
+				// inventory.removeAllItems();
+				backpack.removeAllItems();
 		}
 
 		state = newState;
