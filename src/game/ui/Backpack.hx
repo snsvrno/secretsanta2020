@@ -23,7 +23,7 @@ class Backpack extends h2d.Object {
 	private var title : h2d.Text;
 	static private var normalTitleText : String = "Backpack";
 	private var description : h2d.Text;
-	static private var normalDescriptionText : String = "Collected items, \"Its in my Backpack!\"";
+	static private var normalDescriptionText : String = "";
 
 	public function new(?parent : h2d.Object) {
 		super(parent);
@@ -96,7 +96,7 @@ class Backpack extends h2d.Object {
 
 	private function itemOver(item : game.ui.Icon, name : String, description : String) {
 		title.text = name;
-		this.description.text = description;
+		this.description.text = evaluateVariables(description);
 		item.alpha = 1;
 	}
 
@@ -138,6 +138,21 @@ class Backpack extends h2d.Object {
 		content.drawRoundedRect(0, 0, Const.WORLD_WIDTH, contentHeight, Const.BACKPACK_ROUNDEDCORNERS);
 		content.drawRect(0,0, Const.WORLD_WIDTH, contentHeight / 2);
 		content.endFill();
+	}
+
+	private function evaluateVariables(text : String) : String {
+
+		var parsedText = "";
+		for (qt in game.utils.Quoted.parse(text)) {
+			switch(qt.quote) {
+				case "%": parsedText += Data.characters.resolve(qt.text).name;
+				case "#": parsedText += Game.variables.getValue(qt.text);
+				case null: parsedText += qt.text;
+				case _: throw("unknown quote");
+			}
+		}
+
+		return parsedText;
 	}
 
 	private function createIcon() {
