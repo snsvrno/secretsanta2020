@@ -59,11 +59,11 @@ class Wheel extends h2d.Object {
 		addChildAt(newChoice, children.length-1); 
 		
 		// sets the hook to display the response and remove the wheel.
-		newChoice.setHook(function(e : hxd.Event) {
+		newChoice.onClick = function() {
 			if (onClick != null) onClick();
 			Game.createDialoge(response, parent.x, parent.y, 80);
 			this.destroy();
-		});
+		}
 
 		choices.push(newChoice);
 		//arrangeChoices();
@@ -81,10 +81,10 @@ class Wheel extends h2d.Object {
 		addChildAt(newChoice, children.length-1); 
 
 		// sets the hook to display the response and remove the wheel.
-		newChoice.setHook(function(e : hxd.Event) {
+		newChoice.onClick = function() {
 			onClick();
 			this.destroy();
-		});
+		}
 
 		choices.push(newChoice);
 		//arrangeChoices();
@@ -156,7 +156,7 @@ class Wheel extends h2d.Object {
 
 			// adds the text
 			var text = new Choice(validChoices[i], this);
-			text.setHook(function (e:hxd.Event) {
+			text.onClick = function () {
 				if (onSelect != null) { 
 					var choice = validChoices[i].id;
 					onSelect(choice);
@@ -165,7 +165,7 @@ class Wheel extends h2d.Object {
 					// obvious to the player that they already used it.
 					Game.variables.addChosenOption(choice);
 				}
-			});
+			}
 
 			choices.push(text);
 		}

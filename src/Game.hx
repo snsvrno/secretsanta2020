@@ -19,7 +19,8 @@ class Game extends hxd.App {
 	static public function tickClockForward(slots : Int) instance.tickClock(slots); 
 	static public function tickClockForwardPeriods(periods : Int) instance.tickClockPeriods(periods); 
 	static public function currentScene() : String return instance.activeScene.sceneName;
-	
+	static public function addSlot() instance.clock.increment(-1);
+
 	static public function foundItem(item : Data.ItemsKind) { 
 		game.Popup.item(item, true, instance.s2d);
 		instance.ui.addToInventory(item);

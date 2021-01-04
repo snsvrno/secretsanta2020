@@ -18,6 +18,10 @@ class Choice extends h2d.Object {
 	private var interactive : h2d.Interactive;
 	private var background : h2d.Graphics;
 
+	public var onOver : Null<() -> Void>;
+	public var onOut : Null<() -> Void>;
+	public var onClick : Null<() -> Void>;
+
 	public function new(?dialogue : Data.Dialogue, ?parent : h2d.Object) {
 		super(parent);
 
@@ -45,11 +49,23 @@ class Choice extends h2d.Object {
 		interactive.onOver = function(e : hxd.Event) { 
 			lastOp = text.alpha;
 			text.alpha = Const.CHOICE_TEXT_OPACITY_OVER;
+			if (onOver != null) onOver();
 		};
-		interactive.onOut = function(e : hxd.Event) text.alpha = lastOp;
+		interactive.onOut = function(e : hxd.Event) { 
+			text.alpha = lastOp;
+			if (onOut != null) onOut();
+		}
+		interactive.onClick = (e:hxd.Event) -> if(onClick != null) onClick();
 
 		if (dialogue != null) updateSize();
 	}
+
+	override function onAdd() {
+		super.onAdd();
+		if (background != null) updateSize();
+	}
+
+	public function passThroughEvents() interactive.propagateEvents = true;
 
 	private function updateSize() {
 
@@ -71,8 +87,6 @@ class Choice extends h2d.Object {
 
 		return newText;
 	}
-
-	public function setHook(hook : (e : hxd.Event) -> Void) interactive.onClick = hook;
 
 	public function setX(x : Float) this.x = x - text.width / 2;
 	public function setY(y : Float) this.y = y - text.height / 2;

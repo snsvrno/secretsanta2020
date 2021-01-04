@@ -1,11 +1,9 @@
 package game.ui;
 
 import h2d.Interactive;
-import h3d.scene.Graphics;
-import haxe.CallStack.StackItem;
 
 class Backpack extends h2d.Object {
-	private var items : Array<Data.ItemsKind> = [];
+	private var items : Map<Data.ItemsKind, game.ui.Icon> = new Map();
 	
 	private var tab : h2d.Graphics;
 	private var icon : h2d.Object;
@@ -39,22 +37,55 @@ class Backpack extends h2d.Object {
 	}
 
 	public function addItem(item : Data.ItemsKind) {
-		if (!items.contains(item)) { 
-			items.push(item);
+		if (items.get(item) == null) { 
 
 			var data = Data.items.get(item);
 
 			// makes the object.
 			var tile = hxd.Res.load(data.icon).toTile();
-			var item = new game.ui.Icon(tile);
-			item.filter = new h2d.filter.Nothing();
-			item.alpha = Const.BACKPACK_ITEMOPACITY;
-			item.setAlignment(Center, Middle);
+			var itemIcon = new game.ui.Icon(tile);
+			itemIcon.filter = new h2d.filter.Nothing();
+			itemIcon.alpha = Const.BACKPACK_ITEMOPACITY;
+			itemIcon.setAlignment(Center, Middle);
 
-			var iteminteractive = new h2d.Interactive(tile.width, tile.height, item);
+			// makes the items if listed.
+			var choices : Array<game.dialogue.Choice> = [];
+			if (data.actions != null) for (a in data.actions) {
+
+				var choice = game.dialogue.Choice.fromString(a.text);
+				choice.passThroughEvents();
+				choices.push(choice);
+
+				choice.onClick = function() {
+					for (action in a.action) {
+						switch(action.action) {
+							case ExtraAction:
+								Game.addSlot();
+
+							case Transform(item):
+								addItem(item.name);
+							
+							case Remove:
+								removeItem(item);
+						}
+					}
+				}
+
+				choice.onOver = () -> description.text = a.description; 
+
+			}
+
+			var iteminteractive = new h2d.Interactive(tile.width, tile.height, itemIcon);
 			iteminteractive.y = -tile.height/2;
-			iteminteractive.onOver = (e:hxd.Event) -> itemOver(item, data.displayname, data.description);
-			iteminteractive.onOut = (e:hxd.Event) -> itemOut(item);
+			if (choices.length > 0)
+				iteminteractive.onOver = (e:hxd.Event) -> itemOverAction(itemIcon, data.displayname, data.description);
+			else 
+				iteminteractive.onOver = (e:hxd.Event) -> itemOver(itemIcon, data.displayname, data.description);				
+			iteminteractive.onOut = function(e:hxd.Event){ 
+				itemOut(itemIcon);
+				for (c in choices) c.remove();
+			}
+			iteminteractive.onClick = (e : hxd.Event) -> for (c in choices) itemIcon.addChild(c);
 			iteminteractive.propagateEvents = true;
 
 			#if debug
@@ -63,20 +94,27 @@ class Backpack extends h2d.Object {
 			interactivebounds.drawRect(0, 0, iteminteractive.width, iteminteractive.height);
 			#end
 
-			contentStack.push(item);
+			contentStack.push(itemIcon);
 			contentStack.setChildrenAlignment(Middle);
 
 			notificationTimer.reset();
 			notificationTimer.start();
+			
+			items.set(item, itemIcon);
 		}
 	}
 
 	public function removeItem(item : Data.ItemsKind) {
-		items.remove(item);
+		var existing = items.get(item);
+		if (existing != null) {
+			contentStack.removeObject(existing);
+			existing.remove();
+			items.remove(item);
+		}
 	}
 
 	public function removeAllItems() {
-		while (items.length > 0) items.pop;
+		for (i in items.keys()) items.remove(i);
 	}
 
 	private function activate(?e : hxd.Event) {
@@ -100,10 +138,18 @@ class Backpack extends h2d.Object {
 		item.alpha = 1;
 	}
 
+	private function itemOverAction(item : game.ui.Icon, name : String, description : String) {
+		title.text = name;
+		item.filter = new h2d.filter.Outline(2);
+		this.description.text = evaluateVariables(description);
+		item.alpha = 1;
+	}
+
 	private function itemOut(item : game.ui.Icon) {
 		title.text = normalTitleText;
 		description.text = normalDescriptionText;
 		item.alpha = Const.BACKPACK_ITEMOPACITY;
+		item.filter = null;
 	}
 
 	private function createContent() {
