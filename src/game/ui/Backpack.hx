@@ -36,6 +36,11 @@ class Backpack extends h2d.Object {
 		}
 	}
 
+	override function onAdd() {
+		super.onAdd();
+		if (content != null) drawContent();
+	}
+
 	public function addItem(item : Data.ItemsKind) {
 		if (items.get(item) == null) { 
 

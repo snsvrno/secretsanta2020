@@ -1,4 +1,4 @@
-package game.ui;
+package game.ui.screens;
 
 class CycleEnd extends h2d.Object {
 
