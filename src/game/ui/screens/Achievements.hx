@@ -1,8 +1,5 @@
 package game.ui.screens;
 
-import h2d.filter.Group;
-import h3d.scene.Object;
-
 class Achievements extends h2d.Object {
 
 	static private var area = { 
@@ -86,7 +83,8 @@ class Achievements extends h2d.Object {
 			var satShader = new shader.screen.Saturation();
 			satShader.intensity = 1;
 
-			var darkShaderIntensity = Const.ACHIEVEMENTS_UNACHIEVED_INTENSITY;
+			var darkShaderIntensity = if (Game.variables.earnedAchievement(a)) 0.
+				else Const.ACHIEVEMENTS_UNACHIEVED_INTENSITY;
 			var darkShader = new shader.screen.Darken();
 			darkShader.intensity = darkShaderIntensity;
 			darkShader.color = new hxsl.Types.Vec(0,0,0,1);

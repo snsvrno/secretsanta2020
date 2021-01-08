@@ -182,13 +182,6 @@ class Scene extends h2d.Object {
 				// we are asked to set a switch.
 				case Switch(name, state): 
 
-					// checks if this is an achievement.
-					try { 
-						var achievement = Data.achievements.resolve(name);
-						if (achievement != null && !Game.variables.checkLifetime(name)) 
-							Game.earnedAchievement(achievement);
-					} catch (e) { }
-
 					Game.variables.setSwitch(name, state);
 				
 				// we are asking to increment a value by some amount

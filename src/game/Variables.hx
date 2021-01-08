@@ -132,6 +132,8 @@ class Variables {
 		var modname = checkModifiers(name);
 		switch(modname) {
 			case Local(name):
+				
+				checkAchievement(name);
 
 				switches.set(name, state);
 				// adds to lifetime so we can check if we've ever set this switch before ever.
@@ -143,6 +145,40 @@ class Variables {
 		}
 
 		save();
+	}
+
+	public function earnedAchievement(a : Data.Achievements) : Bool {
+		if (a.triggers != null) {
+			var valid = true;
+			for (t in a.triggers) switch(t.trigger) {
+				case Exists(name):
+					if (!checkLifetime(name)) valid = false;
+			}
+
+			return valid;
+		}
+		return false;
+	}
+
+	private function checkAchievement(originatingName : String) {
+
+		// first need to check if we already got this achievement before.
+		if (checkLifetime(originatingName)) return;
+
+		for (a in Data.achievements.all) if (a.enabled && a.triggers != null) {
+			var valid = true;
+			var hasThisName = false;
+			for (t in a.triggers) switch(t.trigger) {
+				case Exists(name):
+					if (originatingName == name) hasThisName = true;
+					else if (!checkLifetime(name)) valid = false;
+			}
+
+			if (hasThisName) {
+				if (valid) Game.earnedAchievement(a);
+				return;
+			}
+		}
 	}
 	
 	private function checkLocal(name : String) : Bool {

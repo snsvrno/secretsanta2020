@@ -70,10 +70,13 @@ class Progress extends h2d.Object {
 	}
 
 	private function countAchievements() : String {
-		var total = Data.achievements.all.length;
-
+		var total = 0;
 		var earned = 0;
-		for (a in Data.achievements.all) if (Game.variables.checkLifetime(a.id.toString())) earned++;
+
+		for (a in Data.achievements.all) if (a.enabled) {
+			total++;
+			if (Game.variables.checkLifetime(a.id.toString())) earned++;
+		}
 
 		return '$earned of $total';
 	}

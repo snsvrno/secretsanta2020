@@ -35,7 +35,11 @@ class GameMenu extends h2d.Object {
 		con.setContainerHook(buttonStack);
 		con.description = "";
 		con.descriptionObject = description;
-		con.onClick = () -> if (onExit != null) onExit();
+		con.onClick = function() {
+			if (onExit != null) onExit();
+			removeChild(achievementsPage);
+			removeChild(progressPage);
+		}
 
 		var prog = new game.ui.Button("Progress");
 		prog.setContainerHook(buttonStack);
@@ -61,7 +65,11 @@ class GameMenu extends h2d.Object {
 		mainmenu.setContainerHook(buttonStack);
 		mainmenu.description = "To the game main menu.";
 		mainmenu.descriptionObject = description;
-		mainmenu.onClick = () -> if(onMenuClick != null) onMenuClick();
+		mainmenu.onClick = function() {
+			if(onMenuClick != null) onMenuClick();
+			removeChild(achievementsPage);
+			removeChild(progressPage);
+		}
 		//mainmenu.onClick = () -> setState(MainMenuState);
 
 		buttonStack.x = 10;

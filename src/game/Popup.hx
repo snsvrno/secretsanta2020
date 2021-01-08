@@ -159,7 +159,7 @@ class Popup extends h2d.Object {
 	static public function achievement(achievement : Data.Achievements, parent : h2d.Object) {
 		var popup = new Popup(parent);
 		
-		popup.setImageRaw(hxd.Res.clock.sun_11.toTile());
+		popup.setImageRaw(hxd.Res.load(achievement.icon).toTile());
 
 		// creates the text.
 		popup.setText(Const.ACHIEVEMENTS_POPUP_TEXT, [achievement.title], Const.POPUP_MAX_WIDTH);
