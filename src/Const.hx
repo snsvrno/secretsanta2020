@@ -94,8 +94,17 @@ class Const {
 	inline static public var ACHIEVEMENTS_DISABLED : Int = 0xFF777777;
 	inline static public var ACHIEVEMENTS_ACHIEVED : Int = 0xFFFF7777;
 	inline static public var ACHIEVEMENTS_SIZE : Float = 0.5;
+	inline static public var ACHIEVEMENTS_ICON_SIZE : Float = 100;
+	inline static public var ACHIEVEMENTS_ICON_SIZE_OVER : Float = 120;
+	inline static public var ACHIEVEMENTS_ICON_PADDING : Float = 10;
 	inline static public var ACHIEVEMENTS_DESCRIPTION_SIZE : Float = 0.30;
+	inline static public var ACHIEVEMENTS_TITLE_COLOR : Int = 0xFFFFFFFF;
+	inline static public var ACHIEVEMENTS_DESCRIPTION_COLOR : Int = 0xFFAAAAAA;
+	inline static public var ACHIEVEMENTS_ANIMATION_LENGTH : Float = 0.15;
+	inline static public var ACHIEVEMENTS_UNACHIEVED_INTENSITY : Float = 0.75;
 	inline static public var ACHIEVEMENTS_POPUP_TEXT : String = "Achievement `0`!";
+	static public var ACHIEVEMENTS_TITLE_FONT : h2d.Font;
+	static public var ACHIEVEMENTS_DESCRIPTION_FONT : h2d.Font;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// MAP CONTAINER SETTINGS
@@ -303,5 +312,8 @@ class Const {
 
 		BACKPACK_NAMEFONT = hxd.Res.fonts.edi16.toFont();
 		BACKPACK_DESCRIPTIONFONT = hxd.Res.fonts.edi16.toFont();
+
+		ACHIEVEMENTS_DESCRIPTION_FONT = hxd.Res.fonts.edi16.toFont();
+		ACHIEVEMENTS_TITLE_FONT = hxd.Res.fonts.wolf24.toFont();
 	}
 }
