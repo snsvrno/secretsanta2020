@@ -38,7 +38,10 @@ class Backpack extends h2d.Object {
 
 	override function onAdd() {
 		super.onAdd();
-		if (content != null) drawContent();
+		if (content != null) { 
+			drawContent();
+			paintTabBackground();
+		}
 	}
 
 	public function addItem(item : Data.ItemsKind) {
@@ -67,8 +70,9 @@ class Backpack extends h2d.Object {
 							case ExtraAction:
 								Game.addSlot();
 
-							case Transform(item):
-								addItem(item.name);
+							case Transform(newItem):
+								addItem(newItem.name);
+								removeItem(item);
 							
 							case Remove:
 								removeItem(item);
@@ -241,7 +245,7 @@ class Backpack extends h2d.Object {
 	private function paintTabBackground(?color : Int = Const.BACKPACK_COLOR) {
 		tab.clear();
 		tab.beginFill(color);
-		tab.drawRoundedRect(0, 0, tabWidth, tabHeight, Const.BACKPACK_ROUNDEDCORNERS);
+		tab.drawRoundedRect(0, 0, tabWidth, tabHeight, Const.BACKPACK_ICONROUNDEDCORNERS);
 		tab.drawRect(0, 0, tabWidth, tabHeight/2);
 		tab.endFill();
 	}

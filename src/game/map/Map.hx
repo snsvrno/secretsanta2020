@@ -1,7 +1,9 @@
 package game.map;
 
 class Map extends h2d.Object {
+	private var background : h2d.Bitmap;
 	private var locations : Array<Location> = [];
+	private var shaderDisabled : shader.Darken;
 
 	/** an overlay graphics color that is suppose to emulate sun lighting */
 	private var lightingLayer : h2d.Graphics;
@@ -10,13 +12,14 @@ class Map extends h2d.Object {
 		super(parent);
 
 		var tile = hxd.Res.map.base.toTile();
-		new h2d.Bitmap(tile, this);
+		background = new h2d.Bitmap(tile, this);
 
 		for (l in Data.locations.all) locations.push(new Location(l, this));
 	
 		// need to add this so the layer "compacts" or "flattens" all
 		// the elements and the alpha works as expected.
 		filter = new h2d.filter.Nothing();
+		shaderDisabled = new shader.Darken(Const.LOCATION_UNACCESSABLE_ALPHA);
 		
 		// for lighting effects.
 		lightingLayer = new h2d.Graphics(this);
@@ -64,9 +67,12 @@ class Map extends h2d.Object {
 
 	public function disableInaccessableLocations(visits : Array<String>) {
 		for (l in locations) if (!visits.contains(l.data.name)) l.notAccessable();
+		background.addShader(shaderDisabled);
+
 	}
 
 	public function resetAllInaccessableLocations() {
 		for (l in locations) l.notAccessable(true);
+		background.removeShader(shaderDisabled);
 	}
 }

@@ -13,13 +13,16 @@ class MainMenu extends h2d.Object {
 
 		var title = new game.ui.Text(Const.GAMETITLE, Const.MENU_TITLE_FONT);
 		title.setScale(Const.MENU_TITLE_SIZE);
+		if (title.getWidth() > Const.WORLD_WIDTH) title.setWidth(Const.WORLD_WIDTH - 2 * 20);
 
 		var titleLineStack = new game.ui.HStack();
 		var text = new game.ui.Text("a game by ");
 		var snsv = new game.ui.Snsvrno();
 		snsv.setScale(0.5);
+		text.setHeight(Math.floor(snsv.getHeight() * 0.25));
 		titleLineStack.push(text);
 		titleLineStack.push(snsv);
+		titleLineStack.setChildrenAlignment(Middle);
 	
 		var titleStack = new game.ui.VStack(this);
 		titleStack.x = Const.WORLD_WIDTH - 10;

@@ -43,6 +43,10 @@ class Text extends game.ui.Element {
 		setScale(scale);
 	}
 
+	public function setWidth(width : Int) {
+		var scale = width / textObject.textWidth;
+		setScale(scale);
+	}
 
 	public function setText(text : String) {
 		textObject.text = text;

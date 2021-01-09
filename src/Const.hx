@@ -36,7 +36,7 @@ class Const {
 	 * color is if building to js. Could be any other color in other
 	 * builds because it doesn't need to match with anything else.
 	 */
-	inline static public var BACKGROUND_COLOR : Int = 0xFF00FFFF;
+	inline static public var BACKGROUND_COLOR : Int = 0xFF38332F;
 	/**
 	 * The amount of screen padding, in pixels to give between the 
 	 * main scene and the container (window, webpage, etc..)
@@ -50,7 +50,7 @@ class Const {
 	////////////////////////////////////////////////////////////////////////////////////////
 	// SPLASH SETTINGS
 
-	inline static public var SPLASH_TEXT_COLOR : Int = 0x000000;
+	inline static public var SPLASH_TEXT_COLOR : Int = 0xFFFFFFFF;
 	inline static public var SPLASH_TOOL_LOGO_MAXWIDTH : Int = 50;
 	inline static public var SPLASH_TOOL_FONT_MAXHEIGHT : Int = 30;
 	inline static public var SPLASH_TOOL_LOGO_PADDING : Int = 10;
@@ -94,9 +94,9 @@ class Const {
 	inline static public var ACHIEVEMENTS_DISABLED : Int = 0xFF777777;
 	inline static public var ACHIEVEMENTS_ACHIEVED : Int = 0xFFFF7777;
 	inline static public var ACHIEVEMENTS_SIZE : Float = 0.5;
-	inline static public var ACHIEVEMENTS_ICON_SIZE : Float = 100;
-	inline static public var ACHIEVEMENTS_ICON_SIZE_OVER : Float = 120;
-	inline static public var ACHIEVEMENTS_ICON_PADDING : Float = 10;
+	inline static public var ACHIEVEMENTS_ICON_SIZE : Float = 160;
+	inline static public var ACHIEVEMENTS_ICON_SIZE_OVER : Float = 200;
+	inline static public var ACHIEVEMENTS_ICON_PADDING : Float = 16;
 	inline static public var ACHIEVEMENTS_DESCRIPTION_SIZE : Float = 0.30;
 	inline static public var ACHIEVEMENTS_TITLE_COLOR : Int = 0xFFFFFFFF;
 	inline static public var ACHIEVEMENTS_DESCRIPTION_COLOR : Int = 0xFFAAAAAA;
@@ -144,21 +144,22 @@ class Const {
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
-	inline static public var BACKPACK_COLOR : Int = 0x00FF44;
-	inline static public var BACKPACK_COLOROVER : Int = 0x00FFFF;
+	inline static public var BACKPACK_COLOR : Int = 0x38332f;
+	inline static public var BACKPACK_COLOROVER : Int = 0xa06a3b;
 	inline static public var BACKPACK_ICONSIZE : Int = 25;
-	inline static public var BACKPACK_ROUNDEDCORNERS : Int = 10;
+	inline static public var BACKPACK_ICONROUNDEDCORNERS : Int = 10;
+	inline static public var BACKPACK_ROUNDEDCORNERS : Int = 0;
 	inline static public var BACKPACK_ICONPADDING : Int = 10;
 	inline static public var BACKPACK_ICONOVERALPHA : Float = 0.75;
 	inline static public var BACKPACK_ITEMSIZE : Int = 50;
 	inline static public var BACKPACK_ITEMOPACITY : Float = 0.75;
 	inline static public var BACKPACK_ITEMPADDING : Int = 10;
-	inline static public var BACKPACK_NAMECOLOR : Int = 0xFF333333;
+	inline static public var BACKPACK_NAMECOLOR : Int = 0xFFFFFFFF;
 	inline static public var BACKPACK_DESCRIPTIONCOLOR : Int = 0xFFAAAAAA;
-	static public var BACKPACK_NAMEFONT : h2d.Font;
-	static public var BACKPACK_DESCRIPTIONFONT : h2d.Font;
 	inline static public var BACKPACK_NOTIFICATIONTIMER : Float = 1.5;
 	inline static public var BACKPACK_NOTIFICATIONTIMERINTENSITY : Float = 0.05;
+	static public var BACKPACK_NAMEFONT : h2d.Font;
+	static public var BACKPACK_DESCRIPTIONFONT : h2d.Font;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
@@ -190,7 +191,7 @@ class Const {
 	/** Padding around the text in a speech bubble. */
 	inline static public var BUBBLE_TEXT_PADDING : Int = 10;
 	/** Color of the speech bubble. */
-	inline static public var BUBBLE_BACKGROUND_COLOR : Int = 0xFF0000;
+	inline static public var BUBBLE_BACKGROUND_COLOR : Int = 0x38332f;
 	/** Color of the speech bubble. */
 	inline static public var BUBBLE_BACKGROUND_ALPHA : Float = 1;
 
@@ -255,9 +256,9 @@ class Const {
 	/** The duration (in seconds) that the popup will wait at fill opacity. */
 	inline static public var POPUP_WAIT_DURATION : Float = 1.5;
 	/** popup background color */
-	inline static public var POPUP_BACKGROUND_COLOR : Int = 0x000000;
+	inline static public var POPUP_BACKGROUND_COLOR : Int = 0x38332f;
 	/** popup background opacity */
-	inline static public var POPUP_BACKGROUND_ALPHA : Float = 0.85;
+	inline static public var POPUP_BACKGROUND_ALPHA : Float = 1;
 	/** popup rounded corner radius */
 	inline static public var POPUP_CORNER_RADIUS : Float = 2.;
 	// variables are defined as integer positions of the passed array, in the
@@ -310,7 +311,7 @@ class Const {
 
 		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
 
-		BACKPACK_NAMEFONT = hxd.Res.fonts.edi16.toFont();
+		BACKPACK_NAMEFONT = hxd.Res.fonts.wolf24.toFont();
 		BACKPACK_DESCRIPTIONFONT = hxd.Res.fonts.edi16.toFont();
 
 		ACHIEVEMENTS_DESCRIPTION_FONT = hxd.Res.fonts.edi16.toFont();

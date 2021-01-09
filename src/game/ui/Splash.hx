@@ -39,6 +39,7 @@ class Splash extends h2d.Object {
 
 		var title = new game.ui.Text(Const.GAMETITLE, Const.MENU_TITLE_FONT);
 		title.setColor(Const.SPLASH_TEXT_COLOR);
+		if (title.getWidth() > Const.WORLD_WIDTH) title.setWidth(Const.WORLD_WIDTH - 2 * 10);
 
 		var subtitle = new game.ui.HStack();
 		subtitle.setChildrenAlignment(Middle);

@@ -3,9 +3,9 @@ package game.ui.screens;
 class Achievements extends h2d.Object {
 
 	static private var area = { 
-		x : Const.WORLD_WIDTH/2, 
-		y : Const.WORLD_HEIGHT/5, 
-		w : Const.WORLD_WIDTH - 10 - Const.WORLD_WIDTH/2, 
+		x : Const.WORLD_WIDTH / 3, 
+		y : Const.WORLD_HEIGHT / 5, 
+		w : Const.WORLD_WIDTH - 10 - Const.WORLD_WIDTH / 3, 
 		h : Const.WORLD_HEIGHT - 10 - 2 * Const.WORLD_HEIGHT/5 
 	};
 
