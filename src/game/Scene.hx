@@ -267,7 +267,7 @@ class Scene extends h2d.Object {
 							return;
 						}
 					}
-				} else { //if (dialogue.action != null) {
+				} else if (dialogue.action != null) {
 					startDialogue(dialogue.action);
 				} 
 			}

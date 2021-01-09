@@ -564,17 +564,19 @@
 						"x": 63,
 						"y": 140
 					},
-					"type": 0
+					"type": 0,
+					"icon": "characters/lamb-icon.png"
 				},
 				{
 					"id": "cat",
 					"type": 0,
 					"name": "",
-					"image": "",
+					"image": "characters/cat.png",
 					"dialoguepoint": {
 						"x": 0,
 						"y": 0
-					}
+					},
+					"icon": "characters/cat-icon.png"
 				},
 				{
 					"id": "mole",
@@ -584,7 +586,8 @@
 						"x": 178,
 						"y": 227
 					},
-					"type": 0
+					"type": 0,
+					"icon": "characters/mole-icon.png"
 				},
 				{
 					"id": "fish",
@@ -654,7 +657,7 @@
 				},
 				{
 					"id": "car",
-					"image": "",
+					"image": "props/car.png",
 					"name": "Matthew",
 					"dialoguepoint": {
 						"y": 250,
@@ -665,7 +668,7 @@
 				{
 					"id": "boxes",
 					"name": "Some boxes",
-					"image": "items/boxes.png",
+					"image": "props/boxes.png",
 					"interactives": [
 						{
 							"box": {
@@ -686,10 +689,30 @@
 					"id": "bookshelf",
 					"type": 1,
 					"name": "Bookshelf",
-					"image": "items/boxes.png",
+					"image": "props/bookshelf.png",
 					"dialoguepoint": {
 						"x": 250,
 						"y": 250
+					}
+				},
+				{
+					"id": "umbrella",
+					"type": 1,
+					"name": "Umbrells",
+					"image": "props/umbrella.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"id": "water",
+					"type": 1,
+					"name": "",
+					"image": "props/water.png",
+					"dialoguepoint": {
+						"x": 0,
+						"y": 0
 					}
 				}
 			],
@@ -1459,7 +1482,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "Why did we stop?",
-					"display": "~Stopped?~",
+					"display": "Stopped?",
 					"chain": "weasel_whystop_response"
 				},
 				{
@@ -2729,7 +2752,7 @@
 					"id": "mole_planningtrip_response",
 					"speaker": "mole",
 					"target": "player",
-					"text": "I would _love_ to, but school has been *busy* lately.\\nThere is some nice weather tonight, so the stars would be ~amazing~.\\nNormally I would give my *notes* to the TA and they would talk care of it,\\nbut today is a new topic and I haven't prepared it yet.",
+					"text": "I would _love_ to, but school has been *busy* lately.\\nThere is some nice weather tonight, so the stars would be ~amazing~.\\nNormally I would give my *notes* to the T.A. and they would talk care of it,\\nbut today is a new topic and I haven't prepared it yet.",
 					"branch": [
 						{
 							"condition": [
@@ -3081,18 +3104,17 @@
 					"set": [
 						{
 							"set": [
-								5,
-								1
-							]
-						},
-						{
-							"set": [
 								0,
 								"mole_fallasleep",
 								true
 							]
 						},
-						{}
+						{
+							"set": [
+								5,
+								1
+							]
+						}
 					]
 				},
 				{
@@ -4347,12 +4369,123 @@
 						{
 							"set": [
 								0,
-								"lamb_gettropy",
+								"lamb_gettrophy",
 								true
 							]
 						}
 					],
 					"action": "lamb_officeafternoon"
+				},
+				{
+					"id": "lamb_postgametrophycup",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Here, I got someting for you.",
+					"display": "Give Empty Cup",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"cup"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"*lamb_teamtrophy"
+							]
+						},
+						{
+							"condition": [
+								18,
+								4
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_pickupfood"
+							]
+						},
+						{
+							"condition": [
+								14,
+								"office"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_postgamegivecup"
+							]
+						}
+					],
+					"chain": "lamb_postgametrophycup_response",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_postgamegivecup",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_postgametrophycup_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Whats this?\\Is this suppose to be a trophy?",
+					"branch": [
+						{
+							"condition": [
+								1,
+								"lamb_gotfood"
+							],
+							"dialogue": "lamb_postgametrophycuplose"
+						},
+						{
+							"dialogue": "lamb_postgametrophycupwin"
+						}
+					]
+				},
+				{
+					"id": "lamb_postgametrophycupwin",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "You should keep it, I *already* won one today.",
+					"action": "lamb_officeafternoon"
+				},
+				{
+					"id": "lamb_postgametrophycuplose",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Yeah, I heard the office gives a trophy each game.\\nAnd I feel a little guilty that I didn't get the food in time.\\nSo here.",
+					"set": [
+						{
+							"set": [
+								7,
+								"cup"
+							]
+						}
+					],
+					"chain": "lamb_postgametrophycuplose_response"
+				},
+				{
+					"id": "lamb_postgametrophycuplose_response",
+					"speaker": "player",
+					"target": "player",
+					"text": "~hahaha~\\nThanks. I appreciate the thought.\\nI'll be sure to get my food *before* the game next time.",
+					"action": "lamb_officeafternoon",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_condessionprizecup",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_concessionprize",
@@ -4427,7 +4560,16 @@
 					"speaker": "lamb",
 					"target": "player",
 					"text": "~No way! ...~\\n~ha ha ha~\\nThe guys are great.\\We're a close team, we always notice when someone is missing.\\n*Thanks*!",
-					"action": "lamb_office"
+					"action": "lamb_officeafternoon",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_condessionprizetrophy",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_watchgame",
@@ -4513,7 +4655,8 @@
 					"id": "lamb_watchgame31mis",
 					"speaker": "player",
 					"target": "player",
-					"text": "/One of the the opposing team's players shoots to score!/\\n/$lamb$ does an amazing dive in front of the ball./\\nBut misses the ball~!!~/\\n/The other team scores ~...~/"
+					"text": "/One of the the opposing team's players shoots to score!/\\n/$lamb$ does an amazing dive in front of the ball./\\nBut misses the ball~!!~/\\n/The other team scores ~...~/",
+					"chain": "lamb_endgame"
 				},
 				{
 					"id": "lamb_watchgame32",
@@ -4823,6 +4966,368 @@
 					"target": "lamb",
 					"text": "Its ok, I'm sure I'll find something else to do this weekend.",
 					"action": "lamb_fox"
+				},
+				{
+					"id": "lamb_date",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Ready for Tonight?",
+					"display": "Date Night?",
+					"chain": "lamb_date_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_encourage"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_dateconv"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_date_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "No!\\nThis is bad,\\nthis is so bad.",
+					"action": "lamb_officeafternoon",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_dateconv",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_datebad",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "~What?~ Whats going on?",
+					"display": "Whats Bad?",
+					"chain": "lamb_datebad_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_dateconv"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_datebad_conv"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_datebad_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "My boss just requested a report for the end of the day.\\nI got most of it done but i have to copy all these documents.\\nThis is going to tale all night~!!!~",
+					"action": "lamb_officeafternoon",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_datebad_conv",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_datehelp",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Is there anything I can do to help?",
+					"display": "Can I Help",
+					"chain": "lamb_datehelp_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_datebad_conv"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_datehelp_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Actually, ~yes!~\\nIf you help, I'll be able to finish in time.\\nIt will take the rest of hour, you sure you want to help?",
+					"action": "lamb_datehelp"
+				},
+				{
+					"id": "lamb_datehelpyes",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Of course, what do you need?",
+					"display": "Yes",
+					"chain": "lamb_datehelpyes_response",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_dateyes",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_datehelpyes_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "~Awsome!~\\nLets get to work.",
+					"chain": "lamb_datehelpyes_response2"
+				},
+				{
+					"id": "lamb_datehelpyes_response2",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "You spend some time helping.",
+					"set": [
+						{
+							"set": [
+								5,
+								1
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_datehelpno",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Sorry, I have something else to take care of.",
+					"display": "No",
+					"chain": "lamb_datehelpno_response"
+				},
+				{
+					"id": "lamb_datehelpno_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "~Shucks~, thanks anyway.\\nI'll have to reschedule ~...~",
+					"action": "lamb_officeafternoon"
+				},
+				{
+					"id": "lamb_givewinename",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "$lamb$, take this for tonight.",
+					"display": "Give *Wine*",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"winebottle"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"*name_lamb"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								7,
+								"winebottle"
+							]
+						}
+					],
+					"chain": "lamb_givewine2"
+				},
+				{
+					"id": "lamb_givewine",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "Here, take this for tonight.",
+					"display": "Give *Wine*",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"winebottle"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								7,
+								"winebottle"
+							]
+						}
+					],
+					"chain": "lamb_givewine2"
+				},
+				{
+					"id": "lamb_givewine2",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "Whats this?\\nOh this looks great.\\nI wanted to pick something up but I don't know anything about wine.",
+					"chain": "lamb_givewine3",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_haswine",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_givewine3",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "A friend gave it to me, they say its really good.",
+					"chain": "lamb_givewine4"
+				},
+				{
+					"id": "lamb_givewine4",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "And I can have it~?!?~\\n~No way!~\\nI really appreciate it.",
+					"action": "lamb_officeafternoon"
+				},
+				{
+					"id": "lamb_datetime",
+					"speaker": "player",
+					"target": "player",
+					"text": "/They look busy, I should come back later./",
+					"display": "Talk",
+					"set": [
+						{
+							"set": [
+								4
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								16,
+								5
+							]
+						}
+					],
+					"action": "lamb_beach"
+				},
+				{
+					"id": "lamb_postdate",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "How'd it go?",
+					"display": "How was Date?",
+					"chain": "lamb_postdate_response",
+					"condition": [
+						{
+							"condition": [
+								16,
+								6
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_haswine"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_postdate_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "It was great!\\nI think we had a good time.\\nI wish I had some *wine* though,\\nit would really have stepped it up.\\nI'll have to find some for *next* time.",
+					"action": "lamb_beach",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_haswine"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_postdatewine",
+					"speaker": "player",
+					"target": "player",
+					"text": "/They look like they are still at it .../",
+					"display": "/Listen in/",
+					"chain": "lamb_postdatewine_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_haswine"
+							]
+						},
+						{
+							"condition": [
+								16,
+								6
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_postdatewine_response",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "~...~ and thats when he said,\\n\"Thats not my waffle! that's an ~aardvark!~\"",
+					"chain": "lamb_postdatewine_response2"
+				},
+				{
+					"id": "lamb_postdatewine_response2",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "~hahahaha~ no way.\\nThats too much!",
+					"chain": "lamb_postdatewine_response3"
+				},
+				{
+					"id": "lamb_postdatewine_response3",
+					"speaker": "lamb",
+					"target": "fox",
+					"text": "He totally did!\\n~hahaha~",
+					"chain": "lamb_postdatewine_response4"
+				},
+				{
+					"id": "lamb_postdatewine_response4",
+					"speaker": "fox",
+					"target": "lamb",
+					"text": "~hahaha~",
+					"chain": "lamb_postdatewine_response5"
+				},
+				{
+					"id": "lamb_postdatewine_response5",
+					"speaker": "player",
+					"target": "player",
+					"text": "/It looks like it went well./",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_successfuldate",
+								true
+							]
+						}
+					],
+					"action": "lamb_beach"
 				}
 			],
 			"props": {},
@@ -5363,6 +5868,21 @@
 						},
 						{
 							"option": "lamb_concessionprize"
+						},
+						{
+							"option": "lamb_datehelp"
+						},
+						{
+							"option": "lamb_date"
+						},
+						{
+							"option": "lamb_datebad"
+						},
+						{
+							"option": "lamb_givewine"
+						},
+						{
+							"option": "lamb_givewinename"
 						}
 					],
 					"imports": [
@@ -5371,6 +5891,18 @@
 						},
 						{
 							"action": "lamb_office"
+						}
+					]
+				},
+				{
+					"id": "lamb_datehelp",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_datehelpyes"
+						},
+						{
+							"option": "lamb_datehelpno"
 						}
 					]
 				},
@@ -5407,6 +5939,21 @@
 						},
 						{
 							"option": "lamb_encourage"
+						}
+					]
+				},
+				{
+					"id": "lamb_beach",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_postdate"
+						},
+						{
+							"option": "lamb_postdatewine"
+						},
+						{
+							"option": "lamb_datetime"
 						}
 					]
 				}
@@ -5448,11 +5995,10 @@
 				{
 					"actors": [
 						{
-							"actor": "mechanic",
-							"x": 0.75,
-							"y": 0.5,
-							"scale": 0.75,
-							"action": "mechanic_start",
+							"actor": "car",
+							"x": 0.31,
+							"y": 0.4,
+							"scale": 1,
 							"flipX": false
 						},
 						{
@@ -5478,6 +6024,14 @@
 							],
 							"flipX": true,
 							"action": "fox_garage"
+						},
+						{
+							"actor": "mechanic",
+							"x": 0.75,
+							"y": 0.5,
+							"scale": 0.75,
+							"action": "mechanic_start",
+							"flipX": false
 						}
 					],
 					"location": "garage",
@@ -5486,6 +6040,20 @@
 				{
 					"location": "beach",
 					"actors": [
+						{
+							"actor": "umbrella",
+							"x": 0.55,
+							"y": 0.4,
+							"scale": 0.75,
+							"flipX": false
+						},
+						{
+							"actor": "water",
+							"x": 0.175,
+							"y": 0.1475,
+							"scale": 0.5,
+							"flipX": false
+						},
 						{
 							"actor": "fish",
 							"x": 0.75,
@@ -5536,6 +6104,49 @@
 								}
 							],
 							"action": "mole_beach"
+						},
+						{
+							"actor": "fox",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 1,
+							"flipX": false,
+							"condition": [
+								{
+									"condition": [
+										2,
+										5
+									]
+								},
+								{
+									"condition": [
+										3,
+										"lamb_dateyes"
+									]
+								}
+							]
+						},
+						{
+							"actor": "lamb",
+							"x": 0.4,
+							"y": 0.5,
+							"scale": 0.75,
+							"flipX": false,
+							"action": "lamb_beach",
+							"condition": [
+								{
+									"condition": [
+										2,
+										5
+									]
+								},
+								{
+									"condition": [
+										3,
+										"lamb_dateyes"
+									]
+								}
+							]
 						}
 					],
 					"id": "beach"
@@ -5803,10 +6414,10 @@
 					"actors": [
 						{
 							"actor": "bookshelf",
-							"x": 0.5,
+							"x": 0.29,
 							"y": 0.5,
-							"scale": 0.25,
-							"flipX": true,
+							"scale": 1,
+							"flipX": false,
 							"action": "bookshelf_search"
 						},
 						{
@@ -5863,6 +6474,12 @@
 					"typeStr": "13",
 					"name": "icon",
 					"kind": null
+				},
+				{
+					"typeStr": "8",
+					"name": "actions",
+					"opt": true,
+					"kind": null
 				}
 			],
 			"lines": [
@@ -5876,77 +6493,147 @@
 					"name": "money",
 					"displayname": "Money",
 					"description": "Some money, looks to be $#money# in there.",
-					"icon": "items/boxes.png"
+					"icon": "items/money.png"
 				},
 				{
 					"name": "coffee",
 					"displayname": "Cup of Coffee",
 					"description": "A cup of black coffee. Smells strong.",
-					"icon": "items/boxes.png"
+					"icon": "items/coffee.png",
+					"actions": [
+						{
+							"text": "Drink",
+							"description": "Drinking the coffee will give you an extra action this period.",
+							"action": [
+								{
+									"action": [
+										0
+									]
+								},
+								{
+									"action": [
+										1,
+										"cup"
+									]
+								},
+								{
+									"action": [
+										2
+									]
+								}
+							]
+						}
+					]
 				},
 				{
 					"name": "cup",
 					"displayname": "",
 					"description": "",
-					"icon": "items/boxes.png"
+					"icon": "items/emptycup.png"
+				},
+				{
+					"name": "trophycup",
+					"displayname": "",
+					"description": "",
+					"icon": "items/trophycup.png"
 				},
 				{
 					"name": "trophy",
 					"displayname": "",
 					"description": "",
-					"icon": "items/boxes.png"
+					"icon": "items/trophy.png"
 				},
 				{
 					"name": "omnibook",
 					"displayname": "Mystical Book",
 					"description": "Strange looking book, doesn't seem to have any contents ... ",
-					"icon": "items/boxes.png"
+					"icon": "items/omnicook.png"
 				},
 				{
 					"name": "adventurebook",
 					"displayname": "Book of Adventures",
 					"description": "A book describing different adventures in far away places.",
-					"icon": "items/boxes.png"
+					"icon": "items/adventurebook.png"
 				},
 				{
 					"name": "seabook",
 					"displayname": "Book of Ocean Animals",
 					"description": "A book describing rare and interesting ocean creatures.",
-					"icon": "items/boxes.png"
+					"icon": "items/oceanbook.png"
 				},
 				{
 					"name": "classnotes",
 					"displayname": "Class Notes",
 					"description": "Notes from %mole%'s lecture about birds, specifically the differences between swallows.",
-					"icon": "items/boxes.png"
+					"icon": "items/classnotes.png"
 				},
 				{
 					"name": "winebottle",
 					"displayname": "a Bottle of Wine",
 					"description": "A bottle of nice wine, seems fancy.",
-					"icon": "items/boxes.png"
+					"icon": "items/wine.png"
 				},
 				{
 					"name": "emptybottle",
 					"displayname": "an Empty Bottle",
 					"description": "An empty bottle.",
-					"icon": "items/boxes.png"
+					"icon": "items/emptybottle.png"
 				},
 				{
 					"name": "sandwich",
 					"displayname": "a Chicken Sandwich",
 					"description": "",
-					"icon": "items/boxes.png"
+					"icon": "items/sandwich.png"
 				},
 				{
 					"name": "smoothie",
 					"displayname": "a Fruit Smoothie",
 					"description": "",
-					"icon": "items/boxes.png"
+					"icon": "items/smoothie.png"
 				}
 			],
 			"separators": [],
 			"props": {}
+		},
+		{
+			"name": "items@actions",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "text",
+					"kind": null
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"kind": null
+				},
+				{
+					"typeStr": "8",
+					"name": "action",
+					"kind": null
+				}
+			]
+		},
+		{
+			"name": "items@actions@action",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "9:ItemAction",
+					"name": "action",
+					"kind": null
+				}
+			]
 		},
 		{
 			"name": "achievements",
@@ -5954,6 +6641,11 @@
 				{
 					"typeStr": "0",
 					"name": "id"
+				},
+				{
+					"typeStr": "2",
+					"name": "enabled",
+					"kind": null
 				},
 				{
 					"typeStr": "6:characters",
@@ -5975,6 +6667,10 @@
 					"name": "triggers",
 					"opt": true,
 					"kind": null
+				},
+				{
+					"typeStr": "13",
+					"name": "icon"
 				}
 			],
 			"lines": [
@@ -5982,49 +6678,65 @@
 					"id": "true_ending",
 					"title": "Got the Message",
 					"description": "Fully understand what you're doing here.",
-					"character": "player"
+					"character": "player",
+					"icon": "achievements/truend.png",
+					"enabled": true
 				},
 				{
 					"id": "fox_car_trouble",
 					"title": "the Mechanic",
-					"description": "<description>",
-					"character": "fox"
+					"description": "Help someone get back on the road.",
+					"character": "fox",
+					"icon": "achievements/cartrouble.png",
+					"enabled": true
 				},
 				{
 					"id": "fox_living_vicariously",
 					"title": "There and Back Again",
 					"description": "Help someone explore ",
-					"character": "fox"
+					"character": "fox",
+					"icon": "",
+					"enabled": false
 				},
 				{
 					"id": "student_animal_chat",
 					"title": "All about Animals",
 					"description": "Talk to someone about animals.",
-					"character": "player"
+					"character": "player",
+					"icon": "",
+					"enabled": false
 				},
 				{
 					"id": "student_deep_sea_explorer",
 					"title": "Deep Sea Explorer",
 					"description": "Help someone go diving.",
-					"character": "player"
+					"character": "player",
+					"icon": "",
+					"enabled": false
 				},
 				{
 					"id": "student_new_animal_friends",
 					"title": "Animal Friends",
 					"description": "Help someone find a similar interest.",
-					"character": "player"
+					"character": "player",
+					"icon": "",
+					"enabled": false
 				},
 				{
 					"id": "mole_nice_bike_ride",
 					"title": "Fix a Flat",
 					"description": "Help someone fix their bike and go on a ride.",
-					"character": "mole"
+					"character": "mole",
+					"icon": "",
+					"enabled": false
 				},
 				{
 					"id": "mole_short_hike",
 					"title": "a Short Hike",
 					"description": "Help someone get their affairs in order so they can go backpacking.",
-					"character": "mole"
+					"character": "mole",
+					"icon": "",
+					"enabled": false
 				},
 				{
 					"id": "mole_fallasleep",
@@ -6034,35 +6746,85 @@
 					"triggers": [
 						{
 							"trigger": [
-								1,
+								0,
 								"mole_fallasleep"
+							]
+						}
+					],
+					"icon": "achievements/sleeper.png",
+					"enabled": true
+				},
+				{
+					"id": "lamb_soccer_star",
+					"title": "Soccer Star",
+					"description": "Help someone win their soccer game.",
+					"character": "lamb",
+					"icon": "achievements/soccer.png",
+					"enabled": true,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"lamb_gettrophy"
 							]
 						}
 					]
 				},
 				{
-					"id": "lamb_soccer_star",
-					"title": "Soccer Star",
-					"description": "Help someone get to their soccer game.",
-					"character": "lamb"
-				},
-				{
 					"id": "lamb_soccer_star_sorta",
 					"title": "a Runner Up",
-					"description": "<description>",
-					"character": "lamb"
+					"description": "You don't have to be the best to earn a trophy.",
+					"character": "lamb",
+					"icon": "achievements/soccerlost.png",
+					"enabled": true,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"lamb_condessionprizecup"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_soccer_star_never_forget",
+					"enabled": true,
+					"character": "lamb",
+					"title": "Never Made It",
+					"description": "They really tried, but couldn't make it to the game.",
+					"icon": "achievements/soccer.png",
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"lamb_condessionprizetrophy"
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_a_date",
 					"title": "It's a Date",
 					"description": "Help two friends go further.",
-					"character": "lamb"
+					"character": "lamb",
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"lamb_successfuldate"
+							]
+						}
+					],
+					"icon": "achievements/date.png",
+					"enabled": true
 				},
 				{
 					"id": "know_everyone",
 					"title": "Friend to All",
 					"description": "Learn everyone's name.",
-					"character": "player"
+					"character": "player",
+					"icon": "",
+					"enabled": false
 				}
 			],
 			"separators": [],
@@ -6560,19 +7322,6 @@
 			"name": "Trigger",
 			"cases": [
 				{
-					"name": "Value",
-					"args": [
-						{
-							"name": "name",
-							"typeStr": "1"
-						},
-						{
-							"name": "value",
-							"typeStr": "3"
-						}
-					]
-				},
-				{
 					"name": "Exists",
 					"args": [
 						{
@@ -6580,6 +7329,28 @@
 							"typeStr": "1"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "ItemAction",
+			"cases": [
+				{
+					"name": "ExtraAction",
+					"args": []
+				},
+				{
+					"name": "Transform",
+					"args": [
+						{
+							"name": "item",
+							"typeStr": "6:items"
+						}
+					]
+				},
+				{
+					"name": "Remove",
+					"args": []
 				}
 			]
 		}
