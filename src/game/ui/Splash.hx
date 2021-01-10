@@ -18,7 +18,6 @@ class Splash extends h2d.Object {
 			if (onFinish != null) onFinish();
 		}
 		fadeTimer.start();
-		fadeTimer.stop();
 
 		var background = new h2d.Graphics(this);
 		background.beginFill(Const.BACKGROUND_COLOR);

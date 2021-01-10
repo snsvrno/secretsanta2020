@@ -5,7 +5,9 @@
 - [x] the dialogue has weird width correction, looks bad.
 - [x] it looks like some text formatting isn't working?
 - [x] dialogue choice wheel should change diameter based on choice options.
--- kind of fixed this one, now a stack instead of a wheel.
+
+	kind of fixed this one, now a stack instead of a wheel.
+
 - [ ] the ui is drawn over the text in some cases (inventory and dialogue)
 
 == Backpack
@@ -33,7 +35,9 @@
 - [ ] fix the italics font, doesn't look plesant
 - [ ] fix the dancing text, it seems to "run away"
 - [x] select final background an bubble color / appearance
-- [ ] chosen dialogue font doesn't have a '$'
+- [x] chosen dialogue font doesn't have a `$`
+
+	seems that the font had the `$` symbol, but it wasn't exported to the bitmap font .. so i fixed that. 
 
 == Map
 
