@@ -173,9 +173,16 @@ class Text extends h2d.Object {
 					for (i in 0 ... letters.length) {
 						var timer = new sn.Timer(Const.TEXT_DANCING_SPEED);
 						timer.infinite = true;
-						timer.updateCallback = function() { 
+
+						var start : Null<Float> = null;
+						timer.updateCallback = function() {
+							if (start == null) start = letters[i].y; 
 							letters[i].y += Math.sin((timer.timerPercent + i / letters.length) * 2 * Math.PI) * Const.TEXT_DANCING_INTENSITY;
-						}
+						};
+						timer.finalCallback = function() {
+							letters[i].y = start;
+							start = null;
+						} 
 						textObjects.push(letters[i]);
 						timers.push(timer);
 					}
@@ -198,39 +205,6 @@ class Text extends h2d.Object {
 		var content = if(overrideText != null) overrideText; else text.text;
 		return text.calcTextWidth(content);// * Math.cos(text.rotation) + text.textHeight * Math.sin(text.rotation);
 	}
-/*
-	private function build() {
-		
-		// don't do anything if we don't have anything in here.
-		if (textObjects.length == 0) return;
-
-		// the working x and y positions, where to place the text.
-		var x : Float = 0;
-		var y : Float = 0;
-	
-		// positions everyone.
-		var y = 0.;
-		var h = 0.;
-		var w = 0.;
-		for (to in textObjects) {
-			to.x = -to.textWidth / 2;
-			to.y = y;
-			// for individual font offsets, so like fonts look aligned.
-			switch(to.font.name) {
-				case _:
-			}
-			y += to.textHeight;
-
-			if (to.textWidth > w) w = to.textWidth;
-			h += to.textHeight;
-		}
-		// setting the overall text dimensions.
-		width = w;
-		height = h;
-
-		// moves the text so that it is centered at 0;
-		for (to in textObjects) to.y -= h/2;
-	}*/
 
 	private function wrap(?wrapWidth : Float) {
 		// set the value

@@ -9,6 +9,7 @@
 * changes font for on-map location name.
 * updates splash to have 2 columns for fonts.
 * updated main conversation font to have '$' symbol.
+* fixes the "drift" with dancing text.
 
 == Credits
 

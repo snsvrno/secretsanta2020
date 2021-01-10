@@ -33,7 +33,10 @@
 == Conversations
 
 - [ ] fix the italics font, doesn't look plesant
-- [ ] fix the dancing text, it seems to "run away"
+- [x] fix the dancing text, it seems to "run away"
+
+	the issue was that i was adding and subtracting the sin-wave from the location, but since it isn't doing the same points every time (it is determine the angles based on dt) it would not be starting the loop at the same position. i couldn't just reset the position because i was moving it round independent of the dancing (an issue) so instead i updated the loop that on the first timer update it logs the location (whcih should be the original starting position) and it resets it whenever it ends the timer and resets the animation. works but looks funky.
+
 - [x] select final background an bubble color / appearance
 - [x] chosen dialogue font doesn't have a `$`
 
