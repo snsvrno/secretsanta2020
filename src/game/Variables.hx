@@ -308,7 +308,7 @@ class Variables {
 
 		var alreadySeen = false;
 		for (entry in sightings) {
-			if (entry.actor == actor) alreadySeen = true;
+			if (entry.actor == actor && entry.location == location) alreadySeen = true;
 		}
 
 		if (!alreadySeen) {
@@ -319,15 +319,48 @@ class Variables {
 		save();
 	}
 
+	/**
+	 * Checks if a player has seen a character at a specific location and looks at the 
+	 * scenes and sees if that character is actually at that lopcation. Will only return 
+	 * a character at a location if the player has seen them there and the character is
+	 * actually in the location.
+	 * @param location 
+	 * @param period 
+	 * @return Array<Data.CharactersKind>
+	 */
 	public function seen(location : Data.LocationsKind, period : Int) : Array<Data.CharactersKind> {
 		var array : Array<Data.CharactersKind> = [];
 
 		var sightings = whereAreThey.get(period);
 		if (sightings != null) for (s in sightings) {
-			if (s.location == location) array.push(s.actor);
+			if (s.location == location) {
+				var locationData = Data.locations.get(location);
+				for (locActor in locationData.scene.actors) {
+					if (locActor.actorId == s.actor) {
+						var isThere = true;
+	
+						for (condition in locActor.condition)
+							if (!checkSeenScene(condition.condition, period)) isThere = false;
+			
+						if (isThere) array.push(s.actor);
+					}
+				}
+			}
 		}
 
 		return array;
+	}
+
+	private function checkSeenScene(condition : Data.PeriodCondition, period : Int) : Bool {
+		switch(condition) {
+			case LTE(p): return period <= p;
+			case GTE(p): return period >= p;
+			case E(p): return period == p;
+			case Exists(name): return check(name);
+			case NotExists(name): return !check(name);
+			case And(c1, c2): return checkSeenScene(c1, period) && checkSeenScene(c2, period);
+		}
+
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////

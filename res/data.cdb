@@ -660,8 +660,8 @@
 					"image": "props/car.png",
 					"name": "Matthew",
 					"dialoguepoint": {
-						"y": 250,
-						"x": 250
+						"y": 80,
+						"x": 128
 					},
 					"type": 1
 				},
@@ -691,8 +691,8 @@
 					"name": "Bookshelf",
 					"image": "props/bookshelf.png",
 					"dialoguepoint": {
-						"x": 250,
-						"y": 250
+						"x": 140,
+						"y": 90
 					}
 				},
 				{
@@ -711,8 +711,8 @@
 					"name": "Beach Water",
 					"image": "props/water.png",
 					"dialoguepoint": {
-						"x": 0,
-						"y": 0
+						"x": 270,
+						"y": 110
 					}
 				}
 			],
@@ -2434,9 +2434,16 @@
 						{
 							"dialogue": "bookshelf_look3",
 							"condition": [
-								9,
-								"bookshelf_browse",
-								3
+								4,
+								[
+									9,
+									"bookshelf_browse",
+									3
+								],
+								[
+									7,
+									"omnibook"
+								]
 							]
 						},
 						{

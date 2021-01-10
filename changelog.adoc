@@ -18,3 +18,4 @@
 == Fixes
 
 * fixes the discrepence between the backpack and what the player actually has, unified them so now the backpack accurately represents what the user has.
+* fixes a bug that causes the first action in a new cycle to take up one of your action slots, effectively limiting you to only 1 action that first period.

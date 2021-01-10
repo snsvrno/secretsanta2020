@@ -1,6 +1,5 @@
 = List of Things to do Before Release
 
-- [ ] need a basic intro screen that is like a tutorial, explaining some basic stuff.
 - [x] pick a background color
 - [x] the dialogue has weird width correction, looks bad.
 - [x] it looks like some text formatting isn't working?
@@ -8,7 +7,9 @@
 
 	kind of fixed this one, now a stack instead of a wheel.
 
-- [ ] the ui is drawn over the text in some cases (inventory and dialogue)
+- [x] the ui is drawn over the text in some cases (inventory and dialogue)
+
+	i think this is fixed for the most part. the biggest issue was the text on the map, for the locations. i fixed this when i updated the location font.
 
 == Backpack
 
@@ -45,7 +46,10 @@
 == Map
 
 - [ ] update how the character icons are displayed, make them stand out more.
-- [ ] update how the character icon determined, so that we don't get duplicates.
+- [x] update how the character icon determined, so that we don't get duplicates.
+
+	updated how the `seen` but works, it still does the same thing, if you see someone at a location it logs it, but now it will actually check against where the character actually is before displaying it on the map, this way it will accurately show someone on the map if they are in that location, and will not show duplicate people (based on divergent paths that could occur when you do different actions with those people).
+
 - [x] when disabling the locations for this period, should also "disable" the background so it fits more.
 - [ ] update the location name font
 
@@ -53,7 +57,7 @@
 
 - [x] finalize the main title font.
 - [x] reduce the "a game by" font size.
-- [ ] a UI that tracks where everyone is, so you can plan actions. shows possible locations for people.
+- [ ] a UI screen / tab that tracks where everyone is, shows possible locations for people, if you've encountered them.
 
 == Menu (Game)
 
