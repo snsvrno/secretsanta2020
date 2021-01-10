@@ -241,6 +241,12 @@ class Text extends h2d.Object {
 		workingtext.maxWidth = maxWidth;
 		var splitText = workingtext.splitText(rawInputString);
 
+		// we need to make sure we don't split the style markers because then we wont'
+		// style those areas that get line braked.
+
+		splitText = game.utils.Quoted.throughLineBreaks(splitText);
+
+
 		// makes it
 		var y = 0.;
 		var w = 0.;

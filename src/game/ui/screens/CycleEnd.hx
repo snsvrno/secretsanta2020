@@ -81,6 +81,7 @@ class CycleEnd extends h2d.Object {
 
 			case _:
 		}
+		
 		itemsStack.alignChildren();
 	}
 }

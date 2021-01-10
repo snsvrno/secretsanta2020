@@ -54,15 +54,19 @@ class Variables {
 	 */
 	private var items : Array<Data.ItemsKind> = [];
 
+	private var lifetimeItems : Array<Data.ItemsKind> = [];
+
 	/**
 	 * Numberical values, mainly used for things like money.
 	 */
 	private var values : Map<String, Int> = new Map();
+	private var lifetimeValues : Map<String, Int> = new Map();
 
 	/**
 	 * All the used dialogues during the current cycle.
 	 */
 	private var chosenOptions : Array<Data.DialogueKind> = new Array();
+	private var lifetimeChosenOptions : Array<Data.DialogueKind> = new Array();
 
 	/**
 	 * Where you think (or know) where the characters are. This is populated as you
@@ -230,6 +234,20 @@ class Variables {
 		save();
 	}
 
+	public function getLifeValue(name : String) : Int {
+		if (lifetimeValues.exists(name)) return lifetimeValues.get(name);
+		else return 0;
+	}
+
+	public function incrementLifeValue(name : String, value : Int) {
+		var currentValue = lifetimeValues.get(name);
+		switch(currentValue) {
+			case null: lifetimeValues.set(name, sn.Maths.clamp(value, 0, null));
+			case n: values.set(name, sn.Maths.clamp(n + value, 0, null));
+		}
+		save();
+	}
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// DIALOGE CHOICE RELATED
 
@@ -245,8 +263,11 @@ class Variables {
 	 */
 	public function addChosenOption(id : Data.DialogueKind) { 
 		if (!isChosenOption(id)) chosenOptions.push(id);
+		if (!lifetimeChosenOptions.contains(id)) lifetimeChosenOptions.push(id);
 		save();
 	}
+
+	public function isLiftimeChosenOption(id : Data.DialogueKind) : Bool return lifetimeChosenOptions.contains(id);
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// ITEM RELATED
@@ -256,6 +277,8 @@ class Variables {
 			items.push(item);
 			Game.foundItem(item);
 		}
+
+		if (!lifetimeItems.contains(item)) lifetimeItems.push(item);
 	}
 
 	public function loses(item : Data.ItemsKind) : Bool {
@@ -267,6 +290,8 @@ class Variables {
 	}
 
 	public function has(item : Data.ItemsKind) : Bool return items.contains(item);
+
+	public function hasLifetime(item : Data.ItemsKind) : Bool return lifetimeItems.contains(item);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -309,29 +334,35 @@ class Variables {
 	 * Attempts to load all applicable aspects of the variables class
 	 */
 	private function load() {
-		#if js
+		//#if js
 
-		#else
+		//#else
 		var ll = hxd.Save.load(null, Const.SAVE_FILE_NAME, true);
 		if (ll != null) {
 			loaded = true;
 
+			if (ll.values != null) lifetimeValues = ll.values;
 			if (ll.lifetime != null) lifetimeSwitches = ll.lifetime;
 			if (ll.where != null) whereAreThey = ll.where;
+			if (ll.chosen != null) lifetimeChosenOptions = ll.chosen;
+			if (ll.items != null) lifetimeItems = ll.items;
 		}
-		#end
+		//#end
 	}
 
 	public function save() {
-		#if js
+		//#if js
 
 
-		#else
+		//#else
 		hxd.Save.save({
 			lifetime : lifetimeSwitches,
 			where : whereAreThey,
+			lifeValues : lifetimeValues,
+			chosen : lifetimeChosenOptions,
+			items : lifetimeItems,
 		}, Const.SAVE_FILE_NAME, true);
-		#end
+		//#end
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////

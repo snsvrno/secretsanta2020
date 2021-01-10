@@ -274,9 +274,15 @@ class Game extends hxd.App {
 		updateAfterTick();
 	}
 
+	private function onCycleEnd() {
+		ui.setState(End);
+
+		Game.variables.incrementLifeValue(Const.PROGRESS_CYCLES, 1);
+	}
+
 	private function updateAfterTick() {
 		if (clock.completeRevolution) {
-			ui.setState(End);
+			onCycleEnd();
 		} else {
 			if(!clock.donePeriod) map.resetAllInaccessableLocations();
 			map.setLighting(clock);

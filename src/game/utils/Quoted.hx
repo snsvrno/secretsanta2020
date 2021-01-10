@@ -6,6 +6,49 @@ private typedef CharStack = { char : String, pos : Int };
 class Quoted {
 	static private var validCharacters = ["@","#","$","%","^","&","~","/","`","*","_"];
 
+	/**
+	 * Will go through a block of text that has been line braked, and will surround 
+	 * the line break with quoted characters if it notices the line break is in a 
+	 * quoted section
+	 * @param text 
+	 * @return String
+	 */
+	static public function throughLineBreaks(text : String) : String {
+		
+		var parsed = parse(text);
+
+		for (i in 0 ... parsed.length) {
+			if (parsed[i].quote != null) {
+				var split = parsed[i].text.split("\n");
+				if (split.length > 1) {
+					var quoted = parsed[i];
+					parsed.remove(parsed[i]);
+					for (j in 0 ...split.length) {
+						var newText = if (j < split.length-1) split[j] + "\n" else split[j];
+						parsed.insert(i + j, {
+							quote: quoted.quote,
+							text: newText,
+						});
+					}
+
+				}
+			}
+		}
+
+		var renderedText = "";
+		for (p in parsed) {
+			if (p.quote == null) renderedText += p.text;
+			else {
+				if (p.text.substr(p.text.length-1) == "\n")
+					renderedText += p.quote + p.text.substr(0,p.text.length-1) + p.quote + "\n";
+				else
+					renderedText += p.quote + p.text + p.quote;
+			}
+		}
+
+		return renderedText;
+	}
+
 	static public function parse(string : String) : Array<QuotedText> {
 		var parsed : Array<QuotedText> = [];
 

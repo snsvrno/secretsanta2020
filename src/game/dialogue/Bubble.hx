@@ -38,6 +38,9 @@ class Bubble extends h2d.Object {
 		interactive.onOut = function(e : hxd.Event) {
 			bubble.remove();
 		}
+		interactive.onClick = function(e : hxd.Event) {
+			if (!bubble.next()) bubble.remove();
+		}
 
 		return bubble;
 	}
