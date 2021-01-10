@@ -18,6 +18,7 @@ class Splash extends h2d.Object {
 			if (onFinish != null) onFinish();
 		}
 		fadeTimer.start();
+		fadeTimer.stop();
 
 		var background = new h2d.Graphics(this);
 		background.beginFill(Const.BACKGROUND_COLOR);
@@ -81,7 +82,6 @@ class Splash extends h2d.Object {
 		tools.push(new game.ui.HorizontalLine(150));
 
 		var assets = new game.ui.VStack();
-		assets.padding = Const.SPLASH_TOOL_LOGO_PADDING;
 		assets.setAlignment(Center, Middle);
 		assets.setChildrenAlignment(Center);
 		
@@ -90,6 +90,19 @@ class Splash extends h2d.Object {
 		assetstest.setColor(Const.SPLASH_TEXT_COLOR);
 		assets.push(assetstest);
 		assets.push(new game.ui.HorizontalLine(150));
+
+		var hassets = new game.ui.HStack();
+		hassets.setAlignment(Center, Top);
+		var assets1 = new game.ui.VStack();
+		assets1.padding = Const.SPLASH_TOOL_LOGO_PADDING;
+		assets1.setAlignment(Center, Top);
+		assets1.setChildrenAlignment(Center);
+		var assets2 = new game.ui.VStack();
+		assets2.padding = Const.SPLASH_TOOL_LOGO_PADDING;
+		assets2.setAlignment(Center, Top);
+		assets2.setChildrenAlignment(Center);
+		hassets.pushAll([assets1, assets2]);
+		assets.push(hassets);
 
 		midStack.push(tools);
 		midStack.push(assets);
@@ -131,14 +144,16 @@ class Splash extends h2d.Object {
 		}
 		
 		var fonts = [
-			{ font: hxd.Res.fonts.wolf24.toFont(), t: "Wolfganger", a: "Nalgames", l: "https://nalgames.com/" },
-			{ font: hxd.Res.fonts.sket64.toFont(), t: "Sketches", a: "Fani Rizky", l: "https://www.dafont.com/fani-rizky.d6677" },
+			{ font: hxd.Res.fonts.bra24.toFont(), t: "Brandon Bromley", a: "DumadiStyle", l: "https://www.dafont.com/dumadi-studios.d7605" },
 			{ font: hxd.Res.fonts.edi24.toFont(), t: "Edson Comics", a: "edy2012", l: "https://www.dafont.com/edson-comics.d4391" },
+			{ font: hxd.Res.fonts.gra24.toFont(), t: "Grandstander\nClean", a: "Tyler Finck", l: "http://www.tylerfinck.com/grandstander/" },
+			{ font: hxd.Res.fonts.moga64.toFont(), t: "Moga Rezeki\nDua", a: "Nur Solikh", l: "https://www.dafont.com/nur-solikh.d7240" },
 			{ font: hxd.Res.fonts.sye64.toFont(), t: "Syemox", a: "Faqih Fawaji", l: "https://www.dafont.com/faqih-fawaji.d7431" },
+			{ font: hxd.Res.fonts.wolf24.toFont(), t: "Wolfganger", a: "Nalgames", l: "https://nalgames.com/" },
 		];
 
-		for (a in fonts) {
-			var text = new game.ui.Text(a.t, a.font);
+		for (i in 0 ... fonts.length) {
+			var text = new game.ui.Text(fonts[i].t, fonts[i].font);
 			text.setColor(Const.SPLASH_TEXT_COLOR);
 			text.setHeight(Const.SPLASH_TOOL_FONT_MAXHEIGHT);
 
@@ -152,10 +167,11 @@ class Splash extends h2d.Object {
 				fadeTimer.start();
 				text.alpha = 1;
 			}
-			interactive.onClick = (e: hxd.Event) -> hxd.System.openURL(a.l);
+			interactive.onClick = (e: hxd.Event) -> hxd.System.openURL(fonts[i].l);
 			text.addChild(interactive);
 
-			assets.push(text);
+			if (i < fonts.length /2) assets1.push(text);
+			else assets2.push(text);
 		}
 
 		midStack.setAlignment(Center, Bottom);

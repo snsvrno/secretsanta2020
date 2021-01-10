@@ -1,0 +1,18 @@
+= next version
+
+== General
+
+* adds ability to carry objects to the next *cycle*.
+
+== Cosmetic
+
+* changes font for on-map location name.
+* updates splash to have 2 columns for fonts.
+
+== Credits
+
+* updates the fonts that are used on the front splash.
+
+== Fixes
+
+* fixes the discrepence between the backpack and what the player actually has, unified them so now the backpack accurately represents what the user has.

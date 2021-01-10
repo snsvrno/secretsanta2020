@@ -123,6 +123,9 @@ class Const {
 
 	inline static public var MAP_ICON_SIZE : Float = 25;
 
+	inline static public var LOCATION_TEXT_SIZE : Float = 1.;
+	static public var MAP_LOCATION_FONT : h2d.Font;
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	// CYCLE OVER SCREEN SETTINGS
 
@@ -271,11 +274,6 @@ class Const {
 	inline static public var POPUP_TEXT_ITEM_LOST : String = "Lost `0`.";
 
 	////////////////////////////////////////////////////////////////////////////////////////
-	// LOCATION
-
-	inline static public var LOCATION_TEXT_SIZE : Float = 2.;
-
-	////////////////////////////////////////////////////////////////////////////////////////
 	// CLOCK / TIMEPIECE
 	// The number of time slots that each period has, basically means
 	// the number of places the player can move too and interact with
@@ -310,6 +308,8 @@ class Const {
 		TEXT_FONT_DANCING = hxd.Res.fonts.wolf24.toFont();
 
 		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
+
+		MAP_LOCATION_FONT = hxd.Res.fonts.gra16.toFont();
 
 		BACKPACK_NAMEFONT = hxd.Res.fonts.wolf24.toFont();
 		BACKPACK_DESCRIPTIONFONT = hxd.Res.fonts.edi16.toFont();

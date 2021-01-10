@@ -5,6 +5,8 @@ class Map extends h2d.Object {
 	private var locations : Array<Location> = [];
 	private var shaderDisabled : shader.Darken;
 
+	private var currentLocationText : h2d.Text;
+
 	/** an overlay graphics color that is suppose to emulate sun lighting */
 	private var lightingLayer : h2d.Graphics;
 
@@ -14,7 +16,11 @@ class Map extends h2d.Object {
 		var tile = hxd.Res.map.base.toTile();
 		background = new h2d.Bitmap(tile, this);
 
-		for (l in Data.locations.all) locations.push(new Location(l, this));
+		for (l in Data.locations.all) {
+			var location = new Location(l, this);
+			location.setLocationText = setLocationText;
+			locations.push(location);
+		}
 	
 		// need to add this so the layer "compacts" or "flattens" all
 		// the elements and the alpha works as expected.
@@ -23,6 +29,21 @@ class Map extends h2d.Object {
 		
 		// for lighting effects.
 		lightingLayer = new h2d.Graphics(this);
+
+		currentLocationText = new h2d.Text(Const.MAP_LOCATION_FONT, this);
+		currentLocationText.alpha = 0;
+		currentLocationText.filter = new h2d.filter.DropShadow(0, 0, 0, 1, 0.5);
+		currentLocationText.setScale(Const.LOCATION_TEXT_SIZE);
+	}
+
+	public function setLocationText(?text : String, ?x : Float, ?y : Float) {
+		if (text == null) currentLocationText.alpha = 0;
+		else currentLocationText.alpha = 1;
+
+		currentLocationText.text = text;
+		currentLocationText.x = x - currentLocationText.textWidth/2;
+		currentLocationText.y = y - currentLocationText.textHeight/2;
+		addChild(currentLocationText);
 	}
 
 	public function enable() {

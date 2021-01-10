@@ -698,7 +698,7 @@
 				{
 					"id": "umbrella",
 					"type": 1,
-					"name": "Umbrells",
+					"name": "Umbrella",
 					"image": "props/umbrella.png",
 					"dialoguepoint": {
 						"x": 0,
@@ -708,7 +708,7 @@
 				{
 					"id": "water",
 					"type": 1,
-					"name": "",
+					"name": "Beach Water",
 					"image": "props/water.png",
 					"dialoguepoint": {
 						"x": 0,
@@ -4386,7 +4386,7 @@
 						{
 							"condition": [
 								6,
-								"cup"
+								"trophycup"
 							]
 						},
 						{
@@ -4453,8 +4453,16 @@
 					"id": "lamb_postgametrophycupwin",
 					"speaker": "lamb",
 					"target": "player",
-					"text": "You should keep it, I *already* won one today.",
-					"action": "lamb_officeafternoon"
+					"text": "~hahaha~ this is amazing.\\nI *love* this.\\nWould mean a whole lot more if I hadn't just *won* this trophy.",
+					"action": "lamb_officeafternoon",
+					"set": [
+						{
+							"set": [
+								7,
+								"trophycup"
+							]
+						}
+					]
 				},
 				{
 					"id": "lamb_postgametrophycuplose",
@@ -4465,7 +4473,7 @@
 						{
 							"set": [
 								7,
-								"cup"
+								"trophycup"
 							]
 						}
 					],
@@ -6492,7 +6500,7 @@
 				{
 					"name": "money",
 					"displayname": "Money",
-					"description": "Some money, looks to be $#money# in there.",
+					"description": "Some money, looks to be $#money#.",
 					"icon": "items/money.png"
 				},
 				{
@@ -6515,11 +6523,6 @@
 										1,
 										"cup"
 									]
-								},
-								{
-									"action": [
-										2
-									]
 								}
 							]
 						}
@@ -6527,19 +6530,33 @@
 				},
 				{
 					"name": "cup",
-					"displayname": "",
+					"displayname": "Empty Cup",
 					"description": "",
-					"icon": "items/emptycup.png"
+					"icon": "items/emptycup.png",
+					"actions": [
+						{
+							"text": "Make Trophy",
+							"description": "Scribling some stuff on this will make it a trophy in no time.",
+							"action": [
+								{
+									"action": [
+										1,
+										"trophycup"
+									]
+								}
+							]
+						}
+					]
 				},
 				{
 					"name": "trophycup",
-					"displayname": "",
+					"displayname": "Trophy Cup",
 					"description": "",
 					"icon": "items/trophycup.png"
 				},
 				{
 					"name": "trophy",
-					"displayname": "",
+					"displayname": "Trophy",
 					"description": "",
 					"icon": "items/trophy.png"
 				},

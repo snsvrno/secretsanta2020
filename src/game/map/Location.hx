@@ -5,10 +5,15 @@ class Location extends h2d.Object {
 	private var icon : h2d.Bitmap;
 	private var shaderOver : shader.Highlight;
 	private var shaderDisabled : shader.Darken;
-	private var text : h2d.Text;
 	private var target : Data.ScenesKind;
 	private var interactiveLayer : h2d.Object;
 	private var actorIcons : h2d.Object;
+
+	private var text : String;
+	private var textX : Float;
+	private var textY : Float;
+
+	public var setLocationText : (?name : String, ?x : Float, ?y : Float) -> Void;
 
 	public var data(default, null) : Data.Locations;
 	
@@ -31,16 +36,9 @@ class Location extends h2d.Object {
 		interactiveLayer.name = "interactiveLayer";
 		createInteractives(location.collision);
 
-		// creates the mouse over text.
-		text = new h2d.Text(hxd.res.DefaultFont.get(), this);
-		text.name = "text";
-		text.alpha = 0;
-		text.setScale(Const.LOCATION_TEXT_SIZE);
-		text.text = location.name;
-		text.filter = new h2d.filter.DropShadow(0, 0, 0, 1, 0.5);
-		// centers the text over the image.
-		text.y = - text.textHeight * text.scaleY / 2 + tile.height / 2;
-		text.x = - text.textWidth * text.scaleX / 2 + tile.width / 2;
+		textY = tile.height / 2;
+		textX = tile.width / 2;
+		text = location.name;
 
 		// creates the actorIcons layer
 		actorIcons = new h2d.Object(this);
@@ -81,13 +79,13 @@ class Location extends h2d.Object {
 	}
 
 	private function over(?e : hxd.Event) {
+		setLocationText(text, textX + x, textY + y);
 		icon.addShader(shaderOver);
-		text.alpha = 1;
 	}
 
 	private function out(?e : hxd.Event) {
+		setLocationText();
 		icon.removeShader(shaderOver);
-		text.alpha = 0;
 	}
 
 	private function click(?e : hxd.Event) {
