@@ -23,21 +23,24 @@ class Game extends hxd.App {
 
 	static public function foundItem(item : Data.ItemsKind) { 
 		game.Popup.item(item, true, instance.s2d);
-		instance.ui.addToInventory(item);
 	}
 
 	static public function lostItem(item : Data.ItemsKind) { 
 		game.Popup.item(item, false, instance.s2d);
-		instance.ui.removeFromInventory(item);
 	}
 
-	static public function restartCycle() {
+	static public function restartCycle(?carryOverItems : Array<Data.ItemsKind>) {
 		// clear the popup queue
 		game.Popup.clearQueue();
 		
 		while(instance.visits.length > 0) instance.visits.pop();
 
 		variables.cycleReset();
+
+		// silenty adds items if we kept them
+		if (carryOverItems != null) for (i in carryOverItems) {
+			variables.gets(i, true);	
+		}
 
 		// updates the time.
 		instance.clock.restart();
@@ -181,7 +184,7 @@ class Game extends hxd.App {
 
 		// starts the new game splash, which is the titlecard.
 		var splash = new game.ui.Splash(s2d);
-		splash.onFinish = restartCycle;
+		splash.onFinish = () -> restartCycle();
 
 		#if debug
 		Debug.initalize(s2d);

@@ -107,6 +107,9 @@ class Variables {
 		while(conversationLog.length > 0) conversationLog.pop();
 		for (nv in values.keys()) values.remove(nv);
 		for (s in switches.keys()) switches.remove(s);
+
+		// removes all items found
+		while(items.length > 0) items.pop();
 	}
 	////////////////////////////////////////////////////////////////////////////////////////
 	// CONVERSATION RELATED
@@ -272,10 +275,10 @@ class Variables {
 	////////////////////////////////////////////////////////////////////////////////////////
 	// ITEM RELATED
 
-	public function gets(item : Data.ItemsKind) {
+	public function gets(item : Data.ItemsKind, ?silent : Bool = false) {
 		if (!items.contains(item)) { 
 			items.push(item);
-			Game.foundItem(item);
+			if (silent == false) Game.foundItem(item);
 		}
 
 		if (!lifetimeItems.contains(item)) lifetimeItems.push(item);

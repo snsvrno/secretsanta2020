@@ -39,6 +39,11 @@ class HStack extends game.ui.Element {
 		setAlignment();
 	}
 
+	public function clear() {
+		while (elements.length > 0)
+			stack.removeChild(elements.pop());
+	}
+
 	override public function setAlignment(?horizontal : game.ui.alignment.Horizontal, ?vertical : game.ui.alignment.Vertical) {
 
 		if (horizontal != null) this.horizontal = horizontal;

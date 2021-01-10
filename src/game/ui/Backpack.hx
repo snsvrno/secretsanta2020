@@ -73,9 +73,12 @@ class Backpack extends h2d.Object {
 							case Transform(newItem):
 								addItem(newItem.name);
 								removeItem(item);
+								Game.foundItem(newItem.name);
+								Game.lostItem(item);
 							
 							case Remove:
 								removeItem(item);
+								Game.lostItem(item);
 						}
 					}
 				}
@@ -123,13 +126,17 @@ class Backpack extends h2d.Object {
 	}
 
 	public function removeAllItems() {
-		for (i in items.keys()) items.remove(i);
+		for (i in items.keys()) removeItem(i);
 	}
 
 	private function activate(?e : hxd.Event) {
 		addChild(content);
 		drawContent();
 		tab.y = contentHeight;
+
+		// repopulates the backpack based on what is in the player's inventory.
+		removeAllItems();
+		for (i in Data.items.all) if (Game.variables.has(i.name)) addItem(i.name);
 
 		notificationTimer.reset();
 		notificationTimer.stop();

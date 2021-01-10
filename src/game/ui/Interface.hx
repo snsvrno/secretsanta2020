@@ -39,7 +39,7 @@ class Interface extends h2d.Object {
 		
 		endScreen = new game.ui.screens.CycleEnd();
 		endScreen.onClick = function() {
-			Game.restartCycle();
+			Game.restartCycle(endScreen.selectedItems);
 			setState(GameState);
 		}
 	
@@ -58,8 +58,8 @@ class Interface extends h2d.Object {
 		setState(GameState);
 	}
 	
-	public function addToInventory(item : Data.ItemsKind) gameui.addToInventory(item);
-	public function removeFromInventory(item : Data.ItemsKind) gameui.removeFromInventory(item);
+	//public function addToInventory(item : Data.ItemsKind) gameui.addToInventory(item);
+	//public function removeFromInventory(item : Data.ItemsKind) gameui.removeFromInventory(item);
 
 	public function setState(newState) {
 

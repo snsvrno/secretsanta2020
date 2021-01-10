@@ -1,12 +1,26 @@
 package game.ui.screens;
 
+import shader.Darken;
+import h2d.filter.Shader;
+import haxe.display.Display.Package;
+
 class CycleEnd extends h2d.Object {
+
+
+	private inline static var OVERINTENSITY : Float = 0.35;
+	private inline static var SELECTEDINTENSITY : Float = 0.0;
+	private inline static var INTENSITY : Float = 0.65;
 
 	private inline static var LOCATIONS : Int = 0;
 	private inline static var ITEMS : Int = 1;
 
 	private var title : game.ui.Text;
-	private var itemsStack : game.ui.VStack;
+	private var statusStack : game.ui.VStack;
+	private var itemStack : game.ui.HStack;
+
+	public var selectedItems(default, null) : Array<Data.ItemsKind> = [];
+	private var maxSelectedItems : Int = 1;
+	private var itemsOnOut : Map<Data.ItemsKind, (?e : hxd.Event) -> Void> = new Map();
 
 	public var onClick : Null<() -> Void>;
 
@@ -25,11 +39,30 @@ class CycleEnd extends h2d.Object {
 		title.setAlignment(Right, Top);
 		title.setText("Another Cycle Ends...");
 
-		itemsStack = new game.ui.VStack(this);
-		itemsStack.x = Const.WORLD_WIDTH / 2;
-		itemsStack.y = Const.WORLD_HEIGHT / 2;
-		itemsStack.setAlignment(Center, Middle);
-		itemsStack.setChildrenAlignment(Left, Middle);
+		statusStack = new game.ui.VStack(this);
+		statusStack.x = Const.WORLD_WIDTH / 2;
+		statusStack.y = Const.WORLD_HEIGHT / 2;
+		statusStack.setAlignment(Center, Middle);
+		statusStack.setChildrenAlignment(Left, Middle);
+
+		var textStack = new game.ui.HStack(this);
+		textStack.setAlignment(Center, Bottom);
+		var text1 = new game.ui.Text('Choose at most ', null);
+		text1.setHeight(12);
+		var text2 = new game.ui.Text('$maxSelectedItems', null);
+		text2.setHeight(12);
+		text2.setColor(Const.BUBBLE_TEXT_COLOR_BOLD);
+		var text3text = if (maxSelectedItems == 1) "item" else "items";
+		var text3 = new game.ui.Text(' $text3text to carry over...', null);
+		text3.setHeight(12);
+		textStack.pushAll([text1, text2, text3]);	
+		
+		itemStack = new game.ui.HStack(this);
+		itemStack.setAlignment(Center, Top);
+		itemStack.padding = 10;
+		itemStack.x = textStack.x = Const.WORLD_WIDTH / 2;
+		itemStack.y = textStack.y = Const.WORLD_HEIGHT - 100;
+		textStack.y -= 10;
 
 		var continueButton = new game.ui.Button("Continue Journey", this);
 		continueButton.x = 10;
@@ -37,11 +70,62 @@ class CycleEnd extends h2d.Object {
 		continueButton.setAlignment(Left, Bottom);
 		continueButton.onClick = () -> if (onClick != null) onClick();
 
-		makeItems();
+		makeStatusItems();
 		update();
 	}
 
 	private function makeItems() {
+		itemStack.clear();
+
+		for (i in Data.items.all) {
+			if (Game.variables.has(i.name)) {
+				var t = hxd.Res.load(i.icon).toTile();
+				var item = new game.ui.Icon(t);
+				item.setAlignment(Center, Middle);
+
+				var disabledShader = new shader.screen.Darken();
+				disabledShader.intensity = INTENSITY;
+				var disabledFilter = new h2d.filter.Shader(disabledShader);
+				item.filter = disabledFilter;
+
+				var interactive = new h2d.Interactive(t.width, t.height, item);
+				// interactive.x = -t.width/2;
+				interactive.y = -t.height/2;
+				interactive.onOver = (_) -> disabledShader.intensity = OVERINTENSITY;
+				// some funky madness so that i can undo the select for multiple items.
+				var onout = function(?e : hxd.Event) {
+					if (selectedItems.contains(i.name)) disabledShader.intensity = SELECTEDINTENSITY;
+					else disabledShader.intensity = INTENSITY;
+				};
+				interactive.onOut = onout;
+				itemsOnOut.set(i.name, onout);
+
+				interactive.onClick = function(_) {
+					if (selectedItems.contains(i.name)) selectedItems.remove(i.name)
+					else {
+						selectedItems.push(i.name);
+						while (selectedItems.length > maxSelectedItems) {
+							var removed = selectedItems.shift();
+							// unhighlights the removed item.
+							itemsOnOut.get(removed)();
+						}
+					}
+				}
+
+				#if debug
+				var g = new h2d.Graphics(interactive);
+				g.lineStyle(2, 0xFF0000);
+				g.drawRect(0,0, interactive.width, interactive.height);
+				#end
+
+				itemStack.push(item);
+			}
+		}
+
+		itemStack.setChildrenAlignment(Middle);
+	}
+
+	private function makeStatusItems() {
 
 		var definitions = [
 			{ 
@@ -70,7 +154,7 @@ class CycleEnd extends h2d.Object {
 			ending.setColor(Const.CYCLEOVER_ITEM_COLOR);
 
 			stack.pushAll([description, value, ending]);
-			itemsStack.push(stack);		
+			statusStack.push(stack);		
 		}
 	}
 
@@ -81,7 +165,9 @@ class CycleEnd extends h2d.Object {
 
 			case _:
 		}
+
+		makeItems();
 		
-		itemsStack.alignChildren();
+		statusStack.alignChildren();
 	}
 }

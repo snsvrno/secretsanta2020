@@ -50,8 +50,4 @@ class GameUi extends h2d.Object {
 
 		locationText.remove();
 	}
-
-	public function addToInventory(item : Data.ItemsKind) backpack.addItem(item);
-	public function removeFromInventory(item : Data.ItemsKind) backpack.removeItem(item);
-
 }
