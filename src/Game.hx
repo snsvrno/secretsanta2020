@@ -278,6 +278,10 @@ class Game extends hxd.App {
 	}
 
 	private function onCycleEnd() {
+		// resetting this switch so the first leaving done a cycle
+		// (when you leave the town center) doesn't cost you.
+
+		firstVisit = true;
 		ui.setState(End);
 
 		Game.variables.incrementLifeValue(Const.PROGRESS_CYCLES, 1);

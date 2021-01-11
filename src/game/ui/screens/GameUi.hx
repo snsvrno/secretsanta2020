@@ -3,6 +3,7 @@ package game.ui.screens;
 class GameUi extends h2d.Object {
 	
 	private var locationText : game.ui.Button;
+
 	private var backpack : game.ui.Backpack;
 
 	public var onMenuClick : Null<() -> Void>;

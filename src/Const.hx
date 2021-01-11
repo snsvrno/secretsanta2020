@@ -127,6 +127,13 @@ class Const {
 	static public var MAP_LOCATION_FONT : h2d.Font;
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// MAP LOCATION TAB SETTINGS
+	inline static public var LOCATIONTAB_ITEMPADDING : Int = 10;
+	inline static public var LOCATIONTAB_FONT_SIZE : Float = 0.75;
+	static public var LOCATIONTAB_FONT : h2d.Font;
+
+
+	////////////////////////////////////////////////////////////////////////////////////////
 	// CYCLE OVER SCREEN SETTINGS
 
 	inline static public var CYCLEOVER_ITEM_COLOR : Int = 0xFFFFFF;
@@ -310,6 +317,7 @@ class Const {
 		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
 
 		MAP_LOCATION_FONT = hxd.Res.fonts.gra16.toFont();
+		LOCATIONTAB_FONT = hxd.Res.fonts.gra16.toFont();
 
 		BACKPACK_NAMEFONT = hxd.Res.fonts.wolf24.toFont();
 		BACKPACK_DESCRIPTIONFONT = hxd.Res.fonts.edi16.toFont();

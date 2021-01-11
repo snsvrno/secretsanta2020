@@ -1,20 +1,8 @@
 package game.ui;
 
-import h2d.Interactive;
-
-class Backpack extends h2d.Object {
-	private var items : Map<Data.ItemsKind, game.ui.Icon> = new Map();
-	
-	private var tab : h2d.Graphics;
-	private var icon : h2d.Object;
-	private var iconScale : Float;
-	private var tabWidth : Float;
-	private var tabHeight : Float;
+class Backpack extends Pulltab {
 
 	private var notificationTimer : sn.Timer;
-
-	private var content : h2d.Graphics;
-	private var contentHeight : Float;
 
 	private var contentStack : game.ui.HStack;
 
@@ -24,8 +12,8 @@ class Backpack extends h2d.Object {
 	static private var normalDescriptionText : String = "";
 
 	public function new(?parent : h2d.Object) {
-		super(parent);
-		createIcon();
+		var tabicon = hxd.Res.props.backpack.toTile();
+		super(tabicon, parent);
 		createContent();
 
 		notificationTimer = new sn.Timer(Const.BACKPACK_NOTIFICATIONTIMER, true);
@@ -34,14 +22,19 @@ class Backpack extends h2d.Object {
 		notificationTimer.updateCallback = function() {
 			icon.setScale(iconScale + Math.sin(notificationTimer.timerPercent * 2 * Math.PI)*Const.BACKPACK_NOTIFICATIONTIMERINTENSITY);
 		}
+		
+		tab.x = Const.WORLD_WIDTH * 0.9;
 	}
 
-	override function onAdd() {
-		super.onAdd();
-		if (content != null) { 
-			drawContent();
-			paintTabBackground();
-		}
+	override function activate(? e : hxd.Event) {
+		super.activate(e);
+
+		// repopulates the backpack based on what is in the player's inventory.
+		removeAllItems();
+		for (i in Data.items.all) if (Game.variables.has(i.name)) addItem(i.name);
+
+		notificationTimer.reset();
+		notificationTimer.stop();
 	}
 
 	public function addItem(item : Data.ItemsKind) {
@@ -125,29 +118,6 @@ class Backpack extends h2d.Object {
 		}
 	}
 
-	public function removeAllItems() {
-		for (i in items.keys()) removeItem(i);
-	}
-
-	private function activate(?e : hxd.Event) {
-		addChild(content);
-		drawContent();
-		tab.y = contentHeight;
-
-		// repopulates the backpack based on what is in the player's inventory.
-		removeAllItems();
-		for (i in Data.items.all) if (Game.variables.has(i.name)) addItem(i.name);
-
-		notificationTimer.reset();
-		notificationTimer.stop();
-		icon.setScale(iconScale);
-	}
-
-	private function deactivate(?e : hxd.Event) {
-		removeChild(content);
-		tab.y = 0;
-	}
-
 	private function itemOver(item : game.ui.Icon, name : String, description : String) {
 		title.text = name;
 		this.description.text = evaluateVariables(description);
@@ -168,8 +138,12 @@ class Backpack extends h2d.Object {
 		item.filter = null;
 	}
 
+	public function removeAllItems() {
+		for (i in items.keys()) removeItem(i);
+	}
+
+	
 	private function createContent() {
-		content = new h2d.Graphics();
 		contentHeight = Const.BACKPACK_ITEMPADDING * 4 + Const.BACKPACK_ITEMSIZE
 			+ Const.BACKPACK_DESCRIPTIONFONT.lineHeight + Const.BACKPACK_NAMEFONT.lineHeight;
 
@@ -186,20 +160,10 @@ class Backpack extends h2d.Object {
 		description.color = h3d.Vector.fromColor(Const.BACKPACK_DESCRIPTIONCOLOR);
 		description.text = normalDescriptionText;
 
-		var overallinteractive = new h2d.Interactive(Const.WORLD_WIDTH, contentHeight, content);
-		overallinteractive.onOut = deactivate;
-
 		contentStack = new game.ui.HStack(content);
 		contentStack.padding = Const.BACKPACK_ITEMPADDING;
 		contentStack.x = Const.BACKPACK_ITEMPADDING;
 		contentStack.y = description.y + description.font.lineHeight + Const.BACKPACK_ITEMPADDING;
-	}
-
-	private function drawContent() {
-		content.beginFill(Const.BACKPACK_COLOR);
-		content.drawRoundedRect(0, 0, Const.WORLD_WIDTH, contentHeight, Const.BACKPACK_ROUNDEDCORNERS);
-		content.drawRect(0,0, Const.WORLD_WIDTH, contentHeight / 2);
-		content.endFill();
 	}
 
 	private function evaluateVariables(text : String) : String {
@@ -215,45 +179,5 @@ class Backpack extends h2d.Object {
 		}
 
 		return parsedText;
-	}
-
-	private function createIcon() {
-
-		tab = new h2d.Graphics(this);
-		tab.x = Const.WORLD_WIDTH * 0.9;
-
-		// creates the icon.
-		icon = new h2d.Object(tab);
-		var tile = hxd.Res.props.backpack.toTile();
-		var rawIcon = new h2d.Bitmap(tile, icon);
-		rawIcon.x = -tile.width/2;
-		rawIcon.y = -tile.height/2;
-		iconScale = Math.min(Const.BACKPACK_ICONSIZE / tile.width, Const.BACKPACK_ICONSIZE / tile.height);
-		icon.setScale(iconScale);
-		icon.x = Const.BACKPACK_ICONPADDING + tile.width / 2 * iconScale;
-		icon.y = Const.BACKPACK_ICONPADDING + tile.height / 2 * iconScale;
-		
-		tabWidth = tile.width * iconScale + 2 * Const.BACKPACK_ICONPADDING;
-		tabHeight = tile.height * iconScale + 2 * Const.BACKPACK_ICONPADDING;
-		paintTabBackground();
-
-		var interactive = new h2d.Interactive(tabWidth, tabHeight, tab);
-		interactive.onOver = function (e : hxd.Event) {
-			paintTabBackground(Const.BACKPACK_COLOROVER);
-			icon.alpha = Const.BACKPACK_ICONOVERALPHA;
-		}
-		interactive.onOut = function (e : hxd.Event) { 
-			paintTabBackground();
-			icon.alpha = 1;
-		}
-		interactive.onClick = activate;
-	}
-
-	private function paintTabBackground(?color : Int = Const.BACKPACK_COLOR) {
-		tab.clear();
-		tab.beginFill(color);
-		tab.drawRoundedRect(0, 0, tabWidth, tabHeight, Const.BACKPACK_ICONROUNDEDCORNERS);
-		tab.drawRect(0, 0, tabWidth, tabHeight/2);
-		tab.endFill();
 	}
 }
