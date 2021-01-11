@@ -1,6 +1,7 @@
 # built / compiled objects
 bin/*
 redist/*
+rel/*
 
 # working library, for archival purposes
 .haxelib/*
