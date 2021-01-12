@@ -209,6 +209,9 @@ class Variables {
 	// NAME RELATED
 	
 	public function evalulate(name : String) : Null<String>  {
+
+		if (name == "player") return playerName;
+
 		// we are assuming we want to know a certain characters name...
 		for (c in Data.characters.all) {
 			if (c.id.toString() == name) return c.name;

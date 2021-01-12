@@ -1,5 +1,7 @@
 = List of Things to do Before Release
 
+- [ ] make the player able to change their name.
+- [x] player needs to be able to set their name, combine with the tutorial?
 - [x] pick a background color
 - [x] the dialogue has weird width correction, looks bad.
 - [x] it looks like some text formatting isn't working?
@@ -24,7 +26,7 @@
 
 == Content
 
-- [ ] make ability to 'carry over' an item to the next cycle.
+- [x] make ability to 'carry over' an item to the next cycle.
 - [ ] create a tutorial conversation that explains some things for the first run.
 - [ ] make all achievements possible.
 - [ ] make the cat's dialogue in the game.
@@ -51,7 +53,7 @@
 	updated how the `seen` but works, it still does the same thing, if you see someone at a location it logs it, but now it will actually check against where the character actually is before displaying it on the map, this way it will accurately show someone on the map if they are in that location, and will not show duplicate people (based on divergent paths that could occur when you do different actions with those people).
 
 - [x] when disabling the locations for this period, should also "disable" the background so it fits more.
-- [ ] update the location name font
+- [x] update the location name font
 
 == Menu
 
