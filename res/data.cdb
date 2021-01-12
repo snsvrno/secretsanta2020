@@ -666,6 +666,16 @@
 					"type": 1
 				},
 				{
+					"id": "bus",
+					"type": 1,
+					"name": "Bussman",
+					"image": "props/car.png",
+					"dialoguepoint": {
+						"y": 80,
+						"x": 128
+					}
+				},
+				{
 					"id": "boxes",
 					"name": "Some boxes",
 					"image": "props/boxes.png",
@@ -1263,7 +1273,7 @@
 				},
 				{
 					"id": "mechanic_workontransmission_response",
-					"speaker": "player",
+					"speaker": "mechanic",
 					"target": "player",
 					"text": "*Awesome!* Lets get to work.",
 					"chain": "mechanic_workontransmission_yes"
@@ -1351,7 +1361,7 @@
 						{
 							"condition": [
 								1,
-								"*mechanic_name"
+								"name_mechanic"
 							]
 						}
 					]
@@ -1374,7 +1384,7 @@
 						{
 							"condition": [
 								0,
-								"*name_mechanic"
+								"name_mechanic"
 							]
 						}
 					]
@@ -1478,12 +1488,67 @@
 					"action": "weasel_start"
 				},
 				{
+					"id": "weasel_alreadyhere",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Weren't we already here?\\nShouldn't we have left last night?",
+					"display": "Still Here?!",
+					"chain": "weasel_alreadyhere_response",
+					"condition": [
+						{
+							"condition": [
+								10,
+								"*completedCycles",
+								1
+							]
+						}
+					]
+				},
+				{
+					"id": "weasel_alreadyhere_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "~Huh???~\\nWhat are you talking about we just got here.",
+					"chain": "weasel_alreadyhere_response2"
+				},
+				{
+					"id": "weasel_alreadyhere_response2",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "You said we'd leave at night!",
+					"chain": "weasel_alreadyhear_response3"
+				},
+				{
+					"id": "weasel_alreadyhear_response3",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "Yes ~....~\\nWe're leaving tonight. ",
+					"chain": "weasel_leavingwarning"
+				},
+				{
 					"id": "weasel_whystop",
 					"speaker": "player",
 					"target": "weasel",
 					"text": "Why did we stop?",
 					"display": "Stopped?",
-					"chain": "weasel_whystop_response"
+					"chain": "weasel_whystop_response",
+					"set": [
+						{
+							"set": [
+								0,
+								"weasel_whystop",
+								true
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"weasel_whystop"
+							]
+						}
+					]
 				},
 				{
 					"id": "weasel_whystop_response",
@@ -1579,14 +1644,6 @@
 						{
 							"dialogue": "weasel_boardbus_response"
 						}
-					],
-					"condition": [
-						{
-							"condition": [
-								1,
-								"weasel_bus"
-							]
-						}
 					]
 				},
 				{
@@ -1622,19 +1679,11 @@
 					"action": "weasel_start"
 				},
 				{
-					"id": "weasel_boardbus_action",
+					"id": "bus_board",
 					"speaker": "player",
 					"target": "player",
 					"text": "/You get on the bus./",
 					"display": "Board Bus",
-					"set": [
-						{
-							"set": [
-								5,
-								100
-							]
-						}
-					],
 					"condition": [
 						{
 							"condition": [
@@ -1642,7 +1691,48 @@
 								"*weasel_bus"
 							]
 						}
+					],
+					"set": [
+						{
+							"set": [
+								5,
+								100
+							]
+						}
 					]
+				},
+				{
+					"id": "bus_look",
+					"speaker": "player",
+					"target": "player",
+					"text": "/Its a tour bus./",
+					"display": "Look",
+					"branch": [
+						{
+							"condition": [
+								0,
+								"*weasel_bus"
+							],
+							"dialogue": "bus_look1"
+						},
+						{
+							"dialogue": "bus_look2"
+						}
+					]
+				},
+				{
+					"id": "bus_look1",
+					"speaker": "player",
+					"target": "player",
+					"text": "/The same tour bus I came in on./",
+					"action": "bus"
+				},
+				{
+					"id": "bus_look2",
+					"speaker": "player",
+					"target": "player",
+					"text": "/Must be the tour bus I came in on./",
+					"action": "bus"
 				},
 				{
 					"id": "fox_ordercoffee",
@@ -5350,6 +5440,7 @@
 				"mechanic_car",
 				"garage_look",
 				"weasel_whatsgoingon",
+				"bus_board",
 				"fox_ordercoffee",
 				"bookshelf_look",
 				"mole_beachwalk",
@@ -5546,6 +5637,9 @@
 							"option": "weasel_boardbus"
 						},
 						{
+							"option": "weasel_alreadyhere"
+						},
+						{
 							"option": "weasel_howlong"
 						},
 						{
@@ -5556,9 +5650,18 @@
 						},
 						{
 							"option": "weasel_whystop"
+						}
+					]
+				},
+				{
+					"id": "bus",
+					"owner": "bus",
+					"options": [
+						{
+							"option": "bus_board"
 						},
 						{
-							"option": "weasel_boardbus_action"
+							"option": "bus_look"
 						}
 					]
 				},
@@ -5977,6 +6080,7 @@
 			"separatorIds": [
 				"garage_search_boxes",
 				"weasel_first",
+				"bus",
 				"fox_cafe",
 				"bookshelf_search",
 				"mole_standard",
@@ -6213,6 +6317,14 @@
 				{
 					"location": "towncenter",
 					"actors": [
+						{
+							"actor": "bus",
+							"x": 0.75,
+							"y": 0.5,
+							"scale": 1,
+							"flipX": true,
+							"action": "bus"
+						},
 						{
 							"actor": "weasel",
 							"x": 0.3,
