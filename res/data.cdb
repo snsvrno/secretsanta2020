@@ -2338,7 +2338,16 @@
 					"target": "mechanic",
 					"text": "~Wow!~ I wasn't expecting to see it finished!",
 					"display": "Listen In",
-					"chain": "fox_carisfixed2"
+					"chain": "fox_carisfixed2",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_carisfixed",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "fox_carisfixed2",
@@ -2391,7 +2400,16 @@
 					"speaker": "fox",
 					"target": "player",
 					"text": "$player$! I didn't know you knew anything about cars!\\nIf I did I'd have asked you for help!\\How can I repay you?",
-					"action": "fox_fixcar"
+					"action": "fox_fixcar",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_wantstopay",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "fox_carisfixed_paid",
@@ -2404,6 +2422,18 @@
 							"condition": [
 								1,
 								"*name_mechanic"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"fox_carisfixed"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"fox_wantstopay"
 							]
 						}
 					],
@@ -2420,6 +2450,18 @@
 							"condition": [
 								0,
 								"*name_mechanic"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"fox_carisfixed"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"fox_wantstopay"
 							]
 						}
 					],
@@ -2443,7 +2485,16 @@
 					"speaker": "fox",
 					"target": "player",
 					"text": "Why thank you Mx. $player$.\\nI appreciate that you've made him feel better.",
-					"action": "fox_fixcar"
+					"action": "fox_fixcar",
+					"set": [
+						{
+							"set": [
+								0,
+								"fox_whoishim",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "fox_carisfixed_him",
@@ -2456,6 +2507,18 @@
 							"condition": [
 								1,
 								"*name_car"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"fox_carisfixed"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"fox_whoishim"
 							]
 						}
 					],
@@ -4362,6 +4425,85 @@
 					"action": "lamb_office"
 				},
 				{
+					"id": "lamb_postgamelost",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "The game looked fun.",
+					"display": "Ok Game.",
+					"chain": "lamb_postgamelost_response",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"lamb_gotfood"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_lambgottrophy"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_watchthegame"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_postgamelost_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "It was fun, but I wasn't on my *A* game.\\nI wish i head eaten something beforehand ~...~",
+					"action": "lamb_officeafternoon"
+				},
+				{
+					"id": "lamb_missedgame",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "How was the game?",
+					"display": "The Game?",
+					"chain": "lamb_missedgame_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lamb_gotfood"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_lambgottrophy"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_watchthegame"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_missedgame_response",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "It was a great game,\\nyou should have seen it!\\nSeems like everyone thinks that.\\nThey even gave me this *trophy*.",
+					"action": "lamb_officeafternoon",
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_lambgottrophy",
+								true
+							]
+						}
+					]
+				},
+				{
 					"id": "lamb_postgame",
 					"speaker": "player",
 					"target": "lamb",
@@ -4378,6 +4520,12 @@
 							"condition": [
 								1,
 								"lamb_lambgottrophy"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_watchthegame"
 							]
 						}
 					],
@@ -4478,7 +4626,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Here, I got someting for you.",
-					"display": "Give Empty Cup",
+					"display": "Give Cup",
 					"condition": [
 						{
 							"condition": [
@@ -4532,7 +4680,7 @@
 					"id": "lamb_postgametrophycup_response",
 					"speaker": "lamb",
 					"target": "player",
-					"text": "Whats this?\\Is this suppose to be a trophy?",
+					"text": "Whats this?\\nIs this suppose to be a trophy?",
 					"branch": [
 						{
 							"condition": [
@@ -4664,7 +4812,7 @@
 					"id": "lamb_concessionprize_response5",
 					"speaker": "lamb",
 					"target": "player",
-					"text": "~No way! ...~\\n~ha ha ha~\\nThe guys are great.\\We're a close team, we always notice when someone is missing.\\n*Thanks*!",
+					"text": "~No way! ...~\\n~ha ha ha~\\nThe guys are great.\\nWe're a close team, we always notice when someone is missing.\\n*Thanks*!",
 					"action": "lamb_officeafternoon",
 					"set": [
 						{
@@ -4681,7 +4829,7 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "/The game has already started./\\n/",
-					"display": "Watch",
+					"display": "/Watch/",
 					"branch": [
 						{
 							"dialogue": "lamb_watchgame21",
@@ -4701,13 +4849,22 @@
 								"lamb_gameisover"
 							]
 						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_watchthegame",
+								true
+							]
+						}
 					]
 				},
 				{
 					"id": "lamb_watchgame21",
 					"speaker": "player",
 					"target": "player",
-					"text": "/$lamb$ is full of energy./",
+					"text": "$lamb$ /is full of energy./",
 					"chain": "lamb_watchgame22"
 				},
 				{
@@ -4753,14 +4910,14 @@
 					"id": "lamb_watchgame31",
 					"speaker": "player",
 					"target": "player",
-					"text": "/One of the the opposing team's players shoots to score!/\\n/$lamb$ does an amazing dive in front of the ball./\\nTHE BALL IS BLOCKED!/\\n/Amazing play./",
+					"text": "/One of the the opposing team's players shoots to score!/\\n$lamb$/ does an amazing dive in front of the ball./\\nTHE BALL IS BLOCKED!/\\n/Amazing play./",
 					"chain": "lamb_watchgame32"
 				},
 				{
 					"id": "lamb_watchgame31mis",
 					"speaker": "player",
 					"target": "player",
-					"text": "/One of the the opposing team's players shoots to score!/\\n/$lamb$ does an amazing dive in front of the ball./\\nBut misses the ball~!!~/\\n/The other team scores ~...~/",
+					"text": "/One of the the opposing team's players shoots to score!/\\n$lamb$ /does an amazing dive in front of the ball./\\n/But misses the ball/~!!~\\n/The other team scores/ ~...~",
 					"chain": "lamb_endgame"
 				},
 				{
@@ -4802,7 +4959,7 @@
 							]
 						}
 					],
-					"display": "Join",
+					"display": "/Join/",
 					"chain": "lamb_endgame"
 				},
 				{
@@ -4810,14 +4967,14 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "/You decide not to join in./\\n/You regret the choice because everyone is having fun./\\n/Then again, you haven't played soccer in years,/\\n/and everyone here looks like they know what they are doing./",
-					"display": "Keep Watching",
+					"display": "/Keep Watching/",
 					"chain": "lamb_endgame"
 				},
 				{
 					"id": "lamb_endgame",
 					"speaker": "player",
 					"target": "player",
-					"text": "The game is over, it was a great match.",
+					"text": "/The game is over, it was a great match./",
 					"set": [
 						{
 							"set": [
@@ -5240,7 +5397,7 @@
 						{
 							"condition": [
 								0,
-								"*name_lamb"
+								"name_lamb"
 							]
 						}
 					],
@@ -5265,6 +5422,12 @@
 							"condition": [
 								6,
 								"winebottle"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"name_lamb"
 							]
 						}
 					],
@@ -5386,6 +5549,21 @@
 							"condition": [
 								16,
 								6
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lamb_postdatelisten"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_postdatelisten",
+								true
 							]
 						}
 					]
@@ -5666,6 +5844,15 @@
 					]
 				},
 				{
+					"id": "fox_basic",
+					"owner": "fox",
+					"options": [
+						{
+							"option": "fox_givebook"
+						}
+					]
+				},
+				{
 					"id": "fox_cafe",
 					"owner": "fox",
 					"options": [
@@ -5677,9 +5864,6 @@
 						},
 						{
 							"option": "fox_comefrom"
-						},
-						{
-							"option": "fox_givebook"
 						}
 					],
 					"imports": [
@@ -5688,6 +5872,9 @@
 						},
 						{
 							"action": "fox_travel"
+						},
+						{
+							"action": "fox_basic"
 						}
 					]
 				},
@@ -5763,7 +5950,21 @@
 					"owner": "fox",
 					"options": [
 						{
-							"option": "fox_givebook"
+							"option": "fox_carisfixed"
+						},
+						{
+							"option": "fox_carisfixed_paid"
+						},
+						{
+							"option": "fox_carisfixed_paid2"
+						},
+						{
+							"option": "fox_carisfixed_him"
+						}
+					],
+					"imports": [
+						{
+							"action": "fox_basic"
 						}
 					]
 				},
@@ -5924,6 +6125,12 @@
 						},
 						{
 							"option": "lamb_whattodo"
+						},
+						{
+							"option": "lamb_givewine"
+						},
+						{
+							"option": "lamb_givewinename"
 						}
 					]
 				},
@@ -5979,6 +6186,32 @@
 					"owner": "lamb",
 					"options": [
 						{
+							"option": "lamb_datehelp"
+						},
+						{
+							"option": "lamb_date"
+						},
+						{
+							"option": "lamb_datebad"
+						}
+					],
+					"imports": [
+						{
+							"action": "lamb_start"
+						},
+						{
+							"action": "lamb_office"
+						},
+						{
+							"action": "lamb_postgame"
+						}
+					]
+				},
+				{
+					"id": "lamb_postgame",
+					"owner": "lamb",
+					"options": [
+						{
 							"option": "lamb_postgame"
 						},
 						{
@@ -5988,27 +6221,13 @@
 							"option": "lamb_concessionprize"
 						},
 						{
-							"option": "lamb_datehelp"
+							"option": "lamb_postgametrophycup"
 						},
 						{
-							"option": "lamb_date"
+							"option": "lamb_postgamelost"
 						},
 						{
-							"option": "lamb_datebad"
-						},
-						{
-							"option": "lamb_givewine"
-						},
-						{
-							"option": "lamb_givewinename"
-						}
-					],
-					"imports": [
-						{
-							"action": "lamb_start"
-						},
-						{
-							"action": "lamb_office"
+							"option": "lamb_missedgame"
 						}
 					]
 				},
@@ -6081,7 +6300,7 @@
 				"garage_search_boxes",
 				"weasel_first",
 				"bus",
-				"fox_cafe",
+				"fox_basic",
 				"bookshelf_search",
 				"mole_standard",
 				"grocer_start",
@@ -6824,7 +7043,15 @@
 					"description": "Help someone get back on the road.",
 					"character": "fox",
 					"icon": "achievements/cartrouble.png",
-					"enabled": true
+					"enabled": true,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"fox_carisfixed"
+							]
+						}
+					]
 				},
 				{
 					"id": "fox_living_vicariously",

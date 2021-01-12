@@ -53,6 +53,9 @@ class Game extends hxd.App {
 			variables.gets(i, true);	
 		}
 
+		// adds the money item
+		variables.gets(money, true);
+
 		// updates the time.
 		instance.clock.restart();
 		instance.updateAfterTick();

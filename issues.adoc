@@ -45,6 +45,10 @@
 
 	seems that the font had the `$` symbol, but it wasn't exported to the bitmap font .. so i fixed that. 
 
+== Items
+
+- [ ] the coffee skill doesn't work as expected.
+
 == Map
 
 - [ ] update how the character icons are displayed, make them stand out more.

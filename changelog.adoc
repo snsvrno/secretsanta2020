@@ -5,6 +5,10 @@
 * adds basic start splash after main splash that allows the player to set their name
 * adds basic tutorial dialogue with the bus driver.
 
+== Content
+
+* fixed the conversations so the "the Mechanic", "a Runner Up", and "Never Made It" achievements are now possible.
+
 == Backend Stuff
 
 * adds ability to set and load lifetime values from the dialogue editor.
@@ -12,7 +16,8 @@
 == Fixes
 
 * fixes bug where boarding the bus would create a _TON_ of extra cycles.
-* fixes a bug where lifetime values like cycles would not save. 
+* fixes bug where lifetime values like `cycles` would not save. 
+* fixes bug where the `progress screen` wasn't counting achievements. 
 
 = 1.1.0
 

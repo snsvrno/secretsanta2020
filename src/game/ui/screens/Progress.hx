@@ -144,7 +144,8 @@ class Progress extends h2d.Object {
 		var earned = 0;
 
 		for (a in Data.achievements.all) if (a.enabled) {
-			if (Game.variables.checkLifetime(a.id.toString())) earned++;
+			if (Game.variables.earnedAchievement(a)) earned++;
+			// if (Game.variables.checkLifetime(a.id.toString())) earned++;
 		}
 
 		return '$earned';

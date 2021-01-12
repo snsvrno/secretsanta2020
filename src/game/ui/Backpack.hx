@@ -66,12 +66,12 @@ class Backpack extends Pulltab {
 							case Transform(newItem):
 								addItem(newItem.name);
 								removeItem(item);
-								Game.foundItem(newItem.name);
-								Game.lostItem(item);
+								Game.variables.gets(newItem.name);
+								Game.variables.loses(item);
 							
 							case Remove:
 								removeItem(item);
-								Game.lostItem(item);
+								Game.variables.loses(item);
 						}
 					}
 				}

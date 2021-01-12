@@ -2,4 +2,10 @@
 
 == Some Notes While Making It
 
-- I wish i thought about having to test the dialogue when building the systems, to allow for easier testing or fast forwarding of dialogue.
+* I wish i thought about having to test the dialogue when building the systems, to allow for easier testing or fast forwarding of dialogue.
+* Wish I had better debug tools.
+* Have the dialogue tree automatically make switches for conversation ids, so i don't have to make them manually.
+
+== Questions I have.
+
+* how do layers work?
