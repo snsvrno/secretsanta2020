@@ -30,7 +30,9 @@ class Game extends hxd.App {
 	}
 
 	static public function restartCycle(?carryOverItems : Array<Data.ItemsKind>) {
-
+		
+		Game.variables.save();
+		
 		// if this is true that means this is the very super first time, so we don't have
 		// to do any of the standard stuff and instead show the tutorial / setup screen
 		if (Game.variables.playerName == null) {
@@ -193,7 +195,7 @@ class Game extends hxd.App {
 
 		// starts the new game splash, which is the titlecard.
 		var splash = new game.ui.Splash(s2d);
-		splash.onFinish = () -> restartCycle();
+		splash.onFadeStart = () -> restartCycle();
 
 		#if debug
 		Debug.initalize(s2d);
@@ -293,12 +295,12 @@ class Game extends hxd.App {
 	}
 
 	private function tickClockPeriods(periods) {
-		while (periods > 0) {
+		while (periods > 0 && !clock.completeRevolution) {
 			clock.nextPeriod();
 			periods--;
 		}
 
-		updateAfterTick();
+	// 	updateAfterTick();
 	}
 
 	private function onCycleEnd() {

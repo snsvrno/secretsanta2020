@@ -3,6 +3,8 @@ package game.ui;
 class Splash extends h2d.Object {
 
 	public var onFinish : Null<() -> Void>;
+	public var onFadeStart : Null<() -> Void>;
+	private var fadeStart : Bool = false;
 
 	private var fadeTimer : sn.Timer;
 
@@ -11,8 +13,15 @@ class Splash extends h2d.Object {
 
 		filter = new h2d.filter.Nothing();
 		fadeTimer = new sn.Timer(Const.SPLASH_TIMER_WAIT + Const.SPLASH_TIMER_FADE);
-		fadeTimer.updateCallback = function() if (fadeTimer.timer > Const.SPLASH_TIMER_WAIT)
+		fadeTimer.updateCallback = function() { 
+			if (fadeTimer.timer > Const.SPLASH_TIMER_WAIT) {
+				if (!fadeStart) {
+					fadeStart = true;
+					if (onFadeStart != null) onFadeStart();
+				} 
 				this.alpha = 1 - (fadeTimer.timer - Const.SPLASH_TIMER_WAIT) / Const.SPLASH_TIMER_FADE;
+			}
+		}
 		fadeTimer.finalCallback = function() {
 			this.remove();
 			if (onFinish != null) onFinish();

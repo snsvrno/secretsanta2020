@@ -1,7 +1,18 @@
 = Next Release
 
-* adds basic start splash after main splash that allows the player to set their name
+== General
 
+* adds basic start splash after main splash that allows the player to set their name
+* adds basic tutorial dialogue with the bus driver.
+
+== Backend Stuff
+
+* adds ability to set and load lifetime values from the dialogue editor.
+
+== Fixes
+
+* fixes bug where boarding the bus would create a _TON_ of extra cycles.
+* fixes a bug where lifetime values like cycles would not save. 
 
 = 1.1.0
 

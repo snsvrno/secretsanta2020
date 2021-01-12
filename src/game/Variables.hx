@@ -199,9 +199,16 @@ class Variables {
 	public function checkLifetime(name : String) : Bool return lifetimeSwitches.contains(name);
 
 	public function value(name : String) : Int {
-		switch(values.get(name)) {
-			case null: return 0;
-			case n: return n;
+		if (name.substr(0,1) == "*") {
+			switch(lifetimeValues.get(name.substr(1))) {
+				case null: return 0;
+				case n: return n;
+			}
+		} else {
+			switch(values.get(name)) {
+				case null: return 0;
+				case n: return n;
+			}
 		}
 	}
 
@@ -224,20 +231,26 @@ class Variables {
 	// NUMBER VARIABLE RELATED
 
 	public function setValue(name : String, value : Int) { 
-		values.set(name, value);
+		if (name.substr(0,1) == "*") lifetimeValues.set(name.substr(1), value);
+		else values.set(name, value);
 		save();
 	}
 
 	public function getValue(name : String) : Int { 
+		if (name.substr(0,1) == "*") return getLifeValue(name.substr(1));
 		if (values.exists(name)) return values.get(name);
 		else return 0;
 	}
 
 	public function incrementValue(name : String, value : Int) {
-		var currentValue = values.get(name);
-		switch(currentValue) {
-			case null: values.set(name, sn.Maths.clamp(value, 0, null));
-			case n: values.set(name, sn.Maths.clamp(n + value, 0, null));
+
+		if (name.substr(0,1) == "*") incrementLifeValue(name.substr(1), value);
+		else {
+			var currentValue = values.get(name);
+			switch(currentValue) {
+				case null: values.set(name, sn.Maths.clamp(value, 0, null));
+				case n: values.set(name, sn.Maths.clamp(n + value, 0, null));
+			}
 		}
 		save();
 	}
@@ -251,7 +264,7 @@ class Variables {
 		var currentValue = lifetimeValues.get(name);
 		switch(currentValue) {
 			case null: lifetimeValues.set(name, sn.Maths.clamp(value, 0, null));
-			case n: values.set(name, sn.Maths.clamp(n + value, 0, null));
+			case n: lifetimeValues.set(name, sn.Maths.clamp(n + value, 0, null));
 		}
 		save();
 	}
@@ -400,7 +413,7 @@ class Variables {
 		hxd.Save.save({
 			lifetime : lifetimeSwitches,
 			where : whereAreThey,
-			lifeValues : lifetimeValues,
+			values : lifetimeValues,
 			chosen : lifetimeChosenOptions,
 			items : lifetimeItems,
 			playername : playerName,
