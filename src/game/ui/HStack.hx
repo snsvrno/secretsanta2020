@@ -84,7 +84,7 @@ class HStack extends game.ui.Element {
 		alignChildren();
 	}
 
-	private function alignChildren() {
+	public function alignChildren() {
 		var cx = 0.;
 		var cy = switch(childrenAlignment) {
 			case Top: 0;

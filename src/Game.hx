@@ -30,6 +30,15 @@ class Game extends hxd.App {
 	}
 
 	static public function restartCycle(?carryOverItems : Array<Data.ItemsKind>) {
+
+		// if this is true that means this is the very super first time, so we don't have
+		// to do any of the standard stuff and instead show the tutorial / setup screen
+		if (Game.variables.playerName == null) {
+
+			Game.instance.add(new game.ui.screens.Truestart());
+			return;
+		}
+
 		// clear the popup queue
 		game.Popup.clearQueue();
 		
@@ -179,7 +188,7 @@ class Game extends hxd.App {
 
 		// kind of a hack, setting up the start, but then resetting the popup.
 		// the popup will then be redone whenever the splash finishes.
-		restartCycle();
+		// restartCycle();
 		game.Popup.clearQueue();
 
 		// starts the new game splash, which is the titlecard.
@@ -189,6 +198,21 @@ class Game extends hxd.App {
 		#if debug
 		Debug.initalize(s2d);
 		#end
+	}
+
+	/**
+	 * Ensures the corners are always ontop.
+	 * @param object 
+	 */
+	public function add(object : h2d.Object) {
+		// not the best way to do it, but i need something that works right now,
+		// not trying to do this the right way.
+
+		var corners : Null<h2d.Object> = s2d.getObjectByName("corners");
+
+		if (corners != null) s2d.removeChild(corners);
+		s2d.addChild(object);
+		if (corners != null) s2d.addChild(corners);
 	}
 
 	override function update(dt:Float) {

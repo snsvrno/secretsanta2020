@@ -78,6 +78,8 @@ class Variables {
 	// Public Members
 	public var loaded(default, null) : Bool = false;
 
+	public var playerName : Null<String> = null;
+
 	// all for tracking things fro the cycle end screen.
 	/** List of all the locations that have been visited. */
 	public var visitedLocations : Array<String> = [ ];
@@ -382,6 +384,7 @@ class Variables {
 			if (ll.where != null) whereAreThey = ll.where;
 			if (ll.chosen != null) lifetimeChosenOptions = ll.chosen;
 			if (ll.items != null) lifetimeItems = ll.items;
+			if (ll.playername != null) playerName = ll.playername;
 		}
 		//#end
 	}
@@ -397,6 +400,7 @@ class Variables {
 			lifeValues : lifetimeValues,
 			chosen : lifetimeChosenOptions,
 			items : lifetimeItems,
+			playername : playerName,
 		}, Const.SAVE_FILE_NAME, true);
 		//#end
 	}

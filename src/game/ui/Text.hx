@@ -1,13 +1,14 @@
 package game.ui;
 
-import h3d.scene.Graphics;
-
 class Text extends game.ui.Element {
 
 	var textObject : h2d.Text;
 
 	var horizontal : game.ui.alignment.Horizontal = Left;
 	var vertical : game.ui.alignment.Vertical = Top;
+
+	public var text(get, null) : String;
+	private function get_text() : String return textObject.text;
 
 	override public function getHeight() : Float return textObject.textHeight * scaleY;
 	override public function getWidth() : Float return textObject.textWidth * scaleX;

@@ -9,6 +9,7 @@ class Corners {
 	static public function make(scene : h2d.Scene) {
 		
 		var graphic = new h2d.Graphics(scene);
+		graphic.name == "corners";
 
 		// sets the drawing style / information.
 		graphic.beginFill(Const.BACKGROUND_COLOR);
