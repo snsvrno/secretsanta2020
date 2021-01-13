@@ -20,7 +20,8 @@
 
 * fixes bug where boarding the bus would create a _TON_ of extra cycles.
 * fixes bug where lifetime values like `cycles` would not save. 
-* fixes bug where the `progress screen` wasn't counting achievements. 
+* fixes bug where the `progress screen` wasn't counting achievements.
+* fixes bug that would prevent the name-intro screen from appearing the same cycle you clear your data / also fixes the issue where you can reset mid cycle and it didn't restart the cycle.
 
 = 1.1.0
 

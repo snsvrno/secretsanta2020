@@ -57,7 +57,9 @@ class MainMenu extends h2d.Object {
 		clear.descriptionObject = description;
 		clear.onClick = function() {
 			Game.clearData();
+			Game.restartCycle();
 			start.setText("Start");
+			if(onStartClick != null) onStartClick();
 		}
 
 		var gamemenu = new game.ui.Button("Game Menu");

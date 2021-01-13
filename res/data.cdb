@@ -3400,7 +3400,7 @@
 						{
 							"condition": [
 								1,
-								"mole_name"
+								"name_mole"
 							]
 						}
 					],
@@ -3425,7 +3425,7 @@
 						{
 							"condition": [
 								0,
-								"mole_name"
+								"name_mole"
 							]
 						}
 					],
@@ -3699,7 +3699,7 @@
 							"dialogue": "mole_writing2_response",
 							"condition": [
 								0,
-								"mole_name"
+								"name_mole"
 							]
 						},
 						{
@@ -5029,7 +5029,7 @@
 							"dialogue": "lamb_watchgame4",
 							"condition": [
 								0,
-								"lamb_name"
+								"name_lamb"
 							]
 						},
 						{
@@ -7608,7 +7608,39 @@
 					"description": "Learn everyone's name.",
 					"character": "player",
 					"icon": "achievements/name.png",
-					"enabled": false
+					"enabled": false,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"name_mole"
+							]
+						},
+						{
+							"trigger": [
+								0,
+								"name_lamb"
+							]
+						},
+						{
+							"trigger": [
+								0,
+								"name_car"
+							]
+						},
+						{
+							"trigger": [
+								0,
+								"name_mechanic"
+							]
+						},
+						{
+							"trigger": [
+								0,
+								"name_fox"
+							]
+						}
+					]
 				}
 			],
 			"separators": [],
