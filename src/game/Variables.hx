@@ -242,6 +242,8 @@ class Variables {
 		else return 0;
 	}
 
+	public function getValues() : Iterator<String> return values.keys(); 
+
 	public function incrementValue(name : String, value : Int) {
 
 		if (name.substr(0,1) == "*") incrementLifeValue(name.substr(1), value);

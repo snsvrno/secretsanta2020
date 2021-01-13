@@ -32,6 +32,10 @@ class Game extends hxd.App {
 	static public function restartCycle(?carryOverItems : Array<Data.ItemsKind>) {
 		
 		Game.variables.save();
+
+		// for the true_ending achievement
+		var preloadBottle = false;
+		if (Game.variables.check("thrownbottleinsea")) preloadBottle = true;
 		
 		// if this is true that means this is the very super first time, so we don't have
 		// to do any of the standard stuff and instead show the tutorial / setup screen
@@ -63,6 +67,9 @@ class Game extends hxd.App {
 		// sets up the beginning.
 		instance.changeToScene(towncenter);
 		popup("You wake up on a bus, it is bright outside ~...~", 4);
+
+		// sets any preload stuff
+		if (preloadBottle) Game.variables.setSwitch("beach_floatingbottle", true);
 	}
 
 	static public function quit() {

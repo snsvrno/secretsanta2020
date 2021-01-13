@@ -7,7 +7,10 @@
 
 == Content
 
-* fixed the conversations so the "the Mechanic", "a Runner Up", and "Never Made It" achievements are now possible.
+* fixed the conversations so the "the Mechanic", "a Runner Up", "Got the Message", and "Never Made It" achievements are now possible.
+* added achievement "Fix a Flat", "a Short Hike".
+* updated descriptions for items.
+* updated choice display for actions to be uniform.
 
 == Backend Stuff
 

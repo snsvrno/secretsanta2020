@@ -42,6 +42,20 @@ class Debug {
 				Game.variables.setSwitch(name, value);
 			}
 		);
+		console.addCommand(
+			"value", null, [{ t: AString, opt: true, name: "name" }, { t : AInt, opt: true, name : "value"}],
+			function(?name : String, ?value : Int) {
+				if (name == null) {
+					for (v in Game.variables.getValues())
+						console.log('$v : ${Game.variables.getValue(v)}');
+				} else if (value == null) {
+					console.log('$name : ${Game.variables.getValue(name)}');
+				} else {
+					Game.variables.setValue(name, value);
+					console.log('$name : ${Game.variables.getValue(name)}');
+				}
+			}
+		);
 	}
 
 	static public function toggleDisplayItems(?state : Bool) {

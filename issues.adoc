@@ -35,6 +35,7 @@
 
 == Conversations
 
+- [ ] color or group conversation choices by topic, so you know what is connected to what idea / quest.
 - [ ] fix the italics font, doesn't look plesant
 - [x] fix the dancing text, it seems to "run away"
 

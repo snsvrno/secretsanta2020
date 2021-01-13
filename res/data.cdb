@@ -1311,7 +1311,7 @@
 					"speaker": "player",
 					"target": "mechanic",
 					"text": "Here, I found this.",
-					"display": "Give Spare Tire",
+					"display": "/Give/ *Spare Tire*",
 					"condition": [
 						{
 							"condition": [
@@ -1401,7 +1401,7 @@
 					"speaker": "player",
 					"target": "boxes",
 					"text": "/You look around./",
-					"display": "Look Around",
+					"display": "/Look Around/",
 					"branch": [
 						{
 							"dialogue": "garage_findtire",
@@ -1683,7 +1683,7 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "/You get on the bus./",
-					"display": "Board Bus",
+					"display": "/Board Bus/",
 					"condition": [
 						{
 							"condition": [
@@ -1706,7 +1706,7 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "/Its a tour bus./",
-					"display": "Look",
+					"display": "/Look/",
 					"branch": [
 						{
 							"condition": [
@@ -1739,7 +1739,7 @@
 					"speaker": "player",
 					"target": "fox",
 					"text": "I'd like a coffee.",
-					"display": "Order Coffee",
+					"display": "/Order/ *Coffee*",
 					"branch": [
 						{
 							"dialogue": "fox_ordercoffee_response2",
@@ -1847,7 +1847,7 @@
 							]
 						}
 					],
-					"display": "Introduce Yourself"
+					"display": "/Introduce Yourself/"
 				},
 				{
 					"id": "fox_name_response",
@@ -2181,7 +2181,7 @@
 							]
 						}
 					],
-					"display": "Give Book",
+					"display": "/Give/ *Book*",
 					"chain": "fox_givebook_response"
 				},
 				{
@@ -2337,7 +2337,7 @@
 					"speaker": "fox",
 					"target": "mechanic",
 					"text": "~Wow!~ I wasn't expecting to see it finished!",
-					"display": "Listen In",
+					"display": "/Listen/",
 					"chain": "fox_carisfixed2",
 					"set": [
 						{
@@ -2565,7 +2565,7 @@
 					"speaker": "player",
 					"target": "bookshelf",
 					"text": "/You dig through some books./",
-					"display": "Browse",
+					"display": "/Browse/",
 					"set": [
 						{
 							"set": [
@@ -2655,7 +2655,7 @@
 					"target": "bookshelf",
 					"text": "/You take the book./",
 					"action": "bookshelf_search",
-					"display": "Take Mysterious Book",
+					"display": "/Take/ *Mysterious Book*",
 					"set": [
 						{
 							"set": [
@@ -2924,6 +2924,60 @@
 						{
 							"action": "mole_standard"
 						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"lamb_needsclassnotes",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_givenotes",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Not sure if this would work, but I put together these *notes*.",
+					"display": "/Give/ *Notes*",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"classnotes"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_needsclassnotes"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								7,
+								"classnotes"
+							]
+						}
+					],
+					"chain": "mole_givenotes_response"
+				},
+				{
+					"id": "mole_givenotes_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~hmmm~\\n~huumm~\\n~ahh~ *yes*! This seems to be the same topic\\n~...~ interesting, the chances.\\nBut I won't look a gift horse in the mouth.\\nThanks!\\nNow to get this over to my T.A.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_hasnotes",
+								true
+							]
+						}
 					]
 				},
 				{
@@ -2931,7 +2985,7 @@
 					"speaker": "player",
 					"target": "mole",
 					"text": "I have this tire, would it work?",
-					"display": "/Give Spare Tire/",
+					"display": "/Give/ *Spare Tire*",
 					"condition": [
 						{
 							"condition": [
@@ -2956,6 +3010,14 @@
 						},
 						{
 							"dialogue": "mole_sparetire_response"
+						}
+					],
+					"set": [
+						{
+							"set": [
+								2,
+								"mole_fixesflat"
+							]
 						}
 					]
 				},
@@ -3107,14 +3169,6 @@
 							]
 						}
 					],
-					"set": [
-						{
-							"set": [
-								2,
-								"mole_fixesflat"
-							]
-						}
-					],
 					"chain": "mole_bikeride_response"
 				},
 				{
@@ -3134,16 +3188,25 @@
 						{
 							"dialogue": "mole_bikeride_response2"
 						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_bikeridesuccess",
+								true
+							]
+						}
 					]
 				},
 				{
 					"id": "mole_bikeride_response2",
 					"speaker": "mole",
 					"target": "player",
-					"text": "I was going to get you *something* but I didn't have enough time.\\nI had to turn back too soon.",
+					"text": "I was going to get you *something* but I didn't have enough time.\\nI had to turn back too soon.\\nShame too because its a great winery.\\nMaybe *next time*.",
 					"branch": [
 						{
-							"action": "mole_cafe",
+							"action": "mole_preclass",
 							"condition": [
 								14,
 								"cafe"
@@ -3176,7 +3239,7 @@
 					],
 					"branch": [
 						{
-							"action": "mole_cafe",
+							"action": "mole_preclass",
 							"condition": [
 								14,
 								"cafe"
@@ -3305,7 +3368,7 @@
 							]
 						}
 					],
-					"display": "Open Mysterious Book",
+					"display": "/Open/ *Mysterious Book*",
 					"chain": "mole_recordclass2"
 				},
 				{
@@ -3416,7 +3479,7 @@
 								16,
 								3
 							],
-							"action": "mole_cafe",
+							"action": "mole_preclass",
 							"dialogue": "mole_grading"
 						},
 						{
@@ -3531,7 +3594,7 @@
 							]
 						},
 						{
-							"action": "mole_cafe"
+							"action": "mole_preclass"
 						}
 					]
 				},
@@ -3549,7 +3612,7 @@
 							]
 						}
 					],
-					"action": "mole_cafe"
+					"action": "mole_preclass"
 				},
 				{
 					"id": "mole_borrowbook",
@@ -3578,7 +3641,7 @@
 					"speaker": "mole",
 					"target": "player",
 					"text": "Here you go, you don't have to return it.\\nI got it from one of the faculty at the university.\\nBooks should be shared!\\nBe sure to *pass it on* when you've finished with it.",
-					"action": "mole_cafe",
+					"action": "mole_preclass",
 					"set": [
 						{
 							"set": [
@@ -3609,7 +3672,7 @@
 							]
 						}
 					],
-					"action": "mole_cafe"
+					"action": "mole_preclass"
 				},
 				{
 					"id": "mole_writing2",
@@ -3677,14 +3740,14 @@
 					"speaker": "mole",
 					"target": "player",
 					"text": "~Oh, definitely not.~ I just started.\\nI'm working on an outline to better understand it.",
-					"action": "mole_cafe"
+					"action": "mole_preclass"
 				},
 				{
 					"id": "mole_grading",
 					"speaker": "mole",
 					"target": "player",
 					"text": "Just working through my coarse work.\\nOh and grading papers ~...~",
-					"action": "mole_cafe"
+					"action": "mole_preclass"
 				},
 				{
 					"id": "grocer_whattopurchase",
@@ -3717,7 +3780,7 @@
 					"speaker": "player",
 					"target": "grocer",
 					"text": "I'd like the sandwich.",
-					"display": "Buy Sandwich",
+					"display": "/Buy/ *Sandwich*",
 					"branch": [
 						{
 							"dialogue": "grocer_nosandwich",
@@ -3744,6 +3807,12 @@
 								0,
 								"*grocer_sellssandwich"
 							]
+						},
+						{
+							"condition": [
+								1,
+								"grocer_outofsandwiches"
+							]
 						}
 					]
 				},
@@ -3752,7 +3821,7 @@
 					"speaker": "player",
 					"target": "grocer",
 					"text": "I'd like the smoothie.",
-					"display": "Buy Smoothie",
+					"display": "/Buy/ *Smoothie*",
 					"branch": [
 						{
 							"dialogue": "grocer_nosmoothie",
@@ -3778,6 +3847,12 @@
 							"condition": [
 								0,
 								"*grocer_sellssmoothie"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"grocer_outofsmoothee"
 							]
 						}
 					]
@@ -3814,7 +3889,16 @@
 					"speaker": "grocer",
 					"target": "player",
 					"text": "We don't have any more sandwiches",
-					"action": "grocer_start"
+					"action": "grocer_start",
+					"set": [
+						{
+							"set": [
+								0,
+								"grocer_outofsandwiches",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "grocer_soldsandwich",
@@ -3866,7 +3950,16 @@
 					"speaker": "grocer",
 					"target": "player",
 					"text": "We don't have any more smoothies",
-					"action": "grocer_start"
+					"action": "grocer_start",
+					"set": [
+						{
+							"set": [
+								0,
+								"grocer_outofsmoothee",
+								true
+							]
+						}
+					]
 				},
 				{
 					"id": "grocer_soldsmoothie",
@@ -4163,7 +4256,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "I won't have time to pick anything up.",
-					"display": "Give Money Back",
+					"display": "/Give/ *Money* /Back/",
 					"condition": [
 						{
 							"condition": [
@@ -4229,7 +4322,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "I didn't have time to get the food.",
-					"display": "Give Money Back",
+					"display": "/Give/ *Money* /Back/",
 					"condition": [
 						{
 							"condition": [
@@ -4286,7 +4379,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "It was only $15, here is the change.",
-					"display": "Give Change Back",
+					"display": "/Give/ *Change* /Back/",
 					"condition": [
 						{
 							"condition": [
@@ -4363,12 +4456,18 @@
 						},
 						{
 							"condition": [
+								0,
+								"lamb_pickupfood"
+							]
+						},
+						{
+							"condition": [
 								6,
 								"smoothie"
 							]
 						}
 					],
-					"display": "Give Food",
+					"display": "/Give/ *Food*",
 					"branch": [
 						{
 							"condition": [
@@ -4626,7 +4725,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Here, I got someting for you.",
-					"display": "Give Cup",
+					"display": "/Give/ *Cup*",
 					"condition": [
 						{
 							"condition": [
@@ -4745,7 +4844,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Here you go.",
-					"display": "Give Trophy",
+					"display": "/Give/ *Trophy*",
 					"condition": [
 						{
 							"condition": [
@@ -5137,7 +5236,7 @@
 					"speaker": "lamb",
 					"target": "fox",
 					"text": "How has today been?",
-					"display": "/Continue/ /Listening/",
+					"display": "/Continue Listening/",
 					"chain": "lamb_cafelisten1",
 					"set": [
 						{
@@ -5386,7 +5485,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "$lamb$, take this for tonight.",
-					"display": "Give *Wine*",
+					"display": "/Give/ *Wine*",
 					"condition": [
 						{
 							"condition": [
@@ -5398,6 +5497,12 @@
 							"condition": [
 								0,
 								"name_lamb"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_encourage"
 							]
 						}
 					],
@@ -5416,7 +5521,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Here, take this for tonight.",
-					"display": "Give *Wine*",
+					"display": "/Give/ *Wine*",
 					"condition": [
 						{
 							"condition": [
@@ -5428,6 +5533,12 @@
 							"condition": [
 								1,
 								"name_lamb"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"lamb_encourage"
 							]
 						}
 					],
@@ -5495,28 +5606,6 @@
 					"action": "lamb_beach"
 				},
 				{
-					"id": "lamb_postdate",
-					"speaker": "player",
-					"target": "lamb",
-					"text": "How'd it go?",
-					"display": "How was Date?",
-					"chain": "lamb_postdate_response",
-					"condition": [
-						{
-							"condition": [
-								16,
-								6
-							]
-						},
-						{
-							"condition": [
-								1,
-								"lamb_haswine"
-							]
-						}
-					]
-				},
-				{
 					"id": "lamb_postdate_response",
 					"speaker": "lamb",
 					"target": "player",
@@ -5528,6 +5617,33 @@
 								1,
 								"lamb_haswine"
 							]
+						}
+					]
+				},
+				{
+					"id": "lamb_postdate",
+					"speaker": "player",
+					"target": "lamb",
+					"text": "How'd it go?",
+					"display": "How was Date?",
+					"condition": [
+						{
+							"condition": [
+								16,
+								6
+							]
+						}
+					],
+					"branch": [
+						{
+							"dialogue": "lamb_postdate_response",
+							"condition": [
+								1,
+								"lamb_haswine"
+							]
+						},
+						{
+							"dialogue": "lamb_giveemptybottle"
 						}
 					]
 				},
@@ -5611,6 +5727,137 @@
 						}
 					],
 					"action": "lamb_beach"
+				},
+				{
+					"id": "lamb_giveemptybottle",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "It was *perfect*!\\nThanks again for the *wine*\\nHere is the *empty bottle* if you want it.",
+					"action": "lamb_giveemptybottle"
+				},
+				{
+					"id": "lamb_giveemptybottleyes",
+					"speaker": "player",
+					"target": "player",
+					"text": "Yeah, sure.",
+					"display": "Sure",
+					"chain": "lamb_giveemptybottleyes_response"
+				},
+				{
+					"id": "lamb_giveemptybottleyes_response",
+					"speaker": "player",
+					"target": "player",
+					"text": "Its the least I can do,\\nthe wine was ~sooo~ good.",
+					"action": "lamb_beach",
+					"set": [
+						{
+							"set": [
+								6,
+								"emptybottle"
+							]
+						}
+					]
+				},
+				{
+					"id": "lamb_giveemptybottleno",
+					"speaker": "player",
+					"target": "player",
+					"text": "You should keep it, as a memento",
+					"display": "You Keep it",
+					"chain": "lamb_giveemptybottleno_response"
+				},
+				{
+					"id": "lamb_giveemptybottleno_response",
+					"speaker": "player",
+					"target": "player",
+					"text": "Good call!\\nThanks again.",
+					"action": "lamb_beach"
+				},
+				{
+					"id": "beach_look",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You look out at the water./\\n/Nice and peaceful/\\n/You get lost in thought,/\\n/partially dreaming about finding a message in a bottle./\\n/partially enjoying the sounds of the waves./",
+					"action": "beach",
+					"display": "/Look/"
+				},
+				{
+					"id": "beach_throwbottle",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You throw the bottle in the ocean./\\n/Was the point for someone to find it?/\\n/You didn't even put a/ *message* /in it/\\n/Hopefully someone finds it and recycles it./",
+					"display": "/Throw/ *Bottle*",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"emptybottle"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								7,
+								"emptybottle"
+							]
+						},
+						{
+							"set": [
+								0,
+								"thrownbottleinsea",
+								true
+							]
+						}
+					],
+					"action": "beach"
+				},
+				{
+					"id": "beach_takebottle",
+					"speaker": "player",
+					"target": "player",
+					"text": "/There appears to be a bottle floating, with something inside it./\\n/You pickup the bottle and look inside./\\n/Its a message!/\\n~Wake Up!!!~",
+					"display": "/Take/ *Bottle*",
+					"chain": "beach_takebottle2",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"beach_floatingbottle"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"beach_floatingbottle",
+								false
+							]
+						},
+						{
+							"set": [
+								6,
+								"emptybottle"
+							]
+						}
+					]
+				},
+				{
+					"id": "beach_takebottle2",
+					"speaker": "player",
+					"target": "player",
+					"text": "/It comes back to you./\\n/You were in an accident./\\n/You are unconscious, but now you know./\\n/You now know how to get back to your world./\\n/You can leave whenever you want .../",
+					"set": [
+						{
+							"set": [
+								0,
+								"youfoundthereason",
+								true
+							]
+						}
+					],
+					"action": "beach"
 				}
 			],
 			"props": {},
@@ -5623,7 +5870,8 @@
 				"bookshelf_look",
 				"mole_beachwalk",
 				"grocer_whattopurchase",
-				"lamb_whattodo"
+				"lamb_whattodo",
+				"beach_look"
 			]
 		},
 		{
@@ -6019,6 +6267,9 @@
 						},
 						{
 							"option": "mole_goride"
+						},
+						{
+							"option": "mole_givenotes"
 						}
 					],
 					"imports": [
@@ -6040,7 +6291,7 @@
 					]
 				},
 				{
-					"id": "mole_cafe",
+					"id": "mole_preclass",
 					"owner": "mole",
 					"options": [
 						{
@@ -6066,6 +6317,46 @@
 						},
 						{
 							"option": "mole_writing2"
+						}
+					],
+					"imports": [
+						{
+							"action": "mole_standard"
+						}
+					]
+				},
+				{
+					"id": "mole_postclass",
+					"owner": "mole",
+					"options": [
+						{
+							"option": "mole_bikeride"
+						},
+						{
+							"option": "mole_sparetire"
+						},
+						{
+							"option": "mole_howareyouname"
+						},
+						{
+							"option": "mole_howareyou"
+						},
+						{
+							"option": "mole_reading"
+						},
+						{
+							"option": "mole_readinginterested"
+						},
+						{
+							"option": "mole_borrowbook"
+						},
+						{
+							"option": "mole_writing2"
+						}
+					],
+					"imports": [
+						{
+							"action": "mole_standard"
 						}
 					]
 				},
@@ -6293,6 +6584,33 @@
 							"option": "lamb_datetime"
 						}
 					]
+				},
+				{
+					"id": "lamb_giveemptybottle",
+					"owner": "lamb",
+					"options": [
+						{
+							"option": "lamb_giveemptybottleyes"
+						},
+						{
+							"option": "lamb_giveemptybottleno"
+						}
+					]
+				},
+				{
+					"id": "beach",
+					"owner": "water",
+					"options": [
+						{
+							"option": "beach_look"
+						},
+						{
+							"option": "beach_takebottle"
+						},
+						{
+							"option": "beach_throwbottle"
+						}
+					]
 				}
 			],
 			"props": {},
@@ -6304,7 +6622,8 @@
 				"bookshelf_search",
 				"mole_standard",
 				"grocer_start",
-				"lamb_start"
+				"lamb_start",
+				"beach"
 			]
 		},
 		{
@@ -6390,7 +6709,8 @@
 							"x": 0.175,
 							"y": 0.1475,
 							"scale": 0.5,
-							"flipX": false
+							"flipX": false,
+							"action": "beach"
 						},
 						{
 							"actor": "fish",
@@ -6439,6 +6759,12 @@
 										4,
 										"mole_fixaflat"
 									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_hasnotes"
+									]
 								}
 							],
 							"action": "mole_beach"
@@ -6448,11 +6774,11 @@
 							"x": 0.2,
 							"y": 0.5,
 							"scale": 1,
-							"flipX": false,
+							"flipX": true,
 							"condition": [
 								{
 									"condition": [
-										2,
+										1,
 										5
 									]
 								},
@@ -6460,6 +6786,33 @@
 									"condition": [
 										3,
 										"lamb_dateyes"
+									]
+								}
+							]
+						},
+						{
+							"actor": "fox",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 1,
+							"flipX": true,
+							"condition": [
+								{
+									"condition": [
+										1,
+										6
+									]
+								},
+								{
+									"condition": [
+										3,
+										"lamb_dateyes"
+									]
+								},
+								{
+									"condition": [
+										3,
+										"lamb_haswine"
 									]
 								}
 							]
@@ -6620,9 +6973,15 @@
 										4,
 										"mole_fixaflat"
 									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_hasnotes"
+									]
 								}
 							],
-							"action": "mole_cafe"
+							"action": "mole_preclass"
 						},
 						{
 							"actor": "mole",
@@ -6648,9 +7007,15 @@
 										4,
 										"mole_fixaflat"
 									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_hasnotes"
+									]
 								}
 							],
-							"action": "mole_cafe"
+							"action": "mole_preclass"
 						},
 						{
 							"actor": "mole",
@@ -6664,9 +7029,15 @@
 										1,
 										5
 									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_hasnotes"
+									]
 								}
 							],
-							"action": "mole_cafe"
+							"action": "mole_postclass"
 						},
 						{
 							"actor": "lamb",
@@ -6713,6 +7084,12 @@
 									"condition": [
 										4,
 										"mole_fixaflat"
+									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_hasnotes"
 									]
 								}
 							],
@@ -6786,6 +7163,12 @@
 									"condition": [
 										1,
 										6
+									]
+								},
+								{
+									"condition": [
+										4,
+										"mole_hasnotes"
 									]
 								}
 							]
@@ -6925,8 +7308,22 @@
 				{
 					"name": "winebottle",
 					"displayname": "a Bottle of Wine",
-					"description": "A bottle of nice wine, seems fancy.",
-					"icon": "items/wine.png"
+					"description": "Looks very fancy, probably goes well with some cheese and crackers.",
+					"icon": "items/wine.png",
+					"actions": [
+						{
+							"text": "Empty Bottle",
+							"description": "Dump out the contents of this bottle, such a shame.",
+							"action": [
+								{
+									"action": [
+										1,
+										"emptybottle"
+									]
+								}
+							]
+						}
+					]
 				},
 				{
 					"name": "emptybottle",
@@ -6937,13 +7334,13 @@
 				{
 					"name": "sandwich",
 					"displayname": "a Chicken Sandwich",
-					"description": "",
+					"description": "A good looking grilled chicken sandwich .. wish it were fried.",
 					"icon": "items/sandwich.png"
 				},
 				{
 					"name": "smoothie",
 					"displayname": "a Fruit Smoothie",
-					"description": "",
+					"description": "A Strawberry smoothie, my favorite.",
 					"icon": "items/smoothie.png"
 				}
 			],
@@ -7035,7 +7432,15 @@
 					"description": "Fully understand what you're doing here.",
 					"character": "player",
 					"icon": "achievements/truend.png",
-					"enabled": true
+					"enabled": true,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"youfoundthereason"
+							]
+						}
+					]
 				},
 				{
 					"id": "fox_car_trouble",
@@ -7058,31 +7463,31 @@
 					"title": "There and Back Again",
 					"description": "Help someone explore ",
 					"character": "fox",
-					"icon": "",
+					"icon": "achievements/book.png",
 					"enabled": false
 				},
 				{
 					"id": "student_animal_chat",
 					"title": "All about Animals",
 					"description": "Talk to someone about animals.",
-					"character": "player",
-					"icon": "",
+					"character": "cat",
+					"icon": "achievements/animals2.png",
 					"enabled": false
 				},
 				{
 					"id": "student_deep_sea_explorer",
 					"title": "Deep Sea Explorer",
 					"description": "Help someone go diving.",
-					"character": "player",
-					"icon": "",
+					"character": "cat",
+					"icon": "achievements/dolphin.png",
 					"enabled": false
 				},
 				{
 					"id": "student_new_animal_friends",
 					"title": "Animal Friends",
 					"description": "Help someone find a similar interest.",
-					"character": "player",
-					"icon": "",
+					"character": "cat",
+					"icon": "achievements/animals1.png",
 					"enabled": false
 				},
 				{
@@ -7090,16 +7495,32 @@
 					"title": "Fix a Flat",
 					"description": "Help someone fix their bike and go on a ride.",
 					"character": "mole",
-					"icon": "",
-					"enabled": false
+					"icon": "achievements/bike.png",
+					"enabled": true,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"mole_bikeridesuccess"
+							]
+						}
+					]
 				},
 				{
 					"id": "mole_short_hike",
 					"title": "a Short Hike",
 					"description": "Help someone get their affairs in order so they can go backpacking.",
 					"character": "mole",
-					"icon": "",
-					"enabled": false
+					"icon": "achievements/backpack.png",
+					"enabled": true,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"mole_hasnotes"
+							]
+						}
+					]
 				},
 				{
 					"id": "mole_fallasleep",
@@ -7186,7 +7607,7 @@
 					"title": "Friend to All",
 					"description": "Learn everyone's name.",
 					"character": "player",
-					"icon": "",
+					"icon": "achievements/name.png",
 					"enabled": false
 				}
 			],
