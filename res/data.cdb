@@ -952,7 +952,7 @@
 					"speaker": "mechanic",
 					"id": "mechanic_car_response",
 					"action": "mechanic_whatiscar",
-					"text": "Oh that one?\\nWell `...~ \\nIts got a _ton_ of trouble. I'm not sure what they did to it, but ~WOW~ its in bad shape."
+					"text": "Oh that one?\\nWell ~...~ \\nIts got a _ton_ of trouble. I'm not sure what they did to it, but ~WOW~ its in bad shape."
 				},
 				{
 					"id": "mechanic_fixit",

@@ -24,6 +24,7 @@
 * fixes bug that would prevent the name-intro screen from appearing the same cycle you clear your data / also fixes the issue where you can reset mid cycle and it didn't restart the cycle.
 * fixes issue where not all location visits are using up "slots" in a "period" (more than 2 visits per time point).
 * fixes "ghost" character icons on locations.
+* fixes text formatting display issues, which caused the formatting symbols to not be removed and be displayed in the text.
 
 = 1.1.0
 
