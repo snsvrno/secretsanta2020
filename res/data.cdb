@@ -594,8 +594,8 @@
 					"name": "Brenda",
 					"image": "characters/fish.png",
 					"dialoguepoint": {
-						"x": 0,
-						"y": 0
+						"x": 265,
+						"y": 255
 					},
 					"type": 0
 				},
@@ -4206,7 +4206,7 @@
 					"id": "grocer_sandwich",
 					"speaker": "grocer",
 					"target": "player",
-					"text": "We have a sandwich for $10",
+					"text": "We have an excellent a sandwich for $10.\\nIts a chicken sandwich.\\nNot fish, we don't serve fish.",
 					"branch": [
 						{
 							"dialogue": "grocer_smoothie",
@@ -4348,6 +4348,223 @@
 					"target": "player",
 					"text": "We don't have anything right now.",
 					"action": "grocer_start"
+				},
+				{
+					"id": "grocer_brother",
+					"speaker": "player",
+					"target": "grocer",
+					"text": "Do you have a brother?\\nIs he the lifeguard?",
+					"display": "You have a Brother?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*fishbros"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"grocer_brother"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"grocer_brother",
+								true
+							]
+						}
+					],
+					"chain": "grocer_brother_response"
+				},
+				{
+					"id": "grocer_brother_response",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "~What!~ You assuming that _we_ are related ~...~\\nIs it because we're both *fish*!?",
+					"chain": "grocer_brother_response2"
+				},
+				{
+					"id": "grocer_brother_response2",
+					"speaker": "player",
+					"target": "grocer",
+					"text": "I talked to them~...~\\n and them mentioned that their brother works here ~...~\\nand _you're_ the only person here ~...~",
+					"chain": "grocer_brother_response3"
+				},
+				{
+					"id": "grocer_brother_response3",
+					"speaker": "grocer",
+					"target": "player",
+					"text": "~What!?!?!~\\n~Wwwwwhhhhhhaaaaaaat?!?!?~\\n$fish$ said that?\\nMan they talk too much.\\nYou can tell them that $grocer$ says the nachos are on special tomorrow.\\n~Ughhh..~\\nYounger siblings are so _annoying_.",
+					"set": [
+						{
+							"set": [
+								0,
+								"name_fish",
+								true
+							]
+						},
+						{
+							"set": [
+								0,
+								"name_grocer",
+								true
+							]
+						}
+					],
+					"action": "grocer_start"
+				},
+				{
+					"id": "lifeguard_hi",
+					"speaker": "player",
+					"target": "fish",
+					"text": "Hi, whats up.",
+					"display": "Hi",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"fish_hi"
+							]
+						}
+					],
+					"chain": "lifeguard_hi_response"
+				},
+				{
+					"id": "lifeguard_hi_response",
+					"speaker": "fish",
+					"target": "player",
+					"text": "Hey!\\nHow are you.\\nThe waves are pretty calm today, so should be safe out there.\\nYesterday they were ~knarly~.\\nWouldn't have recommended going out there.\\nDidn't stop some people ~...~\\nBut that is why _I'm_ here.\\nthe Lifeguard!",
+					"set": [
+						{
+							"set": [
+								0,
+								"fish_hi",
+								true
+							]
+						}
+					],
+					"action": "lifeguard"
+				},
+				{
+					"id": "lifeguard_do",
+					"speaker": "player",
+					"target": "fish",
+					"text": "What's to do around here?",
+					"display": "Whats to do?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"fish_hi"
+							]
+						}
+					],
+					"chain": "lifeguard_do_response"
+				},
+				{
+					"id": "lifeguard_do_response",
+					"speaker": "fish",
+					"target": "player",
+					"text": "Man that's easy, you got your _turf_ and your _surf_.",
+					"set": [
+						{
+							"set": [
+								0,
+								"lifeguard_surfturf",
+								true
+							]
+						}
+					],
+					"action": "lifeguard"
+				},
+				{
+					"id": "lifeguard_turf",
+					"speaker": "player",
+					"target": "fish",
+					"text": "What do you mean by _turf_?",
+					"display": "Turf?",
+					"chain": "lifeguard_turf_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lifeguard_surfturf"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lifeguard_turf"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"lifeguard_turf",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lifeguard_turf_response",
+					"speaker": "fish",
+					"target": "player",
+					"text": "*the grocery*!\\nThey have books, I guess thats cool\\nbut they also sell nachos!\\nmy bro works there ~...~\\nIts super cool because he tells me when they have nachos.\\n~mmmmmm nachos~",
+					"set": [
+						{
+							"set": [
+								0,
+								"fishbros",
+								true
+							]
+						}
+					],
+					"action": "lifeguard"
+				},
+				{
+					"id": "lifeguard_surf",
+					"speaker": "player",
+					"target": "fish",
+					"text": "What is the _surf_?",
+					"display": "Surf?",
+					"chain": "lifeguard_surf_response",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"lifeguard_surfturf"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"lifeguard_surf"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"lifeguard_surf",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "lifeguard_surf_response",
+					"speaker": "fish",
+					"target": "player",
+					"text": "~Psh ...~\\nYou're looking at it.\\nIts _so_ beautiful.\\nThe water.\\nI mean, it totally _gives_ life\\nand meaning,\\ndefinitelty gives _me_ meaning,\\n~if you know what i mean~",
+					"action": "lifeguard"
 				},
 				{
 					"id": "lamb_whattodo",
@@ -6238,6 +6455,7 @@
 				"mole_beachwalk",
 				"podium_look",
 				"grocer_whattopurchase",
+				"lifeguard_hi",
 				"lamb_whattodo",
 				"beach_look"
 			]
@@ -6776,6 +6994,27 @@
 						},
 						{
 							"option": "grocer_buysmoothie"
+						},
+						{
+							"option": "grocer_brother"
+						}
+					]
+				},
+				{
+					"id": "lifeguard",
+					"owner": "fish",
+					"options": [
+						{
+							"option": "lifeguard_turf"
+						},
+						{
+							"option": "lifeguard_hi"
+						},
+						{
+							"option": "lifeguard_surf"
+						},
+						{
+							"option": "lifeguard_do"
 						}
 					]
 				},
@@ -6995,6 +7234,7 @@
 				"podium",
 				"mole_standard",
 				"grocer_start",
+				"lifeguard",
 				"lamb_start",
 				"beach"
 			]
@@ -7096,7 +7336,8 @@
 							"x": 0.75,
 							"y": 0.56,
 							"scale": 0.5,
-							"flipX": false
+							"flipX": false,
+							"action": "lifeguard"
 						},
 						{
 							"actor": "fox",
@@ -8033,6 +8274,18 @@
 							"trigger": [
 								0,
 								"name_fox"
+							]
+						},
+						{
+							"trigger": [
+								0,
+								"name_fish"
+							]
+						},
+						{
+							"trigger": [
+								0,
+								"name_grocer"
 							]
 						}
 					]

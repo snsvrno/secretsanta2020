@@ -31,7 +31,9 @@
 - [x] make all achievements possible.
 - [ ] make the cat's dialogue in the game.
 - [x] add the message in the bottle quest.
-- [ ] need to make the market grocer character.
+- [ ] draw the market grocer character / (make him fish).
+- [ ] draw a podium
+- [ ] draw a bus
 
 == Conversations
 
