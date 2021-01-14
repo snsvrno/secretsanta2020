@@ -76,7 +76,7 @@ class Quoted {
 						// special character that we don't want to track.
 						var currentChar : Null<String> = if (lastMatchChar == char) char else null;
 
-						parsed.push({quote: currentChar, text: string.substr(lastMatchInt + 1, i - lastMatchInt + 1)});
+						parsed.push({quote: currentChar, text: string.substr(lastMatchInt + 1, i - lastMatchInt - 1)});
 						
 						if (lastMatchChar == char) lastMatchChar = "z";
 						else lastMatchChar = char;
