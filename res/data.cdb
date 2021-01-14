@@ -2323,6 +2323,13 @@
 								"fox_howsthecar",
 								true
 							]
+						},
+						{
+							"set": [
+								0,
+								"fox_likesthebook",
+								true
+							]
 						}
 					],
 					"action": "fox_beach"
@@ -7841,10 +7848,18 @@
 				{
 					"id": "fox_living_vicariously",
 					"title": "There and Back Again",
-					"description": "Help someone explore ",
+					"description": "Help someone explore from the comfort of their own home.",
 					"character": "fox",
 					"icon": "achievements/book.png",
-					"enabled": false
+					"enabled": true,
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"fox_likesthebook"
+							]
+						}
+					]
 				},
 				{
 					"id": "student_animal_chat",

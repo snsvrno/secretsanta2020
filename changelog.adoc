@@ -8,7 +8,7 @@
 == Content
 
 * fixed the conversations so the "the Mechanic", "a Runner Up", "Got the Message", and "Never Made It" achievements are now possible.
-* added achievement "Fix a Flat", "a Short Hike".
+* added achievement "Fix a Flat", "a Short Hike", and "There and Back Again".
 * updated descriptions for items.
 * updated choice display for actions to be uniform.
 
