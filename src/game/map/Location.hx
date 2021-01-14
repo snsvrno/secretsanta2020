@@ -8,6 +8,7 @@ class Location extends h2d.Object {
 	private var target : Data.ScenesKind;
 	private var interactiveLayer : h2d.Object;
 	private var actorIcons : h2d.Object;
+	private var actorIconsList : Array<h2d.Object> = [];
 
 	private var text : String;
 	private var textX : Float;
@@ -110,13 +111,15 @@ class Location extends h2d.Object {
 
 	public function updateIcons() {
 		// removes all the old icons.
-		for (a in actorIcons.children) a.remove();
+
+		while (actorIconsList.length > 0) actorIcons.removeChild(actorIconsList.pop());
 
 		// gets new sightings
 		var sightings = Game.variables.seen(data.id, Game.currentPeriod());
 		for (i in 0 ... sightings.length) {
 			var tile = hxd.Res.load(Data.characters.get(sightings[i]).icon).toTile();
 			var bitmap = new h2d.Bitmap(tile, actorIcons);
+			actorIconsList.push(bitmap);
 			var scale = Math.min(Const.MAP_ICON_SIZE / tile.width, Const.MAP_ICON_SIZE / tile.height);
 			bitmap.setScale(scale);
 			bitmap.x = data.iconslots[i].x - tile.width / 2 * bitmap.scaleX;

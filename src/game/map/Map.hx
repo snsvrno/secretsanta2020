@@ -60,7 +60,6 @@ class Map extends h2d.Object {
 	}
 
 	public function updateLocationIcons() {
-		trace('updating icons');
 		for (l in locations) l.updateIcons();
 	}
 
