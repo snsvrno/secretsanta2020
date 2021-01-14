@@ -206,7 +206,7 @@ class Clock extends h2d.Object {
 		donePeriod = false;
 		var currentPeriod = period;
 		while(period == currentPeriod) increment();
-		Game.updateMapLighting();
+		Game.nextPeriod();
 	}
 
 	public function increment(?direction : Int = 1) { 

@@ -724,6 +724,16 @@
 						"x": 270,
 						"y": 110
 					}
+				},
+				{
+					"id": "podium",
+					"type": 1,
+					"name": "Podium",
+					"image": "props/boxes.png",
+					"dialoguepoint": {
+						"x": 250,
+						"y": 250
+					}
 				}
 			],
 			"props": {},
@@ -795,12 +805,54 @@
 			]
 		},
 		{
+			"name": "questlines",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "name",
+					"kind": null,
+					"scope": null
+				}
+			],
+			"lines": [
+				{
+					"name": "lambsports"
+				},
+				{
+					"name": "lambdate"
+				},
+				{
+					"name": "molehike"
+				},
+				{
+					"name": "molebike"
+				},
+				{
+					"name": "foxcar"
+				},
+				{
+					"name": "foxread"
+				},
+				{
+					"name": "catread"
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
 			"name": "dialogue",
 			"columns": [
 				{
 					"typeStr": "0",
 					"name": "id",
 					"scope": null
+				},
+				{
+					"typeStr": "6:questlines",
+					"name": "questline",
+					"opt": true,
+					"kind": null
 				},
 				{
 					"typeStr": "6:characters",
@@ -892,7 +944,8 @@
 								"mechanic_whatiscar"
 							]
 						}
-					]
+					],
+					"questline": "foxcar"
 				},
 				{
 					"target": "player",
@@ -907,7 +960,8 @@
 					"speaker": "player",
 					"text": "Can you fix it?",
 					"chain": "mechanic_fixit_response",
-					"display": "You can Fix it?"
+					"display": "You can Fix it?",
+					"questline": "foxcar"
 				},
 				{
 					"id": "mechanic_needanything",
@@ -929,7 +983,8 @@
 								"mechanic_fixes_tire"
 							]
 						}
-					]
+					],
+					"questline": "foxcar"
 				},
 				{
 					"id": "mechanic_who",
@@ -1239,7 +1294,8 @@
 								"mechanic_fixes_transmission"
 							]
 						}
-					]
+					],
+					"questline": "foxcar"
 				},
 				{
 					"id": "mechanic_soundstransmission_response",
@@ -1326,7 +1382,8 @@
 							]
 						}
 					],
-					"chain": "mechanic_give_tire_response"
+					"chain": "mechanic_give_tire_response",
+					"questline": "foxcar"
 				},
 				{
 					"id": "mechanic_give_tire_response",
@@ -1497,7 +1554,7 @@
 					"condition": [
 						{
 							"condition": [
-								10,
+								11,
 								"*completedCycles",
 								1
 							]
@@ -1777,7 +1834,7 @@
 						{
 							"dialogue": "fox_coffee_pay_response",
 							"condition": [
-								10,
+								11,
 								"money",
 								5
 							]
@@ -1987,7 +2044,8 @@
 							]
 						}
 					],
-					"chain": "fox_comefrom_response"
+					"chain": "fox_comefrom_response",
+					"questline": "foxread"
 				},
 				{
 					"id": "fox_comefrom_response",
@@ -2021,7 +2079,7 @@
 					"id": "fox_comefrom3_response",
 					"speaker": "fox",
 					"target": "player",
-					"text": "Not sure, the sooner the better.\\nThe main thing stopping me is the car.\\nIt's still in the shop.",
+					"text": "Not sure, the sooner the better.\\nThe main thing stopping me is the car.\\nIt's still in the shop.\\nUntil then *reading* is the best thing right?",
 					"action": "fox_cafe",
 					"set": [
 						{
@@ -2053,7 +2111,8 @@
 								"fox_carinshop"
 							]
 						}
-					]
+					],
+					"questline": "foxcar"
 				},
 				{
 					"id": "fox_carinshop_response",
@@ -2085,7 +2144,8 @@
 						}
 					],
 					"chain": "fox_carinshop2_response",
-					"display": "Car problems?"
+					"display": "Car problems?",
+					"questline": "foxcar"
 				},
 				{
 					"id": "fox_carinshop2_response",
@@ -2182,13 +2242,35 @@
 						}
 					],
 					"display": "/Give/ *Book*",
-					"chain": "fox_givebook_response"
+					"chain": "fox_givebook_response1",
+					"questline": "foxread"
 				},
 				{
-					"id": "fox_givebook_response",
+					"id": "fox_givebook_response1",
 					"speaker": "fox",
 					"target": "player",
-					"text": "What's this?\\nOh this seems great!. I love reading these things.\\nMakes me feel like I'm on the road again, exploring the countryside.\\nI'll be sure to let you know what I think of it! *Thanks!*",
+					"text": "Where did you find this?",
+					"chain": "fox_givebook_response2"
+				},
+				{
+					"id": "fox_givebook_response2",
+					"speaker": "player",
+					"target": "fox",
+					"text": "I think someone left it.\\nYou like reading books?",
+					"chain": "fox_givebook_response3"
+				},
+				{
+					"id": "fox_givebook_response3",
+					"speaker": "fox",
+					"target": "player",
+					"text": "Depends on the book.\\nBut this one ~...~",
+					"chain": "fox_givebook_response4"
+				},
+				{
+					"id": "fox_givebook_response4",
+					"speaker": "fox",
+					"target": "player",
+					"text": "This seems great!. I love reading these things.\\nMakes me feel like I'm on the road again, exploring the countryside.\\nI'll have to take this to read on the beach after my shift.",
 					"set": [
 						{
 							"set": [
@@ -2199,8 +2281,14 @@
 						{
 							"set": [
 								0,
-								"fox_gave_adventurebook",
+								"fox_hasadventurebook",
 								true
+							]
+						},
+						{
+							"set": [
+								2,
+								"fox_gotadventurebook"
 							]
 						}
 					],
@@ -2212,7 +2300,16 @@
 					"target": "fox",
 					"text": "How are you liking the book?",
 					"display": "Hows the Book?",
-					"action": "fox_beach"
+					"questline": "foxread",
+					"condition": [
+						{
+							"condition": [
+								9,
+								"fox_gotadventurebook"
+							]
+						}
+					],
+					"chain": "fox_bookfollowup_response"
 				},
 				{
 					"id": "fox_bookfollowup_response",
@@ -2227,7 +2324,8 @@
 								true
 							]
 						}
-					]
+					],
+					"action": "fox_beach"
 				},
 				{
 					"id": "fox_howsthecar",
@@ -2260,7 +2358,8 @@
 								"fox_howsthecar"
 							]
 						}
-					]
+					],
+					"display": "How is the car?"
 				},
 				{
 					"id": "fox_howsthecar_response1",
@@ -2323,7 +2422,16 @@
 					"target": "fox",
 					"text": "Would you say you go on adventures with that car?",
 					"display": "Adventurers?",
-					"chain": "fox_adventurer_response"
+					"chain": "fox_adventurer_response",
+					"questline": "foxcar",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"fox_howsthecar"
+							]
+						}
+					]
 				},
 				{
 					"id": "fox_adventurer_response",
@@ -2379,7 +2487,7 @@
 						{
 							"dialogue": "fox_carisfixed5met",
 							"condition": [
-								12,
+								13,
 								"fox"
 							]
 						},
@@ -2579,7 +2687,7 @@
 						{
 							"dialogue": "bookshelf_look2",
 							"condition": [
-								9,
+								10,
 								"bookshelf_browse",
 								2
 							]
@@ -2589,7 +2697,7 @@
 							"condition": [
 								4,
 								[
-									9,
+									10,
 									"bookshelf_browse",
 									3
 								],
@@ -2602,7 +2710,7 @@
 						{
 							"dialogue": "bookshelf_nothingnew",
 							"condition": [
-								10,
+								11,
 								"bookshelf_browse",
 								4
 							]
@@ -2610,7 +2718,8 @@
 						{
 							"dialogue": "bookshelf_nothing"
 						}
-					]
+					],
+					"questline": "molehike"
 				},
 				{
 					"id": "bookshelf_nothing",
@@ -2684,7 +2793,8 @@
 								"bookshelf_look"
 							]
 						}
-					]
+					],
+					"questline": "molehike"
 				},
 				{
 					"id": "mole_beachwalk",
@@ -2764,7 +2874,7 @@
 						{
 							"dialogue": "mole_beachintro4",
 							"condition": [
-								9,
+								10,
 								"cycles",
 								0
 							]
@@ -2805,7 +2915,7 @@
 						{
 							"dialogue": "mole_beachintro4",
 							"condition": [
-								9,
+								10,
 								"cycles",
 								0
 							]
@@ -2832,13 +2942,20 @@
 					"branch": [
 						{
 							"condition": [
-								14,
+								15,
 								"beach"
 							],
 							"action": "mole_beach"
 						},
 						{
-							"action": "mole_standard"
+							"action": "mole_preclass",
+							"condition": [
+								19,
+								4
+							]
+						},
+						{
+							"action": "mole_postclass"
 						}
 					]
 				},
@@ -2856,7 +2973,8 @@
 						}
 					],
 					"display": "Backpacking?",
-					"chain": "mole_backpacker_response"
+					"chain": "mole_backpacker_response",
+					"questline": "molehike"
 				},
 				{
 					"id": "mole_backpacker_response",
@@ -2882,13 +3000,20 @@
 					"branch": [
 						{
 							"condition": [
-								14,
+								15,
 								"beach"
 							],
 							"action": "mole_beach"
 						},
 						{
-							"action": "mole_standard"
+							"action": "mole_preclass",
+							"condition": [
+								19,
+								4
+							]
+						},
+						{
+							"action": "mole_postclass"
 						}
 					]
 				},
@@ -2906,7 +3031,8 @@
 								"mole_tripplanning"
 							]
 						}
-					]
+					],
+					"questline": "molehike"
 				},
 				{
 					"id": "mole_planningtrip_response",
@@ -2916,13 +3042,20 @@
 					"branch": [
 						{
 							"condition": [
-								14,
+								15,
 								"beach"
 							],
 							"action": "mole_beach"
 						},
 						{
-							"action": "mole_standard"
+							"action": "mole_preclass",
+							"condition": [
+								19,
+								4
+							]
+						},
+						{
+							"action": "mole_postclass"
 						}
 					],
 					"set": [
@@ -2963,7 +3096,8 @@
 							]
 						}
 					],
-					"chain": "mole_givenotes_response"
+					"chain": "mole_givenotes_response",
+					"questline": "molehike"
 				},
 				{
 					"id": "mole_givenotes_response",
@@ -3019,7 +3153,8 @@
 								"mole_fixesflat"
 							]
 						}
-					]
+					],
+					"questline": "molebike"
 				},
 				{
 					"id": "mole_sparetire_response",
@@ -3132,7 +3267,8 @@
 								true
 							]
 						}
-					]
+					],
+					"questline": "molebike"
 				},
 				{
 					"id": "mole_goride_response",
@@ -3169,7 +3305,8 @@
 							]
 						}
 					],
-					"chain": "mole_bikeride_response"
+					"chain": "mole_bikeride_response",
+					"questline": "molebike"
 				},
 				{
 					"id": "mole_bikeride_response",
@@ -3180,7 +3317,7 @@
 						{
 							"dialogue": "mole_bikeride_response31",
 							"condition": [
-								11,
+								12,
 								"mole_fixesflat",
 								3
 							]
@@ -3206,9 +3343,9 @@
 					"text": "I was going to get you *something* but I didn't have enough time.\\nI had to turn back too soon.\\nShame too because its a great winery.\\nMaybe *next time*.",
 					"branch": [
 						{
-							"action": "mole_preclass",
+							"action": "mole_postclass",
 							"condition": [
-								14,
+								15,
 								"cafe"
 							]
 						},
@@ -3239,9 +3376,9 @@
 					],
 					"branch": [
 						{
-							"action": "mole_preclass",
+							"action": "mole_postclass",
 							"condition": [
-								14,
+								15,
 								"cafe"
 							]
 						},
@@ -3268,7 +3405,7 @@
 					"condition": [
 						{
 							"condition": [
-								9,
+								10,
 								"mole_lecture",
 								0
 							]
@@ -3285,7 +3422,7 @@
 					"condition": [
 						{
 							"condition": [
-								9,
+								10,
 								"mole_lecture",
 								1
 							]
@@ -3312,7 +3449,7 @@
 					"condition": [
 						{
 							"condition": [
-								9,
+								10,
 								"mole_lecture",
 								2
 							]
@@ -3369,7 +3506,8 @@
 						}
 					],
 					"display": "/Open/ *Mysterious Book*",
-					"chain": "mole_recordclass2"
+					"chain": "mole_recordclass2",
+					"questline": "molehike"
 				},
 				{
 					"id": "mole_recordclass2",
@@ -3441,21 +3579,21 @@
 						{
 							"dialogue": "mole_writing",
 							"condition": [
-								16,
+								17,
 								2
 							]
 						},
 						{
 							"dialogue": "mole_grading",
 							"condition": [
-								16,
+								17,
 								3
 							]
 						},
 						{
 							"dialogue": "mole_reading",
 							"condition": [
-								16,
+								17,
 								5
 							]
 						}
@@ -3470,13 +3608,13 @@
 						{
 							"dialogue": "mole_writing",
 							"condition": [
-								16,
+								17,
 								2
 							]
 						},
 						{
 							"condition": [
-								16,
+								17,
 								3
 							],
 							"action": "mole_preclass",
@@ -3485,7 +3623,7 @@
 						{
 							"dialogue": "mole_reading",
 							"condition": [
-								16,
+								17,
 								5
 							]
 						}
@@ -3507,12 +3645,6 @@
 							"condition": [
 								1,
 								"*mole_interestingquestion"
-							]
-						},
-						{
-							"condition": [
-								16,
-								5
 							]
 						}
 					],
@@ -3550,6 +3682,146 @@
 					"chain": "mole_readinginteresting"
 				},
 				{
+					"id": "mole_bigreader",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Are you an avid reader?",
+					"display": "Avid Reader?",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"*mole_interestingquestion"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"mole_chosebookpath"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_chosebookpath",
+								true
+							]
+						}
+					],
+					"questline": "foxread",
+					"chain": "mole_bigreader_response"
+				},
+				{
+					"id": "mole_bigreader_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~Oh yes~\\nI love reading.\\nI recently finished a book about castles in the upper north,\\nand another book about the flight patterns of birds.\\nAll very interesting stuff.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_readsbooks",
+								true
+							]
+						},
+						{
+							"set": [
+								0,
+								"mole_bigreader",
+								true
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								1,
+								"mole_bigreader"
+							]
+						}
+					],
+					"action": "mole_postclass"
+				},
+				{
+					"id": "mole_readadventures",
+					"speaker": "player",
+					"target": "mole",
+					"text": "Have you read anything recently about explorers,\\nor people on grand adventures?",
+					"questline": "foxread",
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mole_readsbooks"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"mole_readsadventures"
+							]
+						}
+					],
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_readsadventures",
+								true
+							]
+						}
+					],
+					"display": "Adventure Books?",
+					"chain": "mole_readadventures_response"
+				},
+				{
+					"id": "mole_readadventures_response",
+					"speaker": "mole",
+					"target": "player",
+					"text": "~Actually~\\nI just finished just a book.\\nIts about a lost traveller from a distant land,\\nwho explores the countryside.\\nIf you're interested I can get it after class tomorrow.\\nI left it in my *podium*.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_hasadventurebook",
+								true
+							]
+						}
+					],
+					"action": "mole_postclass"
+				},
+				{
+					"id": "mole_readadventureyes",
+					"speaker": "player",
+					"target": "player",
+					"text": "I would love to, thanks!",
+					"display": "Yes",
+					"chain": "mole_readadventureyes_response"
+				},
+				{
+					"id": "mole_readadventureyes_response",
+					"speaker": "player",
+					"target": "player",
+					"text": "Great!\\nI'll get it after the class and meet you in the *cafe*.",
+					"set": [
+						{
+							"set": [
+								0,
+								"mole_bookswapmeet",
+								true
+							]
+						}
+					]
+				},
+				{
+					"id": "mole_readadventureno_response",
+					"speaker": "player",
+					"target": "player",
+					"text": "No problem.\\nLet me know if whenever you want it."
+				},
+				{
 					"id": "mole_readinginterested",
 					"speaker": "player",
 					"target": "mole",
@@ -3565,8 +3837,8 @@
 						},
 						{
 							"condition": [
-								16,
-								5
+								1,
+								"mole_chosebookpath"
 							]
 						}
 					],
@@ -3577,8 +3849,16 @@
 								"mole_interested",
 								true
 							]
+						},
+						{
+							"set": [
+								0,
+								"mole_chosebookpath",
+								true
+							]
 						}
-					]
+					],
+					"questline": "catread"
 				},
 				{
 					"id": "mole_readinginteresting",
@@ -3612,7 +3892,7 @@
 							]
 						}
 					],
-					"action": "mole_preclass"
+					"action": "mole_postclass"
 				},
 				{
 					"id": "mole_borrowbook",
@@ -3630,18 +3910,18 @@
 						},
 						{
 							"condition": [
-								16,
+								17,
 								5
 							]
 						}
-					]
+					],
+					"questline": "catread"
 				},
 				{
 					"id": "mole_borrowbook_response",
 					"speaker": "mole",
 					"target": "player",
 					"text": "Here you go, you don't have to return it.\\nI got it from one of the faculty at the university.\\nBooks should be shared!\\nBe sure to *pass it on* when you've finished with it.",
-					"action": "mole_preclass",
 					"set": [
 						{
 							"set": [
@@ -3656,7 +3936,8 @@
 								true
 							]
 						}
-					]
+					],
+					"action": "mole_postclass"
 				},
 				{
 					"id": "mole_writing",
@@ -3689,7 +3970,7 @@
 						},
 						{
 							"condition": [
-								16,
+								17,
 								2
 							]
 						}
@@ -3750,6 +4031,63 @@
 					"action": "mole_preclass"
 				},
 				{
+					"id": "podium_look",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You look inside the podium./",
+					"questline": "catread",
+					"display": "/Look Inside/",
+					"chain": "podium_findbook",
+					"condition": [
+						{
+							"condition": [
+								7,
+								"adventurebook"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"*mole_hasadventurebook"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"getadventurebook"
+							]
+						},
+						{
+							"condition": [
+								18,
+								4
+							]
+						}
+					]
+				},
+				{
+					"id": "podium_findbook",
+					"speaker": "player",
+					"target": "player",
+					"text": "/You find a book!/",
+					"set": [
+						{
+							"set": [
+								6,
+								"adventurebook"
+							]
+						},
+						{
+							"set": [
+								0,
+								"getadventurebook",
+								true
+							]
+						}
+					],
+					"action": "podium"
+				},
+				{
 					"id": "grocer_whattopurchase",
 					"speaker": "player",
 					"target": "grocer",
@@ -3792,7 +4130,7 @@
 						{
 							"dialogue": "grocer_soldsandwich",
 							"condition": [
-								10,
+								11,
 								"money",
 								10
 							]
@@ -3833,7 +4171,7 @@
 						{
 							"dialogue": "grocer_soldsmoothie",
 							"condition": [
-								10,
+								11,
 								"money",
 								5
 							]
@@ -4065,7 +4403,8 @@
 								"lamb_barista"
 							]
 						}
-					]
+					],
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_cafe1",
@@ -4103,7 +4442,8 @@
 								"lamb_barista"
 							]
 						}
-					]
+					],
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_barista_response",
@@ -4141,7 +4481,8 @@
 							]
 						}
 					],
-					"chain": "lamb_whoiswe_response"
+					"chain": "lamb_whoiswe_response",
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_whoiswe_response",
@@ -4179,7 +4520,8 @@
 								"lamb_lovessports"
 							]
 						}
-					]
+					],
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_playingtoday_response",
@@ -4217,7 +4559,8 @@
 								"lamb_gameday"
 							]
 						}
-					]
+					],
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_pickuplunch_response",
@@ -4278,13 +4621,13 @@
 						},
 						{
 							"condition": [
-								17,
+								19,
 								2
 							]
 						},
 						{
 							"condition": [
-								10,
+								11,
 								"money",
 								20
 							]
@@ -4299,7 +4642,8 @@
 							]
 						}
 					],
-					"chain": "lamb_returnmoneyearly_response"
+					"chain": "lamb_returnmoneyearly_response",
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_returnmoneyearly_response",
@@ -4344,13 +4688,13 @@
 						},
 						{
 							"condition": [
-								18,
+								20,
 								4
 							]
 						},
 						{
 							"condition": [
-								10,
+								11,
 								"money",
 								20
 							]
@@ -4365,7 +4709,8 @@
 							]
 						}
 					],
-					"chain": "lamb_returnmoneylate_response"
+					"chain": "lamb_returnmoneylate_response",
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_returnmoneylate_response",
@@ -4401,7 +4746,7 @@
 						},
 						{
 							"condition": [
-								10,
+								11,
 								"money",
 								5
 							]
@@ -4416,7 +4761,8 @@
 							]
 						}
 					],
-					"chain": "lamb_returnchange_response"
+					"chain": "lamb_returnchange_response",
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_returnchange_response",
@@ -4471,7 +4817,7 @@
 					"branch": [
 						{
 							"condition": [
-								17,
+								19,
 								2
 							],
 							"dialogue": "lamb_givefoodc_response"
@@ -4479,7 +4825,8 @@
 						{
 							"dialogue": "lamb_givefoodclate_response"
 						}
-					]
+					],
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_givefoodc_response",
@@ -4549,7 +4896,8 @@
 								"lamb_watchthegame"
 							]
 						}
-					]
+					],
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_postgamelost_response",
@@ -4584,7 +4932,8 @@
 								"lamb_watchthegame"
 							]
 						}
-					]
+					],
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_missedgame_response",
@@ -4628,7 +4977,8 @@
 							]
 						}
 					],
-					"chain": "lamb_postgame_response"
+					"chain": "lamb_postgame_response",
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_postgame_response",
@@ -4666,7 +5016,8 @@
 							]
 						}
 					],
-					"chain": "lamb_postgametrophy_response"
+					"chain": "lamb_postgametrophy_response",
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_postgametrophy_response",
@@ -4741,7 +5092,7 @@
 						},
 						{
 							"condition": [
-								18,
+								20,
 								4
 							]
 						},
@@ -4753,7 +5104,7 @@
 						},
 						{
 							"condition": [
-								14,
+								15,
 								"office"
 							]
 						},
@@ -4773,7 +5124,8 @@
 								true
 							]
 						}
-					]
+					],
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_postgametrophycup_response",
@@ -4860,13 +5212,13 @@
 						},
 						{
 							"condition": [
-								18,
+								20,
 								4
 							]
 						},
 						{
 							"condition": [
-								14,
+								15,
 								"office"
 							]
 						},
@@ -4877,7 +5229,8 @@
 							]
 						}
 					],
-					"chain": "lamb_concessionprize_response1"
+					"chain": "lamb_concessionprize_response1",
+					"questline": "lambsports"
 				},
 				{
 					"id": "lamb_concessionprize_response1",
@@ -5176,7 +5529,8 @@
 								true
 							]
 						}
-					]
+					],
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_encourage1",
@@ -5348,7 +5702,8 @@
 								"lamb_dateconv"
 							]
 						}
-					]
+					],
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_date_response",
@@ -5386,7 +5741,8 @@
 								"lamb_datebad_conv"
 							]
 						}
-					]
+					],
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_datebad_response",
@@ -5418,7 +5774,8 @@
 								"lamb_datebad_conv"
 							]
 						}
-					]
+					],
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_datehelp_response",
@@ -5514,7 +5871,8 @@
 							]
 						}
 					],
-					"chain": "lamb_givewine2"
+					"chain": "lamb_givewine2",
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_givewine",
@@ -5550,7 +5908,8 @@
 							]
 						}
 					],
-					"chain": "lamb_givewine2"
+					"chain": "lamb_givewine2",
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_givewine2",
@@ -5598,7 +5957,7 @@
 					"condition": [
 						{
 							"condition": [
-								16,
+								17,
 								5
 							]
 						}
@@ -5629,7 +5988,7 @@
 					"condition": [
 						{
 							"condition": [
-								16,
+								17,
 								6
 							]
 						}
@@ -5645,7 +6004,8 @@
 						{
 							"dialogue": "lamb_giveemptybottle"
 						}
-					]
+					],
+					"questline": "lambdate"
 				},
 				{
 					"id": "lamb_postdatewine",
@@ -5663,7 +6023,7 @@
 						},
 						{
 							"condition": [
-								16,
+								17,
 								6
 							]
 						},
@@ -5869,6 +6229,7 @@
 				"fox_ordercoffee",
 				"bookshelf_look",
 				"mole_beachwalk",
+				"podium_look",
 				"grocer_whattopurchase",
 				"lamb_whattodo",
 				"beach_look"
@@ -6092,15 +6453,6 @@
 					]
 				},
 				{
-					"id": "fox_basic",
-					"owner": "fox",
-					"options": [
-						{
-							"option": "fox_givebook"
-						}
-					]
-				},
-				{
 					"id": "fox_cafe",
 					"owner": "fox",
 					"options": [
@@ -6112,6 +6464,12 @@
 						},
 						{
 							"option": "fox_comefrom"
+						},
+						{
+							"option": "fox_givebook"
+						},
+						{
+							"option": "fox_bookfollowup"
 						}
 					],
 					"imports": [
@@ -6120,9 +6478,6 @@
 						},
 						{
 							"action": "fox_travel"
-						},
-						{
-							"action": "fox_basic"
 						}
 					]
 				},
@@ -6209,11 +6564,6 @@
 						{
 							"option": "fox_carisfixed_him"
 						}
-					],
-					"imports": [
-						{
-							"action": "fox_basic"
-						}
 					]
 				},
 				{
@@ -6237,6 +6587,15 @@
 						},
 						{
 							"option": "bookshelf_takeomni"
+						}
+					]
+				},
+				{
+					"id": "podium",
+					"owner": "podium",
+					"options": [
+						{
+							"option": "podium_look"
 						}
 					]
 				},
@@ -6291,6 +6650,27 @@
 					]
 				},
 				{
+					"id": "mole_reading",
+					"owner": "mole",
+					"options": [
+						{
+							"option": "mole_reading"
+						},
+						{
+							"option": "mole_readinginterested"
+						},
+						{
+							"option": "mole_borrowbook"
+						},
+						{
+							"option": "mole_readadventures"
+						},
+						{
+							"option": "mole_bigreader"
+						}
+					]
+				},
+				{
 					"id": "mole_preclass",
 					"owner": "mole",
 					"options": [
@@ -6305,15 +6685,6 @@
 						},
 						{
 							"option": "mole_howareyou"
-						},
-						{
-							"option": "mole_reading"
-						},
-						{
-							"option": "mole_readinginterested"
-						},
-						{
-							"option": "mole_borrowbook"
 						},
 						{
 							"option": "mole_writing2"
@@ -6342,21 +6713,15 @@
 							"option": "mole_howareyou"
 						},
 						{
-							"option": "mole_reading"
-						},
-						{
-							"option": "mole_readinginterested"
-						},
-						{
-							"option": "mole_borrowbook"
-						},
-						{
 							"option": "mole_writing2"
 						}
 					],
 					"imports": [
 						{
 							"action": "mole_standard"
+						},
+						{
+							"action": "mole_reading"
 						}
 					]
 				},
@@ -6618,8 +6983,9 @@
 				"garage_search_boxes",
 				"weasel_first",
 				"bus",
-				"fox_basic",
+				"fox_cafe",
 				"bookshelf_search",
+				"podium",
 				"mole_standard",
 				"grocer_start",
 				"lamb_start",
@@ -6676,6 +7042,12 @@
 									"condition": [
 										1,
 										4
+									]
+								},
+								{
+									"condition": [
+										4,
+										"fox_hasadventurebook"
 									]
 								}
 							],
@@ -6735,7 +7107,7 @@
 								{
 									"condition": [
 										3,
-										"fox_gave_adventurebook"
+										"fox_hasadventurebook"
 									]
 								}
 							],
@@ -7094,6 +7466,14 @@
 								}
 							],
 							"action": "mole_teaching"
+						},
+						{
+							"actor": "podium",
+							"x": 0.2,
+							"y": 0.5,
+							"scale": 0.25,
+							"flipX": false,
+							"action": "podium"
 						}
 					],
 					"id": "school"
@@ -7871,6 +8251,15 @@
 					]
 				},
 				{
+					"name": "ValueNotEqualToPeriod",
+					"args": [
+						{
+							"name": "name",
+							"typeStr": "1"
+						}
+					]
+				},
+				{
 					"name": "Value",
 					"args": [
 						{
@@ -7947,6 +8336,15 @@
 				},
 				{
 					"name": "Period",
+					"args": [
+						{
+							"name": "period",
+							"typeStr": "3"
+						}
+					]
+				},
+				{
+					"name": "PeriodNot",
 					"args": [
 						{
 							"name": "period",

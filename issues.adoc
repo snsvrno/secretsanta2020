@@ -28,9 +28,9 @@
 
 - [x] make ability to 'carry over' an item to the next cycle.
 - [ ] create a tutorial conversation that explains some things for the first run.
-- [ ] make all achievements possible.
+- [x] make all achievements possible.
 - [ ] make the cat's dialogue in the game.
-- [ ] add the message in the bottle quest.
+- [x] add the message in the bottle quest.
 - [ ] need to make the market grocer character.
 
 == Conversations

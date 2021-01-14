@@ -19,6 +19,7 @@ class Conditions {
 			case Value(name, value): return Game.variables.value(name) == value;
 			case ValueAtLeast(name, value): return Game.variables.value(name) >= value;
 			case ValueLessThan(name, value): return Game.variables.value(name) < value;
+			case ValueNotEqualToPeriod(name): return Game.variables.value(name) != Game.currentPeriod();
 
 			case Talked(character): return Game.variables.hasMet(character.id);
 			case NotTalked(character): return !Game.variables.hasMet(character.id);
@@ -27,6 +28,7 @@ class Conditions {
 			case NotLocation(location): return Game.currentScene() != location.name;
 
 			case Period(period): return Game.currentPeriod() == period;
+			case PeriodNot(period): return Game.currentPeriod() != period;
 			case PeriodGTE(period): return Game.currentPeriod() >= period;
 			case PeriodLTE(period): return Game.currentPeriod() <= period;
 

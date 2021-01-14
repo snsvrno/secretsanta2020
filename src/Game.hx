@@ -20,6 +20,7 @@ class Game extends hxd.App {
 	static public function tickClockForwardPeriods(periods : Int) instance.tickClockPeriods(periods); 
 	static public function currentScene() : String return instance.activeScene.sceneName;
 	static public function addSlot() instance.clock.increment(-1);
+	static public function nextPeriod() instance.onNextPeriod();
 
 	static public function foundItem(item : Data.ItemsKind) { 
 		game.Popup.item(item, true, instance.s2d);
@@ -283,7 +284,7 @@ class Game extends hxd.App {
 
 		if (!firstVisit && !visits.contains(activeScene.sceneName)) {
 			visits.push(activeScene.sceneName);
-		
+
 			clock.step();
 
 			// disables the rest of the locations on the map (visually) so
@@ -311,6 +312,11 @@ class Game extends hxd.App {
 		}
 
 	// 	updateAfterTick();
+	}
+
+	private function onNextPeriod() {
+		updateMapLighting();
+		while(visits.length > 0) visits.pop();
 	}
 
 	private function onCycleEnd() {
