@@ -4,6 +4,7 @@
 
 * adds basic start splash after main splash that allows the player to set their name
 * adds basic tutorial dialogue with the bus driver.
+* updates text special colors.
 
 == Content
 

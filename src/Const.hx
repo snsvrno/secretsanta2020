@@ -173,7 +173,7 @@ class Const {
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// GENERAL TEXT SETTINGS
-	inline static public var TEXT_ITALICS_SLANT : Float = 0.15;
+	inline static public var TEXT_ITALICS_SLANT : Float = 0.25;
 	inline static public var TEXT_ACTION_SLANT : Float = 0.0;
 	inline static public var TEXT_DANCING_INTENSITY : Float = 0.2;
 	inline static public var TEXT_DANCING_SPEED : Float = 0.55;
@@ -206,15 +206,15 @@ class Const {
 	inline static public var BUBBLE_BACKGROUND_ALPHA : Float = 1;
 
 	/** italics text color */
-	inline static public var BUBBLE_TEXT_COLOR_ITALICS : Int = 0xFFFFFFFF;
+	inline static public var BUBBLE_TEXT_COLOR_ITALICS : Int = 0xFF12ea8d;
 	/** bold text color */
-	inline static public var BUBBLE_TEXT_COLOR_BOLD : Int = 0xFFfcc035;
+	inline static public var BUBBLE_TEXT_COLOR_BOLD : Int = 0xFFea8d12;
 	/** normal text color */
 	inline static public var BUBBLE_TEXT_COLOR_REGULAR : Int = 0xFFDDDDDD;
 	/** action text color */
-	inline static public var BUBBLE_TEXT_COLOR_ACTION : Int = 0xFFea8d12;
+	inline static public var BUBBLE_TEXT_COLOR_ACTION : Int = 0xFFfc4179;
 	/** variable's text color */
-	inline static public var BUBBLE_TEXT_COLOR_VARIABLE : Int = 0xFF712ce8;
+	inline static public var BUBBLE_TEXT_COLOR_VARIABLE : Int = 0xFF8d12ea;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// TEXT & SPEECH CHOICE WHEELS
