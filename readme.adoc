@@ -26,24 +26,36 @@ This should build with any versions of Haxe 4+ and any later versions of the lib
 
 Hide is used for editing the content in the `res/data.cdb` file.
 
-==== Haxe
+.List of all Haxe dependencies, with versions and usage.
+[cols="<2,^1,<6"]
+|===
+<s|Name
+^s|Version
+<s|Description
 
-* Haxe (4.1.4)
+3+<s|Language
 
-==== Libraries
+|link:https://haxe.org/[Haxe]
+|4.1.4
+|
 
-* castle (1.6.1)
-* format (3.5.0)
-* heaps (1.8.0)
-* hldx (1.10.0)
-* hlopenal (1.5.0)
-* hlsdl (1.10.0)
+3+<s| Libraries
 
-==== Production Tools
+|castle|1.6.1| used for loading cdb files at runtime.
+|format|3.5.0| dependency.
+|link:https://heaps.io/[heaps]
+|1.8.0| main heaps engine.
+|hldx|1.10.0| for hashlink directx (win)
+|hlopenal|1.5.0| for hashlink audio
+|hlsdl|1.10.0| for hashlink sdl (win, mac and nix)
 
-* deepnight Libs (1.0.56)
-* redistHelper (0.4.7)
-* hide (git)
+3+<s| Production Tools
+
+|deepnight Libs|1.0.56| dependency for `redistHelper`
+|hide|git|visual editor for `data.cdb`
+|redistHelper|0.4.7|used for building redistributable packages
+
+|===
 
 == Project Structure
 
