@@ -669,10 +669,10 @@
 					"id": "bus",
 					"type": 1,
 					"name": "Bussman",
-					"image": "props/car.png",
+					"image": "props/bus.png",
 					"dialoguepoint": {
-						"y": 80,
-						"x": 128
+						"y": 200,
+						"x": 150
 					}
 				},
 				{
@@ -729,10 +729,10 @@
 					"id": "podium",
 					"type": 1,
 					"name": "Podium",
-					"image": "props/boxes.png",
+					"image": "props/podium.png",
 					"dialoguepoint": {
-						"x": 250,
-						"y": 250
+						"x": 210,
+						"y": 75
 					}
 				}
 			],
@@ -2460,6 +2460,20 @@
 								0,
 								"fox_carisfixed",
 								true
+							]
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								0,
+								"mechanic_fixes_transmission"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"mechanic_fixes_tire"
 							]
 						}
 					]
@@ -7273,9 +7287,9 @@
 						},
 						{
 							"actor": "boxes",
-							"x": 0.1,
-							"y": 0.63,
-							"scale": 0.25,
+							"x": 0.14,
+							"y": 0.6,
+							"scale": 0.4,
 							"action": "garage_search_boxes",
 							"flipX": false
 						},
@@ -7317,19 +7331,19 @@
 					"location": "beach",
 					"actors": [
 						{
-							"actor": "umbrella",
-							"x": 0.55,
-							"y": 0.4,
-							"scale": 0.75,
-							"flipX": false
-						},
-						{
 							"actor": "water",
 							"x": 0.175,
 							"y": 0.1475,
 							"scale": 0.5,
 							"flipX": false,
 							"action": "beach"
+						},
+						{
+							"actor": "umbrella",
+							"x": 0.46,
+							"y": 0.33,
+							"scale": 0.5,
+							"flipX": false
 						},
 						{
 							"actor": "fish",
@@ -7364,7 +7378,7 @@
 						{
 							"actor": "mole",
 							"x": 0.2,
-							"y": 0.5,
+							"y": 0.6,
 							"scale": 0.5,
 							"flipX": true,
 							"condition": [
@@ -7392,7 +7406,7 @@
 						{
 							"actor": "fox",
 							"x": 0.2,
-							"y": 0.5,
+							"y": 0.56,
 							"scale": 1,
 							"flipX": true,
 							"condition": [
@@ -7413,7 +7427,7 @@
 						{
 							"actor": "fox",
 							"x": 0.2,
-							"y": 0.5,
+							"y": 0.56,
 							"scale": 1,
 							"flipX": true,
 							"condition": [
@@ -7440,7 +7454,7 @@
 						{
 							"actor": "lamb",
 							"x": 0.4,
-							"y": 0.5,
+							"y": 0.56,
 							"scale": 0.75,
 							"flipX": false,
 							"action": "lamb_beach",
@@ -7483,9 +7497,9 @@
 						},
 						{
 							"actor": "lamb",
-							"x": 0.5,
-							"y": 0.5,
-							"scale": 0.5,
+							"x": 0.66,
+							"y": 0.4,
+							"scale": 0.75,
 							"flipX": false,
 							"condition": [
 								{
@@ -7498,6 +7512,12 @@
 									"condition": [
 										0,
 										5
+									]
+								},
+								{
+									"condition": [
+										4,
+										"lamb_dateyes"
 									]
 								}
 							],
@@ -7513,8 +7533,8 @@
 							"actor": "bus",
 							"x": 0.75,
 							"y": 0.5,
-							"scale": 1,
-							"flipX": true,
+							"scale": 0.75,
+							"flipX": false,
 							"action": "bus"
 						},
 						{
@@ -7524,34 +7544,6 @@
 							"scale": 0.75,
 							"flipX": false,
 							"action": "weasel_first"
-						},
-						{
-							"actor": "fox",
-							"x": 0.7,
-							"y": 0.6,
-							"scale": 1,
-							"condition": [
-								{
-									"condition": [
-										1,
-										5
-									]
-								},
-								{
-									"condition": [
-										5,
-										[
-											4,
-											"mechanic_fixes_transmission"
-										],
-										[
-											4,
-											"mechanic_fixes_tire"
-										]
-									]
-								}
-							],
-							"flipX": false
 						}
 					],
 					"id": "towncenter"
@@ -7661,10 +7653,10 @@
 						},
 						{
 							"actor": "lamb",
-							"x": 0.5,
-							"y": 0.5,
-							"scale": 0.5,
-							"flipX": false,
+							"x": 0.55,
+							"y": 0.56,
+							"scale": 0.75,
+							"flipX": true,
 							"action": "lamb_cafe",
 							"condition": [
 								{
@@ -7689,7 +7681,7 @@
 					"actors": [
 						{
 							"actor": "mole",
-							"x": 0.2,
+							"x": 0.35,
 							"y": 0.5,
 							"scale": 0.5,
 							"flipX": false,
@@ -7717,9 +7709,9 @@
 						},
 						{
 							"actor": "podium",
-							"x": 0.2,
-							"y": 0.5,
-							"scale": 0.25,
+							"x": 0.36,
+							"y": 0.69,
+							"scale": 0.5,
 							"flipX": false,
 							"action": "podium"
 						}
@@ -7731,9 +7723,9 @@
 					"actors": [
 						{
 							"actor": "lamb",
-							"x": 0.5,
-							"y": 0.5,
-							"scale": 0.5,
+							"x": 0.23,
+							"y": 0.58,
+							"scale": 0.75,
 							"flipX": true,
 							"action": "lamb_park",
 							"condition": [
@@ -7766,7 +7758,7 @@
 						{
 							"actor": "bookshelf",
 							"x": 0.29,
-							"y": 0.5,
+							"y": 0.65,
 							"scale": 1,
 							"flipX": false,
 							"action": "bookshelf_search"

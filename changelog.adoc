@@ -12,6 +12,7 @@
 * added achievement "Fix a Flat", "a Short Hike", and "There and Back Again".
 * updated descriptions for items.
 * updated choice display for actions to be uniform.
+* adds bus and podium graphics, adjusted placement of others.
 
 == Backend Stuff
 
@@ -26,6 +27,7 @@
 * fixes issue where not all location visits are using up "slots" in a "period" (more than 2 visits per time point).
 * fixes "ghost" character icons on locations.
 * fixes text formatting display issues, which caused the formatting symbols to not be removed and be displayed in the text.
+* rudamental underlines for links on the splash so its a little more obvious whats going on.
 
 = 1.1.0
 

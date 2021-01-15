@@ -9,6 +9,8 @@ class Snsvrno extends game.ui.Element {
 
 	private var main : game.ui.Text;
 	private var shadow : game.ui.Text;
+	
+	private var underline : h2d.Graphics;
 
 	public var onOver : Null<() -> Void>;
 	public var onOut : Null<() -> Void>;
@@ -24,6 +26,7 @@ class Snsvrno extends game.ui.Element {
 
 		shadow = new game.ui.Text("snsvrno", Const.TEXT_FONT_SNSVRNO, this);
 		main = new game.ui.Text("snsvrno", Const.TEXT_FONT_SNSVRNO, this);
+		underline = new h2d.Graphics(this);
 
 		animator = new sn.Timer(Const.SPLASH_SNSVRNO_SWITCHTIME, true);
 
@@ -36,8 +39,18 @@ class Snsvrno extends game.ui.Element {
 
 		var interactive = new h2d.Interactive(main.getWidth(), main.getHeight(), main);
 		interactive.y = - main.getHeight() / 2;
-		interactive.onOver = (e: hxd.Event) -> if (onOver != null) onOver();
-		interactive.onOut = (e: hxd.Event) -> if (onOut != null) onOut();
+		interactive.onOver = function (e: hxd.Event) { 
+			if (onOver != null) onOver();
+			animator.stop();
+			underline.lineStyle(4, snsvrnoColors[colorIndex]);
+			underline.moveTo(0,main.getHeight()/2);
+			underline.lineTo(main.getWidth(),main.getHeight()/2);
+		} 
+		interactive.onOut = function (e: hxd.Event) {
+			if (onOut != null) onOut();
+			animator.start();
+			underline.clear();
+		} 
 		interactive.onClick = (e: hxd.Event) -> hxd.System.openURL(Const.SPLASH_SNSVRNO_WEBSITE);
 	}
 

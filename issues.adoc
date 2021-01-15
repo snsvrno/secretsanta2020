@@ -1,4 +1,6 @@
-= List of Things to do Before Release
+= For Current Release Target.
+
+== General
 
 - [ ] make the player able to change their name.
 - [x] player needs to be able to set their name, combine with the tutorial?
@@ -27,18 +29,19 @@
 == Content
 
 - [x] make ability to 'carry over' an item to the next cycle.
-- [ ] create a tutorial conversation that explains some things for the first run.
 - [x] make all achievements possible.
-- [ ] make the cat's dialogue in the game.
 - [x] add the message in the bottle quest.
-- [ ] draw the market grocer character / (make him fish).
-- [ ] draw a podium
-- [ ] draw a bus
+- [x] draw a podium
+- [X] draw a bus
+- [ ] create a tutorial conversation that explains some things for the first run.
+- [ ] fox needs to have some dialogue for if you see them in the mechanic shop and the car is still broken.
 
 == Conversations
 
-- [ ] color or group conversation choices by topic, so you know what is connected to what idea / quest.
-- [ ] fix the italics font, doesn't look plesant
+- [x] fix the italics font, doesn't look plesant
+
+	changed the font to the same one that i'm using for the action, just with a different color. looks better.
+
 - [x] fix the dancing text, it seems to "run away"
 
 	the issue was that i was adding and subtracting the sin-wave from the location, but since it isn't doing the same points every time (it is determine the angles based on dt) it would not be starting the loop at the same position. i couldn't just reset the position because i was moving it round independent of the dancing (an issue) so instead i updated the loop that on the first timer update it logs the location (whcih should be the original starting position) and it resets it whenever it ends the timer and resets the animation. works but looks funky.
@@ -54,7 +57,6 @@
 
 == Map
 
-- [ ] update how the character icons are displayed, make them stand out more.
 - [x] update how the character icon determined, so that we don't get duplicates.
 
 	updated how the `seen` but works, it still does the same thing, if you see someone at a location it logs it, but now it will actually check against where the character actually is before displaying it on the map, this way it will accurately show someone on the map if they are in that location, and will not show duplicate people (based on divergent paths that could occur when you do different actions with those people).
@@ -66,7 +68,7 @@
 
 - [x] finalize the main title font.
 - [x] reduce the "a game by" font size.
-- [ ] a UI screen / tab that tracks where everyone is, shows possible locations for people, if you've encountered them.
+
 
 == Menu (Game)
 
@@ -76,3 +78,27 @@
 == Javascript
 
 - [x] data saving & loading
+
+= For Next Target Release.
+
+== Content
+
+- [ ] make the cat's dialogue in the game.
+- [ ] make props for the park
+- [ ] make props for the cafe
+- [ ] make props for the office
+- [ ] make alternate lamb without clipboard
+- [ ] make alternate fox without apron
+- [ ] draw the market grocer character / (make him fish).
+
+== Conversations
+
+- [ ] color or group conversation choices by topic, so you know what is connected to what idea / quest.
+
+== Map
+
+- [ ] update how the character icons are displayed, make them stand out more.
+
+== Menu
+
+- [ ] a UI screen / tab that tracks where everyone is, shows possible locations for people, if you've encountered them.

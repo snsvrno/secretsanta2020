@@ -165,15 +165,21 @@ class Splash extends h2d.Object {
 			text.setColor(Const.SPLASH_TEXT_COLOR);
 			text.setHeight(Const.SPLASH_TOOL_FONT_MAXHEIGHT);
 
+
 			var interactive = new h2d.Interactive(text.getWidth() / text.scaleX, text.getHeight() / text.scaleY);
+			var underline = new h2d.Graphics(interactive);
 			interactive.x = - text.getWidth() / text.scaleX / 2;
 			interactive.onOver = function(e : hxd.Event) {
 				fadeTimer.stop();
 				text.alpha = Const.SPLASH_OVER_LINK_ALPHA;
+				underline.lineStyle(4, Const.SPLASH_TEXT_COLOR);
+				underline.moveTo(0,interactive.height);
+				underline.lineTo(interactive.width, interactive.height);
 			}
 			interactive.onOut = function(e : hxd.Event) {
 				fadeTimer.start();
 				text.alpha = 1;
+				underline.clear();
 			}
 			interactive.onClick = (e: hxd.Event) -> hxd.System.openURL(fonts[i].l);
 			text.addChild(interactive);
