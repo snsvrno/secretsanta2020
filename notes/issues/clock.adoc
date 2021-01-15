@@ -1,0 +1,19 @@
+= Clock
+
+== Open
+
+* [ ] fix hitbox
+
+	i made a better way to remove the wheel with the sun / clock item. refactor the scene's version of that (the fake interactive) with this way instead.
+
+* [ ] make it more obvious that you need to click the clock at the end of the period.
+
+	its not apparently clear when you can't go to any other locations that you must press the clock in order to progress
+
+* [ ] remove the interactives on the clock, replace with permanent buttons
+
+	make it always display what time of day it is on top of the clock, and make a more obvious button that tells the player that they can go to the next period.
+
+== Closed
+
+* [x] fix the display of "check the time", it is too narrow and tall.

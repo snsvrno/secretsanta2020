@@ -1,1 +1,58 @@
 = a Unexpected Sojourn
+
+A visual novel exploration game about making friends and helping them out.
+
+== Background
+
+This was originally created for Secret Santa Jam 2020; but I worked on it more in order to make it a better experience. There is no true `jam version` because I didn't finish it by the deadline, but `1.0.0` is the closest to that. The latest version has had more effort to hopefully create a more polished and completed game.
+
+=== Concept
+
+The original concept was developed in discussion with my giftee. They enjoyed RPGs because of the 'immersive story' and Human Fall Flat because of the puzzles. I thought about how I could put these together. RPG quests could be like puzzles if designed correctly, so I went for a game of only RPG quests and dialogue.
+
+At the time I also rediscovered the GROW games, and wanted to tie that into it as well (the idea of time dependence, and upgrading items). The final game has some of these ideas; such as limited time during the day, and trading items for other items (though this is very limited. didn't have the scope to completely flesh this out).
+
+== Building
+
+Everything required to build this game should be included. This was made with `Haxe` and `Heaps.io` so you should use `haxe ***.hxml` to build whatever target you want. `haxe hxml\hl.dx.hxml` will build the windows `Hashlink` target.
+
+=== Prerequesites
+
+In order to get everything required you can run `haxelib install ***.hxml` for whatever target you want to build, everything will automatically be downloaded. 
+
+I used a local library ("./haxelib") for production, and recommend doing so to keep these versions different from global haxelib versions. To do so run `haxelib newrepo` before running `install`
+
+This should build with any versions of Haxe 4+ and any later versions of the libraries, but the exact versions are included below to reproduce the original build environment if there are any issues.
+
+Hide is used for editing the content in the `res/data.cdb` file.
+
+==== Haxe
+
+* Haxe (4.1.4)
+
+==== Libraries
+
+* castle (1.6.1)
+* format (3.5.0)
+* heaps (1.8.0)
+* hldx (1.10.0)
+* hlopenal (1.5.0)
+* hlsdl (1.10.0)
+
+==== Production Tools
+
+* deepnight Libs (1.0.56)
+* redistHelper (0.4.7)
+* hide (git)
+
+== Project Structure
+
+All associated files for this project are included in this repo.
+
+* link:changelog[Changelog] - list of changes per every version
+* link:hxml[Hxml] - the various hxml files for various targets
+* link:notes/design[Notes/design] - thoughs and diagrams for planning
+* link:notes/issues[Notes/issues] - issues, design ideas to implement organized by area
+* link:res[Res] - game assets
+* link:res.js[Res.js] - additional assets that are specific for javascript / html5
+* link:src[Src] - game source

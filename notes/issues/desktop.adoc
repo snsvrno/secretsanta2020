@@ -1,0 +1,9 @@
+= Desktop
+
+specific to desktop platforms.
+
+== Open
+
+* [ ] create functionality for *quit* button.
+
+== Completed

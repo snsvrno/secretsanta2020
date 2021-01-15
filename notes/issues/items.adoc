@@ -1,0 +1,15 @@
+= Items
+
+== Open
+
+* [ ] the coffee skill doesn't work as expected.
+
+	drinking coffee can make you go back in time.
+
+* [ ] update the *cycleend* screen to include descriptions of the items
+
+	to help remind the player what all this stuff really is, maybe how you got it?
+
+== Completed
+
+* [x] make ability to 'carry over' an item to the next cycle.

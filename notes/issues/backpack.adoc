@@ -1,0 +1,16 @@
+= Backpack
+
+issues related to the backpack mechanic.
+
+== Open
+
+* [ ] animate the backpack to appear smoother
+* [ ] the hitbox on the mouseout make the backpack appear jittery.
+
+	the first time you open the backpack you accidently close it because you move the mouse outside of the area, this feels bad.
+
+== Completed
+
+* [x] fix the background drawing for the backpack icon, it "forgets" to draw the background sometimes.
+* [x] select final background color
+* [x] change the font for the title / description to fit better.
