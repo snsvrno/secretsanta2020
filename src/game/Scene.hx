@@ -119,17 +119,12 @@ class Scene extends h2d.Object {
 		for (a in actors) { 
 			if (a.id == action.ownerId) {
 
-				// makes an interactive for cancelling
-				var interactive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, this);
-				looseItems.push(interactive);
-
 				// creates the dialogue wheel and links it so that when the player chooses
 				// something it will start the dialogue conversation.
 				var choices = new game.dialogue.Wheel(action, a.dialogueX, a.dialogueY, this);
 				looseItems.push(choices);
 				choices.onSelect = function(choice : Data.DialogueKind) {
 					choices.destroy();
-					interactive.remove();
 
 					// gets the dialogue
 					var d = Data.dialogue.get(choice);
@@ -138,26 +133,19 @@ class Scene extends h2d.Object {
 					displayDialogue(d);
 				};
 
-				var onclick = function(?e : hxd.Event) {
-					if (e == null || e.button == 1) {
-						choices.destroy();
-
-						for (a in actors) { 
-							a.inBackground(false);
-							a.enableInteractions();
-						}
-
-						interactive.remove();
+				choices.onLeave = function() {
+					for (a in actors) { 
+						a.inBackground(false);
+						a.enableInteractions();
 					}
 				};
 
-				// sets the action to cancel the dialogue
-				interactive.enableRightButton = true;
-				interactive.onClick = onclick;
-
 				// now we check if we actually have choices here, if we don't then we just
 				// cancel the creation of this week and go back to the real world.
-				if (choices.length == 0) onclick();
+				if (choices.length == 0) {
+					choices.onLeave();
+					choices.destroy();
+				}
 
 			} else {
 				a.inBackground(true);

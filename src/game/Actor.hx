@@ -74,6 +74,15 @@ class Actor extends h2d.Object {
 		dialoguex = definition.actor.dialoguepoint.x;
 		dialoguey = definition.actor.dialoguepoint.y;
 
+		#if debug
+		var dialoguepoint = new h2d.Graphics(this);
+		dialoguepoint.x = dialogueX;
+		dialoguepoint.y = dialogueY;
+		dialoguepoint.beginFill(0xFF00FF, 0.75);
+		dialoguepoint.drawCircle(0,0, 10);
+		dialoguepoint.endFill();
+		#end
+
 		// creating an interactive that will be used for inital interaction.
 		interactives = new h2d.Object(image);
 		if (action != null) makeInteractives(definition.actor);
@@ -101,6 +110,7 @@ class Actor extends h2d.Object {
 		// size as the image.
 		if (actor.interactives == null) {
 			var inter = new h2d.Interactive(image.tile.width, image.tile.height, image);
+			inter.cursor = hxd.Cursor.Button;
 			interactives.addChild(inter);
 
 			inter.onOver = mouseover;
@@ -128,6 +138,7 @@ class Actor extends h2d.Object {
 				var inter = new h2d.Interactive(i.box.w, i.box.h, image);
 				inter.x = i.box.x;
 				inter.y = i.box.y;
+				inter.cursor = hxd.Cursor.Button;
 				interactives.addChild(inter);
 	
 				inter.onOver = mouseover;

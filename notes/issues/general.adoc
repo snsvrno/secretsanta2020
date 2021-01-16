@@ -10,7 +10,6 @@ issues that cannot be categorized.
 
 	interactives automatically change the cursor to the finger, need to review all instances and change it to the normal curser (because i use interactives as a way to disable other interactives ...) so that the cursor actually expresses whats going on.
 
-
 * [ ] put the text on an different layer that doesn't scale, so if the game resolution is 1080p, i want to the text to be renderd in 1080p, not in the game native resolution and then scaled up to 1080p
 
 * [ ] a UI screen / tab that tracks where everyone is, shows possible locations for people, if you've encountered them.

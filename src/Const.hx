@@ -206,6 +206,8 @@ class Const {
 	/** Color of the speech bubble. */
 	inline static public var BUBBLE_BACKGROUND_ALPHA : Float = 1;
 
+	inline static public var BUBBLE_NEXT_TIMER : Float = 1.;
+
 	/** italics text color */
 	inline static public var BUBBLE_TEXT_COLOR_ITALICS : Int = 0xFF12ea8d;
 	/** bold text color */
@@ -227,11 +229,12 @@ class Const {
 	/** The radius of the choice circle onOut interactive object. */
 	inline static public var CHOICE_RADIUS_OUT : Int = 60;
 	/** Padding between choice items. */	
-	inline static public var CHOICE_PADDING : Int = 10;
-	inline static public var CHOICE_STACK_PADDING : Int = 2;
+	inline static public var CHOICE_PADDING : Int = 20;
+
+	inline static public var WHEEL_FADE_PADDING : Int = 50;
 
 	/** The wordwrap width for speech bubbles. */
-	inline static public var CHOICE_MAX_WIDTH : Float = 150.;
+	inline static public var CHOICE_MAX_WIDTH : Float = 175.;
 	/** The radius of the rounded corners for speech bubbles. */
 	inline static public var CHOICE_CORNER_RADIUS : Int = 4;
 	/** Padding around the text in a speech bubble. */

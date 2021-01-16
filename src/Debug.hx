@@ -73,6 +73,7 @@ class Debug {
 	static public function mouseCoordinatesOverlay(s2d : h2d.Scene) {
 
 		var interactive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, s2d);
+		interactive.cursor = hxd.Cursor.Default;
 		interactive.propagateEvents = true;
 
 		var font = hxd.res.DefaultFont.get();

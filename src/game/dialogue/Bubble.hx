@@ -11,6 +11,11 @@ class Bubble extends h2d.Object {
 	private var lines : Array<Text>;
 	private var pos : Int = 0;
 
+	private var terminates : Bool = true;
+
+	private var moreText : h2d.Text;
+	private var moreTextTimer : sn.Timer;
+
 	public var height(get, null) : Float;
 	private function get_height() : Float return lines[pos].height + 2 * Const.BUBBLE_TEXT_PADDING;
 
@@ -48,6 +53,36 @@ class Bubble extends h2d.Object {
 	public function new(?dialogue : Data.Dialogue, ?parent : h2d.Object) {
 		super(parent);
 
+		// symbol to let the player know there is more dialouge coming.
+		moreText = new h2d.Text(Const.ICON_FONT);
+		moreText.text = String.fromCharCode(0xf0da);
+		moreText.setScale(0.50);
+
+		#if debug
+		var outline = new h2d.Graphics(moreText);
+		outline.lineStyle(1, 0xF0FF0F);
+		outline.drawRect(0,0,moreText.textWidth, moreText.textHeight);
+		#end
+
+		moreTextTimer = new sn.Timer(Const.BUBBLE_NEXT_TIMER, true);
+		moreTextTimer.infinite = true;
+		moreTextTimer.updateCallback = function () {
+			if (moreTextTimer.timerPercent > 0.5) moreText.alpha = (moreTextTimer.timerPercent - 0.5) / 0.5;
+			else moreText.alpha = 1 - moreTextTimer.timerPercent / 0.5;
+		}
+
+		// lets us know if we will be continuing after his dialogue.
+		if (dialogue.chain != null) terminates = false;
+		if (dialogue.branch != null) {
+			for (b in dialogue.branch) {
+				if (b.condition != null && Conditions.check(b.condition)) {
+					if (b.dialogue != null) terminates = false;
+				} else if (b.condition == null) { 
+					if (b.dialogue != null) terminates = false;
+				}
+			}
+		}
+
 		background = new h2d.Graphics(this);
 
 		if (dialogue != null) setText(dialogue.text, Const.BUBBLE_MAX_WIDTH);
@@ -56,9 +91,30 @@ class Bubble extends h2d.Object {
 	private function setText(text : String, ?maxWidth : Float) {
 
 		lines = Text.parse(text, maxWidth);
+		update(0);
+	}
+
+	private function update(pos : Int) {
+		
+		if (terminates == false || pos < lines.length - 1) {
+	
+			// adds symbol noting if this the end of the conversation, of if there
+			// is more dialogue coming.
+			if (moreText.parent != this) addChild(moreText);
+			moreText.x = lines[pos].endX;
+			moreText.y = lines[pos].endY - moreText.font.lineHeight/2 * moreText.scaleY;
+
+			// if we are going to add the symbol, we need to make space for it.
+			lines[pos].push("  ");
+
+		} else {
+
+			removeChild(moreText);
+
+		}
 
 		// adds the text line so it displays.
-		addChild(lines[0]);
+		addChild(lines[pos]);
 
 		// adjusts the background
 		setBackground();
@@ -80,10 +136,8 @@ class Bubble extends h2d.Object {
 			// increments to the next line and adds it as a child
 			// so it can be displayed.
 			pos++;
-			addChild(lines[pos]);
 
-			// adjusts the background
-			setBackground();
+			update(pos);
 
 			return true;
 		}

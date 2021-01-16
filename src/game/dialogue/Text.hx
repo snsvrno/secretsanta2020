@@ -47,6 +47,9 @@ class Text extends h2d.Object {
 	public var width(default, null) : Float = 0;
 	public var height(default, null) : Float = 0;
 
+	public var endX(default, null) : Float = 0;
+	public var endY(default, null) : Float = 0;
+
 	public var maxWidth : Null<Float>;
 
 	//////////////////////////////////////////////////////////////////////////
@@ -210,6 +213,9 @@ class Text extends h2d.Object {
 		// set the value
 		if (wrapWidth != null) maxWidth = wrapWidth;
 
+		// removes children if we are wrapping for a second time.
+		removeChildren();
+
 		// used for splitting
 		var workingtext = new h2d.Text(Const.TEXT_FONT_NORMAL);
 		workingtext.maxWidth = maxWidth;
@@ -219,7 +225,6 @@ class Text extends h2d.Object {
 		// style those areas that get line braked.
 
 		splitText = game.utils.Quoted.throughLineBreaks(splitText);
-
 
 		// makes it
 		var y = 0.;
@@ -251,6 +256,12 @@ class Text extends h2d.Object {
 				lineWidth += pt.textWidth;
 
 				if (lineHeight < pt.textHeight) lineHeight = pt.textHeight;
+			
+				#if debug
+				var outline = new h2d.Graphics(pt);
+				outline.lineStyle(1, 0xF0FF0F);
+				outline.drawRect(0,0,pt.textWidth, pt.textHeight);
+				#end
 			}
 
 			y += lineHeight;
@@ -266,110 +277,10 @@ class Text extends h2d.Object {
 			to.y -= height/2;
 			to.x -= width/2;
 		}
-	}
 
-	/**
-	 * Will rebuild the items in the text with respect to fontsize
-	 * and defined maxwidth.
-	 */
-	private function rebuildZ() {
-
-		// don't do anything if we don't have anything in here.
-		if (textObjects.length == 0) return;
-
-		// the working x and y positions, where to place the text.
-		var x : Float = 0;
-		var y : Float = 0;
-
-		// positions everyone.
-		var i = 0;
-		while(i < textObjects.length) {
-
-			var triggerBreak = false;
-			if (maxWidth != null && 
-				x + calculateTextWidth(textObjects[i]) > maxWidth) {
-				
-				triggerBreak = true;
-
-				// determines how many characters are allowed, since this isn't a monospaced font we need to
-				// check each character.
-				var characters = textObjects[i].text.length;
-				while (calculateTextWidth(textObjects[i], textObjects[i].text.substr(0,characters)) > maxWidth) {
-					characters -= 1;
-				}
-
-				// removes the current item from the heirarchy.
-				var parent = textObjects[i].parent;
-				textObjects[i].remove();
-				// make some new items.
-				var items = splitText(textObjects[i], characters, false);
-				// remove the item.
-				textObjects.remove(textObjects[i]);
-				// takes the new items and places them in the location of the older item.
-				while(items.length > 0) { 
-					var item = items.pop();
-
-					// check to remove the leading space, only on all lines that aren't the first one.
-					if (items.length > 0) while(item.text.length > 0 && item.text.substr(0,1) == " ") item.text = item.text.substr(1);
-
-					parent.addChild(item);
-					textObjects.insert(i, item);
-				}
-			}
-
-			// we look at the angle because if we rotate the object then the postiion and width will change.
-			textObjects[i].x = x + textObjects[i].textHeight * Math.sin(textObjects[i].rotation);
-			textObjects[i].y = y + textObjects[i].textHeight * 1 / 4 * Math.sin(textObjects[i].rotation);
-
-			// sets the working width.
-			x += calculateTextWidth(textObjects[i]);
-			
-			// checks if we need a new line, set inside the area that breaks the text appart.
-			if (triggerBreak) {
-
-				// updates with width, checks if this is the maximum width and then sets it.
-				if (x > width) width = x;
-
-				x = 0;
-				y += textObjects[i].textHeight;
-			}
-
-			i += 1;
-		}
-
-		// sets the overall text properties.
-		height = textObjects[0].textHeight + y;
-		// if we never set the width before then it will use the overall width.
-		if (width == 0) width = x;
-
-		// centers everything, not the best maybe??
-		for (t in textObjects) {
-			t.x -= width / 2;
-			t.y -= height / 2;
-		}
-		
-		#if debug
-		if (Debug.TEXTBOX_SHOW_BOUNDARIES) { 
-			// a bounding box for debug to see what area is acceptable for the text.
-			var bbox = new h2d.Graphics(this);
-			bbox.lineStyle(1,0x0000FF,1.0);
-			bbox.beginFill(0,0.);
-			bbox.drawRect(0-width/2, -height/2, width, height);
-			bbox.endFill();
-		}
-
-		if (Debug.TEXT_SHOW_BOUNDARIES) {
-			// makes a box for every text object.
-			for (t in textObjects) {
-				var tt = new h2d.Graphics(t);
-				tt.lineStyle(1,0x0000FF,1.0);
-				tt.beginFill(0,0.);
-				tt.drawRect(0, 0, t.textWidth, t.textHeight);
-				tt.endFill();
-			}
-		}
-
-		#end
+		var lastObject = textObjects[textObjects.length-1];
+		endX = lastObject.x + lastObject.textWidth;
+		endY = lastObject.y + lastObject.textHeight/2;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -395,7 +306,22 @@ class Text extends h2d.Object {
 		for (to in textObjects) {
 			to.remove();
 			addChild(to);
+			#if debug
+			var outline = new h2d.Graphics(to);
+			outline.lineStyle(1, 0xF0FF0F);
+			outline.drawRect(0,0,to.textWidth, to.textHeight);
+			#end
 		}
+
+	}
+
+	/**
+	 *  add to the end of the text object
+	 * @param test 
+	 */
+	public function push(test : String) {
+		rawInputString += test;
+		wrap();
 	}
 
 	override function onRemove() {

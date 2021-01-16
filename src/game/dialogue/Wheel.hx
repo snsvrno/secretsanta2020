@@ -10,10 +10,30 @@ class Wheel extends h2d.Object {
 	public var length(get, null) : Int;
 	private function get_length() : Int return choices.length;
 
+	public var width(get, null) : Float;
+	private function get_width() : Float {
+		width = 0.;
+		for (c in choices) {
+			if (width < c.width) width = c.width;
+		}
+		return width;
+	}
+
+	public var height(get, null) : Float;
+	private function get_height() : Float {
+		height = 0;
+		for (i in 0 ...choices.length) {
+			height += choices[i].height;
+			if (i < choices.length - 1) height += Const.CHOICE_PADDING;
+		}
+		return height;
+	}
+
 	private var choices : Array<Choice> = [];
 	private var background : h2d.Graphics;
 	private var radius : Int = Const.CHOICE_RADIUS;
 
+	public var onLeave : Null<() -> Void>;
 	public var onSelect : Null<(choice : Data.DialogueKind) -> Void>;
 
 	public function new(?action : Data.DialogueActions, x : Float, y : Float, parent : h2d.Object) {
@@ -25,9 +45,51 @@ class Wheel extends h2d.Object {
 		if (action != null) makeChoices(action);
 
 		// draws the wheel & arranges the choices around the wheel.
-		//arrangeChoices();
 		arrangeChoicesStack();
-		// makeBaseWheel();
+
+		var outInteractive = new h2d.Interactive(width + 2 * Const.WHEEL_FADE_PADDING, height + 2 * Const.WHEEL_FADE_PADDING, this);
+		outInteractive.propagateEvents = true;
+		outInteractive.x = -outInteractive.width / 2;
+		outInteractive.y = -outInteractive.height / 2;
+		outInteractive.onMove = function (e : hxd.Event) {
+			// this calculates if the mouse is in the fade zone, and then fades the
+			// choices the correct amount. chose to do this so that it tells the player
+			// that as they move away from the wheel, it will destroy the wheel.
+
+			var cx = outInteractive.width / 2;
+			var cy = outInteractive.height / 2;
+			var a = 1.0;
+
+			if (e.relX < cx) {
+				if (e.relX < Const.WHEEL_FADE_PADDING) a = e.relX / Const.WHEEL_FADE_PADDING;
+			} else {
+				var dx = outInteractive.width - Const.WHEEL_FADE_PADDING;
+				if (dx < e.relX) a = 1 - (e.relX - dx) / Const.WHEEL_FADE_PADDING;
+			}
+
+			if (e.relY < cy) {
+				if (e.relY < Const.WHEEL_FADE_PADDING) a = e.relY / Const.WHEEL_FADE_PADDING;
+			} else {
+				var dy = outInteractive.height - Const.WHEEL_FADE_PADDING;
+				if (dy < e.relY) a = 1 - (e.relY - dy) / Const.WHEEL_FADE_PADDING;
+			}
+			
+			alpha = a;
+		}
+		outInteractive.onOut = function(e:hxd.Event) {
+			if(onLeave != null) onLeave();
+			destroy();
+		}
+		
+		#if debug
+		var outline = new h2d.Graphics(outInteractive);
+		outline.lineStyle(1, 0x00FFFF);
+		outline.drawRect(0,0,outInteractive.width,outInteractive.height);
+		outline.lineStyle(1, 0x0000FF);
+		outline.drawRect(Const.WHEEL_FADE_PADDING,Const.WHEEL_FADE_PADDING,
+			outInteractive.width - 2 * Const.WHEEL_FADE_PADDING,
+			outInteractive.height - 2 * Const.WHEEL_FADE_PADDING);
+		#end
 
 		this.x = x;
 		this.y = y;
@@ -103,49 +165,14 @@ class Wheel extends h2d.Object {
 	}
 
 	private function arrangeChoicesStack() {
-		var y = 0.;
-		var height = 0.;
+
+		var y = -height/2;
 		for (i in 0 ... choices.length) {
-			y += Const.CHOICE_PADDING + choices[i].height/2;
-			choices[i].setX(0);
+			y += choices[i].height/2;
 			choices[i].setY(y);
-
-			y += Const.CHOICE_PADDING + choices[i].height/2;
-			height += Const.CHOICE_PADDING * 2 + choices[i].height;
+			choices[i].setX(0);
+			y += choices[i].height/2 + Const.CHOICE_PADDING;
 		}
-
-		for (c in choices) c.setY(c.y - height/2);
-
-	}
-
-	/**
-	 * Arranges the set choices in the wheel.
-	 */
-	private function arrangeChoices() {
-		// if we only have one choice we will put him in the center.
-		if (choices.length == 1) {
-
-			choices[0].setX(0);
-			choices[0].setY(0);
-
-		// if we have more then we arrange it around the circle.
-		} else {
-			
-			for (c in choices) {
-				var r = Math.max(c.width, c.height) / 2 + Const.CHOICE_PADDING;
-				if (r > radius) radius = Math.ceil(r);
-			}
-
-			for (i in 0 ... choices.length) {
-				var pos = choicePosition(Math.PI * 2 / choices.length * i, radius);
-
-				choices[i].setX(pos.x);
-				choices[i].setY(pos.y);
-			}
-
-
-		}
-
 	}
 
 	private function makeChoices(action : Data.DialogueActions) {
