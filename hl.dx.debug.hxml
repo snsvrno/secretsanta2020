@@ -1,2 +1,7 @@
+# hl.dx.debug.hxml
+#
+# development build for windows; with debugging enabled.
+
 hxml/hl.dx.hxml
+
 -debug
