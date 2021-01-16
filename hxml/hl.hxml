@@ -1,3 +1,12 @@
+# hl.hxml
+#
+# haslink target
+
 hxml/base.hxml
--D windowSize=512x512
+
 -hl bin/hl/game.hl
+
+# options ==============
+# the inital window size
+-D windowSize=512x512
+

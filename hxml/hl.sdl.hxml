@@ -1,2 +1,6 @@
+# hl.sdl.hxml
+#
+# sdl hashlink (win, nix, osx)
+
 hxml/hl.hxml
 -lib hlsdl

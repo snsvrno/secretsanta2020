@@ -1,2 +1,4 @@
-= Next Release (onboarding / tutorial / guide release)
+= 1.3.0
+
+Update focusing on UX and player experience. Goal is to make the main loop more obvious as project the intent to the player better.
 

@@ -1,5 +1,14 @@
+# base.hxml
+#
+# base build file, does includes everything that is shared.
+
 -cp src
+-main Main
+
+# optimization ====
+# dead code elimination : full; meaning effects STD and all
+# project
+-dce full
+
 -lib castle
 -lib heaps
--main Main
--dce full

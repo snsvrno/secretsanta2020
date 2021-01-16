@@ -1,0 +1,5 @@
+= Hxml
+
+Build files for the the various targets of the game.
+
+* all hxml files should be named with `<target>.<options>.hxml` and should use the parent file; so for example `js.debug.hxml` uses the `js.hxml` as a base and then adds whatever the debug parameters are.

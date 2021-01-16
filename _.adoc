@@ -1,0 +1,10 @@
+= an Unexpected Sojourn
+:title: an unexpected sojourn
+:date: 2020-12-05
+:id: 3
+:sn: 2
+:type: game; jamgame
+
+entry for the link:https://itch.io/jam/secret-santa[secret santa game jam]. finished well after the due date, but made a more complete experience. good complete game cycle with iteration, bug fixing, and some play testing.
+
+link:https://itch.io/snsvrno/sojourn[itch.io link]

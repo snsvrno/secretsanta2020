@@ -1,2 +1,7 @@
+# hl.hxml
+#
+# html5 / javascript webtarget
+
 hxml/base.hxml
+
 -js bin/js/client.js

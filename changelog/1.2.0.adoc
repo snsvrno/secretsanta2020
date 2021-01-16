@@ -1,5 +1,7 @@
 = 1.2.0
 
+Update focuses more on general experience of the game and removing bugs. Not very much focus on the UX or content.
+
 == General
 
 * adds basic start splash after main splash that allows the player to set their name

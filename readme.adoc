@@ -27,7 +27,7 @@ This should build with any versions of Haxe 4+ and any later versions of the lib
 Hide is used for editing the content in the `res/data.cdb` file.
 
 .List of all Haxe dependencies, with versions and usage.
-[cols="<2,^1,<6"]
+[cols="<,^,<"]
 |===
 <s|Name
 ^s|Version

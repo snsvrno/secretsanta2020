@@ -1,2 +1,7 @@
+# hl.hxml
+#
+# debug version of the javascript build
+
 hxml/js.hxml
+
 -debug
