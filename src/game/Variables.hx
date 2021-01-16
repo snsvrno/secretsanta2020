@@ -359,7 +359,7 @@ class Variables {
 					if (locActor.actorId == s.actor) {
 						var isThere = true;
 	
-						for (condition in locActor.condition)
+						if (locActor.condition != null) for (condition in locActor.condition)
 							if (!checkSeenScene(condition.condition, period)) isThere = false;
 			
 						if (isThere) array.push(s.actor);

@@ -62,6 +62,16 @@ class MainMenu extends h2d.Object {
 			if(onStartClick != null) onStartClick();
 		}
 
+		var name = new game.ui.Button('${Game.variables.playerName}');
+		name.normalColor = Const.BUBBLE_TEXT_COLOR_VARIABLE;
+		name.setContainerHook(buttonStack);
+		name.description = "Change the player name.";
+		name.descriptionObject = description;
+		name.onClick = function() {
+			var truestart = new game.ui.screens.Truestart(this, false);
+			truestart.onRemoveChain = () -> name.setText('${Game.variables.playerName}');
+		}
+
 		var gamemenu = new game.ui.Button("Game Menu");
 		gamemenu.setContainerHook(buttonStack);
 		gamemenu.description = "Menu";
@@ -84,6 +94,7 @@ class MainMenu extends h2d.Object {
 		buttonStack.setAlignment(Left, Middle);
 		buttonStack.setChildrenAlignment(Left, Bottom);
 		buttonStack.push(start);
+		buttonStack.push(name);
 		buttonStack.push(clear);
 		buttonStack.push(gamemenu);
 

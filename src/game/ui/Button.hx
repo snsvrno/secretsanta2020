@@ -5,6 +5,9 @@ class Button extends Text {
 	private var container : Null<VStack>;
 	private var interactive : h2d.Interactive;
 
+	public var normalScale : Float = Const.MENU_BUTTON_SIZE_NORMAL;
+	public var overScale : Float = Const.MENU_BUTTON_SIZE_OVER;
+
 	public var normalColor(default, set) : Int = Const.MENU_BUTTON_COLOR;
 	private function set_normalColor(color : Int) : Int {
 		setColor(color);
@@ -25,7 +28,7 @@ class Button extends Text {
 
 		super(text, font, parent);
 
-		setScale(Const.MENU_BUTTON_SIZE_NORMAL);
+		setScale(normalScale);
 		setColor(normalColor);
 
 		this.addChild(interactive);
@@ -43,11 +46,11 @@ class Button extends Text {
 
 		timer = new sn.Timer(Const.MENU_BUTTON_OVEROUT_TIMER, true);
 		timer.updateCallback = function() {
-			setScale(Const.MENU_BUTTON_SIZE_NORMAL + (Const.MENU_BUTTON_SIZE_OVER - Const.MENU_BUTTON_SIZE_NORMAL) * timer.timerPercent);
+			setScale(normalScale + (overScale - normalScale) * timer.timerPercent);
 			if (container != null) container.alignChildren();
 		}
 		timer.finalCallback = function() {
-			setScale(Const.MENU_BUTTON_SIZE_OVER);
+			setScale(overScale);
 			if (container != null) container.alignChildren();
 		}
 		timer.stop();

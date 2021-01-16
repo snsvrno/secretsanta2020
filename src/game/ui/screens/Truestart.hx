@@ -7,8 +7,9 @@ package game.ui.screens;
 class Truestart extends h2d.Object {
 
 	private var  textEditEvent : (e : hxd.Event) -> Void;
+	public var onRemoveChain : Null<() -> Void>;
 
-	public function new(?parent : h2d.Object) {
+	public function new(?parent : h2d.Object, ?firstTime : Bool = true) {
 		super(parent);
 
 		var background = new h2d.Graphics(this);
@@ -22,21 +23,19 @@ class Truestart extends h2d.Object {
 
 		////////////////////////////////////////////////////////
 		// the name text entry stuff
-		var textEntryShadow = new game.ui.Text("<click to change name>", null, this);
+		var textEntryShadow = new game.ui.Text("Player", null, this);
+		if (firstTime == false) textEntryShadow.setText('${Game.variables.playerName}');
 		textEntryShadow.setColor(0x333333);
 		var toline = new game.ui.HStack(this);
 		textEntryShadow.x = toline.x = 25;
 		textEntryShadow.y = toline.y = 25;
-		var textEntry = new game.ui.Text(textEntryShadow.text);
+		var textEntry = new game.ui.Button(textEntryShadow.text);
+		textEntry.overScale = textEntry.normalScale;
+		var edit = new game.ui.Text(String.fromCharCode(0xf044), Const.ICON_FONT);
+		edit.setColor(textEntry.normalColor);
+		edit.setScale(0.33);
 		var comma = new game.ui.Text(",");
-		toline.pushAll([textEntry, comma]);
-
-		var editText = new h2d.Interactive(0,0, textEntry);
-
-		var updateEditText = function() {
-			editText.width = textEntry.getWidth();
-			editText.height = textEntry.getHeight();
-		};
+		toline.pushAll([textEntry, edit, comma]);
 
 		textEditEvent = function(e : hxd.Event) {
 			if (e.kind == EKeyDown) { 
@@ -46,28 +45,33 @@ class Truestart extends h2d.Object {
 						textEntry.setText(textEntry.text.substr(0,textEntry.text.length-1));
 
 					case hxd.Key.ENTER:
+
+						// set the text
 						var window = hxd.Window.getInstance();
 						window.removeEventTarget(textEditEvent);
 						textEntry.setText(textEntry.text.substr(0,1) + textEntry.text.substr(1).toLowerCase());
 						textEntryShadow.setText(textEntry.text);
 						toline.alignChildren();
 
+						edit.alpha = 1;
+						comma.alpha = 1;
+
 					case letter:
 						if (letter >= 65 && letter <= 90)
 							textEntry.setText(textEntry.text + String.fromCharCode(letter));
 				}
-				updateEditText();
 			}
 		};
 
-		editText.onClick = function(e : hxd.Event) {
+		textEntry.onClick = function() {
 			textEntry.setText("");
+			comma.alpha = 0;
+			edit.alpha = 0;
 
 			var window = hxd.Window.getInstance();
 			window.addEventTarget(textEditEvent);
 		};
 
-		updateEditText();
 		////////////////////////////////////////////////////////
 		
 		
@@ -86,13 +90,15 @@ class Truestart extends h2d.Object {
 			Game.variables.playerName = textEntry.text;
 			Game.variables.save();
 			remove();
-			Game.restartCycle();
+			if (firstTime) Game.restartCycle();
 		};
 
 	}
 
 	override function onRemove() {
 		super.onRemove();
+
+		if (onRemoveChain != null) onRemoveChain();
 
 		var window = hxd.Window.getInstance();
 		window.removeEventTarget(textEditEvent);

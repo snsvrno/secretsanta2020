@@ -4,8 +4,6 @@ issues that cannot be categorized.
 
 == Open
 
-* [ ] make the player able to change their name.
-
 * [ ] need a cycle summary page that tells you what you've accomplished at the end of each cycle. gives some "outro text" on certain questlines that you accomplish.
 
 * [ ] change cursor icon to normal so people don't think its a button.
@@ -19,6 +17,7 @@ issues that cannot be categorized.
 
 == Completed
 
+* [x] make the player able to change their name.
 * [x] player needs to be able to set their name, combine with the tutorial?
 * [x] pick a background color
 * [x] the dialogue has weird width correction, looks bad.

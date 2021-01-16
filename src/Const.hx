@@ -77,6 +77,7 @@ class Const {
 	static public var MENU_TITLE_FONT : h2d.Font;
 	static public var MENU_FONT : h2d.Font;
 	static public var MENU_FONT_SMALL : h2d.Font;
+	static public var ICON_FONT : h2d.Font;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// PROGRESS VARIABLES
@@ -324,5 +325,7 @@ class Const {
 
 		ACHIEVEMENTS_DESCRIPTION_FONT = hxd.Res.fonts.edi16.toFont();
 		ACHIEVEMENTS_TITLE_FONT = hxd.Res.fonts.wolf24.toFont();
+
+		ICON_FONT = hxd.Res.fonts.fa_24.toFont();
 	}
 }
