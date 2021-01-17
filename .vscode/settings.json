@@ -10,5 +10,6 @@
 		"bin": true,
 		"res*": true,
 		"*.sav": true,
+		"rel": true,
 	}
 }

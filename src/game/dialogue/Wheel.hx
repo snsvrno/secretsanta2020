@@ -29,6 +29,8 @@ class Wheel extends h2d.Object {
 		return height;
 	}
 
+	private var outInteractive : h2d.Interactive;
+
 	private var choices : Array<Choice> = [];
 	private var background : h2d.Graphics;
 	private var radius : Int = Const.CHOICE_RADIUS;
@@ -47,7 +49,8 @@ class Wheel extends h2d.Object {
 		// draws the wheel & arranges the choices around the wheel.
 		arrangeChoicesStack();
 
-		var outInteractive = new h2d.Interactive(width + 2 * Const.WHEEL_FADE_PADDING, height + 2 * Const.WHEEL_FADE_PADDING, this);
+		outInteractive = new h2d.Interactive(width + 2 * Const.WHEEL_FADE_PADDING, height + 2 * Const.WHEEL_FADE_PADDING, this);
+		outInteractive.name = "Out Interactive";
 		outInteractive.propagateEvents = true;
 		outInteractive.x = -outInteractive.width / 2;
 		outInteractive.y = -outInteractive.height / 2;
@@ -93,22 +96,6 @@ class Wheel extends h2d.Object {
 
 		this.x = x;
 		this.y = y;
-	}
-
-	static public function raw(x : Float, y : Float, parent : h2d.Object, ?onDestroy : () -> Void) : Wheel {
-		var wheel = new Wheel(null, x, y, parent);
-
-		// this always needs to be at the top of the stack for this to work correctly, so we need to
-		// add the choices under this.
-
-		var interactive = new h2d.Interactive(0,0,wheel, new h2d.col.Circle(0, 0, Const.CHOICE_RADIUS_OUT));
-		interactive.propagateEvents = true;
-		interactive.onOut = function(e : hxd.Event) {
-			onDestroy();
-			wheel.destroy();
-		}
-
-		return wheel;
 	}
 
 	/**

@@ -305,6 +305,14 @@ class Const {
 	/** bouncing strength */
 	inline static public var CLOCK_IDLE_STRENGTH : Float = 2.;
 
+	inline static public var CLOCK_TEXT_COLOR_MORNING : Int = 0xFFea8d12;
+	inline static public var CLOCK_TEXT_COLOR_AFTERNOON : Int = 0xFFea8d12;
+	inline static public var CLOCK_TEXT_COLOR_EVENING : Int = 0xFFea8d12;
+	inline static public var CLOCK_OUTLINE_COLOR : Int = 0xFF000000;
+	inline static public var CLOCK_OUTLINE_SIZE : Float = 1.0;
+	inline static public var CLOCK_ATTENTION_INTENSITY : Float = 0.25;
+	inline static public var CLOCK_ATTENTION_LENGTH : Float = 1;
+
 	static public function initalize() {
 
 		// loads the fonts.

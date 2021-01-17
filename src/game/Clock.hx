@@ -1,5 +1,8 @@
 package game;
 
+import h2d.filter.Shader;
+import h2d.filter.Outline;
+
 private typedef Time = { period : Int, slot : Int };
 
 class Clock extends h2d.Object {
@@ -10,6 +13,10 @@ class Clock extends h2d.Object {
 	private var sprite : h2d.Anim;
 	private var shader : shader.Highlight;
 	private var interactive : h2d.Interactive;
+	private var timetext : h2d.Text;
+	private var lefttext : h2d.Text;
+	private var blinkShader : shader.Highlight;
+	private var blinkShadow : h2d.filter.DropShadow;
 	
 	//////////////////////////////////////////////////////////////////////////
 	// public members
@@ -38,12 +45,37 @@ class Clock extends h2d.Object {
 
 		initalize();
 
+		timetext = new h2d.Text(Const.TEXT_FONT_ACTION, this);
+		timetext.color = h3d.Vector.fromColor(Const.CLOCK_TEXT_COLOR_MORNING);
+		timetext.text = "Early\nAfternoon";
+		timetext.filter = new h2d.filter.Outline(Const.CLOCK_OUTLINE_SIZE, Const.CLOCK_OUTLINE_COLOR);
+		timetext.x = - timetext.textWidth / 3 * 2;
+
+		lefttext = new h2d.Text(Const.MENU_FONT_SMALL, this);
+		lefttext.setScale(0.75);
+		lefttext.color = h3d.Vector.fromColor(Const.BUBBLE_TEXT_COLOR_REGULAR);
+		lefttext.text = '${3 - getTime().slot} Locations Left';
+		lefttext.filter = new h2d.filter.Outline(Const.CLOCK_OUTLINE_SIZE, Const.CLOCK_OUTLINE_COLOR);
+		lefttext.x = timetext.x;
+		lefttext.y = timetext.y + timetext.textHeight;
+
 		// moves the object to where it should always be on the screen.
 		x = Const.CLOCK_SCREEN_PADDING + width / 2;
-		var oy = y = Const.CLOCK_SCREEN_PADDING + height / 2;
+		y = Const.CLOCK_SCREEN_PADDING + height / 2;
+		var oy = sprite.y;
 
 		// creates the over shader
 		shader = new shader.Highlight(0.25);
+		blinkShader = new shader.Highlight(0.25);
+		blinkShadow = new h2d.filter.DropShadow(0, 0, Const.CLOCK_TEXT_COLOR_MORNING, 1, 50, 1, 1, true);
+
+		// intesity blink shader
+		var blinktimer = new sn.Timer(Const.CLOCK_ATTENTION_LENGTH, true);
+		blinktimer.infinite = true;
+		blinktimer.updateCallback = function() {
+			var p = Math.cos(blinktimer.timerPercent * 2 * Math.PI);
+			blinkShader.intensity = p * Const.CLOCK_ATTENTION_INTENSITY;
+		}
 
 		// creates the interactive so we get some feedback from the clock and know what its
 		// there for.
@@ -60,7 +92,7 @@ class Clock extends h2d.Object {
 			var idleTimer = new sn.Timer(Const.CLOCK_IDLE_PERIOD, true);
 			idleTimer.infinite = true;
 			idleTimer.updateCallback = function() {
-				y = oy + Const.CLOCK_IDLE_STRENGTH * Math.cos(2 * Math.PI * idleTimer.timerPercent);
+				sprite.y = oy + Const.CLOCK_IDLE_STRENGTH * Math.cos(2 * Math.PI * idleTimer.timerPercent);
 			}
 		}
 
@@ -115,23 +147,20 @@ class Clock extends h2d.Object {
 	}
 
 	private function onClick(e : hxd.Event) {
-		var periodName = getPeriodName();
-		var left = 3 - getTime().slot;
-		var locations = if (left == 1) "location"; else "locations";
 
-		// gets the correct response text for what time is it.
-		var text = if (donePeriod) {
-			'It\'s ~$periodName~,\\nI can\'t visit any more $locations.';
-		} else {
-			'It\'s ~$periodName~,\\nI still have time to visit *$left* more $locations.';
-		}
-
-		var choices = game.dialogue.Wheel.raw(0, 0, this, addInteractive);
-		choices.addDialogueChoice("/Check the time/", text, addInteractive);
-		choices.addDialogueAction("/Rest/", choiceRest);
+		var choices = new game.dialogue.Wheel(null, 0, 0, this);
+		choices.addDialogueAction("/Wait/", choiceRest);
+		choices.onLeave = function() {	
+			timetext.alpha = 1;
+			lefttext.alpha = 1;
+			addInteractive();
+		};
 		
 		// removes the interactive so we don't have to
 		removeChild(interactive);
+		// hides the text
+		timetext.alpha = 0;
+		lefttext.alpha = 0;
 		// makes sure we don't have the highlight shader still on us.
 		onOut();
 	}
@@ -142,6 +171,8 @@ class Clock extends h2d.Object {
 
 	private function choiceRest() {
 		addInteractive();
+		timetext.alpha = 1;
+		lefttext.alpha = 1;
 		nextPeriod();
 	}
 
@@ -162,13 +193,25 @@ class Clock extends h2d.Object {
 
 	private function getPeriodName() : String {
 		switch(getTime().period) {
-			case 1: return "Early Morning";
-			case 2: return "Late Morning";
-			case 3: return "Early Afternoon";
-			case 4: return "Late Afternoon";
-			case 5: return "Early Evening";
-			case 6: return "Late Evening";
+			case 1: return "Early\nMorning";
+			case 2: return "Late\nMorning";
+			case 3: return "Early\nAfternoon";
+			case 4: return "Late\nAfternoon";
+			case 5: return "Early\nEvening";
+			case 6: return "Late\nEvening";
 			case _: return "NO IDEA!";
+		}
+	}
+
+	private function getPeriodColor() : h3d.Vector {
+		switch(getTime().period) {
+			case 1: return h3d.Vector.fromColor(Const.CLOCK_TEXT_COLOR_MORNING);
+			case 2: return h3d.Vector.fromColor(Const.CLOCK_TEXT_COLOR_MORNING);
+			case 3: return h3d.Vector.fromColor(Const.CLOCK_TEXT_COLOR_AFTERNOON);
+			case 4: return h3d.Vector.fromColor(Const.CLOCK_TEXT_COLOR_AFTERNOON);
+			case 5: return h3d.Vector.fromColor(Const.CLOCK_TEXT_COLOR_EVENING);
+			case 6: return h3d.Vector.fromColor(Const.CLOCK_TEXT_COLOR_EVENING);
+			case _: return h3d.Vector.fromColor(0xFF000000);
 		}
 	}
 
@@ -188,6 +231,30 @@ class Clock extends h2d.Object {
 	public function step() {
 		if (slot < Const.CLOCK_SLOTS) increment();
 		else if (!donePeriod) donePeriod = true;
+		
+		onStep();
+	}
+
+	private function onStep() {
+		// updates the name
+		timetext.text = getPeriodName();
+		timetext.color = getPeriodColor();
+		
+		var left = 3 - getTime().slot;
+		if (donePeriod) lefttext.text = 'No Locations Left';
+		else if (left == 1) lefttext.text = '$left Location Left';
+		else lefttext.text = '$left Locations Left';
+
+		// sets the blink shader so we know to focus on the clock
+		if (donePeriod) {
+			while(sprite.removeShader(blinkShader)) { /*a loop to ensure we remove all of them */ };
+			sprite.addShader(blinkShader);
+			sprite.filter = blinkShadow;
+		} else {	
+			// if we are not done then remove this shader.
+			while(sprite.removeShader(blinkShader)) { };
+			sprite.filter = null;
+		}
 	}
 
 	/**
@@ -205,7 +272,10 @@ class Clock extends h2d.Object {
 	public function nextPeriod() {
 		donePeriod = false;
 		var currentPeriod = period;
+	
 		while(period == currentPeriod) increment();
+		onStep();
+
 		Game.nextPeriod();
 	}
 
@@ -213,5 +283,6 @@ class Clock extends h2d.Object {
 		sprite.currentFrame += direction;
 
 		if (sprite.currentFrame == 0) completeRevolution = true;
+
 	}
 }
