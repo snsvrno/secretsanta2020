@@ -93,11 +93,12 @@ class Backpack extends Pulltab {
 			iteminteractive.onClick = (e : hxd.Event) -> for (c in choices) itemIcon.addChild(c);
 			iteminteractive.propagateEvents = true;
 
-			#if debug
+			/*#if debug
+			// boundary around the interactive.
 			var interactivebounds = new h2d.Graphics(iteminteractive);
 			interactivebounds.lineStyle(2, 0xFF0000);
 			interactivebounds.drawRect(0, 0, iteminteractive.width, iteminteractive.height);
-			#end
+			#end*/
 
 			contentStack.push(itemIcon);
 			contentStack.setChildrenAlignment(Middle);

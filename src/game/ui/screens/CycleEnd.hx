@@ -1,8 +1,6 @@
 package game.ui.screens;
 
-import shader.Darken;
-import h2d.filter.Shader;
-import haxe.display.Display.Package;
+import h2d.filter.Group;
 
 class CycleEnd extends h2d.Object {
 
@@ -83,26 +81,50 @@ class CycleEnd extends h2d.Object {
 				var item = new game.ui.Icon(t);
 				item.setAlignment(Center, Middle);
 
+				var itemText = new game.ui.Text(i.displayname, null, item);
+				itemText.setAlignment(Center, Top);
+				// this shouldn't work but it does ... there is something
+				// wrong with the Elements..
+				itemText.x = item.getWidth() / item.scaleX / 2;
+				itemText.y = item.getHeight() / item.scaleY / 2;
+				itemText.alpha = 0;
+
+				var outline = new h2d.filter.Outline(2,0xFFFFFFFF);
 				var disabledShader = new shader.screen.Darken();
 				disabledShader.intensity = INTENSITY;
 				var disabledFilter = new h2d.filter.Shader(disabledShader);
-				item.filter = disabledFilter;
+				var filters = new h2d.filter.Group();
+				filters.add(disabledFilter);
+				item.filter = filters;
 
 				var interactive = new h2d.Interactive(t.width, t.height, item);
 				// interactive.x = -t.width/2;
 				interactive.y = -t.height/2;
-				interactive.onOver = (_) -> disabledShader.intensity = OVERINTENSITY;
+				interactive.onOver = function(_) {
+					disabledShader.intensity = OVERINTENSITY;
+					itemText.alpha = 1;
+				}
 				// some funky madness so that i can undo the select for multiple items.
+				// basically i setup the "on out" function so it cleans up the icon, and
+				// then make a map i can access from outer icons if needed.
 				var onout = function(?e : hxd.Event) {
-					if (selectedItems.contains(i.name)) disabledShader.intensity = SELECTEDINTENSITY;
-					else disabledShader.intensity = INTENSITY;
+					if (selectedItems.contains(i.name)) { 
+						disabledShader.intensity = SELECTEDINTENSITY;
+					} else {
+						disabledShader.intensity = INTENSITY;
+						filters.remove(outline);
+					}
+					itemText.alpha = 0;
 				};
 				interactive.onOut = onout;
 				itemsOnOut.set(i.name, onout);
 
 				interactive.onClick = function(_) {
-					if (selectedItems.contains(i.name)) selectedItems.remove(i.name)
-					else {
+					if (selectedItems.contains(i.name)) { 
+						selectedItems.remove(i.name);
+						filters.remove(outline);
+					} else {
+						filters.add(outline);
 						selectedItems.push(i.name);
 						while (selectedItems.length > maxSelectedItems) {
 							var removed = selectedItems.shift();
@@ -112,11 +134,11 @@ class CycleEnd extends h2d.Object {
 					}
 				}
 
-				#if debug
+				/*#if debug
 				var g = new h2d.Graphics(interactive);
 				g.lineStyle(2, 0xFF0000);
 				g.drawRect(0,0, interactive.width, interactive.height);
-				#end
+				#end*/
 
 				itemStack.push(item);
 			}

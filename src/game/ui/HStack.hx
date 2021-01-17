@@ -13,9 +13,17 @@ class HStack extends game.ui.Element {
 	private var stack : h2d.Object;
 	private var elements : Array<game.ui.Element> = [];
 
+	#if debug
+	private var outline : h2d.Graphics;
+	#end
+
 	public function new (?parent : h2d.Object) {
 		super(parent);
 		stack = new h2d.Object(this);
+
+		#if debug
+		outline = new h2d.Graphics(this);
+		#end
 	}
 
 	public function push(object : game.ui.Element, ?index : Int) {
@@ -99,6 +107,14 @@ class HStack extends game.ui.Element {
 
 			cx += elements[i].getWidth() + padding;
 		}
+
+		#if debug
+		if (Debug.UI_BOXES_HSTACK) {
+			outline.clear();
+			outline.lineStyle(1, 0xFF00FF);
+			outline.drawRect(stack.x, stack.y, getWidth(), getHeight());
+		}
+		#end
 	}
 
 }

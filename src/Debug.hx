@@ -9,13 +9,11 @@ class Debug {
 	// MOST OF THESE NEED TO BE ON DURING BUILD TO DO ANYHTING, THEY ARE TRIGGERED DURING
 	// INITALIZATION OF ITEMS AND NOT DURING THE UPDATE LOOP.
 
-	/** shows a boundary around bubble.text individual text objects. */
 	inline static public var TEXT_SHOW_BOUNDARIES : Bool = false;
-	/** shows a boundary around bubble.text objects. */
 	inline static public var TEXTBOX_SHOW_BOUNDARIES : Bool = false;
-
 	inline static public var UI_BOXES_ICONS : Bool = false;
 	inline static public var UI_BOXES_TEXT : Bool = false;
+	inline static public var UI_BOXES_HSTACK : Bool = false;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 
@@ -194,7 +192,23 @@ class Debug {
 
 				background.drawCircle(icon.x, icon.y, 3);
 			}
-		}			
+		}
+		
+		////////////////////////
+		// HSTACKS
+		var stack = new game.ui.HStack(test);
+		stack.x = Const.WORLD_WIDTH/2;
+		stack.y = Const.WORLD_HEIGHT/2;
+		stack.setAlignment(Center, Middle);
+
+		for (i in 0 ... 3) {
+			var icon = new game.ui.Icon(tile);
+			icon.setAlignment(Center, Middle);
+			stack.push(icon);
+		}
+
+		stack.setChildrenAlignment(Middle);
+		
 
 		return test;
 	}

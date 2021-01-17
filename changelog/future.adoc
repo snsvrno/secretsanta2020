@@ -19,3 +19,8 @@ Update focusing on UX and player experience. Goal is to make the main loop more 
 	i wanted it to be obvious how to leave a conversation and when it is happening, so if you physcially move the move the mouse away it will fade the conversation until you leave.
 
 * adds symbol that shows there is more conversation next in the dialogue.
+
+== Items
+
+* adds outline to selected items on the `cycle end` screen to make it more apparent that you selected an item.
+* adds the title of the over item on the `cycle end` screen.

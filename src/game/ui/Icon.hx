@@ -6,7 +6,7 @@ class Icon extends game.ui.Element {
 	override public function getWidth() : Float return image.tile.width * scaleX;
 
 	private var horizontal : game.ui.alignment.Horizontal = Left;
-	private var vertical : game.ui.alignment.Vertical = Top;
+	private var vertical : game.ui.alignment.Vertical = Top; 
 
 	private var image : h2d.Bitmap;
 
