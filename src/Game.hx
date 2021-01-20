@@ -19,8 +19,19 @@ class Game extends hxd.App {
 	static public function tickClockForward(slots : Int) instance.tickClock(slots); 
 	static public function tickClockForwardPeriods(periods : Int) instance.tickClockPeriods(periods); 
 	static public function currentScene() : String return instance.activeScene.sceneName;
-	static public function addSlot() instance.clock.increment(-1);
 	static public function nextPeriod() instance.onNextPeriod();
+
+	static public function addSlot() {
+		if (instance.clock.donePeriod) {
+			instance.clock.stepBack();
+			updateMapLighting();
+		} else {
+			// if the period hasn't been declared finished, then we
+			// just bank it.
+			instance.clock.addSlot(1);
+		}
+		popup("You feel invigorated");
+	}
 
 	static public function foundItem(item : Data.ItemsKind) { 
 		game.Popup.item(item, true, instance.s2d);

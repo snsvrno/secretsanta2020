@@ -2,12 +2,12 @@
 
 == Open
 
-* [ ] make it obvious that you can use items.
-* [ ] the coffee skill doesn't work as expected.
-
-	drinking coffee can make you go back in time.
-
 == Completed
 
 * [x] make ability to 'carry over' an item to the next cycle.
 * [x] update the *cycleend* screen to include descriptions of the items
+* [x] make it obvious that you can use items.
+
+	makes them appear on the mouse over, so you can see it.
+
+* [x] the coffee skill doesn't work as expected.

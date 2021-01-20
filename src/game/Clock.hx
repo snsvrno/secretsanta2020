@@ -17,6 +17,11 @@ class Clock extends h2d.Object {
 	private var lefttext : h2d.Text;
 	private var blinkShader : shader.Highlight;
 	private var blinkShadow : h2d.filter.DropShadow;
+	/** 
+	 * a saved slot so that when you travel back to the screen 
+	 * and try and increment, it will not (as long as this is above 0)
+	 */
+	private var bankedSlots : Int = 0;
 	
 	//////////////////////////////////////////////////////////////////////////
 	// public members
@@ -229,9 +234,22 @@ class Clock extends h2d.Object {
 	 * do anything.
 	 */
 	public function step() {
+
+		// if we gave a banked slot then we don't step at this point
+		if (bankedSlots > 0) {
+			bankedSlots--;
+			return;
+		}
+
 		if (slot < Const.CLOCK_SLOTS) increment();
 		else if (!donePeriod) donePeriod = true;
 		
+		onStep();
+	}
+
+	public function stepBack() {
+		if (donePeriod) donePeriod = false;
+		else increment(-1);
 		onStep();
 	}
 
@@ -266,6 +284,8 @@ class Clock extends h2d.Object {
 		completeRevolution = false;
 	}
 
+	public function addSlot(count : Int) bankedSlots += count;
+
 	/**
 	 * Moves the clock to the next period regardless of the slots that are left.
 	 */
@@ -279,7 +299,7 @@ class Clock extends h2d.Object {
 		Game.nextPeriod();
 	}
 
-	public function increment(?direction : Int = 1) { 
+	public function increment(?direction : Int = 1) {
 		sprite.currentFrame += direction;
 
 		if (sprite.currentFrame == 0) completeRevolution = true;

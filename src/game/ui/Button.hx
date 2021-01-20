@@ -18,6 +18,13 @@ class Button extends Text {
 	public var description : String = "";
 	public var descriptionObject : Null<Text> = null;
 	public var onClick : Null<() -> Void>;
+	public var onOver : Null<() -> Void>;
+	public var onOut : Null<() -> Void>;
+
+	public var propogateEvents(default, set) : Bool;
+	private function set_propogateEvents(state : Bool) : Bool {
+		return interactive.propagateEvents = state;
+	}
 	
 	public function new (text : String, ?font : h2d.Font, ?parent : h2d.Object) {
 		
@@ -34,13 +41,13 @@ class Button extends Text {
 		this.addChild(interactive);
 		interactive.width = textObject.textWidth;
 		interactive.height = textObject.textHeight;
-		interactive.onOver = onOver;
-		interactive.onOut = onOut;
+		interactive.onOver = defaultOnOver;
+		interactive.onOut = defaultOnOut;
 		interactive.onClick = function(e:hxd.Event){
 			if (onClick != null) { 
 				onClick();
 				// to reset the button to normal state.
-				onOut();
+				defaultOnOut();
 			}
 		}
 
@@ -60,16 +67,18 @@ class Button extends Text {
 		container = parent;
 	}
 
-	private function onOver(?e : hxd.Event) {
+	private function defaultOnOver(?e : hxd.Event) {
 		if (descriptionObject != null) descriptionObject.setText(description);
 		timer.reset();
 		setColor(overColor);
+		if (onOver != null) onOver();
 	}
 
-	private function onOut(?e : hxd.Event) {
+	private function defaultOnOut(?e : hxd.Event) {
 		if (descriptionObject != null) descriptionObject.setText("");
 		timer.reverse();
 		setColor(normalColor);
+		if (onOut != null) onOut();
 	}
 
 	override public function setAlignment(?horizontal : game.ui.alignment.Horizontal, ?vertical : game.ui.alignment.Vertical) {

@@ -52,55 +52,61 @@ class Backpack extends Pulltab {
 			itemIcon.setAlignment(Center, Middle);
 
 			// makes the items if listed.
-			var choices : Array<game.dialogue.Choice> = [];
-			if (data.actions != null) for (a in data.actions) {
+			var choices : Array<game.ui.Button> = [];
+			var additionalInteractiveHeight = 0.;
+			if (data.actions != null) {
+				var hoffset = 0.;
+				for (a in data.actions) {
+					var choice = new game.ui.Button(a.text);
+					// so we don't flicker and fight between the interactives
+					// of the item and this text.
+					choice.propogateEvents = true;
+					choice.setAlignment(Center, Middle);
+					choice.x = itemIcon.getWidth();
+					choice.y = itemIcon.getHeight() + hoffset;
+					hoffset += choice.getHeight();
 
-				var choice = game.dialogue.Choice.fromString(a.text);
-				choice.passThroughEvents();
-				choices.push(choice);
+					choice.onOver = () -> description.text = a.description;
+					choice.onOut = () -> description.text = data.description;
+					choice.onClick = function() {
+						for (action in a.action) {
+							switch(action.action) {
+								case ExtraAction:
+									Game.addSlot();
 
-				choice.onClick = function() {
-					for (action in a.action) {
-						switch(action.action) {
-							case ExtraAction:
-								Game.addSlot();
-
-							case Transform(newItem):
-								addItem(newItem.name);
-								removeItem(item);
-								Game.variables.gets(newItem.name);
-								Game.variables.loses(item);
-							
-							case Remove:
-								removeItem(item);
-								Game.variables.loses(item);
+								case Transform(newItem):
+									addItem(newItem.name);
+									removeItem(item);
+									Game.variables.gets(newItem.name);
+									Game.variables.loses(item);
+								
+								case Remove:
+									removeItem(item);
+									Game.variables.loses(item);
+							}
 						}
 					}
+
+					choices.push(choice);					
 				}
-
-				choice.onOver = () -> description.text = a.description; 
-
+				additionalInteractiveHeight = hoffset;
 			}
 
-			var iteminteractive = new h2d.Interactive(tile.width, tile.height, itemIcon);
+			var iteminteractive = new h2d.Interactive(
+				tile.width, 
+				// the additional offset is from the choice items added.
+				tile.height + additionalInteractiveHeight,
+				itemIcon);
 			iteminteractive.y = -tile.height/2;
-			if (choices.length > 0)
-				iteminteractive.onOver = (e:hxd.Event) -> itemOverAction(itemIcon, data.displayname, data.description);
-			else 
-				iteminteractive.onOver = (e:hxd.Event) -> itemOver(itemIcon, data.displayname, data.description);				
+			iteminteractive.onOver = function(e : hxd.Event) {
+				itemOver(itemIcon, data.displayname, data.description);
+				for (c in choices) itemIcon.addChild(c);
+			}
 			iteminteractive.onOut = function(e:hxd.Event){ 
 				itemOut(itemIcon);
 				for (c in choices) c.remove();
 			}
-			iteminteractive.onClick = (e : hxd.Event) -> for (c in choices) itemIcon.addChild(c);
 			iteminteractive.propagateEvents = true;
-
-			/*#if debug
-			// boundary around the interactive.
-			var interactivebounds = new h2d.Graphics(iteminteractive);
-			interactivebounds.lineStyle(2, 0xFF0000);
-			interactivebounds.drawRect(0, 0, iteminteractive.width, iteminteractive.height);
-			#end*/
 
 			contentStack.push(itemIcon);
 			contentStack.setChildrenAlignment(Middle);
@@ -122,12 +128,6 @@ class Backpack extends Pulltab {
 	}
 
 	private function itemOver(item : game.ui.Icon, name : String, description : String) {
-		title.text = name;
-		this.description.text = evaluateVariables(description);
-		item.alpha = 1;
-	}
-
-	private function itemOverAction(item : game.ui.Icon, name : String, description : String) {
 		title.text = name;
 		item.filter = new h2d.filter.Outline(2);
 		this.description.text = evaluateVariables(description);
