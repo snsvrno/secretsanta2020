@@ -49,6 +49,7 @@ class Wheel extends h2d.Object {
 		// draws the wheel & arranges the choices around the wheel.
 		arrangeChoicesStack();
 
+		var outInteractiveEnabled = false;
 		outInteractive = new h2d.Interactive(width + 2 * Const.WHEEL_FADE_PADDING, height + 2 * Const.WHEEL_FADE_PADDING, this);
 		outInteractive.name = "Out Interactive";
 		outInteractive.propagateEvents = true;
@@ -62,6 +63,19 @@ class Wheel extends h2d.Object {
 			var cx = outInteractive.width / 2;
 			var cy = outInteractive.height / 2;
 			var a = 1.0;
+
+			if (!outInteractiveEnabled &&
+			outInteractive.x < e.relX && e.relX < outInteractive.x + outInteractive.width && 
+			outInteractive.y < e.relY && e.relY < outInteractive.y + outInteractive.height) {
+				outInteractiveEnabled = true;
+			}
+
+			// we don't do the fading if we haven't enabled the interactive yet, 
+			// did this because it was jarring when the wheel is made while the mouse is outside
+			// of the area, and then right when you enter the area it goes completely
+			// invisible. this should only create the fading if we've touched the center
+			// area (where the alpha is 1).
+			if (!outInteractiveEnabled) return;
 
 			if (e.relX < cx) {
 				if (e.relX < Const.WHEEL_FADE_PADDING) a = e.relX / Const.WHEEL_FADE_PADDING;
@@ -85,13 +99,15 @@ class Wheel extends h2d.Object {
 		}
 		
 		#if debug
-		var outline = new h2d.Graphics(outInteractive);
-		outline.lineStyle(1, 0x00FFFF);
-		outline.drawRect(0,0,outInteractive.width,outInteractive.height);
-		outline.lineStyle(1, 0x0000FF);
-		outline.drawRect(Const.WHEEL_FADE_PADDING,Const.WHEEL_FADE_PADDING,
-			outInteractive.width - 2 * Const.WHEEL_FADE_PADDING,
-			outInteractive.height - 2 * Const.WHEEL_FADE_PADDING);
+		if (Debug.displays.get(Debug.DISPLAYS_WHEEL_INTERACTIVES) == true) {
+			var outline = new h2d.Graphics(outInteractive);
+			outline.lineStyle(1, 0x00FFFF);
+			outline.drawRect(0,0,outInteractive.width,outInteractive.height);
+			outline.lineStyle(1, 0x0000FF);
+			outline.drawRect(Const.WHEEL_FADE_PADDING,Const.WHEEL_FADE_PADDING,
+				outInteractive.width - 2 * Const.WHEEL_FADE_PADDING,
+				outInteractive.height - 2 * Const.WHEEL_FADE_PADDING);
+		}
 		#end
 
 		this.x = x;

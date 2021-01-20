@@ -28,8 +28,7 @@ class Text extends game.ui.Element {
 		setText(text);
 		
 		#if debug
-		
-		if (Debug.UI_BOXES_TEXT) {
+		if (Debug.displays.get(Debug.DISPLAYS_UI_TEXT_BOUNDS) == true) {
 			var background2 = new h2d.Graphics(this);
 			background2.lineStyle(1, 0xff0000);
 			background2.beginFill(0xFF0000,1);
@@ -54,7 +53,7 @@ class Text extends game.ui.Element {
 		setAlignment();
 		
 		#if debug
-		if (Debug.UI_BOXES_TEXT) {
+		if (Debug.displays.get(Debug.DISPLAYS_UI_TEXT_BOUNDS) == true) {
 			background.clear();
 			background.beginFill(0xFF0000,0.5);
 			background.drawRect(0, 0, textObject.textWidth, textObject.textHeight);

@@ -75,12 +75,14 @@ class Actor extends h2d.Object {
 		dialoguey = definition.actor.dialoguepoint.y;
 
 		#if debug
-		var dialoguepoint = new h2d.Graphics(this);
-		dialoguepoint.x = dialogueX;
-		dialoguepoint.y = dialogueY;
-		dialoguepoint.beginFill(0xFF00FF, 0.75);
-		dialoguepoint.drawCircle(0,0, 10);
-		dialoguepoint.endFill();
+		if (Debug.displays.get(Debug.DISPLAYS_DIALOGUE_POINT) == true) {
+			var dialoguepoint = new h2d.Graphics(this);
+			dialoguepoint.x = dialogueX;
+			dialoguepoint.y = dialogueY;
+			dialoguepoint.beginFill(0xFF00FF, 0.75);
+			dialoguepoint.drawCircle(0,0, 10);
+			dialoguepoint.endFill();
+		}
 		#end
 
 		// creating an interactive that will be used for inital interaction.
@@ -120,11 +122,12 @@ class Actor extends h2d.Object {
 			#if debug
 			// if we are in debug build, then it will draw the interactives as a graphic, so
 			// we can see the coverage.
-			var interactiveBox = new h2d.Graphics(image);
-			interactiveBox.beginFill(0xFF0000, 0.25);
-			interactiveBox.drawRect(0, 0, image.tile.width, image.tile.height);
-			interactiveBox.endFill();
-			interactiveBox.alpha = 0;
+			if (Debug.displays.get(Debug.DISPLAYS_CHARACTER_INTERACTIVES) == true) {
+				var interactiveBox = new h2d.Graphics(image);
+				interactiveBox.beginFill(0xFF0000, 0.25);
+				interactiveBox.drawRect(0, 0, image.tile.width, image.tile.height);
+				interactiveBox.endFill();
+			}
 			#end
 
 		// if we have an interactives defined, then we will use that stuff..
@@ -147,11 +150,12 @@ class Actor extends h2d.Object {
 				#if debug
 				// if we are in debug build, then it will draw the interactives as a graphic, so
 				// we can see the coverage.
-				var interactiveBox = new h2d.Graphics(image);
-				interactiveBox.beginFill(0xFF0000, 0.25);
-				interactiveBox.drawRect(i.box.x, i.box.y, i.box.w, i.box.h);
-				interactiveBox.endFill();
-				interactiveBox.alpha = 0;
+				if (Debug.displays.get(Debug.DISPLAYS_CHARACTER_INTERACTIVES) == true) {
+					var interactiveBox = new h2d.Graphics(image);
+					interactiveBox.beginFill(0xFF0000, 0.25);
+					interactiveBox.drawRect(i.box.x, i.box.y, i.box.w, i.box.h);
+					interactiveBox.endFill();
+				}
 				#end
 			}
 

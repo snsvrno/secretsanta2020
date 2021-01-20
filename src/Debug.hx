@@ -1,6 +1,3 @@
-import format.swf.Data.GradRecord;
-import game.ui.Icon;
-
 class Debug {
 
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -11,13 +8,22 @@ class Debug {
 	inline static public var TEXT_SHOW_BOUNDARIES : Bool = false;
 	inline static public var TEXTBOX_SHOW_BOUNDARIES : Bool = false;
 	inline static public var UI_BOXES_ICONS : Bool = false;
-	inline static public var UI_BOXES_TEXT : Bool = false;
+
+	inline static public var DISPLAYS_WHEEL_INTERACTIVES : String = "Wheel Interactives"; 
+	inline static public var DISPLAYS_HSTACK_BOUNDS : String = "Hstack Boundaries";
+	inline static public var DISPLAYS_DIALOGUE_POINT : String = "Dialogue Points";
+	inline static public var DISPLAYS_CHARACTER_INTERACTIVES : String = "Character Interactives";
+	inline static public var DISPLAYS_BUBBLE_BOUNDS : String = "Dialogue Bubble Bounds";
+	inline static public var DISPLAYS_TEXT_BOUNDS : String = "Text Bounds";
+	inline static public var DISPLAYS_UI_TEXT_BOUNDS : String = "UI Text Bounds";
+	inline static public var DISPLAYS_LOCATION_INTERACTIVES : String = "Location Interactive";
+	inline static public var DISPLAYS_UI_ACHIEVEMENT_BOUNDS : String = "UI Achievement Bounds";
 
 	////////////////////////////////////////////////////////////////////////////////////////
 
 	private static var scene : h2d.Object;
 
-	public static var displays : Map<String, Array<h2d.Object>> = new Map();
+	public static var displays : Map<String, Bool> = new Map();
 	public static var console : h2d.Console;
 
 	static public function initalize(parent : h2d.Object) {
@@ -25,6 +31,15 @@ class Debug {
 
 		mouseCoordinatesOverlay();
 		initalizeConsole();
+
+		Debug.displays.set(DISPLAYS_HSTACK_BOUNDS, false);
+		Debug.displays.set(DISPLAYS_WHEEL_INTERACTIVES, false);
+		Debug.displays.set(DISPLAYS_DIALOGUE_POINT, false);
+		Debug.displays.set(DISPLAYS_CHARACTER_INTERACTIVES, false);
+		Debug.displays.set(DISPLAYS_BUBBLE_BOUNDS, false);
+		Debug.displays.set(DISPLAYS_TEXT_BOUNDS, false);
+		Debug.displays.set(DISPLAYS_LOCATION_INTERACTIVES, false);
+		Debug.displays.set(DISPLAYS_UI_ACHIEVEMENT_BOUNDS, false);
 	}
 
 	static private function initalizeConsole() {
@@ -115,21 +130,23 @@ class Debug {
 		var text = new game.ui.Text("DISPLAYS");
 		list.push(text);
 
-		for (k in displays.keys()) {
+		var keys : Array<String> = [];
+		for (k in displays.keys()) keys.push(k);
+		keys.sort((a,b) -> if (a>b) return 1 else return -1);
+
+		for (k in keys) {
 			var button = new game.ui.Button(k);
 			button.overScale = button.normalScale;
-			button.normalColor = 0xFF0000;
-			var state = false;
+			button.normalColor = if(displays.get(k) == true) { 0x00FF00; } else { 0xFF0000; }
 			button.onClick = function() {
+				var state = displays.get(k);
+				if (state == null) state = false;
+
 				state  = !state;
 				if (state) button.normalColor = 0x00FF00;
 				else button.normalColor = 0xFF0000;
-
-				var items = displays.get(k);
-				if (items != null) {
-					if (state) for (i in items) i.alpha = 1;
-					else for (i in items) i.alpha = 0; 
-				}
+				
+				displays.set(k, state);
 			};
 			list.push(button);
 		}

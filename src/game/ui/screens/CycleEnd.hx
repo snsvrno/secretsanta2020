@@ -134,12 +134,6 @@ class CycleEnd extends h2d.Object {
 					}
 				}
 
-				/*#if debug
-				var g = new h2d.Graphics(interactive);
-				g.lineStyle(2, 0xFF0000);
-				g.drawRect(0,0, interactive.width, interactive.height);
-				#end*/
-
 				itemStack.push(item);
 			}
 		}

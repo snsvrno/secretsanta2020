@@ -59,9 +59,11 @@ class Bubble extends h2d.Object {
 		moreText.setScale(0.50);
 
 		#if debug
-		var outline = new h2d.Graphics(moreText);
-		outline.lineStyle(1, 0xF0FF0F);
-		outline.drawRect(0,0,moreText.textWidth, moreText.textHeight);
+		if (Debug.displays.get(Debug.DISPLAYS_BUBBLE_BOUNDS) == true) {
+			var outline = new h2d.Graphics(moreText);
+			outline.lineStyle(1, 0xF0FF0F);
+			outline.drawRect(0,0,moreText.textWidth, moreText.textHeight);
+		}
 		#end
 
 		moreTextTimer = new sn.Timer(Const.BUBBLE_NEXT_TIMER, true);

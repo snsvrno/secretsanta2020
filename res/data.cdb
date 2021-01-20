@@ -4791,7 +4791,6 @@
 					"target": "lamb",
 					"text": "Are you playing today?",
 					"display": "Playing Today?",
-					"chain": "lamb_playingtoday_response",
 					"condition": [
 						{
 							"condition": [
@@ -4806,7 +4805,19 @@
 							]
 						}
 					],
-					"questline": "lambsports"
+					"questline": "lambsports",
+					"branch": [
+						{
+							"dialogue": "lamb_playingtoday_response",
+							"condition": [
+								19,
+								3
+							]
+						},
+						{
+							"dialogue": "lamb_playingtoday_response2"
+						}
+					]
 				},
 				{
 					"id": "lamb_playingtoday_response",
@@ -4823,6 +4834,13 @@
 							]
 						}
 					]
+				},
+				{
+					"id": "lamb_playingtoday_response2",
+					"speaker": "lamb",
+					"target": "player",
+					"text": "They did ~...~\\nI left my lunch at home so I couldn't.",
+					"action": "lamb_officeafternoon"
 				},
 				{
 					"id": "lamb_pickuplunch",
@@ -4842,6 +4860,12 @@
 							"condition": [
 								0,
 								"lamb_gameday"
+							]
+						},
+						{
+							"condition": [
+								19,
+								3
 							]
 						}
 					],

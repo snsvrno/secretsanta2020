@@ -20,5 +20,8 @@ Update focusing on UX and player experience. Goal is to make the main loop more 
 
 .Bugfixes
 * [*backpack*] fixes bug where mouse interactions would happen with things underneath the backpack.
+* [*dialogue*] fixes bug where choices would blink the first time you scroll over them.
+* [*dialogue*][*fox*] fixes bug in book quest timing.
+* [*dialogue*][*lamb*] fixes bug in soccer quest timing.
 * [*item*] fixes coffee drinking behavior.
 * [*scene*] fixes bug that things in the map could be interacted with even though the scene was enabled.

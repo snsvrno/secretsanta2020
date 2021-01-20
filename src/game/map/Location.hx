@@ -62,11 +62,14 @@ class Location extends h2d.Object {
 			#if debug
 			// if we are in debug build, then it will draw the interactives as a graphic, so
 			// we can see the coverage.
-			var interactiveBox = new h2d.Graphics(interactiveLayer);
-			interactiveBox.beginFill(0xFF0000, 0.25);
-			interactiveBox.drawRect(c.x, c.y, c.w, c.h);
-			interactiveBox.endFill();
-			interactiveBox.alpha = 0;
+			
+			if (Debug.displays.get(Debug.DISPLAYS_LOCATION_INTERACTIVES) == true) {	
+				var interactiveBox = new h2d.Graphics(interactiveLayer);
+				interactiveBox.beginFill(0xFF0000, 0.25);
+				interactiveBox.drawRect(c.x, c.y, c.w, c.h);
+				interactiveBox.endFill();
+				interactiveBox.alpha = 0;
+			}
 			#end
 
 			var interactive = new h2d.Interactive(c.w, c.h, interactiveLayer);

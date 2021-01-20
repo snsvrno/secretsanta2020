@@ -141,13 +141,6 @@ class Splash extends h2d.Object {
 			interactive.onClick = (e: hxd.Event) -> hxd.System.openURL(l.l);
 			licon.addChild(interactive);
 
-			#if debug
-			var g = new h2d.Graphics(licon);
-			g.beginFill(0xFF0000, 0.25);
-			g.drawRect(interactive.x,interactive.y,interactive.width, interactive.height);
-			g.endFill();
-			#end
-
 			tools.push(licon);
 		}
 		

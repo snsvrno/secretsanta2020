@@ -258,9 +258,11 @@ class Text extends h2d.Object {
 				if (lineHeight < pt.textHeight) lineHeight = pt.textHeight;
 			
 				#if debug
-				var outline = new h2d.Graphics(pt);
-				outline.lineStyle(1, 0xF0FF0F);
-				outline.drawRect(0,0,pt.textWidth, pt.textHeight);
+				if (Debug.displays.get(Debug.DISPLAYS_TEXT_BOUNDS) == true) {
+					var outline = new h2d.Graphics(pt);
+					outline.lineStyle(1, 0xF0FF0F);
+					outline.drawRect(0,0,pt.textWidth, pt.textHeight);
+				}
 				#end
 			}
 
@@ -307,9 +309,11 @@ class Text extends h2d.Object {
 			to.remove();
 			addChild(to);
 			#if debug
-			var outline = new h2d.Graphics(to);
-			outline.lineStyle(1, 0xF0FF0F);
-			outline.drawRect(0,0,to.textWidth, to.textHeight);
+			if (Debug.displays.get(Debug.DISPLAYS_TEXT_BOUNDS) == true) {
+				var outline = new h2d.Graphics(to);
+				outline.lineStyle(1, 0xF0FF0F);
+				outline.drawRect(0,0,to.textWidth, to.textHeight);
+			}
 			#end
 		}
 

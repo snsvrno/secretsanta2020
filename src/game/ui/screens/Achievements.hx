@@ -32,9 +32,11 @@ class Achievements extends h2d.Object {
 	private function update() {
 
 		#if debug
-		bg.clear();
-		bg.lineStyle(2,0xFF0000);
-		bg.drawRect(area.x, area.y, area.w, area.h);
+		if (Debug.displays.get(Debug.DISPLAYS_UI_ACHIEVEMENT_BOUNDS) == true) {
+			bg.clear();
+			bg.lineStyle(2,0xFF0000);
+			bg.drawRect(area.x, area.y, area.w, area.h);
+		}
 		#end
 
 		// cleans up the items.

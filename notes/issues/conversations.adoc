@@ -2,20 +2,24 @@
 
 == Open
 
-* [ ] color code the dialogue bubbles and move them to the center of the screen.
+.Low Effort
+* [ ] review revise the displayed text so its more obvious what it does.
 
+.New Dialogue
 * [ ] create a tutorial conversation that explains some things for the first run
 
 	make a very basic tutorial quest that is a little hand holdy to guide the player in a short gameplay loop: (1) find an object, (2) find a person, (3) give that person the object and see what happens. be sure to imply that there are lots of other things to do.
 
 * [ ] fox needs to have some dialogue for if you see them in the mechanic shop and the car is still broken.
 
+* [ ] create the cat & questlines.
+
+.High Effort
 * [ ] color or group conversation choices by topic
 
 	want to telegraph to the player what conversation options are related to different questliness.
 
-* [ ] review revise the displayed text so its more obvious what it does.
-
+.Art
 * [ ] make grocer sprite
 
 	reuse the fish lifeguard and dress him like a grocer.
@@ -28,16 +32,6 @@
 
 	need props for the park, cafe, office.
 
-* [ ] create the cat & questlines.
-
-* [ ] lamb should not ask for lunch, after lunch
-
-	the lamb talks about the game and lunch after lunch as if this can still happen today, make them talk about all this stuff in the past tense.
-
-* [ ] can ask about book without the book
-
-	when you meet the fox for the first time you can ask them about the book without having the book. add the appropriate restrictions to prevent this from happening.
-
 == Close
 
 * [x] fix the italics font, doesn't look plesant
@@ -49,15 +43,18 @@
 	the issue was that i was adding and subtracting the sin-wave from the location, but since it isn't doing the same points every time (it is determine the angles based on dt) it would not be starting the loop at the same position. i couldn't just reset the position because i was moving it round independent of the dancing (an issue) so instead i updated the loop that on the first timer update it logs the location (whcih should be the original starting position) and it resets it whenever it ends the timer and resets the animation. works but looks funky.
 
 * [x] select final background an bubble color / appearance
-
 * [x] chosen dialogue font doesn't have a `$`
 
 	seems that the font had the `$` symbol, but it wasn't exported to the bitmap font .. so i fixed that. 
 
 * [x] make all achievements possible.
-
 * [x] add the message in the bottle quest.
-
 * [x] draw a podium
-
 * [x] draw a bus
+* [x] can ask about book without the book
+
+	when you meet the fox for the first time you can ask them about the book without having the book. add the appropriate restrictions to prevent this from happening.
+
+* [x] lamb should not ask for lunch, after lunch
+
+	the lamb talks about the game and lunch after lunch as if this can still happen today, make them talk about all this stuff in the past tense.
