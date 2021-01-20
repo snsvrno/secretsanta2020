@@ -125,7 +125,6 @@ class Actor extends h2d.Object {
 			interactiveBox.drawRect(0, 0, image.tile.width, image.tile.height);
 			interactiveBox.endFill();
 			interactiveBox.alpha = 0;
-			Debug.displayItems.push(interactiveBox);
 			#end
 
 		// if we have an interactives defined, then we will use that stuff..
@@ -153,7 +152,6 @@ class Actor extends h2d.Object {
 				interactiveBox.drawRect(i.box.x, i.box.y, i.box.w, i.box.h);
 				interactiveBox.endFill();
 				interactiveBox.alpha = 0;
-				Debug.displayItems.push(interactiveBox);
 				#end
 			}
 

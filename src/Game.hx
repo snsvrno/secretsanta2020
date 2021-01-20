@@ -104,22 +104,6 @@ class Game extends hxd.App {
 		instance.s2d.addChild(bubble);
 	}
 
-	#if debug
-	static public function debugTickClick(distance : Int) {
-		instance.tickClock(distance);
-		game.Popup.text('tick clock: ${instance.clock.period}-${instance.clock.slot}', instance.s2d);
-	}
-
-	static public function debugGameOverScreen() {
-		instance.ui.setState(End);
-	}
-
-	static public function debugAddToScene(item : h2d.Object) {
-		instance.s2d.addChild(item);
-	}
-
-	#end
-
 	//////////////////////////////////////////////////////////////////////////
 	// member variables
 

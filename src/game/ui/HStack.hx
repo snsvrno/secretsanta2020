@@ -23,6 +23,11 @@ class HStack extends game.ui.Element {
 
 		#if debug
 		outline = new h2d.Graphics(this);
+		outline.alpha = 0;
+		var values = Debug.displays.get("hstack bounds");
+		if (values == null) values = new Array<h2d.Object>();
+		values.push(outline);
+		Debug.displays.set("hstack bounds", values);
 		#end
 	}
 
@@ -109,11 +114,9 @@ class HStack extends game.ui.Element {
 		}
 
 		#if debug
-		if (Debug.UI_BOXES_HSTACK) {
-			outline.clear();
-			outline.lineStyle(1, 0xFF00FF);
-			outline.drawRect(stack.x, stack.y, getWidth(), getHeight());
-		}
+		outline.clear();
+		outline.lineStyle(1, 0xFF00FF);
+		outline.drawRect(stack.x, stack.y, getWidth(), getHeight());
 		#end
 	}
 
