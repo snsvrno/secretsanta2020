@@ -2,25 +2,25 @@
 
 Update focusing on UX and player experience. Goal is to make the main loop more obvious as project the intent to the player better.
 
-== General
-
+.General
 * adds the ability to change your name without having to clear the data.
 
-== Clock
+.Backpack
+* changed close behavior hit box to feel better.
+* smoothly animated the opening and closing of the backpack.
 
+.Clock
 * moves the period text over the clock so its more obvious when people mention it.
 * also shows how many slots (locations) left in the period on the screen at all times.
 * now emphasises that you should press the clock when there are no more slots (blinking and glow).
 
-== Conversations
-
+.Conversations
 * changed from "right click" to close a conversation to moving away from the dialogue choices
 
 	i wanted it to be obvious how to leave a conversation and when it is happening, so if you physcially move the move the mouse away it will fade the conversation until you leave.
 
 * adds symbol that shows there is more conversation next in the dialogue.
 
-== Items
-
+.Items
 * adds outline to selected items on the `cycle end` screen to make it more apparent that you selected an item.
 * adds the title of the over item on the `cycle end` screen.

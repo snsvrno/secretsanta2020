@@ -1,5 +1,7 @@
 package game.ui;
 
+import openal.ALC.Device;
+
 class Pulltab extends h2d.Object {
 	private var items : Map<Data.ItemsKind, game.ui.Icon> = new Map();
 	
@@ -10,12 +12,17 @@ class Pulltab extends h2d.Object {
 	private var tabWidth : Float;
 	private var tabHeight : Float;
 
+	private var drawerSpeed : Float = 0.1;
+
 	private var overallinteractive : h2d.Interactive;
+
+	private var activateTimer : sn.Timer;
+	private var deactivateTimer : sn.Timer;
 
 	private var content : h2d.Graphics;
 	private var contentHeight(default, set) : Float;
 	private function set_contentHeight(value : Float) : Float {
-		overallinteractive.height = value;
+		overallinteractive.y = value;
 		return contentHeight = value;
 	}
 
@@ -24,8 +31,28 @@ class Pulltab extends h2d.Object {
 		createIcon(iconImage);
 
 		content = new h2d.Graphics();
-		overallinteractive = new h2d.Interactive(Const.WORLD_WIDTH, contentHeight, content);
-		overallinteractive.onOut = deactivate;
+		overallinteractive = new h2d.Interactive(Const.WORLD_WIDTH, 50, content);
+		overallinteractive.y = contentHeight;
+		overallinteractive.onOver = deactivate;
+
+		activateTimer = new sn.Timer(drawerSpeed, true);
+		activateTimer.updateCallback = function() {
+			content.y = - contentHeight * (1 - activateTimer.timerPercent);
+			tab.y = contentHeight * activateTimer.timerPercent;
+		};
+		activateTimer.finalCallback = () -> content.addChild(overallinteractive);
+		activateTimer.stop();
+
+		deactivateTimer = new sn.Timer(drawerSpeed, true);
+		deactivateTimer.updateCallback = function() {
+			content.y = - contentHeight * (deactivateTimer.timerPercent);
+			tab.y = contentHeight * (1 - deactivateTimer.timerPercent);
+		};
+		deactivateTimer.finalCallback = function () {
+			removeChild(content);
+			tab.y = 0;
+		};
+		deactivateTimer.stop();
 	}
 
 	override function onAdd() {
@@ -36,16 +63,20 @@ class Pulltab extends h2d.Object {
 		}
 	}
 
+
 	private function activate(?e : hxd.Event) {
+		activateTimer.reset();
+		activateTimer.start();
+		content.removeChild(overallinteractive);
+
 		addChild(content);
 		drawContent();
-		tab.y = contentHeight;
 		icon.setScale(iconScale);
 	}
 
 	private function deactivate(?e : hxd.Event) {
-		removeChild(content);
-		tab.y = 0;
+		deactivateTimer.reset();
+		deactivateTimer.start();
 	}
 
 	private function drawContent() {
@@ -55,6 +86,7 @@ class Pulltab extends h2d.Object {
 		content.drawRect(0,0, Const.WORLD_WIDTH, contentHeight / 2);
 		content.endFill();
 	}
+
 	private function createIcon(tile : h2d.Tile) {
 
 		tab = new h2d.Graphics(this);

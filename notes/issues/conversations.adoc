@@ -2,7 +2,9 @@
 
 == Open
 
-* [ ] create a tutorial conversation that explains some things for the first run.
+* [ ] color code the dialogue bubbles and move them to the center of the screen.
+
+* [ ] create a tutorial conversation that explains some things for the first run
 
 	make a very basic tutorial quest that is a little hand holdy to guide the player in a short gameplay loop: (1) find an object, (2) find a person, (3) give that person the object and see what happens. be sure to imply that there are lots of other things to do.
 
@@ -58,4 +60,4 @@
 
 * [x] draw a podium
 
-* [X] draw a bus
+* [x] draw a bus

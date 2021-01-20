@@ -16,6 +16,8 @@ class Backpack extends Pulltab {
 		super(tabicon, parent);
 		createContent();
 
+		drawerSpeed = Const.BACKPACK_DRAWERSPEED;
+
 		notificationTimer = new sn.Timer(Const.BACKPACK_NOTIFICATIONTIMER, true);
 		notificationTimer.infinite = true;
 		notificationTimer.stop();

@@ -169,6 +169,7 @@ class Const {
 	inline static public var BACKPACK_DESCRIPTIONCOLOR : Int = 0xFFAAAAAA;
 	inline static public var BACKPACK_NOTIFICATIONTIMER : Float = 1.5;
 	inline static public var BACKPACK_NOTIFICATIONTIMERINTENSITY : Float = 0.05;
+	inline static public var BACKPACK_DRAWERSPEED : Float = 0.15;
 	static public var BACKPACK_NAMEFONT : h2d.Font;
 	static public var BACKPACK_DESCRIPTIONFONT : h2d.Font;
 
