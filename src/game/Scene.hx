@@ -38,6 +38,8 @@ class Scene extends h2d.Object {
 	 */
 	private var looseItems : Array<h2d.Object> = [];
 
+	private var blockerInteractive : h2d.Interactive;
+
 	public var sceneName(get, null) : String;
 	private function get_sceneName() : String return data.location.name;
 
@@ -55,8 +57,10 @@ class Scene extends h2d.Object {
 
 		data = null;
 
-		layerActors = new h2d.Object(this);
+		layerActors = new h2d.Object();
 		actors = new Array();
+
+		blockerInteractive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -103,11 +107,13 @@ class Scene extends h2d.Object {
 
 	public function enable() {
 		alpha = 1;
+		addChild(blockerInteractive);
 		if (layerActors.parent != this) addChild(layerActors);
 	}
 
 	public function disable() {
 		alpha = 0;
+		removeChild(blockerInteractive);
 		removeChild(layerActors);
 
 		// cleans up interactives

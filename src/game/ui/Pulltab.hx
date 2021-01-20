@@ -14,7 +14,10 @@ class Pulltab extends h2d.Object {
 
 	private var drawerSpeed : Float = 0.1;
 
-	private var overallinteractive : h2d.Interactive;
+	/** for triggering the deactivation */
+	private var closeInteractive : h2d.Interactive;
+	/** blocks the mouse events underneath the pulldown. */
+	private var blockerInteractive : h2d.Interactive;
 
 	private var activateTimer : sn.Timer;
 	private var deactivateTimer : sn.Timer;
@@ -22,7 +25,8 @@ class Pulltab extends h2d.Object {
 	private var content : h2d.Graphics;
 	private var contentHeight(default, set) : Float;
 	private function set_contentHeight(value : Float) : Float {
-		overallinteractive.y = value;
+		closeInteractive.y = value;
+		blockerInteractive.height = value;
 		return contentHeight = value;
 	}
 
@@ -31,16 +35,19 @@ class Pulltab extends h2d.Object {
 		createIcon(iconImage);
 
 		content = new h2d.Graphics();
-		overallinteractive = new h2d.Interactive(Const.WORLD_WIDTH, 50, content);
-		overallinteractive.y = contentHeight;
-		overallinteractive.onOver = deactivate;
+
+		blockerInteractive = new h2d.Interactive(Const.WORLD_WIDTH, contentHeight, content);
+
+		closeInteractive = new h2d.Interactive(Const.WORLD_WIDTH, 50, content);
+		closeInteractive.y = contentHeight;
+		closeInteractive.onOver = deactivate;
 
 		activateTimer = new sn.Timer(drawerSpeed, true);
 		activateTimer.updateCallback = function() {
 			content.y = - contentHeight * (1 - activateTimer.timerPercent);
 			tab.y = contentHeight * activateTimer.timerPercent;
 		};
-		activateTimer.finalCallback = () -> content.addChild(overallinteractive);
+		activateTimer.finalCallback = () -> content.addChild(closeInteractive);
 		activateTimer.stop();
 
 		deactivateTimer = new sn.Timer(drawerSpeed, true);
@@ -67,7 +74,7 @@ class Pulltab extends h2d.Object {
 	private function activate(?e : hxd.Event) {
 		activateTimer.reset();
 		activateTimer.start();
-		content.removeChild(overallinteractive);
+		content.removeChild(closeInteractive);
 
 		addChild(content);
 		drawContent();

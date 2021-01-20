@@ -2,10 +2,6 @@
 
 == Open
 
-* [ ] remove the interactives on the clock, replace with permanent buttons
-
-	make it always display what time of day it is on top of the clock, and make a more obvious button that tells the player that they can go to the next period.
-
 == Closed
 
 * [x] fix the display of "check the time", it is too narrow and tall.

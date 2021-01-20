@@ -2,25 +2,18 @@
 
 Update focusing on UX and player experience. Goal is to make the main loop more obvious as project the intent to the player better.
 
-.General
-* adds the ability to change your name without having to clear the data.
+.Features
+* [*backpack*] changed close behavior hit box to feel better.
+* [*backpack*] smoothly animated the opening and closing of the backpack.
+* [*clock*] moves the period text over the clock so its more obvious when people mention it.
+* [*clock*] also shows how many slots (locations) left in the period on the screen at all times.
+* [*clock*] now emphasises that you should press the clock when there are no more slots (blinking and glow).
+* [*conversation*] adds symbol that shows there is more conversation next in the dialogue.
+* [*conversation*] changed from "right click" to close a conversation to moving away from the dialogue choices
+* [*items*] adds outline to selected items on the `cycle end` screen to make it more apparent that you selected an item.
+* [*items*] adds the title of the over item on the `cycle end` screen.
+* [*general*] adds the ability to change your name without having to clear the data.
 
-.Backpack
-* changed close behavior hit box to feel better.
-* smoothly animated the opening and closing of the backpack.
-
-.Clock
-* moves the period text over the clock so its more obvious when people mention it.
-* also shows how many slots (locations) left in the period on the screen at all times.
-* now emphasises that you should press the clock when there are no more slots (blinking and glow).
-
-.Conversations
-* changed from "right click" to close a conversation to moving away from the dialogue choices
-
-	i wanted it to be obvious how to leave a conversation and when it is happening, so if you physcially move the move the mouse away it will fade the conversation until you leave.
-
-* adds symbol that shows there is more conversation next in the dialogue.
-
-.Items
-* adds outline to selected items on the `cycle end` screen to make it more apparent that you selected an item.
-* adds the title of the over item on the `cycle end` screen.
+.Bugfixes
+* [*backpack*] fixes bug where mouse interactions would happen with things underneath the backpack.
+* [*scene*] fixes bug that things in the map could be interacted with even though the scene was enabled.
