@@ -859,29 +859,45 @@
 					"name": "name",
 					"kind": null,
 					"scope": null
+				},
+				{
+					"typeStr": "11",
+					"name": "color",
+					"kind": null
 				}
 			],
 			"lines": [
 				{
-					"name": "lambsports"
+					"name": "lambsports",
+					"color": 2936306
 				},
 				{
-					"name": "lambdate"
+					"name": "lambdate",
+					"color": 1161495
 				},
 				{
-					"name": "molehike"
+					"name": "molehike",
+					"color": 14640904
 				},
 				{
-					"name": "molebike"
+					"name": "molebike",
+					"color": 6564594
 				},
 				{
-					"name": "foxcar"
+					"name": "foxcar",
+					"color": 14933836
 				},
 				{
-					"name": "foxread"
+					"name": "foxread",
+					"color": 16711680
 				},
 				{
-					"name": "catread"
+					"name": "catread",
+					"color": 16711901
+				},
+				{
+					"name": "tutorial",
+					"color": 14517123
 				}
 			],
 			"separators": [],
@@ -4951,8 +4967,7 @@
 							]
 						}
 					],
-					"chain": "lamb_returnmoneyearly_response",
-					"questline": "lambsports"
+					"chain": "lamb_returnmoneyearly_response"
 				},
 				{
 					"id": "lamb_returnmoneyearly_response",
@@ -5018,8 +5033,7 @@
 							]
 						}
 					],
-					"chain": "lamb_returnmoneylate_response",
-					"questline": "lambsports"
+					"chain": "lamb_returnmoneylate_response"
 				},
 				{
 					"id": "lamb_returnmoneylate_response",
@@ -5070,8 +5084,7 @@
 							]
 						}
 					],
-					"chain": "lamb_returnchange_response",
-					"questline": "lambsports"
+					"chain": "lamb_returnchange_response"
 				},
 				{
 					"id": "lamb_returnchange_response",

@@ -5,27 +5,35 @@ package game.dialogue;
  */
 class Choice extends h2d.Object {
 
-	public var height(get, null) : Float;
-	private function get_height() : Float return text.height * scaleY;
-	// private function get_height() : Float return text.textHeight * scaleY;
+	////////////////////////////////////////////
+	// PRIVATE MEMBERS
 
-	public var width(get, null) : Float;
-	private function get_width() : Float return text.width * scaleX;
-	// private function get_width() : Float return text.textWidth * scaleX;
-
-	// private var text : h2d.Text; 
 	private var text : Text;
 	private var interactive : h2d.Interactive;
 	private var background : h2d.Graphics;
+
+	////////////////////////////////////////////
+	// PUBLIC MEMBERS
+
+	public var height(get, null) : Float;
+	private function get_height() : Float return text.height * scaleY;
+
+	public var width(get, null) : Float;
+	private function get_width() : Float return text.width * scaleX;
 
 	public var onOver : Null<() -> Void>;
 	public var onOut : Null<() -> Void>;
 	public var onClick : Null<() -> Void>;
 
+	public var grouping : Null<Data.QuestlinesKind>;
+	public var used(default, null) : Bool = false;
+
 	public function new(?dialogue : Data.Dialogue, ?parent : h2d.Object) {
 		super(parent);
 
 		background = new h2d.Graphics(this);
+
+		grouping = dialogue.questlineId;
 
 		// creates the text object
 		text = new Text(this);
@@ -38,6 +46,7 @@ class Choice extends h2d.Object {
 			text.x = text.width/2;
 			text.y = text.height/2;
 			if (Game.variables.isChosenOption(dialogue.id)) { 
+				used = true;
 				text.alpha = Const.CHOICE_TEXT_OPACITY_USED;
 			}
 		}
@@ -69,7 +78,33 @@ class Choice extends h2d.Object {
 
 	private function updateSize() {
 
-		background.beginFill(Const.CHOICE_BACKGROUND_COLOR, Const.CHOICE_BACKGROUND_ALPHA);
+		var color = Const.CHOICE_BACKGROUND_COLOR;
+		if (grouping != null) { 
+			color = Data.questlines.get(grouping).color;
+			text.enableShadow();
+		}
+
+		if (Const.CHOICE_DROPSHADOW) {
+			background.beginFill(color, 1);
+			background.drawRoundedRect(
+				-Const.CHOICE_TEXT_PADDING + Const.CHOICE_DROPSHADOW_DX, 
+				-Const.CHOICE_TEXT_PADDING + Const.CHOICE_DROPSHADOW_DY, 
+				text.width + 2*Const.CHOICE_TEXT_PADDING, 
+				text.height + 2*Const.CHOICE_TEXT_PADDING, 
+				Const.CHOICE_CORNER_RADIUS
+			);
+			background.setColor(Const.CHOICE_DROPSHADOW_COLOR, Const.CHOICE_DROPSHADOW_ALPHA);
+			background.drawRoundedRect(
+				-Const.CHOICE_TEXT_PADDING + Const.CHOICE_DROPSHADOW_DX, 
+				-Const.CHOICE_TEXT_PADDING + Const.CHOICE_DROPSHADOW_DY, 
+				text.width + 2*Const.CHOICE_TEXT_PADDING, 
+				text.height + 2*Const.CHOICE_TEXT_PADDING, 
+				Const.CHOICE_CORNER_RADIUS
+			);
+			background.endFill();
+		}
+
+		background.beginFill(color, Const.CHOICE_BACKGROUND_ALPHA);
 		background.drawRoundedRect(-Const.CHOICE_TEXT_PADDING, -Const.CHOICE_TEXT_PADDING, text.width + 2*Const.CHOICE_TEXT_PADDING, text.height + 2*Const.CHOICE_TEXT_PADDING, Const.CHOICE_CORNER_RADIUS);
 		background.endFill();
 

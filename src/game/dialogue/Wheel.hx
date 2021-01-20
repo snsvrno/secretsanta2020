@@ -47,6 +47,7 @@ class Wheel extends h2d.Object {
 		if (action != null) makeChoices(action);
 
 		// draws the wheel & arranges the choices around the wheel.
+		sortChoices();
 		arrangeChoicesStack();
 
 		var outInteractiveEnabled = false;
@@ -132,6 +133,7 @@ class Wheel extends h2d.Object {
 
 		choices.push(newChoice);
 		//arrangeChoices();
+		sortChoices();
 		arrangeChoicesStack();
 	}
 
@@ -153,6 +155,7 @@ class Wheel extends h2d.Object {
 
 		choices.push(newChoice);
 		//arrangeChoices();
+		sortChoices();
 		arrangeChoicesStack();
 	}
 
@@ -199,6 +202,37 @@ class Wheel extends h2d.Object {
 
 			choices.push(text);
 		}
+	}
+
+	private function sortAlphabetically(a : Choice, b : Choice) : Int {
+		if (a.grouping.toString() > b.grouping.toString()) return 1;
+		else return -1;
+	}
+
+	private function sortChoices() {
+		// sorting the choices, first we sort by groupings, with null grouping last.
+		// then we sort within those groupings by never accessed, and then already accessed
+		// and then by alphabetical.
+		choices.sort(function(a, b) {
+
+			// check if they are in the same grouping
+			if (a.grouping == b.grouping) {
+				// checking if this choice has been accessed before.
+				if (a.used == b.used) return sortAlphabetically(a,b);
+				// now checks which is the unused one, and then pushes that one first.
+				else if (!a.used) return -1;
+				else return 1; 
+
+			// check if they are in different groups and neither are null
+			} else if (a.grouping != null && b.grouping != null) {
+				return sortAlphabetically(a,b);
+
+			// check if the first grouping is null
+			} else if (a.grouping == null) return 1;
+
+			// check assumes that the second grouping is null
+			else return -1;
+		});
 	}
 
 	private function getValidChoices(action : Data.DialogueActions, ?importer : Bool = false) : Array<Data.Dialogue> {

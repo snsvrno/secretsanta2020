@@ -288,6 +288,12 @@ class Text extends h2d.Object {
 	//////////////////////////////////////////////////////////////////////////
 	// public functions
 
+	public function enableShadow() {
+		for (to in textObjects) {
+			to.dropShadow = { dx: 1, dy: 1, color: 0x000000, alpha: 0.5 };
+		}
+	}
+
 	public function setText(text : String) {
 		// drains the existing text objects.
 		while (textObjects.length > 0) textObjects.pop().remove();

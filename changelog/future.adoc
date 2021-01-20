@@ -10,6 +10,7 @@ Update focusing on UX and player experience. Goal is to make the main loop more 
 * [*clock*] now emphasises that you should press the clock when there are no more slots (blinking and glow).
 * [*conversation*] adds symbol that shows there is more conversation next in the dialogue.
 * [*conversation*] changed from "right click" to close a conversation to moving away from the dialogue choices
+* [*conversation*] choices are now color coded to indicate they are related to a quest.
 * [*items*] adds outline to selected items on the `cycle end` screen to make it more apparent that you selected an item.
 * [*items*] adds the title of the over item on the `cycle end` screen.
 * [*items*] moves the item actions to mouse over, so its more obvious that you can do something with the items.
@@ -20,7 +21,7 @@ Update focusing on UX and player experience. Goal is to make the main loop more 
 
 .Bugfixes
 * [*backpack*] fixes bug where mouse interactions would happen with things underneath the backpack.
-* [*dialogue*] fixes bug where choices would blink the first time you scroll over them.
+* [*conversation*] fixes bug where choices would blink the first time you scroll over them.
 * [*dialogue*][*fox*] fixes bug in book quest timing.
 * [*dialogue*][*lamb*] fixes bug in soccer quest timing.
 * [*item*] fixes coffee drinking behavior.

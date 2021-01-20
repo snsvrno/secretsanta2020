@@ -198,7 +198,6 @@ class Const {
 	inline static public var BUBBLE_BACKGROUND_COLOR : Int = 0x38332f;
 	/** Color of the speech bubble. */
 	inline static public var BUBBLE_BACKGROUND_ALPHA : Float = 1;
-
 	inline static public var BUBBLE_NEXT_TIMER : Float = 1.;
 
 	/** italics text color */
@@ -244,6 +243,13 @@ class Const {
 	inline static public var CHOICE_TEXT_OPACITY_NORMAL : Float = 0.75;
 	/** choice's used text color */
 	inline static public var CHOICE_TEXT_OPACITY_USED : Float = 0.5;
+
+	/** A drop shadow for the speech bubble. */
+	inline static public var CHOICE_DROPSHADOW : Bool = true;
+	inline static public var CHOICE_DROPSHADOW_DX : Float = 0;
+	inline static public var CHOICE_DROPSHADOW_DY : Float = 3;
+	inline static public var CHOICE_DROPSHADOW_COLOR : Int = 0x000000;
+	inline static public var CHOICE_DROPSHADOW_ALPHA : Float = 0.35;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// POPUP 

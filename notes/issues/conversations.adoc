@@ -14,11 +14,6 @@
 
 * [ ] create the cat & questlines.
 
-.High Effort
-* [ ] color or group conversation choices by topic
-
-	want to telegraph to the player what conversation options are related to different questliness.
-
 .Art
 * [ ] make grocer sprite
 
@@ -58,3 +53,7 @@
 * [x] lamb should not ask for lunch, after lunch
 
 	the lamb talks about the game and lunch after lunch as if this can still happen today, make them talk about all this stuff in the past tense.
+	
+* [x] color or group conversation choices by topic
+
+	want to telegraph to the player what conversation options are related to different questliness.
