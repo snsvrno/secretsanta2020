@@ -290,7 +290,7 @@ class Text extends h2d.Object {
 
 	public function enableShadow() {
 		for (to in textObjects) {
-			to.dropShadow = { dx: 1, dy: 1, color: 0x000000, alpha: 0.5 };
+			to.dropShadow = { dx: 1, dy: 1, color: 0x000000, alpha: 0.75 };
 		}
 	}
 

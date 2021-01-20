@@ -32,6 +32,7 @@ class Choice extends h2d.Object {
 		super(parent);
 
 		background = new h2d.Graphics(this);
+		background.filter = new h2d.filter.Nothing();
 
 		grouping = dialogue.questlineId;
 
