@@ -22,3 +22,5 @@ sketches/*
 # local save files for the game.
 *.sav
 
+# local management stuff
+*.code-workspace

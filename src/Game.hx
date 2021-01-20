@@ -86,6 +86,7 @@ class Game extends hxd.App {
 
 	static public function quit() {
 		variables.save();
+		hxd.System.exit();
 	}
 
 	/**
