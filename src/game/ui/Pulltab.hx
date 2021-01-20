@@ -47,7 +47,11 @@ class Pulltab extends h2d.Object {
 			content.y = - contentHeight * (1 - activateTimer.timerPercent);
 			tab.y = contentHeight * activateTimer.timerPercent;
 		};
-		activateTimer.finalCallback = () -> content.addChild(closeInteractive);
+		activateTimer.finalCallback = function () { 
+			content.addChild(closeInteractive);
+			content.y = 0;
+			tab.y = contentHeight;
+		}
 		activateTimer.stop();
 
 		deactivateTimer = new sn.Timer(drawerSpeed, true);
