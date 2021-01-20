@@ -4,7 +4,6 @@ specific to desktop platforms.
 
 == Open
 
-
 == Completed
 
 * [x] create functionality for *quit* button.

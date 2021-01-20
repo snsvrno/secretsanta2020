@@ -180,6 +180,10 @@ class Game extends hxd.App {
 		// add the interface UI
 		ui = new game.ui.Interface(s2d);
 
+		#if debug
+		Debug.initalize(s2d);
+		#end
+
 		// creates the corner border thing.
 		game.utils.Corners.make(s2d);
 
@@ -190,11 +194,6 @@ class Game extends hxd.App {
 		// we start at the bus.
 		updateAfterTick();
 
-		// adds debug stuff if we are in debug build.
-		#if debug
-		Debug.mouseCoordinatesOverlay(s2d);
-		#end
-
 		// kind of a hack, setting up the start, but then resetting the popup.
 		// the popup will then be redone whenever the splash finishes.
 		// restartCycle();
@@ -203,10 +202,6 @@ class Game extends hxd.App {
 		// starts the new game splash, which is the titlecard.
 		var splash = new game.ui.Splash(s2d);
 		splash.onFadeStart = () -> restartCycle();
-
-		#if debug
-		Debug.initalize(s2d);
-		#end
 	}
 
 	/**

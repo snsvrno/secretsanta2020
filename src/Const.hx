@@ -124,16 +124,6 @@ class Const {
 
 	inline static public var MAP_ICON_SIZE : Float = 25;
 
-	inline static public var LOCATION_TEXT_SIZE : Float = 1.;
-	static public var MAP_LOCATION_FONT : h2d.Font;
-
-	////////////////////////////////////////////////////////////////////////////////////////
-	// MAP LOCATION TAB SETTINGS
-	inline static public var LOCATIONTAB_ITEMPADDING : Int = 10;
-	inline static public var LOCATIONTAB_FONT_SIZE : Float = 0.75;
-	static public var LOCATIONTAB_FONT : h2d.Font;
-
-
 	////////////////////////////////////////////////////////////////////////////////////////
 	// CYCLE OVER SCREEN SETTINGS
 
@@ -143,8 +133,10 @@ class Const {
 	////////////////////////////////////////////////////////////////////////////////////////
 	// MAP LOCATION SETTINGS
 
-	inline static public var LOCATION_HIGHLIGHT_ALPHA : Float = 0.25;
+	inline static public var LOCATION_HIGHLIGHT_ALPHA : Float = 0.5;
 	inline static public var LOCATION_UNACCESSABLE_ALPHA : Float = 0.75;
+	inline static public var LOCATION_TEXT_SIZE : Float = 0.85;
+	static public var MAP_LOCATION_FONT : h2d.Font;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// ICON UI OBJECT
@@ -330,7 +322,6 @@ class Const {
 		TEXT_FONT_SNSVRNO = hxd.Res.fonts.sye64.toFont();
 
 		MAP_LOCATION_FONT = hxd.Res.fonts.gra16.toFont();
-		LOCATIONTAB_FONT = hxd.Res.fonts.gra16.toFont();
 
 		BACKPACK_NAMEFONT = hxd.Res.fonts.wolf24.toFont();
 		BACKPACK_DESCRIPTIONFONT = hxd.Res.fonts.edi16.toFont();

@@ -15,6 +15,8 @@ Update focusing on UX and player experience. Goal is to make the main loop more 
 * [*items*] moves the item actions to mouse over, so its more obvious that you can do something with the items.
 * [*general*] adds the ability to change your name without having to clear the data.
 * [*general*] exit now works on desktop platforms.
+* [*map*] locations now show if noone is there and you've been there before.
+* [*map*] tweaked icons
 
 .Bugfixes
 * [*backpack*] fixes bug where mouse interactions would happen with things underneath the backpack.

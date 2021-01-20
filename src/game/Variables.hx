@@ -351,22 +351,29 @@ class Variables {
 	public function seen(location : Data.LocationsKind, period : Int) : Array<Data.CharactersKind> {
 		var array : Array<Data.CharactersKind> = [];
 
+		var noonethere = false;
 		var sightings = whereAreThey.get(period);
-		if (sightings != null) for (s in sightings) {
-			if (s.location == location) {
-				var locationData = Data.locations.get(location);
-				for (locActor in locationData.scene.actors) {
-					if (locActor.actorId == s.actor) {
-						var isThere = true;
-	
-						if (locActor.condition != null) for (condition in locActor.condition)
-							if (!checkSeenScene(condition.condition, period)) isThere = false;
-			
-						if (isThere) array.push(s.actor);
+		if (sightings != null) { 
+			for (s in sightings) {
+				if (s.location == location) {
+					if (s.actor == noone) noonethere = true;
+					var locationData = Data.locations.get(location);
+					for (locActor in locationData.scene.actors) {
+						if (locActor.actorId == s.actor) {
+							var isThere = true;
+		
+							if (locActor.condition != null) for (condition in locActor.condition)
+								if (!checkSeenScene(condition.condition, period)) isThere = false;
+				
+							if (isThere) array.push(s.actor);
+						}
 					}
 				}
 			}
+
 		}
+
+		if (array.length == 0 && noonethere) array.push(noone);
 
 		return array;
 	}

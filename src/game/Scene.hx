@@ -103,6 +103,11 @@ class Scene extends h2d.Object {
 					Game.variables.saw(actor.actorId, data.locationId, Game.currentPeriod());
 			}
 		}
+
+		// a special case where there is no one here, so we mark it on the map.
+		if (actors.length == 0) {
+			Game.variables.saw(noone, data.locationId, Game.currentPeriod());
+		}
 	}
 
 	public function enable() {

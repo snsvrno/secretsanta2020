@@ -2,14 +2,6 @@
 
 == Open
 
-* [ ] update how the character icons are displayed, make them stand out more.
-
-* [ ] have character icons show when a location is empty
-
-	do this so the player doesn't continuously waste time going to locations where there is nothing to do (maybe make these not count as actions??).
-
-
-
 == Closed
 
 * [x] update how the character icon determined, so that we don't get duplicates.
@@ -17,9 +9,13 @@
 	updated how the `seen` but works, it still does the same thing, if you see someone at a location it logs it, but now it will actually check against where the character actually is before displaying it on the map, this way it will accurately show someone on the map if they are in that location, and will not show duplicate people (based on divergent paths that could occur when you do different actions with those people).
 
 * [x] when disabling the locations for this period, should also "disable" the background so it fits more.
-
 * [x] update the location name font
-
 * [x] rework achievements menu to show icons.
-
 * [x] add conversations to the *progress* tracking. (per character)
+* [x] have character icons show when a location is empty
+
+	do this so the player doesn't continuously waste time going to locations where there is nothing to do (maybe make these not count as actions??).
+
+* [x] update how the character icons are displayed, make them stand out more.
+
+	made the mouse over brighter, makes the icons stand out more.

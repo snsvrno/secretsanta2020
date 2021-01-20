@@ -15,14 +15,15 @@ class Debug {
 
 	////////////////////////////////////////////////////////////////////////////////////////
 
-	private static var scene : h2d.Scene;
+	private static var scene : h2d.Object;
 
 	public static var displays : Map<String, Array<h2d.Object>> = new Map();
 	public static var console : h2d.Console;
 
-	static public function initalize(parent : h2d.Scene) {
+	static public function initalize(parent : h2d.Object) {
 		scene = parent;
 
+		mouseCoordinatesOverlay();
 		initalizeConsole();
 	}
 
@@ -59,9 +60,9 @@ class Debug {
 		);
 	}
 
-	static public function mouseCoordinatesOverlay(s2d : h2d.Scene) {
+	static public function mouseCoordinatesOverlay() {
 
-		var interactive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, s2d);
+		var interactive = new h2d.Interactive(Const.WORLD_WIDTH, Const.WORLD_HEIGHT, scene);
 		interactive.cursor = hxd.Cursor.Default;
 		interactive.propagateEvents = true;
 
@@ -89,6 +90,10 @@ class Debug {
 		text.y = Const.WORLD_HEIGHT / 2;
 
 		var timer = new sn.Timer(waittime + fadetime);
+		timer.updateCallback = () -> if (timer.timer > waittime) {
+			text.alpha = 1 - (timer.timer - waittime) / fadetime;
+		}
+		timer.finalCallback = () -> text.remove();
 	}
 
 	static private function showDebugDisplays() {
@@ -132,6 +137,16 @@ class Debug {
 
 	}
 
+	static private function allLocations() {
+		for (i in 1 ... 7) {
+			for (a in Data.characters.all) {
+				if (a.icon!= null) for (l in Data.locations.all) {
+					Game.variables.saw(a.id, l.id, i);
+				}
+			}
+		}
+	}
+
 	static public function onEvent(e : hxd.Event) {
 		if (e.kind == EKeyDown) switch(e.keyCode) {
 			case(hxd.Key.F1): 
@@ -139,6 +154,8 @@ class Debug {
 			case(hxd.Key.F2):
 				showDebugDisplays();
 			case(hxd.Key.F3): 
+				allLocations();
+				announce("gets all location markers");
 			case(hxd.Key.F4): 
 			case(hxd.Key.F5):
 			case(hxd.Key.F6):
