@@ -37,7 +37,7 @@ class Choice extends h2d.Object {
 		grouping = dialogue.questlineId;
 
 		// creates the text object
-		text = new Text(this);
+		text = new Text(Const.CHOICE_FONT, this);
 		text.maxWidth = Const.CHOICE_MAX_WIDTH;
 		text.alpha = Const.CHOICE_TEXT_OPACITY_NORMAL;
 

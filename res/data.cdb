@@ -570,7 +570,7 @@
 				{
 					"id": "player",
 					"image": "characters/sun-base.png",
-					"name": "####",
+					"name": "",
 					"dialoguepoint": {
 						"y": 0,
 						"x": 0
@@ -969,7 +969,7 @@
 					"id": "mechanic_car",
 					"chain": "mechanic_car_response",
 					"text": "What is going on with the car over there?",
-					"display": "That Car?",
+					"display": "Whats with that car?",
 					"set": [
 						{
 							"set": [
@@ -1031,7 +1031,7 @@
 					"target": "mechanic",
 					"speaker": "player",
 					"text": "What does it need?",
-					"display": "How bad?",
+					"display": "How bad is it?",
 					"chain": "mechanic_needanything_response",
 					"condition": [
 						{
@@ -1055,7 +1055,7 @@
 					"speaker": "player",
 					"text": "Who?",
 					"chain": "mechanic_who_response",
-					"display": "Who?",
+					"display": "Whose car?",
 					"set": [
 						{
 							"set": [
@@ -1080,7 +1080,7 @@
 					"speaker": "player",
 					"text": "Who is that?",
 					"chain": "mechanic_whoisthat_response",
-					"display": "Who???",
+					"display": "Really, whose care?",
 					"condition": [
 						{
 							"condition": [
@@ -1612,7 +1612,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "Weren't we already here?\\nShouldn't we have left last night?",
-					"display": "Still Here?!",
+					"display": "We're Still Here?!",
 					"chain": "weasel_alreadyhere_response",
 					"condition": [
 						{
@@ -1650,7 +1650,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "Why did we stop?",
-					"display": "Stopped?",
+					"display": "Why Have We Stopped?",
 					"chain": "weasel_whystop_response",
 					"set": [
 						{
@@ -1692,7 +1692,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "What is there to do around here?",
-					"display": "What to do?",
+					"display": "What is there to do around here?",
 					"condition": [
 						{
 							"condition": [
@@ -1715,7 +1715,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "When does the bus leave?",
-					"display": "Leaving?",
+					"display": "When are we Leaving?",
 					"chain": "weasel_whenleaving_response"
 				},
 				{
@@ -1737,7 +1737,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "How long are we going to stay here?",
-					"display": "How Long?",
+					"display": "How long will we stay?",
 					"chain": "weasel_howlong_response"
 				},
 				{
@@ -1752,7 +1752,7 @@
 					"speaker": "player",
 					"target": "weasel",
 					"text": "Can I get on the bus?",
-					"display": "Board Bus?",
+					"display": "Can I Board the Bus?",
 					"branch": [
 						{
 							"dialogue": "weasel_boardbus_response2",
@@ -1803,7 +1803,7 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "/You get on the bus./",
-					"display": "/Board Bus/",
+					"display": "/Get on Bus/",
 					"condition": [
 						{
 							"condition": [
@@ -1826,7 +1826,7 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "/Its a tour bus./",
-					"display": "/Look/",
+					"display": "/Look At/",
 					"branch": [
 						{
 							"condition": [
@@ -1990,7 +1990,7 @@
 					"speaker": "player",
 					"target": "fox",
 					"text": "I'm visiting, what cool stuff is there to do around here?",
-					"display": "What to do?",
+					"display": "What is there to do around here?",
 					"chain": "fox_whattodo_response",
 					"condition": [
 						{
@@ -2022,7 +2022,7 @@
 					"speaker": "player",
 					"target": "fox",
 					"text": "What are some cool must visits?",
-					"display": "Some must visits?",
+					"display": "What are some must visits?",
 					"chain": "fox_whattocheckout_response",
 					"condition": [
 						{
@@ -2098,7 +2098,7 @@
 					"speaker": "player",
 					"target": "fox",
 					"text": "Where'd you move from?",
-					"display": "Before here?",
+					"display": "Where were you before here?",
 					"condition": [
 						{
 							"condition": [
@@ -2159,7 +2159,7 @@
 					"speaker": "player",
 					"target": "fox",
 					"text": "The car is still broken from when you first came?",
-					"display": "Car still broken?",
+					"display": "Is the car still broken?",
 					"chain": "fox_carinshop_response",
 					"condition": [
 						{
@@ -2207,7 +2207,7 @@
 						}
 					],
 					"chain": "fox_carinshop2_response",
-					"display": "Car problems?",
+					"display": "Car having problems?",
 					"questline": "foxcar"
 				},
 				{
@@ -2693,7 +2693,7 @@
 					"speaker": "player",
 					"target": "fox",
 					"text": "Him?",
-					"display": "Him?",
+					"display": "Who is Him?",
 					"condition": [
 						{
 							"condition": [
@@ -2987,7 +2987,7 @@
 					"speaker": "player",
 					"target": "mole",
 					"text": "I'm visiting, is there anything I should check out?",
-					"display": "What to do?",
+					"display": "What to do around here?",
 					"chain": "mole_justvisiting_response"
 				},
 				{
@@ -3056,7 +3056,7 @@
 							]
 						}
 					],
-					"display": "Backpacking?",
+					"display": "You like backpacking?",
 					"chain": "mole_backpacker_response",
 					"questline": "molehike"
 				},
@@ -3333,7 +3333,7 @@
 					"speaker": "player",
 					"target": "mole",
 					"text": "Why not go on a bike ride?",
-					"display": "Why not Ride?",
+					"display": "Why not Ride Bike?",
 					"condition": [
 						{
 							"condition": [
@@ -3380,7 +3380,7 @@
 					"speaker": "player",
 					"target": "mole",
 					"text": "How was the ride?",
-					"display": "How was the Ride?",
+					"display": "How was the Bike Ride?",
 					"condition": [
 						{
 							"condition": [
@@ -3770,7 +3770,7 @@
 					"speaker": "player",
 					"target": "mole",
 					"text": "Are you an avid reader?",
-					"display": "Avid Reader?",
+					"display": "Are you a big reader?",
 					"condition": [
 						{
 							"condition": [
@@ -3857,7 +3857,7 @@
 							]
 						}
 					],
-					"display": "Adventure Books?",
+					"display": "Have you read anything adventure related?",
 					"chain": "mole_readadventures_response"
 				},
 				{
@@ -3910,7 +3910,7 @@
 					"speaker": "player",
 					"target": "mole",
 					"text": "That *book* looks really interesting.",
-					"display": "Interesting Book!",
+					"display": "Thats an Interesting Book!",
 					"chain": "mole_readinginteresting",
 					"condition": [
 						{
@@ -3983,7 +3983,7 @@
 					"speaker": "player",
 					"target": "player",
 					"text": "~Really?!~ I would love to borrow it.",
-					"display": "Borrow Book",
+					"display": "Borrow the Book",
 					"chain": "mole_borrowbook_response",
 					"condition": [
 						{
@@ -4176,7 +4176,7 @@
 					"speaker": "player",
 					"target": "grocer",
 					"text": "What do you have to buy?",
-					"display": "What do purchase?",
+					"display": "What is for sale?",
 					"branch": [
 						{
 							"condition": [
@@ -4531,7 +4531,7 @@
 					"speaker": "player",
 					"target": "fish",
 					"text": "What's to do around here?",
-					"display": "Whats to do?",
+					"display": "What is there to do around here?",
 					"condition": [
 						{
 							"condition": [
@@ -4563,7 +4563,7 @@
 					"speaker": "player",
 					"target": "fish",
 					"text": "What do you mean by _turf_?",
-					"display": "Turf?",
+					"display": "What does _Turf_ mean?",
 					"chain": "lifeguard_turf_response",
 					"condition": [
 						{
@@ -4610,7 +4610,7 @@
 					"speaker": "player",
 					"target": "fish",
 					"text": "What is the _surf_?",
-					"display": "Surf?",
+					"display": "What do you mean by _surf_?",
 					"chain": "lifeguard_surf_response",
 					"condition": [
 						{
@@ -4649,7 +4649,7 @@
 					"target": "lamb",
 					"text": "I'm visiting. Anything cool I should do?",
 					"chain": "lamb_whattodo_response",
-					"display": "What to do?",
+					"display": "What is there to do around here?",
 					"set": [
 						{
 							"set": [
@@ -4689,7 +4689,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Why the *Cafe*?",
-					"display": "Cafe?",
+					"display": "Why the Cafe?",
 					"chain": "lamb_cafe1",
 					"condition": [
 						{
@@ -4728,7 +4728,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Have you asked them out?",
-					"display": "Barista?",
+					"display": "You and the Barista?",
 					"chain": "lamb_barista_response",
 					"condition": [
 						{
@@ -4767,7 +4767,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Who plays?",
-					"display": "We?",
+					"display": "Who Plays?",
 					"condition": [
 						{
 							"condition": [
@@ -4806,7 +4806,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Are you playing today?",
-					"display": "Playing Today?",
+					"display": "Are you playing today?",
 					"condition": [
 						{
 							"condition": [
@@ -4863,7 +4863,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "I could pick up some lunch and drop it off.",
-					"display": "Pickup Lunch?",
+					"display": "I can pickup lunch.",
 					"chain": "lamb_pickuplunch_response",
 					"condition": [
 						{
@@ -5108,7 +5108,7 @@
 					"target": "lamb",
 					"text": "What do you do here?",
 					"chain": "lamb_doforwork_response",
-					"display": "Do for Work?"
+					"display": "What do you do for work?"
 				},
 				{
 					"id": "lamb_givefoodc",
@@ -5197,7 +5197,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "The game looked fun.",
-					"display": "Ok Game.",
+					"display": "The game was good",
 					"chain": "lamb_postgamelost_response",
 					"condition": [
 						{
@@ -5233,7 +5233,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "How was the game?",
-					"display": "The Game?",
+					"display": "How was the game?",
 					"chain": "lamb_missedgame_response",
 					"condition": [
 						{
@@ -5278,7 +5278,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "You guys played a great game!",
-					"display": "Great Game!",
+					"display": "The Game was Great!!",
 					"condition": [
 						{
 							"condition": [
@@ -5323,7 +5323,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "A trophy?",
-					"display": "Trophy?",
+					"display": "A Trophy?",
 					"condition": [
 						{
 							"condition": [
@@ -6009,7 +6009,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Ready for Tonight?",
-					"display": "Date Night?",
+					"display": "Ready for Date Night?",
 					"chain": "lamb_date_response",
 					"condition": [
 						{
@@ -6087,7 +6087,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "Is there anything I can do to help?",
-					"display": "Can I Help",
+					"display": "Can I Help?",
 					"chain": "lamb_datehelp_response",
 					"condition": [
 						{
@@ -6306,7 +6306,7 @@
 					"speaker": "player",
 					"target": "lamb",
 					"text": "How'd it go?",
-					"display": "How was Date?",
+					"display": "How was the Date?",
 					"condition": [
 						{
 							"condition": [

@@ -2,9 +2,6 @@
 
 == Open
 
-.Low Effort
-* [ ] review revise the displayed text so its more obvious what it does.
-
 .New Dialogue
 * [ ] create a tutorial conversation that explains some things for the first run
 
@@ -46,6 +43,7 @@
 * [x] add the message in the bottle quest.
 * [x] draw a podium
 * [x] draw a bus
+* [x] review revise the displayed text so its more obvious what it does.
 * [x] can ask about book without the book
 
 	when you meet the fox for the first time you can ask them about the book without having the book. add the appropriate restrictions to prevent this from happening.

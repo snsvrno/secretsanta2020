@@ -41,6 +41,8 @@ class Text extends h2d.Object {
 
 	private var variables : Null<Array<String>> = null;
 
+	private var font : h2d.Font;
+
 	//////////////////////////////////////////////////////////////////////////
 	// public members
 
@@ -55,8 +57,12 @@ class Text extends h2d.Object {
 	//////////////////////////////////////////////////////////////////////////
 	// initalization and creation functions
 	
-	public function new(?parent : h2d.Object) {
+	public function new(?font : h2d.Font, ?parent : h2d.Object) {
 		super(parent);
+		
+		if (font != null) this.font = font;
+		else this.font = Const.TEXT_FONT_NORMAL;
+
 		filter = new h2d.filter.Nothing();
 	}
 
@@ -82,12 +88,14 @@ class Text extends h2d.Object {
 	 * @param maxLineWidth 
 	 * @return Array<Text>
 	 */
-	static public function parse(string : String, ?variables : Array<String>, ?maxLineWidth : Float) : Array<Text> {
+	static public function parse(string : String, ?font : h2d.Font, ?variables : Array<String>, ?maxLineWidth : Float) : Array<Text> {
 		var newSections : Array<Text> = [];
+	
+		if (font == null) font = Const.TEXT_FONT_NORMAL;
 
 		// splits the string into different sections.
 		for (section in string.split("\\n")) {
-			var text = new Text();
+			var text = new Text(font);
 			text.rawInputString = section;
 			text.variables = variables;
 			text.wrap(maxLineWidth);
@@ -98,9 +106,12 @@ class Text extends h2d.Object {
 		return newSections;
 	}
 
-	static private function parseSection(sectionText : String, ?variables : Array<String>) : { text: Array<TextMod>, timers: Array<sn.Timer> } {
+	static private function parseSection(sectionText : String, ?overridefont : h2d.Font, ?variables : Array<String>) : { text: Array<TextMod>, timers: Array<sn.Timer> } {
 		var textObjects : Array<TextMod> = [];
 		var timers : Array<sn.Timer> = [];
+		
+		var font : h2d.Font = if (overridefont == null) Const.TEXT_FONT_NORMAL;
+		else overridefont;
 	
 		// splits the section into different segments.
 		var segments = splitSegments(sectionText);
@@ -109,7 +120,7 @@ class Text extends h2d.Object {
 		// splits the text into different segments and evaluating the styling
 		// and the variables
 		for (s in segments) {
-			var tseg = new TextMod(Const.TEXT_FONT_NORMAL);
+			var tseg = new TextMod(font);
 
 			switch(s) {
 				case StringVariable(t):
@@ -132,8 +143,8 @@ class Text extends h2d.Object {
 
 				case Bold(t):
 
-					// change the font to the bold font
-					tseg.font = Const.TEXT_FONT_BOLD;
+					// change the font to the bold font, if we don't define a font.
+					if (overridefont == null) tseg.font = Const.TEXT_FONT_BOLD;
 					tseg.color = colorBold;
 					tseg.text = t;
 					tseg.styleType = Bold;
@@ -142,7 +153,7 @@ class Text extends h2d.Object {
 				case Action(t):
 
 					tseg.color = colorAction;
-					tseg.font = Const.TEXT_FONT_ACTION;
+					if (overridefont == null) tseg.font = Const.TEXT_FONT_ACTION;
 					tseg.text = t;
 					tseg.styleType = Action;
 
@@ -155,7 +166,7 @@ class Text extends h2d.Object {
 				case Italic(t):
 
 					tseg.color = colorItalics;
-					tseg.font = Const.TEXT_FONT_ITALICS;
+					if (overridefont == null) tseg.font = Const.TEXT_FONT_ITALICS;
 					tseg.text = t;
 					tseg.styleType = Italics;
 
@@ -169,7 +180,7 @@ class Text extends h2d.Object {
 
 					tseg.text = t;
 					tseg.color = colorRegular;
-					tseg.font = Const.TEXT_FONT_DANCING;
+					if (overridefont == null) tseg.font = Const.TEXT_FONT_DANCING;
 					tseg.styleType = Dancing;
 
 					var letters = splitText(tseg);
@@ -217,7 +228,7 @@ class Text extends h2d.Object {
 		removeChildren();
 
 		// used for splitting
-		var workingtext = new h2d.Text(Const.TEXT_FONT_NORMAL);
+		var workingtext = new h2d.Text(font);
 		workingtext.maxWidth = maxWidth;
 		var splitText = workingtext.splitText(rawInputString);
 
@@ -234,7 +245,7 @@ class Text extends h2d.Object {
 			var x = 0.;
 			var lineHeight = 0.;
 			var lineWidth = 0.;
-			var parsed = parseSection(s, variables);
+			var parsed = parseSection(s, font, variables);
 
 			for (t in parsed.timers) timers.push(t);
 			for (pt in parsed.text) { 
@@ -244,7 +255,7 @@ class Text extends h2d.Object {
 				pt.x = x;
 				pt.y = y;
 
-				switch(pt.styleType) {
+				if (font == null) switch(pt.styleType) {
 					case Bold: pt.y += Const.TEXT_FONT_BOLD_Y_OFFSET;
 					case Italics: pt.y += Const.TEXT_FONT_ITALICS_Y_OFFSET;
 					case Action: pt.y += Const.TEXT_FONT_ACTION_Y_OFFSET;
@@ -290,7 +301,8 @@ class Text extends h2d.Object {
 
 	public function enableShadow() {
 		for (to in textObjects) {
-			to.dropShadow = { dx: 1, dy: 1, color: 0x000000, alpha: 0.75 };
+			to.filter = new h2d.filter.Outline(0.5, 0xFF000000, 2);
+			to.dropShadow = { dx: 0, dy: 1, color: 0x000000, alpha: 0.85 };
 		}
 	}
 
@@ -299,7 +311,7 @@ class Text extends h2d.Object {
 		while (textObjects.length > 0) textObjects.pop().remove();
 		while (timers.length > 0) timers.pop();
 
-		var parsed = parse(text, null, maxWidth);
+		var parsed = parse(text, font, null, maxWidth);
 		if (parsed.length != 1) throw("error, can't load into this multi-lines");
 
 		textObjects = parsed[0].textObjects;

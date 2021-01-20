@@ -225,6 +225,8 @@ class Const {
 
 	inline static public var WHEEL_FADE_PADDING : Int = 50;
 
+	static public var CHOICE_FONT : h2d.Font;
+
 	/** The wordwrap width for speech bubbles. */
 	inline static public var CHOICE_MAX_WIDTH : Float = 175.;
 	/** The radius of the rounded corners for speech bubbles. */
@@ -242,7 +244,7 @@ class Const {
 	/** choice's normal text color */
 	inline static public var CHOICE_TEXT_OPACITY_NORMAL : Float = 0.75;
 	/** choice's used text color */
-	inline static public var CHOICE_TEXT_OPACITY_USED : Float = 0.5;
+	inline static public var CHOICE_TEXT_OPACITY_USED : Float = 0.25;
 
 	/** A drop shadow for the speech bubble. */
 	inline static public var CHOICE_DROPSHADOW : Bool = true;
@@ -319,6 +321,7 @@ class Const {
 		MENU_FONT = hxd.Res.fonts.gra24.toFont();
 		MENU_FONT_SMALL = hxd.Res.fonts.gra16.toFont();
 		
+		CHOICE_FONT = hxd.Res.fonts.wolf16.toFont();
 		TEXT_FONT_NORMAL = hxd.Res.fonts.wolf24.toFont();
 		TEXT_FONT_BOLD = hxd.Res.fonts.edi24.toFont();
 		TEXT_FONT_ITALICS = hxd.Res.fonts.edi24.toFont();
