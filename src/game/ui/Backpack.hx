@@ -83,6 +83,9 @@ class Backpack extends Pulltab {
 								case Remove:
 									removeItem(item);
 									Game.variables.loses(item);
+								
+								case Popup(text):
+									Game.popup(text);
 							}
 						}
 					}

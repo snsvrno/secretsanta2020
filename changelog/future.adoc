@@ -12,6 +12,7 @@ Update focusing on UX and player experience. Goal is to make the main loop more 
 * [*conversation*] changed from "right click" to close a conversation to moving away from the dialogue choices
 * [*conversation*] choices are now color coded to indicate they are related to a quest.
 * [*conversation*] made choice font a little smaller, but included more works so more obvious what the choice actually is.
+* [*dialogue*] adds basic tutorial quest & achievement.
 * [*items*] adds outline to selected items on the `cycle end` screen to make it more apparent that you selected an item.
 * [*items*] adds the title of the over item on the `cycle end` screen.
 * [*items*] moves the item actions to mouse over, so its more obvious that you can do something with the items.

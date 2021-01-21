@@ -1605,6 +1605,187 @@
 							]
 						}
 					],
+					"chain": "weasel_tutorial"
+				},
+				{
+					"id": "weasel_tutorial",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "Hey, do me a *favor* will you,\\ncan you get me some snacks?  ",
+					"questline": "tutorial",
+					"action": "weasel_tutorial",
+					"display": "Do you need anything?",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"tutorial_yes"
+							]
+						}
+					]
+				},
+				{
+					"id": "weasel_tutorialrecap",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "What was it you were wanting me to get for you?",
+					"questline": "tutorial",
+					"display": "What where you looking for again?",
+					"condition": [
+						{
+							"condition": [
+								1,
+								"tutorial_complete"
+							]
+						},
+						{
+							"condition": [
+								0,
+								"tutorial_yes"
+							]
+						}
+					],
+					"chain": "weasel_tutorialdescription"
+				},
+				{
+					"id": "weasel_tutorialyes",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Sure, I can do it,\\nbut you'll need to give me some money.",
+					"questline": "tutorial",
+					"display": "Sure",
+					"set": [
+						{
+							"set": [
+								0,
+								"tutorial_yes",
+								true
+							]
+						}
+					],
+					"chain": "weasel_tutorialyes_response"
+				},
+				{
+					"id": "weasel_tutorialyes_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "Awesome Thanks!\\nHere is some money.",
+					"set": [
+						{
+							"set": [
+								1,
+								"money",
+								20
+							]
+						},
+						{
+							"set": [
+								0,
+								"tutorial_money",
+								true
+							]
+						}
+					],
+					"chain": "weasel_tutorialdescription"
+				},
+				{
+					"id": "weasel_tutorialdescription",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "Can you get me a snack.\\nYou should check out the *cafe* or the *market*.\\nAnything is good.\\nI'm not picky.\\nJust food, nothing to drink.",
+					"action": "weasel_start"
+				},
+				{
+					"id": "weasel_tutorialno",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Why can't you go find some snacks?",
+					"display": "Why can't you do it?",
+					"chain": "weasel_tutorialno_response"
+				},
+				{
+					"id": "weasel_tutorialno_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "I would if I could,\\nbut I have to stick around the bus.",
+					"action": "weasel_tutorial"
+				},
+				{
+					"id": "weasel_tutorialcompletesandwitch",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Here I found this sandwich.",
+					"display": "/Give Sandwich/",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"sandwich"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"tutorial_complete"
+							]
+						}
+					],
+					"chain": "weasel_tutorialcomplete_response",
+					"questline": "tutorial"
+				},
+				{
+					"id": "weasel_tutorialcomplete_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "~Awesome~ thanks!",
+					"set": [
+						{
+							"set": [
+								0,
+								"tutorial_complete",
+								true
+							]
+						}
+					],
+					"action": "weasel_start"
+				},
+				{
+					"id": "weasel_tutorialcompletecroissant",
+					"speaker": "player",
+					"target": "weasel",
+					"text": "Here I found this croissant.\\nTook all my strength not to eat it.",
+					"display": "/Give Croissant/",
+					"condition": [
+						{
+							"condition": [
+								6,
+								"croissant"
+							]
+						},
+						{
+							"condition": [
+								1,
+								"tutorial_complete"
+							]
+						}
+					],
+					"chain": "weasel_tutorialcompletecroissant_response",
+					"questline": "tutorial"
+				},
+				{
+					"id": "weasel_tutorialcompletecroissant_response",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "~Awesome~ thanks for holding out.\\nIt really does look good, thanks!",
+					"set": [
+						{
+							"set": [
+								0,
+								"tutorial_complete",
+								true
+							]
+						}
+					],
 					"action": "weasel_start"
 				},
 				{
@@ -1853,6 +2034,63 @@
 					"target": "player",
 					"text": "/Must be the tour bus I came in on./",
 					"action": "bus"
+				},
+				{
+					"id": "fox_ordercroissant",
+					"speaker": "player",
+					"target": "player",
+					"text": "I'd like one of those chocolate croissants.",
+					"display": "/Order/ *Croissant*",
+					"branch": [
+						{
+							"dialogue": "fox_ordercroissantyes",
+							"condition": [
+								11,
+								"money",
+								5
+							]
+						},
+						{
+							"dialogue": "fot_ordercroissantno"
+						}
+					],
+					"condition": [
+						{
+							"condition": [
+								7,
+								"croissant"
+							]
+						}
+					]
+				},
+				{
+					"id": "fox_ordercroissantyes",
+					"speaker": "player",
+					"target": "player",
+					"text": "Of courses, here it is!",
+					"action": "fox_cafe",
+					"set": [
+						{
+							"set": [
+								6,
+								"croissant"
+							]
+						},
+						{
+							"set": [
+								3,
+								"money",
+								5
+							]
+						}
+					]
+				},
+				{
+					"id": "fot_ordercroissantno",
+					"speaker": "player",
+					"target": "player",
+					"text": "Thats $5,\\ndoesn't seem you have it.",
+					"action": "fox_cafe"
 				},
 				{
 					"id": "fox_ordercoffee",
@@ -6548,7 +6786,7 @@
 				"garage_look",
 				"weasel_whatsgoingon",
 				"bus_board",
-				"fox_ordercoffee",
+				"fox_ordercroissant",
 				"bookshelf_look",
 				"mole_beachwalk",
 				"podium_look",
@@ -6747,6 +6985,18 @@
 							"option": "weasel_boardbus"
 						},
 						{
+							"option": "weasel_tutorial"
+						},
+						{
+							"option": "weasel_tutorialcompletesandwitch"
+						},
+						{
+							"option": "weasel_tutorialrecap"
+						},
+						{
+							"option": "weasel_tutorialcompletecroissant"
+						},
+						{
 							"option": "weasel_alreadyhere"
 						},
 						{
@@ -6760,6 +7010,18 @@
 						},
 						{
 							"option": "weasel_whystop"
+						}
+					]
+				},
+				{
+					"id": "weasel_tutorial",
+					"owner": "weasel",
+					"options": [
+						{
+							"option": "weasel_tutorialno"
+						},
+						{
+							"option": "weasel_tutorialyes"
 						}
 					]
 				},
@@ -6781,6 +7043,9 @@
 					"options": [
 						{
 							"option": "fox_ordercoffee"
+						},
+						{
+							"option": "fox_ordercroissant"
 						},
 						{
 							"option": "fox_name"
@@ -7954,6 +8219,31 @@
 					]
 				},
 				{
+					"name": "croissant",
+					"displayname": "Chocolate Croissant",
+					"description": "Flaky butter chocolately goodness ... ",
+					"icon": "characters/weasel-icon.png",
+					"actions": [
+						{
+							"text": "Eat it",
+							"description": "You can't resist, it looks so good!",
+							"action": [
+								{
+									"action": [
+										3,
+										"You eat it! It tastes so good ~...~"
+									]
+								},
+								{
+									"action": [
+										2
+									]
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "cup",
 					"displayname": "Empty Cup",
 					"description": "",
@@ -8362,6 +8652,22 @@
 							"trigger": [
 								0,
 								"name_grocer"
+							]
+						}
+					]
+				},
+				{
+					"id": "tutorial",
+					"enabled": true,
+					"character": "weasel",
+					"title": "the Start of Something Great",
+					"description": "Its always great to help out a friend.",
+					"icon": "characters/weasel-icon.png",
+					"triggers": [
+						{
+							"trigger": [
+								0,
+								"tutorial_complete"
 							]
 						}
 					]
@@ -8909,6 +9215,15 @@
 				{
 					"name": "Remove",
 					"args": []
+				},
+				{
+					"name": "Popup",
+					"args": [
+						{
+							"name": "text",
+							"typeStr": "1"
+						}
+					]
 				}
 			]
 		}
