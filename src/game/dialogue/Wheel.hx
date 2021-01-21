@@ -66,8 +66,8 @@ class Wheel extends h2d.Object {
 			var a = 1.0;
 
 			if (!outInteractiveEnabled &&
-			outInteractive.x < e.relX && e.relX < outInteractive.x + outInteractive.width && 
-			outInteractive.y < e.relY && e.relY < outInteractive.y + outInteractive.height) {
+			Const.WHEEL_FADE_PADDING < e.relX && e.relX < outInteractive.width - Const.WHEEL_FADE_PADDING&& 
+			Const.WHEEL_FADE_PADDING < e.relY && e.relY < outInteractive.height - Const.WHEEL_FADE_PADDING) {
 				outInteractiveEnabled = true;
 			}
 
