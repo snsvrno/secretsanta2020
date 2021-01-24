@@ -61,6 +61,14 @@ class GameMenu extends h2d.Object {
 			gameMenuTitle.setText("Achievements");
 		}
 
+		var help = new game.ui.Button("Help");
+		help.setContainerHook(buttonStack);
+		help.description = "Short help guild to get you oriented.";
+		help.descriptionObject = description;
+		help.onClick = function() {
+			new game.ui.screens.Help(Game.is2d);
+		}
+
 		var mainmenu = new game.ui.Button("Main Menu");
 		mainmenu.setContainerHook(buttonStack);
 		mainmenu.description = "To the game main menu.";
@@ -70,17 +78,13 @@ class GameMenu extends h2d.Object {
 			removeChild(achievementsPage);
 			removeChild(progressPage);
 		}
-		//mainmenu.onClick = () -> setState(MainMenuState);
 
 		buttonStack.x = 10;
 		buttonStack.y = Const.WORLD_HEIGHT / 2;
 		buttonStack.setAlignment(Left, Middle);
 		buttonStack.setChildrenAlignment(Left, Bottom);
 
-		buttonStack.push(con);
-		buttonStack.push(prog);
-		buttonStack.push(achi);
-		buttonStack.push(mainmenu);
+		buttonStack.pushAll([con, prog, achi, help, mainmenu]);
 	}
 
 	override function onAdd() {

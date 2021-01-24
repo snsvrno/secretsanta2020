@@ -17,6 +17,7 @@ Update focusing on UX and player experience. Goal is to make the main loop more 
 * [*items*] adds the title of the over item on the `cycle end` screen.
 * [*items*] moves the item actions to mouse over, so its more obvious that you can do something with the items.
 * [*general*] adds the ability to change your name without having to clear the data.
+* [*general*] changes the start screen for first time and makes it more of a help, how to play screen, explaining some things.
 * [*general*] exit now works on desktop platforms.
 * [*map*] locations now show if noone is there and you've been there before.
 * [*map*] tweaked icons

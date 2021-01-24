@@ -68,7 +68,7 @@ class MainMenu extends h2d.Object {
 		name.description = "Change the player name.";
 		name.descriptionObject = description;
 		name.onClick = function() {
-			var truestart = new game.ui.screens.Truestart(this, false);
+			var truestart = new game.ui.screens.Help(Game.is2d);
 			truestart.onRemoveChain = () -> name.setText('${Game.variables.playerName}');
 		}
 

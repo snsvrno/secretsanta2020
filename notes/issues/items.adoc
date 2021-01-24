@@ -2,6 +2,8 @@
 
 == Open
 
+* [ ] need to make graphic for chocolate croissant
+
 == Completed
 
 * [x] make ability to 'carry over' an item to the next cycle.

@@ -3,9 +3,6 @@
 == Open
 
 .New Dialogue
-* [ ] create a tutorial conversation that explains some things for the first run
-
-	make a very basic tutorial quest that is a little hand holdy to guide the player in a short gameplay loop: (1) find an object, (2) find a person, (3) give that person the object and see what happens. be sure to imply that there are lots of other things to do.
 
 * [ ] fox needs to have some dialogue for if you see them in the mechanic shop and the car is still broken.
 
@@ -55,3 +52,5 @@
 * [x] color or group conversation choices by topic
 
 	want to telegraph to the player what conversation options are related to different questliness.
+
+* [x] create a tutorial conversation that explains some things for the first run

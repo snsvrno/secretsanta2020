@@ -6,6 +6,8 @@ class Game extends hxd.App {
 
 	static public var variables : game.Variables;
 	static private var instance : Game;
+	static public var is2d(get, null) : h2d.Scene;
+	static private function get_is2d() : h2d.Scene return instance.s2d;
 
 	//////////////////////////////////////////////////////////////////////////
 	// static functions
@@ -53,7 +55,7 @@ class Game extends hxd.App {
 		// to do any of the standard stuff and instead show the tutorial / setup screen
 		if (Game.variables.playerName == null) {
 
-			Game.instance.add(new game.ui.screens.Truestart());
+			Game.instance.add(new game.ui.screens.Help(Game.is2d, true));
 			return;
 		}
 
@@ -259,7 +261,7 @@ class Game extends hxd.App {
 		activeScene.enable();
 
 		// disables the background
-		map.disable();
+		// map.disable();
 
 		//ui.setLocationName(activeScene.sceneName);
 		ui.onScene(activeScene.sceneName);
@@ -267,7 +269,7 @@ class Game extends hxd.App {
 
 	private function changeToMap() {
 		ui.onMap();
-		map.enable();
+		// map.enable();
 		activeScene.disable();
 
 		if (!firstVisit && !Game.variables.visitedLocations.contains(activeScene.sceneName)) 

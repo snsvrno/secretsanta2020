@@ -34,7 +34,7 @@ class Choice extends h2d.Object {
 		background = new h2d.Graphics(this);
 		background.filter = new h2d.filter.Nothing();
 
-		grouping = dialogue.questlineId;
+		if (dialogue != null) grouping = dialogue.questlineId;
 
 		// creates the text object
 		text = new Text(Const.CHOICE_FONT, this);
@@ -113,9 +113,10 @@ class Choice extends h2d.Object {
 		interactive.height = text.height;
 	}
 
-	static public function fromString(text : String, ?parent : h2d.Object) : Choice {
+	static public function fromString(text : String, ?quest : Data.QuestlinesKind, ?parent : h2d.Object) : Choice {
 		var newText = new Choice(null, parent);
 
+		newText.grouping = quest;
 		newText.text.setText(text);
 		newText.text.x = newText.text.width/2;
 		newText.text.y = newText.text.height/2;

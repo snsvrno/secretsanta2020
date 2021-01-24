@@ -1572,6 +1572,23 @@
 					"action": "garage_search_boxes"
 				},
 				{
+					"id": "weasel_tutpage1",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "This choice is part of a *questline*.",
+					"display": "A Quest Line",
+					"questline": "tutorial",
+					"action": "weasel_tutorialscreen"
+				},
+				{
+					"id": "weasel_tutpage2",
+					"speaker": "weasel",
+					"target": "player",
+					"text": "This choice is lore and character building,\\nit doesn't directly contribute to a *questline*,\\nthough it might help you understand the quest better.",
+					"display": "A Normal Line",
+					"action": "weasel_tutorialscreen"
+				},
+				{
 					"id": "weasel_whatsgoingon",
 					"speaker": "player",
 					"target": "weasel",
@@ -1651,7 +1668,7 @@
 					"id": "weasel_tutorialyes",
 					"speaker": "player",
 					"target": "weasel",
-					"text": "Sure, I can do it,\\nbut you'll need to give me some money.",
+					"text": "Sure, I can do it.",
 					"questline": "tutorial",
 					"display": "Sure",
 					"set": [
@@ -2067,7 +2084,7 @@
 					"id": "fox_ordercroissantyes",
 					"speaker": "player",
 					"target": "player",
-					"text": "Of courses, here it is!",
+					"text": "Of course, that'll be $5!",
 					"action": "fox_cafe",
 					"set": [
 						{
@@ -6784,7 +6801,7 @@
 			"separatorIds": [
 				"mechanic_car",
 				"garage_look",
-				"weasel_whatsgoingon",
+				"weasel_tutpage1",
 				"bus_board",
 				"fox_ordercroissant",
 				"bookshelf_look",
@@ -7022,6 +7039,18 @@
 						},
 						{
 							"option": "weasel_tutorialyes"
+						}
+					]
+				},
+				{
+					"id": "weasel_tutorialscreen",
+					"owner": "weasel",
+					"options": [
+						{
+							"option": "weasel_tutpage1"
+						},
+						{
+							"option": "weasel_tutpage2"
 						}
 					]
 				},
@@ -7624,6 +7653,20 @@
 					"actors": [],
 					"location": "office",
 					"id": "blank"
+				},
+				{
+					"id": "tutorialpage",
+					"location": "beach",
+					"actors": [
+						{
+							"actor": "weasel",
+							"x": 0.16,
+							"y": 0.27,
+							"scale": 0.25,
+							"flipX": true,
+							"action": "weasel_tutorialscreen"
+						}
+					]
 				},
 				{
 					"actors": [
