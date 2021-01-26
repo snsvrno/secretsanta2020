@@ -4,6 +4,8 @@
 
 .New Dialogue
 
+* [ ] make the tutorial quest allow for a way to complete it by looping.
+
 * [ ] fox needs to have some dialogue for if you see them in the mechanic shop and the car is still broken.
 
 * [ ] create the cat & questlines.
